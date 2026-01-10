@@ -25,8 +25,6 @@ CSS = """
   --accent2:#2563eb;
   --warn:#ffb020;
 }
-
-/* Base */
 html, body, [class*="css"] { color: var(--text) !important; }
 .stApp{
   background:
@@ -35,8 +33,6 @@ html, body, [class*="css"] { color: var(--text) !important; }
     linear-gradient(180deg, var(--bg), #ffffff 70%);
 }
 .block-container { padding-top: 1.1rem; max-width: 1500px; }
-
-/* Cards */
 .card{
   padding: 14px 16px;
   border-radius: 18px;
@@ -47,8 +43,6 @@ html, body, [class*="css"] { color: var(--text) !important; }
 }
 .card-title{ font-size: 18px; font-weight: 900; color: var(--text); }
 .small{ font-size: 12px; color: var(--muted); }
-
-/* KPI */
 .kpi{
   padding: 12px 14px;
   border-radius: 18px;
@@ -57,12 +51,8 @@ html, body, [class*="css"] { color: var(--text) !important; }
 }
 .kpi .label{ color: var(--muted); font-size: 12px; }
 .kpi .value{ font-weight: 900; font-size: 18px; color: var(--text); }
-
-/* Links */
 a{ color: #1d4ed8; text-decoration: none; }
 a:hover{ text-decoration: underline; }
-
-/* Sidebar */
 [data-testid="stSidebar"]{
   background: rgba(255,255,255,0.92) !important;
   border-right: 1px solid var(--line);
@@ -150,7 +140,7 @@ VENUES = [
     },
 ]
 
-# ✅ Dine SoMe-lenker (Gimle + Vikinghjørnet)
+# ✅ Dine lenker
 VIKING_IG = "https://www.instagram.com/vikinghjornet?igsh=eGNmdzJwMzNmcnFz"
 GIMLE_IG  = "https://www.instagram.com/gimlepub?igsh=MWlqOGwzbXk2YjZqeg=="
 GIMLE_FB_POST  = "https://www.facebook.com/share/p/1DRJpArAzp/"
@@ -163,7 +153,7 @@ EXTRA_PLACES = [
         "type": "Pub",
         "website": "",
         "instagram": GIMLE_IG,
-        "facebook": GIMLE_FB_POST,   # NB: dette er en post-lenke
+        "facebook": GIMLE_FB_POST,
         "scrape": "social_scrape",
         "fixed_weekly": [{"dow": "Tirsdag", "title": "Quiz (typisk)", "time": "Kveld"}]
     },
@@ -173,7 +163,7 @@ EXTRA_PLACES = [
         "type": "Pub / bar",
         "website": "",
         "instagram": VIKING_IG,
-        "facebook": VIKING_FB_POST,  # NB: dette er en post-lenke
+        "facebook": VIKING_FB_POST,
         "scrape": "social_scrape",
         "fixed_weekly": []
     },
@@ -214,7 +204,6 @@ def parse_date_fallback(s: str):
     return None
 
 
-# ✅ DATOER FOR FASTE UKEDAGER
 def dow_to_int(dow: str) -> int:
     mapping = {
         "Mandag": 0, "Tirsdag": 1, "Onsdag": 2, "Torsdag": 3,
@@ -236,7 +225,6 @@ def dates_for_weekday_in_range(start_date, end_date, weekday_int: int):
     return out
 
 
-# ✅ BEDRE KANAL-MATCHING (fotball)
 def norm_team(s: str) -> str:
     if not s:
         return ""
@@ -244,7 +232,6 @@ def norm_team(s: str) -> str:
     for x in ["fc", "afc", ".", ",", "'", "’"]:
         s = s.replace(x, "")
     s = re.sub(r"\s+", " ", s).strip()
-
     aliases = {
         "man utd": "manchester united",
         "man united": "manchester united",
@@ -258,126 +245,67 @@ def norm_team(s: str) -> str:
 
 
 # ----------------------------
-# SOCIAL SCRAPE (BEST EFFORT via r.jina.ai)
+# SOCIAL SCRAPE (ANBEFALT MODE)
 # ----------------------------
 @st.cache_data(ttl=60 * 10)
-def fetch_via_jina(url: str) -> str:
-    if not url:
-        return ""
-    url = url.strip()
-
-    # gjør om https://x.y til r.jina.ai/http://x.y
-    proxy = "https://r.jina.ai/http://"
-    if url.startswith("https://"):
-        url2 = url.replace("https://", "")
-    elif url.startswith("http://"):
-        url2 = url.replace("http://", "")
-    else:
-        url2 = url
-
-    r = requests.get(proxy + url2, timeout=25, headers={"User-Agent": "Mozilla/5.0"})
-    r.raise_for_status()
-    return r.text
-
-
-def guess_date_from_text(txt: str, today_date):
-    if not txt:
-        return None
-    t = str(txt).lower()
-
-    if "i kveld" in t or "ikveld" in t or "i dag" in t or "idag" in t:
-        return today_date
-
-    ddmm = today_date.strftime("%d.%m")
-    ddmm2 = today_date.strftime("%d/%m")
-    if ddmm in t or ddmm2 in t:
-        return today_date
-
-    wk = ["mandag", "tirsdag", "onsdag", "torsdag", "fredag", "lørdag", "søndag"]
-    if wk[today_date.weekday()] in t:
-        return today_date
-
-    return None
+def scrape_instagram_public_one_row(ig_url: str) -> pd.DataFrame:
+    """
+    Ikke prøv å hente caption (ustabilt). Bare vis 1 pen rad + lenke til profilen.
+    """
+    ig_url = (ig_url or "").strip()
+    if not ig_url:
+        return pd.DataFrame(columns=["date", "time", "title", "source"])
+    return pd.DataFrame([{
+        "date": None,
+        "time": "",
+        "title": "Arrangement i dag (Instagram) – åpne lenke",
+        "source": ig_url
+    }])
 
 
 @st.cache_data(ttl=60 * 10)
-def scrape_instagram_public(ig_url: str, max_items: int = 6) -> pd.DataFrame:
-    raw = fetch_via_jina(ig_url)
-    if not raw:
-        return pd.DataFrame(columns=["date", "time", "title", "source"])
-
-    # Finn post-lenker i teksten (best effort)
-    links = re.findall(r"https?://www\.instagram\.com/p/[^ \n\r\t\)\"']+", raw)
-    links = list(dict.fromkeys(links))[:max_items]
-
-    out = []
-    for link in links:
-        idx = raw.find(link)
-        snippet = raw[max(0, idx - 300): idx + 300].strip() if idx >= 0 else ""
-        snippet = re.sub(r"\s+", " ", snippet)
-        title = ("IG: " + (snippet[:140] if snippet else "Ny post")).strip()
-        out.append({"date": None, "time": "", "title": title[:160], "source": link})
-
-    return pd.DataFrame(out).drop_duplicates()
-
-
-@st.cache_data(ttl=60 * 10)
-def scrape_facebook_public(fb_url: str, max_items: int = 6) -> pd.DataFrame:
+def scrape_facebook_public_one_row(fb_url: str) -> pd.DataFrame:
     """
-    Støtter:
-    - facebook.com/.../posts/...
-    - facebook.com/permalink.php?...
-    - facebook.com/share/p/...
+    Facebook share/p er ofte blokkert for scraping. Vi viser 1 pen rad + lenke.
     """
-    raw = fetch_via_jina(fb_url)
-    if not raw:
+    fb_url = (fb_url or "").strip()
+    if not fb_url:
         return pd.DataFrame(columns=["date", "time", "title", "source"])
-
-    links = []
-    links += re.findall(r"https?://www\.facebook\.com/[^ \n\r\t\)\"']+/posts/[^ \n\r\t\)\"']+", raw)
-    links += re.findall(r"https?://www\.facebook\.com/permalink\.php\?[^ \n\r\t\)\"']+", raw)
-    links += re.findall(r"https?://www\.facebook\.com/share/p/[^ \n\r\t\)\"']+", raw)
-
-    # hvis input er direkte share-link, sørg for at den også er med
-    if "facebook.com/share/p/" in (fb_url or ""):
-        links.insert(0, fb_url.strip())
-
-    links = list(dict.fromkeys(links))[:max_items]
-
-    out = []
-    for link in links:
-        idx = raw.find(link)
-        snippet = raw[max(0, idx - 350): idx + 350].strip() if idx >= 0 else ""
-        snippet = re.sub(r"\s+", " ", snippet)
-        title = ("FB: " + (snippet[:140] if snippet else "Ny post")).strip()
-        out.append({"date": None, "time": "", "title": title[:160], "source": link})
-
-    return pd.DataFrame(out).drop_duplicates()
+    return pd.DataFrame([{
+        "date": None,
+        "time": "",
+        "title": "Arrangement i dag (Facebook) – åpne lenke",
+        "source": fb_url
+    }])
 
 
 def social_events_for_venue(venue: dict, today_date) -> pd.DataFrame:
-    frames = []
+    """
+    Anbefalt: Vis alltid 1 rad for IG + 1 rad for FB (hvis de finnes).
+    Dato settes til i dag slik at det faktisk vises i "I dag/Helga".
+    """
+    rows = []
     ig = (venue.get("instagram") or "").strip()
     fb = (venue.get("facebook") or "").strip()
 
     if ig:
-        try:
-            frames.append(scrape_instagram_public(ig))
-        except Exception:
-            pass
+        df_ig = scrape_instagram_public_one_row(ig)
+        if not df_ig.empty:
+            r = df_ig.iloc[0].to_dict()
+            r["date"] = today_date
+            rows.append(r)
 
     if fb:
-        try:
-            frames.append(scrape_facebook_public(fb))
-        except Exception:
-            pass
+        df_fb = scrape_facebook_public_one_row(fb)
+        if not df_fb.empty:
+            r = df_fb.iloc[0].to_dict()
+            r["date"] = today_date
+            rows.append(r)
 
-    if not frames:
+    if not rows:
         return pd.DataFrame(columns=["date", "time", "title", "source"])
 
-    df = pd.concat(frames, ignore_index=True).drop_duplicates()
-    df["date"] = df["title"].apply(lambda x: guess_date_from_text(str(x), today_date))
-    return df
+    return pd.DataFrame(rows).drop_duplicates()
 
 
 # ----------------------------
@@ -523,7 +451,7 @@ def tvguide_premier_league() -> pd.DataFrame:
 # SIDEBAR
 # ----------------------------
 st.title("🍻 Hva skjer i Skien / Porsgrunn + ⚽ Fotball")
-st.caption("Oversikt + varsling inne i appen. For push-varsler/appstore trenger vi PWA/wrapper (se nederst).")
+st.caption("SoMe-modus: viser 'Arrangement i dag' + lenke (stabilt uten login-tekst).")
 
 with st.sidebar:
     st.header("Filter")
@@ -536,8 +464,7 @@ with st.sidebar:
 
     st.divider()
     st.header("SoMe")
-    enable_social = st.checkbox("Hent siste fra IG/FB (eksperimentelt)", value=True)
-    st.caption("Kan stoppe hvis IG/FB blokkerer scraping.")
+    enable_social = st.checkbox("Vis SoMe-lenker (Gimle + Vikinghjørnet)", value=True)
 
     st.divider()
     st.header("Fotball")
@@ -576,7 +503,7 @@ start_d, end_d = window_dates(view)
 # ----------------------------
 events_rows = []
 
-# ✅ 1) Faste ukedager med ekte datoer innenfor perioden
+# 1) Faste ukedager med ekte datoer innenfor perioden
 if show_fixed:
     for v in VENUES:
         if city != "Alle" and v["city"] != city:
@@ -614,7 +541,7 @@ for v in VENUES:
                 "source": r.get("source", "")
             })
 
-# ✅ 3) SoMe (IG/FB) best effort
+# 3) SoMe stable mode (Gimle + Vikinghjørnet)
 if enable_social:
     for v in VENUES:
         if city != "Alle" and v["city"] != city:
@@ -625,7 +552,7 @@ if enable_social:
         sdf = social_events_for_venue(v, today)
         if not sdf.empty:
             for _, r in sdf.iterrows():
-                d = r.get("date")  # ofte None, settes til today om vi gjetter
+                d = r.get("date")
                 if d and (d < start_d or d > end_d):
                     continue
                 events_rows.append({
@@ -669,7 +596,7 @@ with tabA:
         <div class='card'>
             <div class='card-title'>📍 {city} – {view}</div>
             <div class='small'>
-                Tips: SoMe er "best effort". Hvis det ikke dukker opp, prøv å skru av/på SoMe eller refresh appen.
+                SoMe-linjer viser "Arrangement i dag" + lenke (ingen Facebook login-tekst).
             </div>
         </div>
         """,
@@ -677,7 +604,7 @@ with tabA:
     )
 
     if events.empty:
-        st.info("Ingen events å vise (enda). Skru på SoMe eller faste ukedager.")
+        st.info("Ingen events å vise (enda).")
     else:
         def sort_key(row):
             d = row["date"]
@@ -715,7 +642,7 @@ with tabB:
 
     fx = fetch_footballdata_fixtures()
 
-    code = league_code.split()[0]  # "E0"
+    code = league_code.split()[0]
     if "Div" in fx.columns:
         fx = fx[fx["Div"].astype(str).str.upper() == code.upper()].copy()
 
@@ -762,11 +689,4 @@ with tabB:
     else:
         st.dataframe(out, use_container_width=True, hide_index=True)
 
-    if code.upper() == "E0":
-        st.markdown(
-            "<div class='card'><div class='card-title'>📺 Premier League</div>"
-            "<div class='small'>Kanal hentes 'best effort' fra tvkampen-siden, og kan feile.</div></div>",
-            unsafe_allow_html=True
-        )
-
-st.caption("⚠️ IG/FB scraping er eksperimentelt. Hvis det slutter å virke må vi bytte til Meta API eller manuell 'i dag'-override.")
+st.caption("⚠️ SoMe-rader er lenker (stabilt). For ekte post-tekst må vi bruke Meta API.")
