@@ -1,0 +1,129 @@
+* {
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Inter, Arial, sans-serif;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #020617;
+  color: #ffffff;
+}
+
+.wrap {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 24px 16px 60px;
+}
+
+h1 {
+  font-size: 2.4rem;
+  margin-bottom: 6px;
+}
+
+.sub {
+  color: #c7d2fe;
+  max-width: 720px;
+  margin-bottom: 16px;
+}
+
+.netStatus {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  border: 1px solid #334155;
+  margin-bottom: 16px;
+}
+
+.netStatus.online {
+  background: #052e16;
+  color: #86efac;
+}
+
+.netStatus.offline {
+  background: #450a0a;
+  color: #fca5a5;
+}
+
+.panel {
+  border: 1px solid #1e293b;
+  border-radius: 14px;
+  padding: 14px;
+}
+
+.inputRow {
+  display: flex;
+  gap: 10px;
+}
+
+input {
+  flex: 1;
+  background: #020617;
+  border: 1px solid #334155;
+  color: #fff;
+  padding: 12px;
+  border-radius: 10px;
+}
+
+.primary {
+  background: #2563eb;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 18px;
+  font-weight: 800;
+  color: #fff;
+  cursor: pointer;
+}
+
+.results {
+  margin-top: 16px;
+  display: grid;
+  gap: 14px;
+}
+
+.card {
+  border: 1px solid #1e293b;
+  border-radius: 14px;
+  padding: 14px;
+}
+
+.title {
+  font-weight: 900;
+  font-size: 16px;
+}
+
+.meta {
+  font-size: 13px;
+  color: #c7d2fe;
+}
+
+.glSelect {
+  width: 100%;
+  background: #020617;
+  border: 1px solid #334155;
+  color: #fff;
+  padding: 10px;
+  border-radius: 10px;
+  margin-top: 6px;
+}
+
+.infoBox {
+  margin-top: 10px;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 10px;
+}
+
+.glLink {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: #1e293b;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 800;
+}

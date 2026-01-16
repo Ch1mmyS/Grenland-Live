@@ -1,0 +1,9 @@
+{
+  "name": "Grenland Live",
+  "short_name": "Grenland Live",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#020617",
+  "theme_color": "#020617",
+  "orientation": "portrait"
+}
