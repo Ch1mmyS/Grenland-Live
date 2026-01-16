@@ -1,6 +1,6 @@
 {
   "places": [
-    { "name": "Gimle Pub", "city": "Skien", "tags": ["Fotballvisning", "Quiz", "Arrangementer"], "link": "" },
+    { "name": "Gimle Pub", "city": "Skien", "tags": ["Fotballvisning", "Quiz", "Jam nights", "Arrangementer"], "link": "" },
     { "name": "Vikinghjørnet", "city": "Skien", "tags": ["Fotballvisning", "Arrangementer"], "link": "" },
     { "name": "Kniven", "city": "Skien", "tags": ["Bar", "Arrangementer"], "link": "" },
     { "name": "Håndverkeren Pub", "city": "Skien", "tags": ["Pub", "Bar"], "link": "" },
@@ -8,7 +8,7 @@
     { "name": "O’Learys Skien", "city": "Skien", "tags": ["Fotballvisning", "Sport"], "link": "" },
     { "name": "Becks Brasserie & Bar", "city": "Skien", "tags": ["Bar", "Mat"], "link": "" },
     { "name": "Barkaden", "city": "Skien", "tags": ["Bar", "Spill"], "link": "" },
-    { "name": "The Old Irish Pub", "city": "Skien", "tags": ["Pub", "Fotballvisning"], "link": "" },
+    { "name": "The Old Irish Pub (Skien)", "city": "Skien", "tags": ["Pub", "Fotballvisning"], "link": "" },
     { "name": "Lundetangen", "city": "Skien", "tags": ["Pub", "Arrangementer"], "link": "" },
     { "name": "Mariannes", "city": "Skien", "tags": ["Bar"], "link": "" },
     { "name": "Damslett", "city": "Skien", "tags": ["Bar"], "link": "" },
@@ -16,7 +16,7 @@
     { "name": "Sykkelbryggeriet", "city": "Skien", "tags": ["Bryggeri", "Bar"], "link": "" },
     { "name": "Lektern", "city": "Skien", "tags": ["Sommer", "Uteservering"], "note": "Kun sommer", "link": "" },
 
-    { "name": "Kafé K", "city": "Porsgrunn", "tags": ["Jam", "Konserter", "Arrangementer"], "link": "" },
+    { "name": "Kafé K", "city": "Porsgrunn", "tags": ["Jam nights", "Konserter", "Arrangementer"], "link": "" },
     { "name": "Gamle Polet", "city": "Porsgrunn", "tags": ["Bar"], "link": "" },
     { "name": "Sailors Inn", "city": "Porsgrunn", "tags": ["Pub"], "link": "" },
     { "name": "Tollboden Bar", "city": "Porsgrunn", "tags": ["Fotballvisning", "Bar"], "link": "" },
