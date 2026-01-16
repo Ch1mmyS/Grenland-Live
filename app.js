@@ -61,14 +61,18 @@ function cardHTML({ title, type, when, where, desc, inner }){
   `;
 }
 
-function infoHTML({ title, lines=[], link="" }){
-  const body = lines.map(x => `<div>${x}</div>`).join("");
-  const btn = link ? `<div style="margin-top:8px;"><a class="glLink" href="${link}" target="_blank" rel="noreferrer">Åpne</a></div>` : "";
+function infoHTML({ title, lines=[], links=[] }){
+  const body = lines.filter(Boolean).map(x => `<div>${x}</div>`).join("");
+  const linkBtns = links
+    .filter(l => l && l.href)
+    .map(l => `<a class="glLink" href="${l.href}" target="_blank" rel="noreferrer">${l.label}</a>`)
+    .join("");
+
   return `
     <div class="infoBox">
       <div class="boxTitle">${esc(title)}</div>
       <div class="boxBody">${body}</div>
-      ${btn}
+      ${linkBtns ? `<div class="linkRow">${linkBtns}</div>` : ""}
     </div>
   `;
 }
@@ -97,7 +101,7 @@ function nextWeekdayDates(weekday /*0=Sun..6*/, hour, minute, count=6){
 
 function firstSaturdayOfMonth(year, monthIndex /*0-11*/){
   const d = new Date(Date.UTC(year, monthIndex, 1, 12, 0, 0));
-  const day = d.getUTCDay(); // 0..6
+  const day = d.getUTCDay();
   const add = (6 - day + 7) % 7;
   return new Date(Date.UTC(year, monthIndex, 1 + add, 12, 0, 0));
 }
@@ -109,7 +113,6 @@ function buildMonthlyFirstSaturday(rule){
   for (let i=0; i<monthsAhead; i++){
     const m = new Date(now.getFullYear(), now.getMonth()+i, 1);
     const fs = firstSaturdayOfMonth(m.getFullYear(), m.getMonth());
-    // Sett Oslo-lokal tid ved å bruke lokal konstruktør
     const local = new Date(fs.getUTCFullYear(), fs.getUTCMonth(), fs.getUTCDate(), hour, minute, 0);
     out.push({ title, iso: local.toISOString(), place, city, details, link });
   }
@@ -153,7 +156,7 @@ function buildWhatsOn30({ jams, quizzes, footballMatches }){
       iso:x.iso,
       where:x.watchAt,
       extra:`📺 ${x.tv} • ${x.competition}${x.note ? " • " + x.note : ""}`,
-      link:x.link || ""
+      link: x.link || ""
     });
   });
   return sortByIsoAsc(out);
@@ -182,7 +185,7 @@ function render(){
     type:"Pub",
     when:"Alltid",
     where:"Skien / Porsgrunn",
-    desc:"Velg et sted for info.",
+    desc:"Velg et sted for info, hjemmeside og kart.",
     inner: `
       <hr class="sep">
       <select class="glSelect" id="pubSelect">
@@ -233,16 +236,16 @@ function render(){
     `
   }));
 
-  // ARRANGEMENTER (kilder)
+  // ARRANGEMENT-KILDER
   const sources = applySearchTerm(term, DATA.eventSources);
   const srcOptions = sources.map((s,i)=>`<option value="${i}">${s.name} (${s.city})</option>`).join("");
 
   root.insertAdjacentHTML("beforeend", cardHTML({
-    title:"Kommende arrangementer",
+    title:"Kommende arrangementer (programmer)",
     type:"Event",
-    when:"Oppdatert program",
+    when:"Oppdatert hos arrangør",
     where:"Grenland",
-    desc:"Velg sted for å åpne oppdatert program/arrangementsliste.",
+    desc:"Velg sted for å åpne program (konserter, DJ-kvelder, eventer, kulturprogram, live).",
     inner: `
       <hr class="sep">
       <select class="glSelect" id="srcSelect">
@@ -266,7 +269,7 @@ function render(){
     type:"Fotball",
     when:"Kommende",
     where:"Puber i Grenland",
-    desc:"Velg visning og kamp. Detaljer viser 📺 kanal.",
+    desc:"Velg visning og kamp. Detaljer viser 📺 kanal (tid i Norge).",
     inner: `
       <hr class="sep">
       <div class="twoCol">
@@ -296,7 +299,7 @@ function render(){
     type:"Event",
     when:"Neste 30 dager",
     where:"Grenland",
-    desc:"Samlet oversikt (jam + quiz + fotball).",
+    desc:"Samlet oversikt (jam + quiz + fotball). For konserter/DJ/eventer: bruk «Kommende arrangementer (programmer)».",
     inner: `
       <hr class="sep">
       <select class="glSelect" id="whSelect">
@@ -323,13 +326,17 @@ function wirePubs(pubs){
   sel.addEventListener("change", ()=>{
     if (sel.value===""){ out.innerHTML=""; return; }
     const p = pubs[Number(sel.value)];
+    const website = p.website || p.link || "";
+    const map = p.map || "";
+    const tags = (p.tags || []).length ? `✅ ${(p.tags || []).join(" • ")}` : "";
+
     out.innerHTML = infoHTML({
       title: `${p.name} (${p.city})`,
-      lines: [
-        p.tags?.length ? `✅ ${p.tags.join(" • ")}` : "",
-        p.note ? `ℹ️ ${p.note}` : ""
-      ].filter(Boolean),
-      link: p.link || ""
+      lines: [tags, p.note ? `ℹ️ ${p.note}` : ""].filter(Boolean),
+      links: [
+        website ? { label: "🔗 Hjemmeside/SoMe", href: website } : null,
+        map ? { label: "🗺️ Kart", href: map } : null
+      ]
     });
   });
 }
@@ -344,8 +351,8 @@ function wireJam(list){
     const e = list[Number(sel.value)];
     out.innerHTML = infoHTML({
       title: e.title,
-      lines: [`🕒 ${fmtOslo(e.iso)}`, `📍 ${e.place} (${e.city})`, e.details],
-      link: e.link || ""
+      lines: [`🕒 ${fmtOslo(e.iso)}`, `📍 ${e.place} (${e.city})`, e.details].filter(Boolean),
+      links: e.link ? [{ label: "🔗 Åpne", href: e.link }] : []
     });
   });
 }
@@ -360,8 +367,8 @@ function wireQuiz(list){
     const e = list[Number(sel.value)];
     out.innerHTML = infoHTML({
       title: e.title,
-      lines: [`🕒 ${fmtOslo(e.iso)}`, `📍 ${e.place} (${e.city})`, e.details],
-      link: e.link || ""
+      lines: [`🕒 ${fmtOslo(e.iso)}`, `📍 ${e.place} (${e.city})`, e.details].filter(Boolean),
+      links: e.link ? [{ label: "🔗 Åpne", href: e.link }] : []
     });
   });
 }
@@ -375,9 +382,9 @@ function wireSources(list){
     if (sel.value===""){ out.innerHTML=""; return; }
     const s = list[Number(sel.value)];
     out.innerHTML = infoHTML({
-      title: s.name,
-      lines: [`📍 ${s.city}`, s.details || "Åpne program/arrangementsliste."],
-      link: s.link || ""
+      title: `${s.name} (${s.city})`,
+      lines: [s.details || "Åpne program/arrangementsliste."],
+      links: s.link ? [{ label: "🔗 Åpne program", href: s.link }] : []
     });
   });
 }
@@ -418,7 +425,7 @@ function wireFootball(list15, list30){
         `📺 Kanal: ${tv}`,
         m.note ? `ℹ️ ${m.note}` : ""
       ].filter(Boolean),
-      link: m.link || ""
+      links: m.link ? [{ label: "🔗 Åpne", href: m.link }] : []
     });
   });
 }
@@ -433,8 +440,8 @@ function wireWhatsOn(list){
     const e = list[Number(sel.value)];
     out.innerHTML = infoHTML({
       title: `${e.kind}: ${e.title}`,
-      lines: [`🕒 ${fmtOslo(e.iso)}`, `📍 ${e.where}`, e.extra],
-      link: e.link || ""
+      lines: [`🕒 ${fmtOslo(e.iso)}`, `📍 ${e.where}`, e.extra].filter(Boolean),
+      links: e.link ? [{ label: "🔗 Åpne", href: e.link }] : []
     });
   });
 }
