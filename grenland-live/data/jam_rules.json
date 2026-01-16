@@ -1,0 +1,27 @@
+{
+  "rules": [
+    {
+      "type": "monthly_first_saturday",
+      "title": "Jam på Kafé K",
+      "place": "Kafé K",
+      "city": "Porsgrunn",
+      "hour": 14,
+      "minute": 0,
+      "monthsAhead": 8,
+      "details": "Første lørdag i måneden kl 14:00 (jam-konsept).",
+      "link": ""
+    },
+    {
+      "type": "weekly",
+      "title": "Jam nights på Gimle Pub",
+      "place": "Gimle Pub",
+      "city": "Skien",
+      "weekday": 4,
+      "hour": 20,
+      "minute": 0,
+      "count": 10,
+      "details": "Jam/open mic (tid/dato kan variere – sjekk alltid siste info fra Gimle).",
+      "link": ""
+    }
+  ]
+}
