@@ -3,40 +3,28 @@ async function loadJSON(path) {
   return await res.json();
 }
 
-function card(title, body) {
-  return `
-    <div class="card">
-      <div class="title">${title}</div>
-      <div class="meta">${body}</div>
-    </div>
-  `;
-}
-
 async function init() {
-  const pubsData = await loadJSON("./data/pubs.json");
-  const pubs = pubsData.places;
+  const data = await loadJSON("./data/pubs.json");
+  const pubs = data.places;
 
-  const out = document.getElementById("results");
+  const select = document.getElementById("pubSelect");
+  const info = document.getElementById("pubInfo");
 
-  let options = pubs.map((p, i) =>
-    `<option value="${i}">${p.name} (${p.city})</option>`
-  ).join("");
+  pubs.forEach((p, i) => {
+    const opt = document.createElement("option");
+    opt.value = i;
+    opt.textContent = `${p.name} (${p.city})`;
+    select.appendChild(opt);
+  });
 
-  out.innerHTML = `
-    ${card("Puber i Grenland", `
-      <select id="pubSelect" class="glSelect">
-        <option value="">Velg pub…</option>
-        ${options}
-      </select>
-      <div id="pubInfo"></div>
-    `)}
-  `;
+  select.addEventListener("change", () => {
+    const p = pubs[select.value];
+    if (!p) {
+      info.innerHTML = "";
+      return;
+    }
 
-  document.getElementById("pubSelect").addEventListener("change", e => {
-    const p = pubs[e.target.value];
-    if (!p) return;
-
-    document.getElementById("pubInfo").innerHTML = `
+    info.innerHTML = `
       <div><strong>${p.name}</strong> – ${p.city}</div>
       <div>${p.tags.join(" • ")}</div>
       ${p.website ? `<a class="glLink" href="${p.website}" target="_blank">🔗 Nettside / SoMe</a>` : ""}
