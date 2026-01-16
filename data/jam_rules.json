@@ -9,7 +9,7 @@
       "minute": 0,
       "monthsAhead": 8,
       "details": "Første lørdag i måneden kl 14:00 (jam-konsept).",
-      "link": ""
+      "link": "https://www.facebook.com/kafekporsgrunn"
     },
     {
       "type": "weekly",
@@ -20,8 +20,8 @@
       "hour": 20,
       "minute": 0,
       "count": 10,
-      "details": "Jam/open mic (tid/dato kan variere – sjekk alltid siste info fra Gimle).",
-      "link": ""
+      "details": "Jam/open mic (tid kan variere – sjekk alltid siste info).",
+      "link": "https://www.instagram.com/gimlepub"
     }
   ]
 }
