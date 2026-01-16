@@ -15,18 +15,17 @@
     <h1>Grenland Live</h1>
 
     <p class="sub">
-      Grenland Live samler puber, fotball og ting som skjer i Grenland – så du raskt ser hva som skjer, hvor det skjer og når.
+      Grenland Live samler puber og ting som skjer i Grenland – så du raskt ser hva som skjer, hvor det skjer og når.
     </p>
 
-    <div id="netStatus" class="netStatus">🟢 Online</div>
-
     <div class="panel">
-      <div class="inputRow">
-        <input id="q" placeholder="Søk: pub, fotball, jam, quiz…" />
-        <button id="go" class="primary">Søk</button>
+      <div class="card">
+        <div class="title">Puber i Grenland</div>
+        <select id="pubSelect" class="glSelect">
+          <option value="">Velg pub…</option>
+        </select>
+        <div id="pubInfo" class="meta"></div>
       </div>
-
-      <div id="results" class="results"></div>
     </div>
   </main>
 
