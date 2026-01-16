@@ -12,20 +12,7 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
 
-body{
-  margin:0;
-  color:#fff;
-  min-height:100vh;
 
-  background:
-    linear-gradient(rgba(2,6,23,0.80), rgba(2,6,23,0.90)),
-    url("./image/bg.jpeg");
-
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-}
 
 .wrap {
   max-width: 900px;
@@ -89,6 +76,7 @@ h1 {
   text-decoration: none;
   font-weight: 800;
 }
+
 
 
 
