@@ -1,7 +1,16 @@
-body { border: 12px solid lime !important; }
-  box-sizing: border-box;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-}
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: #ffffff;
+
+  background:
+    linear-gradient(rgba(2,6,23,0.80), rgba(2,6,23,0.90)),
+    url("./image/grenland-live-bg.jpeg");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 
 body{
   margin:0;
@@ -80,6 +89,7 @@ h1 {
   text-decoration: none;
   font-weight: 800;
 }
+
 
 
 
