@@ -1,9 +1,9 @@
 <!doctype html>
 <html lang="no">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="utf-8">
   <title>Grenland Live</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <link rel="manifest" href="./manifest.webmanifest">
   <meta name="theme-color" content="#020617">
@@ -18,16 +18,12 @@
       Grenland Live samler puber, fotball og ting som skjer i Grenland – så du raskt ser hva som skjer, hvor det skjer og når.
     </p>
 
-    <div id="netStatus" class="netStatus" aria-live="polite">Sjekker nett…</div>
+    <div id="netStatus" class="netStatus">🟢 Online</div>
 
     <div class="panel">
       <div class="inputRow">
-        <input id="q" placeholder="Søk: Odd, Premier League, jam, quiz, pub…" autocomplete="off" />
+        <input id="q" placeholder="Søk: pub, fotball, jam, quiz…" />
         <button id="go" class="primary">Søk</button>
-      </div>
-
-      <div class="hint">
-        Tips: Søk på sted (“Skien”), pub (“Vikinghjørnet”), eller liga (“Premier League”).
       </div>
 
       <div id="results" class="results"></div>
@@ -35,12 +31,5 @@
   </main>
 
   <script src="./app.js"></script>
-
-  <script>
-    // Hvis cache krangler under utvikling: kommenter ut dette.
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("./sw.js");
-    }
-  </script>
 </body>
 </html>
