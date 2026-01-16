@@ -3,32 +3,38 @@
     {
       "name": "Parkbiografen",
       "city": "Skien",
-      "details": "Program/arrangementsliste (alltid oppdatert).",
-      "link": ""
+      "details": "Konserter og arrangementer – offisiell programside.",
+      "link": "https://www.parkbiografen.no/konserter-show"
     },
     {
       "name": "Ibsenhuset",
       "city": "Skien",
-      "details": "Program/arrangementsliste (alltid oppdatert).",
-      "link": ""
+      "details": "Kulturhus med konserter, show og arrangementer.",
+      "link": "https://www.ibsenhuset.no/program"
     },
     {
       "name": "Ælvespeilet",
       "city": "Porsgrunn",
-      "details": "Program/arrangementsliste (alltid oppdatert).",
-      "link": ""
+      "details": "Kulturhus med konserter, forestillinger og arrangementer.",
+      "link": "https://www.elvespeilet.no/Program"
     },
     {
       "name": "Kafé K",
       "city": "Porsgrunn",
-      "details": "Arrangementer (alltid oppdatert).",
-      "link": ""
+      "details": "Konserter, jam nights og arrangementer.",
+      "link": "https://www.facebook.com/kafekporsgrunn"
     },
     {
       "name": "Vikinghjørnet",
       "city": "Skien",
-      "details": "Sjekk siste poster/oppdateringer.",
-      "link": ""
+      "details": "Arrangementer, DJ-kvelder og temakvelder.",
+      "link": "https://www.instagram.com/vikinghjornet"
+    },
+    {
+      "name": "Gimle Pub",
+      "city": "Skien",
+      "details": "Quiz, jam nights og arrangementer.",
+      "link": "https://www.instagram.com/gimlepub"
     }
   ]
 }
