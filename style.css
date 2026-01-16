@@ -1,24 +1,38 @@
 * {
   box-sizing: border-box;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, Inter, Arial, sans-serif;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
 }
 
 body {
   margin: 0;
   min-height: 100vh;
-  background: #020617;
   color: #ffffff;
+
+  background:
+    linear-gradient(rgba(2,6,23,0.80), rgba(2,6,23,0.92)),
+    url("./Image/bg.jpg");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 .wrap {
   max-width: 1000px;
-  margin: 0 auto;
+  margin: auto;
   padding: 24px 16px 60px;
 }
 
-h1 { font-size: 2.4rem; margin: 0 0 6px; }
-.sub { color: #c7d2fe; max-width: 720px; margin: 0 0 16px; line-height: 1.4; }
+h1 {
+  font-size: 2.4rem;
+  margin-bottom: 6px;
+}
+
+.sub {
+  color: #c7d2fe;
+  margin-bottom: 16px;
+}
 
 .netStatus {
   display: inline-block;
@@ -26,107 +40,78 @@ h1 { font-size: 2.4rem; margin: 0 0 6px; }
   border-radius: 999px;
   font-size: 13px;
   font-weight: 700;
-  border: 1px solid #334155;
+  background: #052e16;
+  color: #86efac;
   margin-bottom: 16px;
 }
-
-.netStatus.online { background: #052e16; color: #86efac; border-color: #166534; }
-.netStatus.offline { background: #450a0a; color: #fca5a5; border-color: #7f1d1d; }
 
 .panel {
   border: 1px solid #1e293b;
   border-radius: 14px;
   padding: 14px;
+  background: rgba(2,6,23,0.45);
 }
 
-.inputRow { display: flex; gap: 10px; }
+.inputRow {
+  display: flex;
+  gap: 10px;
+}
 
 input {
   flex: 1;
-  background: #020617;
-  border: 1px solid #334155;
-  color: #fff;
   padding: 12px;
   border-radius: 10px;
-  outline: none;
+  border: 1px solid #334155;
+  background: #020617;
+  color: #fff;
 }
-input::placeholder { color: #94a3b8; }
 
 .primary {
-  background: #2563eb;
-  border: none;
-  border-radius: 10px;
   padding: 12px 18px;
-  font-weight: 800;
+  border-radius: 10px;
+  border: none;
+  background: #2563eb;
   color: #fff;
+  font-weight: 800;
   cursor: pointer;
 }
-.primary:hover { background: #1d4ed8; }
 
-.hint { margin-top: 10px; font-size: 13px; color: #94a3b8; }
-
-.results { margin-top: 16px; display: grid; gap: 14px; }
+.results {
+  margin-top: 16px;
+  display: grid;
+  gap: 14px;
+}
 
 .card {
   border: 1px solid #1e293b;
   border-radius: 14px;
   padding: 14px;
-  background: rgba(2,6,23,0.35);
+  background: rgba(2,6,23,0.55);
 }
 
-.topRow {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 10px;
+.title {
+  font-weight: 900;
+  font-size: 16px;
 }
 
-.title { font-weight: 900; font-size: 16px; }
-.meta { font-size: 13px; color: #c7d2fe; line-height: 1.4; }
-
-.badge {
-  font-size: 12px;
-  font-weight: 800;
-  padding: 4px 10px;
-  border-radius: 999px;
-  border: 1px solid #334155;
+.meta {
+  font-size: 13px;
   color: #c7d2fe;
 }
-.badge.football { color: #86efac; border-color: #166534; }
-.badge.quiz { color: #fde68a; border-color: #92400e; }
-.badge.jam { color: #fda4af; border-color: #9f1239; }
-.badge.pub { color: #c4b5fd; border-color: #6d28d9; }
-
-.sep { border: none; border-top: 1px solid #1e293b; margin: 12px 0; }
 
 .glSelect {
   width: 100%;
+  margin-top: 8px;
+  padding: 10px;
+  border-radius: 10px;
   background: #020617;
   border: 1px solid #334155;
   color: #fff;
-  padding: 10px;
-  border-radius: 10px;
-  margin-top: 6px;
 }
-
-.twoCol { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-@media (max-width: 640px) { .twoCol { grid-template-columns: 1fr; } .inputRow { flex-direction: column; } }
-
-.infoBox {
-  margin-top: 10px;
-  border: 1px solid #334155;
-  border-radius: 12px;
-  padding: 10px;
-  background: rgba(2,6,23,0.45);
-}
-
-.boxTitle { font-weight: 900; margin-bottom: 6px; }
-.boxBody { font-size: 13px; color: #e0e7ff; line-height: 1.4; }
-
-.linkRow { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
 
 .glLink {
   display: inline-block;
+  margin-top: 8px;
   padding: 8px 12px;
   border-radius: 10px;
   background: #1e293b;
@@ -134,4 +119,3 @@ input::placeholder { color: #94a3b8; }
   text-decoration: none;
   font-weight: 800;
 }
-.glLink:hover { background: #334155; }
