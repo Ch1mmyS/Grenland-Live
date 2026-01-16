@@ -1,0 +1,39 @@
+{
+  "matches": [
+    {
+      "competition": "Odd (treningskamp)",
+      "iso": "2026-01-23T15:00:00+01:00",
+      "match": "Odd – Arendal",
+      "watchAt": "Gimle Pub (Skien)",
+      "note": "Telemarkshallen"
+    },
+    {
+      "competition": "Odd (treningskamp)",
+      "iso": "2026-01-30T15:00:00+01:00",
+      "match": "Odd – Jerv",
+      "watchAt": "Vikinghjørnet (Skien)",
+      "note": "Telemarkshallen"
+    },
+    {
+      "competition": "Premier League",
+      "iso": "2026-01-17T13:30:00+01:00",
+      "match": "Manchester United – Manchester City",
+      "watchAt": "O’Learys Skien",
+      "note": "Tider kan flyttes av TV"
+    },
+    {
+      "competition": "Premier League",
+      "iso": "2026-01-17T16:00:00+01:00",
+      "match": "Liverpool – Burnley",
+      "watchAt": "Gimle Pub (Skien)",
+      "note": "Tider kan flyttes av TV"
+    },
+    {
+      "competition": "Premier League",
+      "iso": "2026-01-18T17:30:00+01:00",
+      "match": "Arsenal – Chelsea",
+      "watchAt": "Daimlers (Porsgrunn)",
+      "note": "Tider kan flyttes av TV"
+    }
+  ]
+}

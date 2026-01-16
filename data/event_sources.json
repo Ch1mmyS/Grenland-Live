@@ -1,0 +1,34 @@
+{
+  "sources": [
+    {
+      "name": "Parkbiografen",
+      "city": "Skien",
+      "details": "Program/arrangementsliste (alltid oppdatert).",
+      "link": ""
+    },
+    {
+      "name": "Ibsenhuset",
+      "city": "Skien",
+      "details": "Program/arrangementsliste (alltid oppdatert).",
+      "link": ""
+    },
+    {
+      "name": "Ælvespeilet",
+      "city": "Porsgrunn",
+      "details": "Program/arrangementsliste (alltid oppdatert).",
+      "link": ""
+    },
+    {
+      "name": "Kafé K",
+      "city": "Porsgrunn",
+      "details": "Arrangementer (alltid oppdatert).",
+      "link": ""
+    },
+    {
+      "name": "Vikinghjørnet",
+      "city": "Skien",
+      "details": "Sjekk siste poster/oppdateringer.",
+      "link": ""
+    }
+  ]
+}

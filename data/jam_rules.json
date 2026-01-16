@@ -1,0 +1,15 @@
+{
+  "rules": [
+    {
+      "type": "monthly_first_saturday",
+      "title": "Jam på Kafé K",
+      "place": "Kafé K",
+      "city": "Porsgrunn",
+      "hour": 14,
+      "minute": 0,
+      "monthsAhead": 8,
+      "details": "Første lørdag i måneden kl 14:00 (jam-konsept).",
+      "link": ""
+    }
+  ]
+}
