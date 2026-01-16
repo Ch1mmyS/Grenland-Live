@@ -1,4 +1,4 @@
-const CACHE_NAME = "grenland-live-v1";
+const CACHE_NAME = "grenland-live-v3";
 
 const FILES_TO_CACHE = [
   "./",
