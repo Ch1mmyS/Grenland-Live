@@ -5,7 +5,7 @@ body {
 
   background:
     linear-gradient(rgba(2,6,23,0.80), rgba(2,6,23,0.90)),
-    url("./image/grenland-live-bg.jpeg");
+    url("./image/bg.jpeg");
 
   background-size: cover;
   background-position: center;
@@ -19,7 +19,7 @@ body{
 
   background:
     linear-gradient(rgba(2,6,23,0.80), rgba(2,6,23,0.90)),
-    url("./image/grenland-live-bg.jpeg");
+    url("./image/bg.jpeg");
 
   background-size: cover;
   background-position: center;
@@ -89,6 +89,7 @@ h1 {
   text-decoration: none;
   font-weight: 800;
 }
+
 
 
 
