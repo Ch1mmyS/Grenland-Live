@@ -10,7 +10,7 @@ body {
 
   background:
     linear-gradient(rgba(2,6,23,0.80), rgba(2,6,23,0.92)),
-    url("./Image/bg.jpg");
+    url("./image/grenland-live-bg.jpeg");
 
   background-size: cover;
   background-position: center;
@@ -19,7 +19,7 @@ body {
 }
 
 .wrap {
-  max-width: 1000px;
+  max-width: 900px;
   margin: auto;
   padding: 24px 16px 60px;
 }
@@ -34,52 +34,11 @@ h1 {
   margin-bottom: 16px;
 }
 
-.netStatus {
-  display: inline-block;
-  padding: 6px 12px;
-  border-radius: 999px;
-  font-size: 13px;
-  font-weight: 700;
-  background: #052e16;
-  color: #86efac;
-  margin-bottom: 16px;
-}
-
 .panel {
   border: 1px solid #1e293b;
   border-radius: 14px;
   padding: 14px;
-  background: rgba(2,6,23,0.45);
-}
-
-.inputRow {
-  display: flex;
-  gap: 10px;
-}
-
-input {
-  flex: 1;
-  padding: 12px;
-  border-radius: 10px;
-  border: 1px solid #334155;
-  background: #020617;
-  color: #fff;
-}
-
-.primary {
-  padding: 12px 18px;
-  border-radius: 10px;
-  border: none;
-  background: #2563eb;
-  color: #fff;
-  font-weight: 800;
-  cursor: pointer;
-}
-
-.results {
-  margin-top: 16px;
-  display: grid;
-  gap: 14px;
+  background: rgba(2,6,23,0.55);
 }
 
 .card {
@@ -92,16 +51,17 @@ input {
 .title {
   font-weight: 900;
   font-size: 16px;
+  margin-bottom: 8px;
 }
 
 .meta {
   font-size: 13px;
   color: #c7d2fe;
+  margin-top: 10px;
 }
 
 .glSelect {
   width: 100%;
-  margin-top: 8px;
   padding: 10px;
   border-radius: 10px;
   background: #020617;
@@ -112,6 +72,7 @@ input {
 .glLink {
   display: inline-block;
   margin-top: 8px;
+  margin-right: 8px;
   padding: 8px 12px;
   border-radius: 10px;
   background: #1e293b;
