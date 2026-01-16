@@ -1,131 +1,33 @@
 {
   "sources": [
-    {
-      "name": "Gimle Pub",
-      "city": "Skien",
-      "details": "Quiz, jam nights, konserter og arrangementer.",
-      "link": "https://www.instagram.com/gimlepub"
-    },
-    {
-      "name": "Vikinghjørnet",
-      "city": "Skien",
-      "details": "DJ-kvelder, temafester og arrangementer.",
-      "link": "https://www.instagram.com/vikinghjornet"
-    },
-    {
-      "name": "Parkbiografen",
-      "city": "Skien",
-      "details": "Konserter, live-show og arrangementer.",
-      "link": "https://www.parkbiografen.no/konserter-show"
-    },
-    {
-      "name": "Ibsenhuset",
-      "city": "Skien",
-      "details": "Kulturprogram, konserter og forestillinger.",
-      "link": "https://www.ibsenhuset.no/program"
-    },
-    {
-      "name": "Kniven",
-      "city": "Skien",
-      "details": "Arrangementer og temakvelder.",
-      "link": ""
-    },
-    {
-      "name": "Håndverkeren Pub",
-      "city": "Skien",
-      "details": "Live musikk og arrangementer.",
-      "link": ""
-    },
-    {
-      "name": "O’Learys Skien",
-      "city": "Skien",
-      "details": "Sportseventer, fotballvisning og arrangementer.",
-      "link": "https://olearys.no/skien"
-    },
-    {
-      "name": "The Old Irish Pub (Skien)",
-      "city": "Skien",
-      "details": "Live musikk, sport og arrangementer.",
-      "link": "https://theoldirishpub.no/skien"
-    },
-    {
-      "name": "Sykkelbryggeriet",
-      "city": "Skien",
-      "details": "Konserter, events og bryggeriarrangementer.",
-      "link": "https://www.sykkelbryggeriet.no"
-    },
-    {
-      "name": "Lektern",
-      "city": "Skien",
-      "details": "Sommerkonserter og uteservering (sesong).",
-      "link": ""
-    },
+    { "name": "Gimle Pub", "city": "Skien", "details": "Quiz, jam nights, konserter og arrangementer.", "link": "https://www.instagram.com/gimlepub" },
+    { "name": "Vikinghjørnet", "city": "Skien", "details": "DJ-kvelder, temafester og arrangementer.", "link": "https://www.instagram.com/vikinghjornet" },
+    { "name": "Kniven", "city": "Skien", "details": "Eventer og temakvelder (se oppdateringer).", "link": "" },
+    { "name": "Håndverkeren Pub", "city": "Skien", "details": "Live, eventer og temakvelder (se oppdateringer).", "link": "" },
+    { "name": "Parkbiografen Bar", "city": "Skien", "details": "Konserter, live-show og arrangementer (program).", "link": "https://www.parkbiografen.no/konserter-show" },
+    { "name": "O’Learys Skien", "city": "Skien", "details": "Sportseventer, fotballvisning og arrangementer.", "link": "https://olearys.no/skien" },
+    { "name": "Becks Brasserie & Bar", "city": "Skien", "details": "Eventer, temakvelder og servering (se oppdateringer).", "link": "" },
+    { "name": "Barkaden", "city": "Skien", "details": "Spill, eventer og temakvelder (se oppdateringer).", "link": "" },
+    { "name": "The Old Irish Pub (Skien)", "city": "Skien", "details": "Live, sport og arrangementer.", "link": "https://theoldirishpub.no/skien" },
+    { "name": "Lundetangen", "city": "Skien", "details": "Eventer, temakvelder og arrangementer (se oppdateringer).", "link": "" },
+    { "name": "Mariannes", "city": "Skien", "details": "Eventer og temakvelder (se oppdateringer).", "link": "" },
+    { "name": "Damslett", "city": "Skien", "details": "Eventer og temakvelder (se oppdateringer).", "link": "" },
+    { "name": "Union Bar", "city": "Skien", "details": "Eventer, sport og temakvelder (se oppdateringer).", "link": "" },
+    { "name": "Sykkelbryggeriet", "city": "Skien", "details": "Konserter, events og bryggeriarrangementer.", "link": "https://www.sykkelbryggeriet.no" },
+    { "name": "Lektern (kun sommer)", "city": "Skien", "details": "Sommerkonserter og uteservering (sesong).", "link": "" },
 
-    {
-      "name": "Kafé K",
-      "city": "Porsgrunn",
-      "details": "Konserter, jam nights og arrangementer.",
-      "link": "https://www.facebook.com/kafekporsgrunn"
-    },
-    {
-      "name": "Ælvespeilet",
-      "city": "Porsgrunn",
-      "details": "Kulturprogram, konserter og forestillinger.",
-      "link": "https://www.elvespeilet.no/Program"
-    },
-    {
-      "name": "Gamle Polet",
-      "city": "Porsgrunn",
-      "details": "Arrangementer og temakvelder.",
-      "link": ""
-    },
-    {
-      "name": "Sailors Inn",
-      "city": "Porsgrunn",
-      "details": "Live musikk og arrangementer.",
-      "link": ""
-    },
-    {
-      "name": "Tollboden Bar",
-      "city": "Porsgrunn",
-      "details": "DJ-kvelder, events og fotballvisning.",
-      "link": ""
-    },
-    {
-      "name": "Bistroen",
-      "city": "Porsgrunn",
-      "details": "Arrangementer og temakvelder.",
-      "link": ""
-    },
-    {
-      "name": "Karjolen Pub",
-      "city": "Porsgrunn",
-      "details": "Arrangementer og pub-events.",
-      "link": ""
-    },
-    {
-      "name": "Daimlers",
-      "city": "Porsgrunn",
-      "details": "Live musikk, DJ og arrangementer.",
-      "link": ""
-    },
-    {
-      "name": "Secret Cocktail Bar",
-      "city": "Porsgrunn",
-      "details": "Cocktail-events og temakvelder.",
-      "link": ""
-    },
-    {
-      "name": "Heistadpub’n",
-      "city": "Porsgrunn",
-      "details": "Lokale arrangementer og events.",
-      "link": ""
-    },
-    {
-      "name": "Jimmys",
-      "city": "Porsgrunn",
-      "details": "Sport, DJ-kvelder og arrangementer.",
-      "link": ""
-    }
+    { "name": "Kafé K", "city": "Porsgrunn", "details": "Konserter, jam nights og arrangementer.", "link": "https://www.facebook.com/kafekporsgrunn" },
+    { "name": "Gamle Polet", "city": "Porsgrunn", "details": "Eventer og temakvelder (se oppdateringer).", "link": "" },
+    { "name": "Sailors Inn", "city": "Porsgrunn", "details": "Live, eventer og arrangementer (se oppdateringer).", "link": "" },
+    { "name": "Tollboden Bar", "city": "Porsgrunn", "details": "DJ-kvelder, events og fotballvisning (se oppdateringer).", "link": "" },
+    { "name": "Bistroen", "city": "Porsgrunn", "details": "Eventer, temakvelder og servering (se oppdateringer).", "link": "" },
+    { "name": "Karjolen Pub", "city": "Porsgrunn", "details": "Eventer og pub-arrangementer (se oppdateringer).", "link": "" },
+    { "name": "Daimlers", "city": "Porsgrunn", "details": "Live, DJ og arrangementer (se oppdateringer).", "link": "" },
+    { "name": "Secret Cocktail Bar", "city": "Porsgrunn", "details": "Cocktail-events og temakvelder (se oppdateringer).", "link": "" },
+    { "name": "Heistadpub’n", "city": "Porsgrunn", "details": "Lokale arrangementer og events (se oppdateringer).", "link": "" },
+    { "name": "Jimmys", "city": "Porsgrunn", "details": "Sport, DJ-kvelder og arrangementer (se oppdateringer).", "link": "" },
+
+    { "name": "Ibsenhuset", "city": "Skien", "details": "Kulturprogram, konserter og forestillinger (program).", "link": "https://www.ibsenhuset.no/program" },
+    { "name": "Ælvespeilet", "city": "Porsgrunn", "details": "Kulturprogram, konserter og forestillinger (program).", "link": "https://www.elvespeilet.no/Program" }
   ]
 }
