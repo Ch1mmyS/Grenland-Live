@@ -1,7 +1,4 @@
-const MS_DAY = 24 * 60 * 60 * 1000;
-
-async function loadJSON(path){
-  const res = await fetch(path, { cache: "no-store" });
+@@ -5,56 +5,70 @@ async function loadJSON(path){
   if(!res.ok) throw new Error(`Kunne ikke laste ${path} (${res.status})`);
   return await res.json();
 }
@@ -33,6 +30,26 @@ function renderInfoBox(el, p){
   const tags = (p.tags || []).map(t => esc(t)).join(" • ");
   const website = p.website ? `<a class="glLink" href="${p.website}" target="_blank" rel="noopener">Nettside / SoMe</a>` : "";
   const map = `<a class="glLink" href="${p.map || mapLink(p.name + " " + p.city)}" target="_blank" rel="noopener">Kart</a>`;
+function resolvePubLink(p, sources = []){
+  const sourceMatch = sources.find(s => s.name === p.name && s.city === p.city);
+  const sourceLink = sourceMatch?.link || "";
+  if (p.website) return { href: p.website, label: "Nettside / SoMe" };
+  if (sourceLink) return { href: sourceLink, label: "Program / SoMe" };
+  return {
+    href: `https://www.google.com/search?q=${encodeURIComponent(p.name + " " + p.city)}`,
+    label: "Søk etter pub",
+  };
+}
+
+function renderInfoBox(el, p, sources){
+  if(!p){ el.innerHTML = ""; return; }
+
+  const tags = (p.tags || []).map(t => esc(t)).join(" • ");
+  const websiteInfo = resolvePubLink(p, sources);
+  const websiteHref = websiteInfo.href;
+  const websiteLabel = websiteInfo.label;
+  const website = `<a class="glLink" href="${websiteHref}" target="_blank" rel="noopener">${websiteLabel}</a>`;
+  const map = `<a class="glLink" href="${p.map || mapLink(p.name + " " + p.city)}" target="_blank" rel="noopener">Kart</a>`;
 
   el.innerHTML = `
     <div class="item">
@@ -58,91 +75,7 @@ function setPubFilterOptions(select, pubs){
 function renderFootball(listEl, games, pubs, pubFilter, mode){
   let filtered = games.slice();
 
-  // Filter 30 dager
-  if (mode === "next30") filtered = filtered.filter(g => inNextDays(g.kickoff, 30));
-
-  // Sorter etter tid
-  filtered.sort((a,b) => new Date(a.kickoff) - new Date(b.kickoff));
-
-  // Filter på pub (valgfritt)
-  if(pubFilter !== "all"){
-    const p = pubs[Number(pubFilter)];
-    if(p) filtered = filtered.filter(g => (g.where || []).includes(p.name));
-  }
-
-  // 15 stk visning
-  if (mode === "next15") filtered = filtered.slice(0, 15);
-
-  if(filtered.length === 0){
-    listEl.innerHTML = `<div class="item">Ingen kamper å vise (sjekk JSON / filter).</div>`;
-    return;
-  }
-
-  listEl.innerHTML = filtered.map(g => {
-    const where = (g.where || []).map(w => esc(w)).join(", ");
-    const channel = g.channel ? ` · 📺 ${esc(g.channel)}` : "";
-    return `
-      <div class="item">
-        <strong>${esc(g.league)}: ${esc(g.home)} – ${esc(g.away)}</strong>
-        <div class="meta">⏱️ ${esc(fmtTime(g.kickoff))}${channel}</div>
-        <div class="meta">📍 ${where || "Ikke satt pub ennå"}</div>
-      </div>
-    `;
-  }).join("");
-}
-
-function searchAll(q, pubs, jam, quiz, sources, games){
-  const s = q.trim().toLowerCase();
-  if(!s) return [];
-
-  const hits = [];
-
-  pubs.forEach(p => {
-    const hay = `${p.name} ${p.city} ${(p.tags||[]).join(" ")}`.toLowerCase();
-    if(hay.includes(s)) hits.push({type:"Pub", title:`${p.name} (${p.city})`, meta:(p.tags||[]).join(" • "), link:p.website || ""});
-  });
-
-  jam.forEach(p => {
-    const hay = `${p.name} ${p.city} ${(p.tags||[]).join(" ")}`.toLowerCase();
-    if(hay.includes(s)) hits.push({type:"Jam", title:`${p.name} (${p.city})`, meta:(p.tags||[]).join(" • "), link:p.website || ""});
-  });
-
-  quiz.forEach(p => {
-    const hay = `${p.name} ${p.city} ${(p.tags||[]).join(" ")}`.toLowerCase();
-    if(hay.includes(s)) hits.push({type:"Quiz", title:`${p.name} (${p.city})`, meta:(p.tags||[]).join(" • "), link:p.website || ""});
-  });
-
-  sources.forEach(src => {
-    const hay = `${src.name} ${src.city} ${src.details}`.toLowerCase();
-    if(hay.includes(s)) hits.push({type:"Program", title:`${src.name} (${src.city})`, meta:src.details || "", link:src.link || ""});
-  });
-
-  games.forEach(g => {
-    const hay = `${g.league} ${g.home} ${g.away} ${(g.where||[]).join(" ")} ${g.channel||""}`.toLowerCase();
-    if(hay.includes(s)) hits.push({type:"Fotball", title:`${g.league}: ${g.home} – ${g.away}`, meta:`${fmtTime(g.kickoff)} · ${(g.where||[]).join(", ")} · ${g.channel||""}`, link:""});
-  });
-
-  return hits.slice(0, 40);
-}
-
-function renderSearch(listEl, hits){
-  if(!hits.length){
-    listEl.innerHTML = `<div class="item">Ingen treff.</div>`;
-    return;
-  }
-  listEl.innerHTML = hits.map(h => `
-    <div class="item">
-      <strong>${esc(h.type)}: ${esc(h.title)}</strong>
-      <div class="meta">${esc(h.meta || "")}</div>
-      ${h.link ? `<a class="glLink" href="${h.link}" target="_blank" rel="noopener">Åpne</a>` : ""}
-    </div>
-  `).join("");
-}
-
-document.addEventListener("DOMContentLoaded", async () => {
-  const pubSelect = document.getElementById("pubSelect");
-  const pubInfo = document.getElementById("pubInfo");
-  const jamSelect = document.getElementById("jamSelect");
+@@ -146,69 +160,84 @@ document.addEventListener("DOMContentLoaded", async () => {
   const jamInfo = document.getElementById("jamInfo");
   const quizSelect = document.getElementById("quizSelect");
   const quizInfo = document.getElementById("quizInfo");
@@ -171,6 +104,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     pubSelect.addEventListener("change", () => renderInfoBox(pubInfo, pubs[pubSelect.value]));
     jamSelect.addEventListener("change", () => renderInfoBox(jamInfo, pubs.filter(p => (p.tags||[]).includes("Jam") || (p.tags||[]).includes("Jam nights"))[jamSelect.value]));
     quizSelect.addEventListener("change", () => renderInfoBox(quizInfo, pubs.filter(p => (p.tags||[]).includes("Quiz"))[quizSelect.value]));
+    pubSelect.addEventListener("change", () => renderInfoBox(pubInfo, pubs[pubSelect.value], sources));
+    jamSelect.addEventListener("change", () => renderInfoBox(jamInfo, pubs.filter(p => (p.tags||[]).includes("Jam") || (p.tags||[]).includes("Jam nights"))[jamSelect.value], sources));
+    quizSelect.addEventListener("change", () => renderInfoBox(quizInfo, pubs.filter(p => (p.tags||[]).includes("Quiz"))[quizSelect.value], sources));
 
     // ARRANGEMENT-KILDER (programsider)
     const srcData = await loadJSON("./data/event_sources.json");
@@ -184,6 +120,32 @@ document.addEventListener("DOMContentLoaded", async () => {
           <strong>${esc(s.name)} <span class="badge">${esc(s.city)}</span></strong>
           <div class="meta">${esc(s.details || "")}</div>
           ${s.link ? `<a class="glLink" href="${s.link}" target="_blank" rel="noopener">Åpne program</a>` : ""}
+        </div>
+      `;
+    });
+    eventsSelect.addEventListener("change", () => {
+      const s = sources[eventsSelect.value];
+      if(!s){ eventsInfo.innerHTML = ""; return; }
+      const pubMatch = pubs.find(p => p.name === s.name && p.city === s.city);
+      const pubWebsite = pubMatch?.website || "";
+      const pubMap = pubMatch?.map || mapLink(`${s.name} ${s.city}`);
+      const programLink = s.link || "";
+      const programLabel = programLink ? "Åpne program" : "";
+      const fallbackLabel = !programLink && pubWebsite ? "Åpne pub" : "";
+      const searchHref = `https://www.google.com/search?q=${encodeURIComponent(`${s.name} ${s.city}`)}`;
+      const searchLabel = !programLink && !pubWebsite ? "Søk etter pub" : "";
+      const programHtml = programLink
+        ? `<a class="glLink" href="${programLink}" target="_blank" rel="noopener">${programLabel}</a>`
+        : (pubWebsite
+          ? `<a class="glLink" href="${pubWebsite}" target="_blank" rel="noopener">${fallbackLabel}</a>`
+          : `<a class="glLink" href="${searchHref}" target="_blank" rel="noopener">${searchLabel}</a>`);
+      const mapHtml = pubMap ? `<a class="glLink" href="${pubMap}" target="_blank" rel="noopener">Kart</a>` : "";
+
+      eventsInfo.innerHTML = `
+        <div class="item">
+          <strong>${esc(s.name)} <span class="badge">${esc(s.city)}</span></strong>
+          <div class="meta">${esc(s.details || "")}</div>
+          ${programHtml}${mapHtml}
         </div>
       `;
     });
