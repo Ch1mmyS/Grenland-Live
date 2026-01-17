@@ -1,124 +1,55 @@
 {
   "games": [
     {
-      "league": "Eliteserien (Odd)",
       "home": "Odd",
-      "away": "VIF",
-      "kickoff": "2026-01-18T18:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play",
-      "where": ["Gimle Pub", "O’Learys Skien", "The Old Irish Pub (Skien)"]
+      "away": "Motstander",
+      "league": "Eliteserien",
+      "start": "2026-01-20T19:00:00+01:00",
+      "tv": "",
+      "pubs": [
+        { "name": "Gimle Pub", "city": "Skien" },
+        { "name": "Vikinghjørnet", "city": "Skien" },
+        { "name": "O’Learys Skien", "city": "Skien" },
+        { "name": "The Old Irish Pub (Skien)", "city": "Skien" },
+        { "name": "Union Bar", "city": "Skien" },
+        { "name": "Tollboden Bar", "city": "Porsgrunn" },
+        { "name": "Daimlers", "city": "Porsgrunn" },
+        { "name": "Jimmys", "city": "Porsgrunn" }
+      ]
     },
     {
-      "league": "Eliteserien (Odd)",
-      "home": "Odd",
-      "away": "Brann",
-      "kickoff": "2026-01-25T18:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play",
-      "where": ["Gimle Pub", "Union Bar", "Daimlers"]
-    },
-    {
-      "league": "Premier League",
-      "home": "Arsenal",
-      "away": "Chelsea",
-      "kickoff": "2026-01-17T18:30:00+01:00",
-      "channel": "Viaplay / V Sport",
-      "where": ["O’Learys Skien", "The Old Irish Pub (Skien)", "Jimmys"]
-    },
-    {
-      "league": "Premier League",
       "home": "Liverpool",
-      "away": "Man City",
-      "kickoff": "2026-01-18T17:30:00+01:00",
-      "channel": "Viaplay / V Sport",
-      "where": ["O’Learys Skien", "Gimle Pub", "Tollboden Bar"]
+      "away": "Manchester City",
+      "league": "Premier League",
+      "start": "2026-01-21T20:30:00+01:00",
+      "tv": "",
+      "pubs": [
+        { "name": "Gimle Pub", "city": "Skien" },
+        { "name": "Vikinghjørnet", "city": "Skien" },
+        { "name": "O’Learys Skien", "city": "Skien" },
+        { "name": "The Old Irish Pub (Skien)", "city": "Skien" },
+        { "name": "Union Bar", "city": "Skien" },
+        { "name": "Tollboden Bar", "city": "Porsgrunn" },
+        { "name": "Daimlers", "city": "Porsgrunn" },
+        { "name": "Jimmys", "city": "Porsgrunn" }
+      ]
     },
     {
-      "league": "Premier League",
       "home": "Tottenham",
-      "away": "Man United",
-      "kickoff": "2026-01-20T21:00:00+01:00",
-      "channel": "Viaplay / V Sport",
-      "where": ["O’Learys Skien", "The Old Irish Pub (Skien)", "Daimlers"]
-    },
-    {
-      "league": "Premier League",
-      "home": "Newcastle",
-      "away": "Aston Villa",
-      "kickoff": "2026-01-21T20:30:00+01:00",
-      "channel": "Viaplay / V Sport",
-      "where": ["Gimle Pub", "Union Bar", "Jimmys"]
-    },
-    {
-      "league": "Premier League",
-      "home": "Everton",
-      "away": "West Ham",
-      "kickoff": "2026-01-22T20:30:00+01:00",
-      "channel": "Viaplay / V Sport",
-      "where": ["The Old Irish Pub (Skien)", "O’Learys Skien"]
-    },
-    {
-      "league": "Premier League",
-      "home": "Brighton",
-      "away": "Bournemouth",
-      "kickoff": "2026-01-23T21:00:00+01:00",
-      "channel": "Viaplay / V Sport",
-      "where": ["Gimle Pub", "Tollboden Bar"]
-    },
-    {
-      "league": "Premier League",
-      "home": "Wolves",
-      "away": "Leicester",
-      "kickoff": "2026-01-24T16:00:00+01:00",
-      "channel": "Viaplay / V Sport",
-      "where": ["O’Learys Skien", "Jimmys"]
-    },
-    {
-      "league": "Premier League",
-      "home": "Fulham",
-      "away": "Crystal Palace",
-      "kickoff": "2026-01-24T18:30:00+01:00",
-      "channel": "Viaplay / V Sport",
-      "where": ["The Old Irish Pub (Skien)", "Union Bar"]
-    },
-    {
-      "league": "Premier League",
-      "home": "Nottingham Forest",
-      "away": "Brentford",
-      "kickoff": "2026-01-25T15:00:00+01:00",
-      "channel": "Viaplay / V Sport",
-      "where": ["Gimle Pub", "Daimlers"]
-    },
-    {
-      "league": "Premier League",
-      "home": "Man United",
       "away": "Arsenal",
-      "kickoff": "2026-01-25T17:30:00+01:00",
-      "channel": "Viaplay / V Sport",
-      "where": ["O’Learys Skien", "The Old Irish Pub (Skien)", "Tollboden Bar"]
-    },
-    {
       "league": "Premier League",
-      "home": "Chelsea",
-      "away": "Liverpool",
-      "kickoff": "2026-01-26T21:00:00+01:00",
-      "channel": "Viaplay / V Sport",
-      "where": ["O’Learys Skien", "Gimle Pub", "Jimmys"]
-    },
-    {
-      "league": "Premier League",
-      "home": "Man City",
-      "away": "Tottenham",
-      "kickoff": "2026-01-27T20:30:00+01:00",
-      "channel": "Viaplay / V Sport",
-      "where": ["O’Learys Skien", "The Old Irish Pub (Skien)"]
-    },
-    {
-      "league": "Premier League",
-      "home": "Aston Villa",
-      "away": "Newcastle",
-      "kickoff": "2026-01-28T20:30:00+01:00",
-      "channel": "Viaplay / V Sport",
-      "where": ["Gimle Pub", "Union Bar", "Daimlers"]
+      "start": "2026-01-24T18:30:00+01:00",
+      "tv": "",
+      "pubs": [
+        { "name": "Gimle Pub", "city": "Skien" },
+        { "name": "Vikinghjørnet", "city": "Skien" },
+        { "name": "O’Learys Skien", "city": "Skien" },
+        { "name": "The Old Irish Pub (Skien)", "city": "Skien" },
+        { "name": "Union Bar", "city": "Skien" },
+        { "name": "Tollboden Bar", "city": "Porsgrunn" },
+        { "name": "Daimlers", "city": "Porsgrunn" },
+        { "name": "Jimmys", "city": "Porsgrunn" }
+      ]
     }
   ]
 }
