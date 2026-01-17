@@ -1,174 +1,72 @@
-/* ==============================
-   RESET / BASE
-============================== */
-* {
-  box-sizing: border-box;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, Inter, Arial, sans-serif;
+*{box-sizing:border-box;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,Arial,sans-serif}
+html,body{margin:0;padding:0;min-height:100%}
+
+body{
+  min-height:100vh;
+  color:#fff;
+
+  background-image:url("./Image/bg.jpeg");
+  background-size:cover;
+  background-position:center center;
+  background-repeat:no-repeat;
+  background-attachment:fixed;
 }
 
-html, body {
-  margin: 0;
-  padding: 0;
-  min-height: 100%;
+.wrap{max-width:1100px;margin:0 auto;padding:20px 14px 60px}
+.hero{margin-bottom:14px}
+
+h1{font-size:2.3rem;margin:6px 0}
+.sub{color:#c7d2fe;max-width:820px;margin:0 0 12px}
+.hint{color:#a5b4fc;font-size:13px;margin-top:8px}
+
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+
+.card, .infoBox, .list{
+  background:rgba(2,6,23,0.72);
+  backdrop-filter:blur(3px);
+  border:1px solid #1e293b;
+  border-radius:16px;
 }
 
-/* ==============================
-   BODY – FULL BAKGRUNNSBILDE
-============================== */
-body {
-  min-height: 100vh;
-  color: #ffffff;
+.card{padding:14px}
+.title{font-weight:900;font-size:16px;margin-bottom:6px}
+.meta{font-size:13px;color:#c7d2fe;margin-bottom:8px}
 
-  /* Bakgrunnsbilde */
-  background-image: url("./Image/bg.jpeg");
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+.inputRow{display:flex;gap:10px}
+input{
+  flex:1;background:#020617;border:1px solid #334155;color:#fff;
+  padding:12px;border-radius:12px
+}
+.primary{
+  background:#2563eb;border:none;border-radius:12px;padding:12px 18px;
+  font-weight:900;color:#fff;cursor:pointer
+}
+.primary:hover{background:#1d4ed8}
+
+.glSelect{
+  width:100%;background:#020617;border:1px solid #334155;color:#fff;
+  padding:12px;border-radius:12px;margin-top:6px
 }
 
-/* ==============================
-   LAYOUT
-============================== */
-.wrap {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 24px 16px 60px;
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+.infoBox{padding:12px;margin-top:10px}
+.glLink{
+  display:inline-block;margin-top:10px;margin-right:8px;padding:8px 12px;border-radius:12px;
+  background:#1e293b;color:#fff;text-decoration:none;font-weight:800
 }
+.glLink:hover{background:#334155}
 
-/* ==============================
-   TYPOGRAFI
-============================== */
-h1 {
-  font-size: 2.4rem;
-  margin-bottom: 6px;
+.list{padding:10px;margin-top:10px}
+.item{
+  padding:10px;border-radius:12px;border:1px solid rgba(148,163,184,0.25);
+  margin:8px 0;background:rgba(2,6,23,0.35)
 }
+.item strong{display:block;margin-bottom:4px}
+.badge{display:inline-block;font-size:12px;padding:2px 8px;border-radius:999px;border:1px solid #334155;color:#c7d2fe;margin-left:8px}
 
-.sub {
-  color: #c7d2fe;
-  max-width: 720px;
-  margin-bottom: 20px;
-}
-
-/* ==============================
-   PANEL / KORT (LESBARHET)
-============================== */
-.panel,
-.card,
-.infoBox {
-  background: rgba(2, 6, 23, 0.72);
-  backdrop-filter: blur(3px);
-  border: 1px solid #1e293b;
-  border-radius: 14px;
-  padding: 16px;
-}
-
-.panel {
-  margin-top: 10px;
-}
-
-.card {
-  margin-bottom: 14px;
-}
-
-.infoBox {
-  margin-top: 14px;
-}
-
-/* ==============================
-   INPUT / SØK
-============================== */
-.inputRow {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 12px;
-}
-
-input {
-  flex: 1;
-  background: #020617;
-  border: 1px solid #334155;
-  color: #ffffff;
-  padding: 12px;
-  border-radius: 10px;
-}
-
-.primary {
-  background: #2563eb;
-  border: none;
-  border-radius: 10px;
-  padding: 12px 18px;
-  font-weight: 800;
-  color: #ffffff;
-  cursor: pointer;
-}
-
-.primary:hover {
-  background: #1d4ed8;
-}
-
-/* ==============================
-   RESULTATER / INNHOLD
-============================== */
-.results {
-  margin-top: 16px;
-  display: grid;
-  gap: 14px;
-}
-
-.title {
-  font-weight: 900;
-  font-size: 16px;
-  margin-bottom: 6px;
-}
-
-.meta {
-  font-size: 13px;
-  color: #c7d2fe;
-}
-
-/* ==============================
-   DROPDOWN
-============================== */
-.glSelect {
-  width: 100%;
-  background: #020617;
-  border: 1px solid #334155;
-  color: #ffffff;
-  padding: 12px;
-  border-radius: 10px;
-  margin-top: 8px;
-}
-
-/* ==============================
-   LENKER / KNAPPER
-============================== */
-.glLink {
-  display: inline-block;
-  margin-top: 10px;
-  margin-right: 8px;
-  padding: 8px 12px;
-  border-radius: 10px;
-  background: #1e293b;
-  color: #ffffff;
-  text-decoration: none;
-  font-weight: 800;
-}
-
-.glLink:hover {
-  background: #334155;
-}
-
-/* ==============================
-   RESPONSIVE
-============================== */
-@media (max-width: 600px) {
-  h1 {
-    font-size: 2rem;
-  }
-
-  .wrap {
-    padding: 16px 12px 50px;
-  }
+@media (max-width: 760px){
+  .grid{grid-template-columns:1fr}
+  .row{grid-template-columns:1fr}
+  h1{font-size:2rem}
 }
