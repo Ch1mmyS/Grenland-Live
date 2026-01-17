@@ -4,33 +4,90 @@
   <meta charset="utf-8">
   <title>Grenland Live</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <link rel="manifest" href="./manifest.webmanifest">
-  <meta name="theme-color" content="#020617">
   <link rel="stylesheet" href="./style.css">
 </head>
-
 <body>
   <main class="wrap">
-    <h1>Grenland Live</h1>
-   
-    <p class="sub">
-      Grenland Live samler puber og ting som skjer i Grenland – så du raskt ser hva som skjer, hvor det skjer og når.
-    </p>
+    <header class="hero">
+      <h1>Grenland Live</h1>
+      <p class="sub">
+        Grenland Live samler puber, fotball og ting som skjer i Grenland – så du raskt ser hva som skjer, hvor det skjer og når.
+      </p>
 
-    <div class="panel">
+      <div class="inputRow">
+        <input id="q" placeholder="Søk: Skien, Vikinghjørnet, Premier League …">
+        <button id="go" class="primary">Søk</button>
+      </div>
+      <div id="hint" class="hint">Tips: Søk på sted (“Skien”), pub (“Vikinghjørnet”), eller liga (“Premier League”).</div>
+    </header>
+
+    <section class="grid">
+      <!-- PUBER -->
       <div class="card">
         <div class="title">Puber i Grenland</div>
+        <div class="meta">Velg en pub for info, link og kart.</div>
         <select id="pubSelect" class="glSelect">
-          <option value="">Velg pub…</option>
+          <option value="">Velg pub …</option>
         </select>
-        <div id="pubInfo" class="meta"></div>
+        <div id="pubInfo" class="infoBox"></div>
       </div>
-    </div>
+
+      <!-- JAM -->
+      <div class="card">
+        <div class="title">Jam nights</div>
+        <div class="meta">Velg sted for jam-info.</div>
+        <select id="jamSelect" class="glSelect">
+          <option value="">Velg jam-sted …</option>
+        </select>
+        <div id="jamInfo" class="infoBox"></div>
+      </div>
+
+      <!-- QUIZ -->
+      <div class="card">
+        <div class="title">Quiz kveld</div>
+        <div class="meta">Velg sted for quiz-info.</div>
+        <select id="quizSelect" class="glSelect">
+          <option value="">Velg quiz-sted …</option>
+        </select>
+        <div id="quizInfo" class="infoBox"></div>
+      </div>
+
+      <!-- ARRANGEMENTER -->
+      <div class="card">
+        <div class="title">Kommende arrangementer</div>
+        <div class="meta">Offisielle programsider (alltid oppdatert).</div>
+        <select id="eventsSelect" class="glSelect">
+          <option value="">Velg program …</option>
+        </select>
+        <div id="eventsInfo" class="infoBox"></div>
+      </div>
+
+      <!-- FOTBALL -->
+      <div class="card" style="grid-column: 1 / -1;">
+        <div class="title">Fotball (Odd + Premier League)</div>
+        <div class="meta">Velg visning. (Tidene vises som Norge-tid hvis du legger inn ISO-tid i JSON.)</div>
+
+        <div class="row">
+          <select id="fbMode" class="glSelect">
+            <option value="next15">Vis de neste 15 kampene</option>
+            <option value="next30">Vis kommende kamper (30 dager)</option>
+          </select>
+
+          <select id="fbPubFilter" class="glSelect">
+            <option value="all">Alle puber</option>
+          </select>
+        </div>
+
+        <div id="footballList" class="list"></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="title">Søkeresultat</div>
+      <div id="searchResults" class="list"></div>
+    </section>
   </main>
 
   <script src="./app.js"></script>
 </body>
 </html>
-
-
