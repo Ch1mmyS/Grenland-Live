@@ -1,8 +1,9 @@
-/* Grenland Live – app.js (REPARERT v2)
-   Fix: Quiz-lista var for streng (case/space). Nå tåler den:
-   - "Quiz", "quiz", "QUIZ", "Quiz " osv.
-   + Alltid PROGRAM-knapp (website/source/fallback)
-   + Smartere matching mot event_sources (tåler parentes/case/aksenter)
+/* Grenland Live – app.js (FULL REPARERT)
+   - PROGRAM-link alltid
+   - Smartere matching mot event_sources (tåler parentes/case/aksenter)
+   - Tag-filter tolerant (Quiz/Jam)
+   - Fotball: pub-filter tolerant + tydelig beskjed hvis football.json mangler "pubs"
+   - Fotball: TV vises hvis felt tv/channel/kanal finnes
 */
 
 const MS_DAY = 24 * 60 * 60 * 1000;
@@ -63,16 +64,16 @@ function setPubFilterOptions(select, pubs) {
     pubs.map((p, i) => `<option value="${i}">${esc(p.name)} (${esc(p.city)})</option>`).join("");
 }
 
-/* ---------- SMART MATCHING ---------- */
+/* ---------- SMART MATCHING (Pubs <-> Event sources) ---------- */
 function norm(s) {
   return String(s ?? "")
     .toLowerCase()
     .trim()
-    .replace(/\([^)]*\)/g, "")       // fjern ( ... )
+    .replace(/\([^)]*\)/g, "")        // fjern ( ... )
     .replace(/\s+/g, " ")
     .replace(/[’'"]/g, "")
     .normalize("NFKD")
-    .replace(/[\u0300-\u036f]/g, "");
+    .replace(/[\u0300-\u036f]/g, ""); // fjern aksenter
 }
 function key(name, city) {
   return `${norm(name)}|${norm(city)}`;
@@ -83,13 +84,14 @@ function buildSourceMap(sources) {
   return m;
 }
 
-/* ---------- TAG HELPERS (Fix for Quiz) ---------- */
+/* ---------- TAG HELPERS (tolerant) ---------- */
 function hasTag(p, tag) {
   const want = String(tag || "").trim().toLowerCase();
   const tags = Array.isArray(p?.tags) ? p.tags : [];
   return tags.some(t => String(t || "").trim().toLowerCase() === want);
 }
 
+/* ---------- PROGRAM LINK (always) ---------- */
 function resolveProgramLinkForPub(p, sourceMap) {
   const w = String(p.website || "").trim();
   if (w) return { href: w, label: "PROGRAM" };
@@ -119,10 +121,21 @@ function renderInfoBox(el, p, sourceMap) {
   `;
 }
 
-function renderFootball(listEl, games, pubs, pubFilter, mode, sourceMap) {
+/* ---------- FOOTBALL (FIXED) ---------- */
+function normLite(s){
+  return String(s ?? "").toLowerCase().trim().replace(/\s+/g, " ");
+}
+function getTV(g){
+  const v = g.tv ?? g.channel ?? g.kanal ?? "";
+  return String(v || "").trim();
+}
+
+function renderFootball(listEl, games, pubs, pubFilter, mode) {
   if (!listEl) return;
 
   let filtered = (games || []).slice();
+
+  // MODE
   if (mode === "next") filtered = filtered.filter(g => inNextDays(g.start, 30));
   if (mode === "today") {
     const now = new Date();
@@ -133,9 +146,41 @@ function renderFootball(listEl, games, pubs, pubFilter, mode, sourceMap) {
     });
   }
 
+  // PUB FILTER (tolerant + forklaring hvis pubs mangler)
   if (pubFilter && pubFilter !== "all") {
     const p = pubs?.[Number(pubFilter)];
-    if (p) filtered = filtered.filter(g => (g.pubs || []).some(x => x.name === p.name && x.city === p.city));
+    if (p) {
+      const anyHasPubs = filtered.some(g => Array.isArray(g.pubs) && g.pubs.length);
+
+      if (!anyHasPubs) {
+        listEl.innerHTML = `
+          <div class="item">
+            <strong>Ingen pub-filter mulig ennå</strong>
+            <div class="meta">
+              Kampene i <code>data/football.json</code> har ikke <code>"pubs"</code>-felt,
+              så appen vet ikke hvilke puber som viser hvilke kamper.
+            </div>
+            <div class="meta">
+              Legg inn f.eks:
+              <code>"pubs": [{"name":"Gimle Pub","city":"Skien"}]</code>
+              på kampene som vises på Gimle.
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      filtered = filtered.filter(g =>
+        (g.pubs || []).some(x =>
+          normLite(x.city) === normLite(p.city) &&
+          (
+            normLite(x.name) === normLite(p.name) ||
+            normLite(p.name).includes(normLite(x.name)) ||
+            normLite(x.name).includes(normLite(p.name))
+          )
+        )
+      );
+    }
   }
 
   if (!filtered.length) {
@@ -148,23 +193,19 @@ function renderFootball(listEl, games, pubs, pubFilter, mode, sourceMap) {
     const away = esc(g.away || "");
     const league = esc(g.league || "");
     const start = esc(fmtTime(g.start));
-
-    const pubsHtml = (g.pubs || []).map(pp => {
-      const match = (pubs || []).find(p => p.name === pp.name && p.city === pp.city) || pp;
-      const prog = resolveProgramLinkForPub(match, sourceMap);
-      return `<a class="glLink" href="${prog.href}" target="_blank" rel="noopener">${esc(match.name)} (${esc(match.city)})</a>`;
-    }).join(" ");
+    const tv = getTV(g);
+    const tvHtml = tv ? ` <span class="badge">TV: ${esc(tv)}</span>` : "";
 
     return `
       <div class="item">
         <strong>${home} – ${away}</strong>
-        <div class="meta">${league} • ${start}</div>
-        <div class="meta">${pubsHtml}</div>
+        <div class="meta">${league} • ${start}${tvHtml}</div>
       </div>
     `;
   }).join("");
 }
 
+/* ---------- MAIN ---------- */
 document.addEventListener("DOMContentLoaded", async () => {
   const pubSelect = $("pubSelect");
   const pubInfo = $("pubInfo");
@@ -182,12 +223,56 @@ document.addEventListener("DOMContentLoaded", async () => {
   const fbPubFilter = $("fbPubFilter");
   const footballList = $("footballList");
 
+  const q = $("q");
+  const go = $("go");
+  const searchResults = $("searchResults");
+
   let pubs = [];
   let games = [];
   let sources = [];
   let sourceMap = new Map();
 
+  function searchAll(query, pubs, sources, games){
+    const needle = String(query || "").trim().toLowerCase();
+    if (!needle) return [];
+    const hits = [];
+
+    const add = (title, meta) => hits.push({ title, meta });
+
+    (pubs || []).forEach(p => {
+      const hay = `${p.name} ${p.city} ${(p.tags || []).join(" ")}`.toLowerCase();
+      if (hay.includes(needle)) add(`${p.name} (${p.city})`, "Pub");
+    });
+
+    (sources || []).forEach(s => {
+      const hay = `${s.name} ${s.city} ${s.details || ""}`.toLowerCase();
+      if (hay.includes(needle)) add(`${s.name} (${s.city})`, "Program");
+    });
+
+    (games || []).forEach(g => {
+      const hay = `${g.home} ${g.away} ${g.league || ""}`.toLowerCase();
+      if (hay.includes(needle)) add(`${g.home} – ${g.away}`, `Fotball • ${fmtTime(g.start)}`);
+    });
+
+    return hits;
+  }
+
+  function renderSearch(el, hits){
+    if (!el) return;
+    if (!hits.length) {
+      el.innerHTML = `<div class="item">Ingen treff.</div>`;
+      return;
+    }
+    el.innerHTML = hits.map(h => `
+      <div class="item">
+        <strong>${esc(h.title)}</strong>
+        <div class="meta">${esc(h.meta)}</div>
+      </div>
+    `).join("");
+  }
+
   try {
+    // Load pubs + sources first (needed for PROGRAM links)
     const pubsData = await loadJSON("./data/pubs.json");
     pubs = pubsData.places || [];
 
@@ -195,23 +280,21 @@ document.addEventListener("DOMContentLoaded", async () => {
     sources = srcData.sources || [];
     sourceMap = buildSourceMap(sources);
 
-    // PUB dropdown
+    // PUBS
     setSelectOptions(pubSelect, pubs, p => `${p.name} (${p.city})`);
     if (pubSelect) pubSelect.addEventListener("change", () => renderInfoBox(pubInfo, pubs[Number(pubSelect.value)], sourceMap));
 
-    // JAM dropdown (tolerant: jam/jam nights)
+    // JAM
     const jamPubs = pubs.filter(p => hasTag(p, "Jam") || hasTag(p, "Jam nights"));
     setSelectOptions(jamSelect, jamPubs, p => `${p.name} (${p.city})`);
     if (jamSelect) jamSelect.addEventListener("change", () => renderInfoBox(jamInfo, jamPubs[Number(jamSelect.value)], sourceMap));
 
-    // QUIZ dropdown (FIX: tolerant)
+    // QUIZ
     const quizPubs = pubs.filter(p => hasTag(p, "Quiz"));
-    console.log("QUIZ PUBS FOUND:", quizPubs.map(p => `${p.name} (${p.city})`)); // debug
-
     setSelectOptions(quizSelect, quizPubs, p => `${p.name} (${p.city})`);
     if (quizSelect) quizSelect.addEventListener("change", () => renderInfoBox(quizInfo, quizPubs[Number(quizSelect.value)], sourceMap));
 
-    // EVENTS sources dropdown (always PROGRAM)
+    // EVENTS SOURCES
     if (eventsSelect) {
       eventsSelect.innerHTML =
         `<option value="">Velg program …</option>` +
@@ -236,22 +319,31 @@ document.addEventListener("DOMContentLoaded", async () => {
       });
     }
 
-    // FOOTBALL
+    // FOOTBALL DATA
     const fbData = await loadJSON("./data/football.json");
     games = fbData.games || [];
 
+    // Football filters
     setPubFilterOptions(fbPubFilter, pubs);
     function refreshFootball() {
-      renderFootball(footballList, games, pubs, fbPubFilter?.value || "all", fbMode?.value || "next", sourceMap);
+      renderFootball(footballList, games, pubs, fbPubFilter?.value || "all", fbMode?.value || "next");
     }
     if (fbMode) fbMode.addEventListener("change", refreshFootball);
     if (fbPubFilter) fbPubFilter.addEventListener("change", refreshFootball);
     refreshFootball();
 
+    // SEARCH
+    function runSearch(){
+      const hits = searchAll(q?.value, pubs, sources, games);
+      renderSearch(searchResults, hits);
+    }
+    if (go) go.addEventListener("click", runSearch);
+    if (q) q.addEventListener("keydown", (e) => { if (e.key === "Enter") runSearch(); });
+
   } catch (err) {
     console.error(err);
     const msg = `❌ Feil: ${esc(err.message)}`;
-    if (quizInfo) quizInfo.innerHTML = `<div class="item">${msg}</div>`;
+    if (searchResults) searchResults.innerHTML = `<div class="item">${msg}</div>`;
     else if (pubInfo) pubInfo.innerHTML = `<div class="item">${msg}</div>`;
     else document.body.insertAdjacentHTML("afterbegin", `<div style="padding:12px;background:#300;color:#fff;font-family:system-ui">${msg}</div>`);
   }
