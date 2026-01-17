@@ -1,9 +1,11 @@
-/* Grenland Live – app.js (FULL REPARERT)
+/* Grenland Live – app.js (FULL + CLICKABLE FOOTBALL)
    - PROGRAM-link alltid
    - Smartere matching mot event_sources (tåler parentes/case/aksenter)
    - Tag-filter tolerant (Quiz/Jam)
-   - Fotball: pub-filter tolerant + tydelig beskjed hvis football.json mangler "pubs"
-   - Fotball: TV vises hvis felt tv/channel/kanal finnes
+   - Fotball:
+     * Neste 15/30 dager fungerer uansett dropdown value
+     * Kamper er klikkbare og viser detaljer (pub, tid, kanal)
+     * Pub-filter tolerant + forklaring hvis football.json mangler "pubs"
 */
 
 const MS_DAY = 24 * 60 * 60 * 1000;
@@ -121,7 +123,7 @@ function renderInfoBox(el, p, sourceMap) {
   `;
 }
 
-/* ---------- FOOTBALL (FIXED) ---------- */
+/* ---------- FOOTBALL (CLICKABLE + MODE FIX) ---------- */
 function normLite(s){
   return String(s ?? "").toLowerCase().trim().replace(/\s+/g, " ");
 }
@@ -130,20 +132,30 @@ function getTV(g){
   return String(v || "").trim();
 }
 
-function renderFootball(listEl, games, pubs, pubFilter, mode) {
+// lager en stabil id pr kamp (for accordion)
+function gameId(g, idx){
+  return `g_${idx}_${(g.home||"").toString().replace(/\W+/g,"")}_${(g.away||"").toString().replace(/\W+/g,"")}_${(g.start||"").toString().replace(/\W+/g,"")}`;
+}
+
+function renderFootball(listEl, games, pubs, pubFilter, mode, sourceMap) {
   if (!listEl) return;
 
   let filtered = (games || []).slice();
 
-  // MODE
-  if (mode === "next") filtered = filtered.filter(g => inNextDays(g.start, 30));
-  if (mode === "today") {
+  // MODE (robust): støtter "next", "next15", "next30", "15", "30", "neste15", osv.
+  const m = String(mode || "").toLowerCase().trim();
+
+  if (m === "today" || m === "i dag") {
     const now = new Date();
-    const y = now.getFullYear(), m = now.getMonth(), d = now.getDate();
+    const y = now.getFullYear(), mo = now.getMonth(), da = now.getDate();
     filtered = filtered.filter(g => {
       const dt = new Date(g.start);
-      return !isNaN(dt) && dt.getFullYear() === y && dt.getMonth() === m && dt.getDate() === d;
+      return !isNaN(dt) && dt.getFullYear() === y && dt.getMonth() === mo && dt.getDate() === da;
     });
+  } else {
+    const digits = m.match(/\d+/);
+    const days = digits ? Number(digits[0]) : ((m === "next" || m === "neste") ? 30 : null);
+    if (days) filtered = filtered.filter(g => inNextDays(g.start, days));
   }
 
   // PUB FILTER (tolerant + forklaring hvis pubs mangler)
@@ -188,21 +200,69 @@ function renderFootball(listEl, games, pubs, pubFilter, mode) {
     return;
   }
 
-  listEl.innerHTML = filtered.map(g => {
+  // Sorter på tidspunkt
+  filtered.sort((a,b)=> new Date(a.start).getTime() - new Date(b.start).getTime());
+
+  // Render clickable list
+  listEl.innerHTML = filtered.map((g, idx) => {
+    const id = gameId(g, idx);
     const home = esc(g.home || "");
     const away = esc(g.away || "");
     const league = esc(g.league || "");
     const start = esc(fmtTime(g.start));
     const tv = getTV(g);
-    const tvHtml = tv ? ` <span class="badge">TV: ${esc(tv)}</span>` : "";
+    const tvText = tv ? `TV: ${esc(tv)}` : "TV: (ukjent)";
+    const pubsArr = Array.isArray(g.pubs) ? g.pubs : [];
+
+    // Pubs list: bruk pubs.json hvis vi finner match (for website), ellers bruk navn/city fra kampen
+    const pubsHtml = pubsArr.length
+      ? `<div class="meta" style="margin-top:8px">
+           <strong>Puber som viser kampen:</strong><br/>
+           ${pubsArr.map(pp=>{
+              const full = (pubs || []).find(p => normLite(p.name) === normLite(pp.name) && normLite(p.city) === normLite(pp.city)) || pp;
+              const prog = resolveProgramLinkForPub(full, sourceMap);
+              return `<a class="glLink" href="${prog.href}" target="_blank" rel="noopener">${esc(pp.name)} (${esc(pp.city)})</a>`;
+            }).join(" ")}
+         </div>`
+      : `<div class="meta" style="margin-top:8px">Ingen puber er lagt inn på denne kampen ennå.</div>`;
 
     return `
-      <div class="item">
-        <strong>${home} – ${away}</strong>
-        <div class="meta">${league} • ${start}${tvHtml}</div>
+      <div class="item" style="cursor:pointer" data-game-id="${id}">
+        <div class="fbRow" style="display:flex;align-items:center;justify-content:space-between;gap:10px">
+          <div>
+            <strong>${home} – ${away}</strong>
+            <div class="meta">${league} • ${start}</div>
+          </div>
+          <div class="badge" aria-hidden="true">Trykk</div>
+        </div>
+
+        <div id="${id}" class="fbDetails" style="display:none;margin-top:10px">
+          <div class="meta"><strong>Tid:</strong> ${start}</div>
+          <div class="meta"><strong>Liga:</strong> ${league}</div>
+          <div class="meta"><strong>${tvText}</strong></div>
+          ${pubsHtml}
+        </div>
       </div>
     `;
   }).join("");
+
+  // Click handler: toggle details
+  listEl.querySelectorAll(".item[data-game-id]").forEach(card => {
+    card.addEventListener("click", (e) => {
+      // Ikke toggle hvis brukeren klikker på en link
+      const a = e.target.closest("a");
+      if (a) return;
+
+      const id = card.getAttribute("data-game-id");
+      const details = document.getElementById(id);
+      if (!details) return;
+
+      const isOpen = details.style.display === "block";
+      // valgfritt: lukk alle andre
+      listEl.querySelectorAll(".fbDetails").forEach(d => d.style.display = "none");
+      details.style.display = isOpen ? "none" : "block";
+    });
+  });
 }
 
 /* ---------- MAIN ---------- */
@@ -284,17 +344,17 @@ document.addEventListener("DOMContentLoaded", async () => {
     setSelectOptions(pubSelect, pubs, p => `${p.name} (${p.city})`);
     if (pubSelect) pubSelect.addEventListener("change", () => renderInfoBox(pubInfo, pubs[Number(pubSelect.value)], sourceMap));
 
-    // JAM
+    // JAM (tolerant)
     const jamPubs = pubs.filter(p => hasTag(p, "Jam") || hasTag(p, "Jam nights"));
     setSelectOptions(jamSelect, jamPubs, p => `${p.name} (${p.city})`);
     if (jamSelect) jamSelect.addEventListener("change", () => renderInfoBox(jamInfo, jamPubs[Number(jamSelect.value)], sourceMap));
 
-    // QUIZ
+    // QUIZ (tolerant)
     const quizPubs = pubs.filter(p => hasTag(p, "Quiz"));
     setSelectOptions(quizSelect, quizPubs, p => `${p.name} (${p.city})`);
     if (quizSelect) quizSelect.addEventListener("change", () => renderInfoBox(quizInfo, quizPubs[Number(quizSelect.value)], sourceMap));
 
-    // EVENTS SOURCES
+    // EVENTS SOURCES (always PROGRAM)
     if (eventsSelect) {
       eventsSelect.innerHTML =
         `<option value="">Velg program …</option>` +
@@ -325,9 +385,18 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // Football filters
     setPubFilterOptions(fbPubFilter, pubs);
+
     function refreshFootball() {
-      renderFootball(footballList, games, pubs, fbPubFilter?.value || "all", fbMode?.value || "next");
+      renderFootball(
+        footballList,
+        games,
+        pubs,
+        fbPubFilter?.value || "all",
+        fbMode?.value || "next30",
+        sourceMap
+      );
     }
+
     if (fbMode) fbMode.addEventListener("change", refreshFootball);
     if (fbPubFilter) fbPubFilter.addEventListener("change", refreshFootball);
     refreshFootball();
