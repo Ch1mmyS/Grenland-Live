@@ -3,7 +3,15 @@
     { "name": "Gimle Pub", "city": "Skien", "tags": ["Fotballvisning", "Quiz", "Jam nights", "Arrangementer"], "website": "https://www.instagram.com/gimlepub", "map": "https://www.google.com/maps?q=Gimle+Pub+Skien", "note": "" },
     { "name": "Vikinghjørnet", "city": "Skien", "tags": ["Fotballvisning", "Arrangementer"], "website": "https://www.instagram.com/vikinghjornet", "map": "https://www.google.com/maps?q=Vikinghj%C3%B8rnet+Skien", "note": "" },
 
-    { "name": "Kniven", "city": "Skien", "tags": ["Bar", "Arrangementer"], "website": "https://www.google.com/search?q=Kniven+Skien", "map": "https://www.google.com/maps?q=Kniven+Skien", "note": "" },
+    {
+  "name": "Kniven",
+  "city": "Skien",
+  "tags": ["Bar", "Arrangementer", "Quiz"],
+  "website": "https://www.google.com/search?q=Kniven+Skien",
+  "map": "https://www.google.com/maps?q=Kniven+Skien",
+  "note": ""
+}
+
     { "name": "Håndverkeren Pub", "city": "Skien", "tags": ["Pub", "Bar"], "website": "https://www.google.com/search?q=H%C3%A5ndverkeren+Pub+Skien", "map": "https://www.google.com/maps?q=H%C3%A5ndverkeren+Pub+Skien", "note": "" },
 
     { "name": "Parkbiografen Bar", "city": "Skien", "tags": ["Konserter", "Arrangementer"], "website": "https://www.parkbiografen.no/konserter-show", "map": "https://www.google.com/maps?q=Parkbiografen+Skien", "note": "" },
@@ -17,7 +25,15 @@
     { "name": "Lundetangen", "city": "Skien", "tags": ["Pub", "Arrangementer"], "website": "https://www.google.com/search?q=Lundetangen+Skien", "map": "https://www.google.com/maps?q=Lundetangen+Skien", "note": "" },
     { "name": "Mariannes", "city": "Skien", "tags": ["Bar"], "website": "https://www.google.com/search?q=Mariannes+Skien", "map": "https://www.google.com/maps?q=Mariannes+Skien", "note": "" },
     { "name": "Damslett", "city": "Skien", "tags": ["Bar"], "website": "https://www.google.com/search?q=Damslett+Skien", "map": "https://www.google.com/maps?q=Damslett+Skien", "note": "" },
-    { "name": "Union Bar", "city": "Skien", "tags": ["Bar", "Fotballvisning"], "website": "https://www.google.com/search?q=Union+Bar+Skien", "map": "https://www.google.com/maps?q=Union+Bar+Skien", "note": "" },
+    {
+  "name": "Union Bar",
+  "city": "Skien",
+  "tags": ["Bar", "Fotballvisning", "Quiz"],
+  "website": "https://www.google.com/search?q=Union+Bar+Skien",
+  "map": "https://www.google.com/maps?q=Union+Bar+Skien",
+  "note": ""
+}
+
 
     { "name": "Sykkelbryggeriet", "city": "Skien", "tags": ["Bryggeri", "Bar"], "website": "https://www.sykkelbryggeriet.no", "map": "https://www.google.com/maps?q=Sykkelbryggeriet+Skien", "note": "" },
 
@@ -33,6 +49,15 @@
     { "name": "Daimlers", "city": "Porsgrunn", "tags": ["Fotballvisning", "Pub"], "website": "https://www.google.com/search?q=Daimlers+Porsgrunn", "map": "https://www.google.com/maps?q=Daimlers+Porsgrunn", "note": "" },
     { "name": "Secret Cocktail Bar", "city": "Porsgrunn", "tags": ["Cocktailbar"], "website": "https://www.google.com/search?q=Secret+Cocktail+Bar+Porsgrunn", "map": "https://www.google.com/maps?q=Secret+Cocktail+Bar+Porsgrunn", "note": "" },
     { "name": "Heistadpub’n", "city": "Porsgrunn", "tags": ["Pub"], "website": "https://www.google.com/search?q=Heistadpub%E2%80%99n+Porsgrunn", "map": "https://www.google.com/maps?q=Heistadpub%27n+Porsgrunn", "note": "" },
-    { "name": "Jimmys", "city": "Porsgrunn", "tags": ["Fotballvisning", "Pub"], "website": "https://www.google.com/search?q=Jimmys+Porsgrunn", "map": "https://www.google.com/maps?q=Jimmys+Porsgrunn", "note": "" }
+    {
+  "name": "Jimmys",
+  "city": "Porsgrunn",
+  "tags": ["Fotballvisning", "Pub", "Quiz"],
+  "website": "https://www.google.com/search?q=Jimmys+Porsgrunn",
+  "map": "https://www.google.com/maps?q=Jimmys+Porsgrunn",
+  "note": ""
+}
+
   ]
 }
+
