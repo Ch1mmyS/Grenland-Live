@@ -29,7 +29,7 @@ function inNextDays(iso, days=30){
 
 function resolvePubLink(p, sources = []){
   const sourceMatch = sources.find(s => s.name === p.name && s.city === p.city);
-  const sourceLink = sourceMatch?.link || "";
+  const sourceLink = sourceMatch && sourceMatch.link ? sourceMatch.link : "";
   if (p.website) return { href: p.website, label: "Nettside / SoMe" };
   if (sourceLink) return { href: sourceLink, label: "Program / SoMe" };
   return {
@@ -194,8 +194,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       const s = sources[eventsSelect.value];
       if(!s){ eventsInfo.innerHTML = ""; return; }
       const pubMatch = pubs.find(p => p.name === s.name && p.city === s.city);
-      const pubWebsite = pubMatch?.website || "";
-      const pubMap = pubMatch?.map || mapLink(`${s.name} ${s.city}`);
+      const pubWebsite = pubMatch && pubMatch.website ? pubMatch.website : "";
+      const pubMap = pubMatch && pubMatch.map ? pubMatch.map : mapLink(`${s.name} ${s.city}`);
       const programLink = s.link || "";
       const programLabel = programLink ? "Åpne program" : "";
       const fallbackLabel = !programLink && pubWebsite ? "Åpne pub" : "";
