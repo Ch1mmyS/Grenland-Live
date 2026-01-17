@@ -1,7 +1,8 @@
-/* Grenland Live – app.js (AUTO-FIX LINKS + ALWAYS "PROGRAM")
-   - Alltid PROGRAM som link-tekst
-   - Smartere matching mellom pubs og event_sources (tåler parentes / case / tegn)
-   - Hvis ingen offisiell link finnes -> fallback til Google-søk (men fortsatt PROGRAM)
+/* Grenland Live – app.js (REPARERT v2)
+   Fix: Quiz-lista var for streng (case/space). Nå tåler den:
+   - "Quiz", "quiz", "QUIZ", "Quiz " osv.
+   + Alltid PROGRAM-knapp (website/source/fallback)
+   + Smartere matching mot event_sources (tåler parentes/case/aksenter)
 */
 
 const MS_DAY = 24 * 60 * 60 * 1000;
@@ -26,7 +27,6 @@ function esc(s) {
 function mapLink(q) {
   return `https://www.google.com/maps?q=${encodeURIComponent(q)}`;
 }
-
 function searchLink(q) {
   return `https://www.google.com/search?q=${encodeURIComponent(q)}`;
 }
@@ -72,33 +72,32 @@ function norm(s) {
     .replace(/\s+/g, " ")
     .replace(/[’'"]/g, "")
     .normalize("NFKD")
-    .replace(/[\u0300-\u036f]/g, ""); // fjern aksenter (é -> e)
+    .replace(/[\u0300-\u036f]/g, "");
 }
-
 function key(name, city) {
   return `${norm(name)}|${norm(city)}`;
 }
-
 function buildSourceMap(sources) {
   const m = new Map();
-  for (const s of (sources || [])) {
-    m.set(key(s.name, s.city), s);
-  }
+  for (const s of (sources || [])) m.set(key(s.name, s.city), s);
   return m;
 }
 
-// Alltid: returnerer en href + label "PROGRAM"
+/* ---------- TAG HELPERS (Fix for Quiz) ---------- */
+function hasTag(p, tag) {
+  const want = String(tag || "").trim().toLowerCase();
+  const tags = Array.isArray(p?.tags) ? p.tags : [];
+  return tags.some(t => String(t || "").trim().toLowerCase() === want);
+}
+
 function resolveProgramLinkForPub(p, sourceMap) {
-  // 1) pub.website (hvis fylt)
   const w = String(p.website || "").trim();
   if (w) return { href: w, label: "PROGRAM" };
 
-  // 2) match i sources (smart match)
   const s = sourceMap.get(key(p.name, p.city));
   const sl = s ? String(s.link || "").trim() : "";
   if (sl) return { href: sl, label: "PROGRAM" };
 
-  // 3) fallback: Google-søk (men fortsatt PROGRAM)
   return { href: searchLink(`${p.name} ${p.city}`), label: "PROGRAM" };
 }
 
@@ -124,7 +123,6 @@ function renderFootball(listEl, games, pubs, pubFilter, mode, sourceMap) {
   if (!listEl) return;
 
   let filtered = (games || []).slice();
-
   if (mode === "next") filtered = filtered.filter(g => inNextDays(g.start, 30));
   if (mode === "today") {
     const now = new Date();
@@ -167,47 +165,6 @@ function renderFootball(listEl, games, pubs, pubFilter, mode, sourceMap) {
   }).join("");
 }
 
-function searchAll(query, pubs, sources, games) {
-  const q = String(query || "").trim().toLowerCase();
-  if (!q) return [];
-  const hits = [];
-
-  function add(type, title, meta) {
-    hits.push({ type, title, meta });
-  }
-
-  (pubs || []).forEach(p => {
-    const hay = `${p.name} ${p.city} ${(p.tags || []).join(" ")}`.toLowerCase();
-    if (hay.includes(q)) add("pub", `${p.name} (${p.city})`, `Pub`);
-  });
-
-  (sources || []).forEach(s => {
-    const hay = `${s.name} ${s.city} ${s.details || ""}`.toLowerCase();
-    if (hay.includes(q)) add("program", `${s.name} (${s.city})`, `Program`);
-  });
-
-  (games || []).forEach(g => {
-    const hay = `${g.home} ${g.away} ${g.league || ""}`.toLowerCase();
-    if (hay.includes(q)) add("fotball", `${g.home} – ${g.away}`, `Fotball • ${fmtTime(g.start)}`);
-  });
-
-  return hits;
-}
-
-function renderSearch(el, hits) {
-  if (!el) return;
-  if (!hits.length) {
-    el.innerHTML = `<div class="item">Ingen treff.</div>`;
-    return;
-  }
-  el.innerHTML = hits.map(h => `
-    <div class="item">
-      <strong>${esc(h.title)}</strong>
-      <div class="meta">${esc(h.meta)}</div>
-    </div>
-  `).join("");
-}
-
 document.addEventListener("DOMContentLoaded", async () => {
   const pubSelect = $("pubSelect");
   const pubInfo = $("pubInfo");
@@ -225,10 +182,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   const fbPubFilter = $("fbPubFilter");
   const footballList = $("footballList");
 
-  const q = $("q");
-  const go = $("go");
-  const searchResults = $("searchResults");
-
   let pubs = [];
   let games = [];
   let sources = [];
@@ -242,25 +195,23 @@ document.addEventListener("DOMContentLoaded", async () => {
     sources = srcData.sources || [];
     sourceMap = buildSourceMap(sources);
 
-    // Dropdowns
+    // PUB dropdown
     setSelectOptions(pubSelect, pubs, p => `${p.name} (${p.city})`);
-    setSelectOptions(jamSelect, pubs.filter(p => (p.tags || []).includes("Jam") || (p.tags || []).includes("Jam nights")), p => `${p.name} (${p.city})`);
-    setSelectOptions(quizSelect, pubs.filter(p => (p.tags || []).includes("Quiz")), p => `${p.name} (${p.city})`);
-    setPubFilterOptions(fbPubFilter, pubs);
-
     if (pubSelect) pubSelect.addEventListener("change", () => renderInfoBox(pubInfo, pubs[Number(pubSelect.value)], sourceMap));
 
-    if (jamSelect) jamSelect.addEventListener("change", () => {
-      const jamPubs = pubs.filter(p => (p.tags || []).includes("Jam") || (p.tags || []).includes("Jam nights"));
-      renderInfoBox(jamInfo, jamPubs[Number(jamSelect.value)], sourceMap);
-    });
+    // JAM dropdown (tolerant: jam/jam nights)
+    const jamPubs = pubs.filter(p => hasTag(p, "Jam") || hasTag(p, "Jam nights"));
+    setSelectOptions(jamSelect, jamPubs, p => `${p.name} (${p.city})`);
+    if (jamSelect) jamSelect.addEventListener("change", () => renderInfoBox(jamInfo, jamPubs[Number(jamSelect.value)], sourceMap));
 
-    if (quizSelect) quizSelect.addEventListener("change", () => {
-      const quizPubs = pubs.filter(p => (p.tags || []).includes("Quiz"));
-      renderInfoBox(quizInfo, quizPubs[Number(quizSelect.value)], sourceMap);
-    });
+    // QUIZ dropdown (FIX: tolerant)
+    const quizPubs = pubs.filter(p => hasTag(p, "Quiz"));
+    console.log("QUIZ PUBS FOUND:", quizPubs.map(p => `${p.name} (${p.city})`)); // debug
 
-    // Event sources dropdown (skal også vise PROGRAM)
+    setSelectOptions(quizSelect, quizPubs, p => `${p.name} (${p.city})`);
+    if (quizSelect) quizSelect.addEventListener("change", () => renderInfoBox(quizInfo, quizPubs[Number(quizSelect.value)], sourceMap));
+
+    // EVENTS sources dropdown (always PROGRAM)
     if (eventsSelect) {
       eventsSelect.innerHTML =
         `<option value="">Velg program …</option>` +
@@ -285,36 +236,22 @@ document.addEventListener("DOMContentLoaded", async () => {
       });
     }
 
-    // Football
+    // FOOTBALL
     const fbData = await loadJSON("./data/football.json");
     games = fbData.games || [];
 
+    setPubFilterOptions(fbPubFilter, pubs);
     function refreshFootball() {
-      renderFootball(
-        footballList,
-        games,
-        pubs,
-        fbPubFilter?.value || "all",
-        fbMode?.value || "next",
-        sourceMap
-      );
+      renderFootball(footballList, games, pubs, fbPubFilter?.value || "all", fbMode?.value || "next", sourceMap);
     }
     if (fbMode) fbMode.addEventListener("change", refreshFootball);
     if (fbPubFilter) fbPubFilter.addEventListener("change", refreshFootball);
     refreshFootball();
 
-    // Search
-    function runSearch() {
-      const hits = searchAll(q?.value, pubs, sources, games);
-      renderSearch(searchResults, hits);
-    }
-    if (go) go.addEventListener("click", runSearch);
-    if (q) q.addEventListener("keydown", (e) => { if (e.key === "Enter") runSearch(); });
-
   } catch (err) {
     console.error(err);
     const msg = `❌ Feil: ${esc(err.message)}`;
-    if (searchResults) searchResults.innerHTML = `<div class="item">${msg}</div>`;
+    if (quizInfo) quizInfo.innerHTML = `<div class="item">${msg}</div>`;
     else if (pubInfo) pubInfo.innerHTML = `<div class="item">${msg}</div>`;
     else document.body.insertAdjacentHTML("afterbegin", `<div style="padding:12px;background:#300;color:#fff;font-family:system-ui">${msg}</div>`);
   }
