@@ -2,29 +2,37 @@
   "places": [
     { "name": "Gimle Pub", "city": "Skien", "tags": ["Fotballvisning", "Quiz", "Jam nights", "Arrangementer"], "website": "https://www.instagram.com/gimlepub", "map": "https://www.google.com/maps?q=Gimle+Pub+Skien", "note": "" },
     { "name": "Vikinghjørnet", "city": "Skien", "tags": ["Fotballvisning", "Arrangementer"], "website": "https://www.instagram.com/vikinghjornet", "map": "https://www.google.com/maps?q=Vikinghj%C3%B8rnet+Skien", "note": "" },
-    { "name": "Kniven", "city": "Skien", "tags": ["Bar", "Arrangementer"], "website": "", "map": "https://www.google.com/maps?q=Kniven+Skien", "note": "" },
-    { "name": "Håndverkeren Pub", "city": "Skien", "tags": ["Pub", "Bar"], "website": "", "map": "https://www.google.com/maps?q=H%C3%A5ndverkeren+Pub+Skien", "note": "" },
+
+    { "name": "Kniven", "city": "Skien", "tags": ["Bar", "Arrangementer"], "website": "https://www.google.com/search?q=Kniven+Skien", "map": "https://www.google.com/maps?q=Kniven+Skien", "note": "" },
+    { "name": "Håndverkeren Pub", "city": "Skien", "tags": ["Pub", "Bar"], "website": "https://www.google.com/search?q=H%C3%A5ndverkeren+Pub+Skien", "map": "https://www.google.com/maps?q=H%C3%A5ndverkeren+Pub+Skien", "note": "" },
+
     { "name": "Parkbiografen Bar", "city": "Skien", "tags": ["Konserter", "Arrangementer"], "website": "https://www.parkbiografen.no/konserter-show", "map": "https://www.google.com/maps?q=Parkbiografen+Skien", "note": "" },
     { "name": "O’Learys Skien", "city": "Skien", "tags": ["Fotballvisning", "Sport"], "website": "https://olearys.no/skien", "map": "https://www.google.com/maps?q=O%27Learys+Skien", "note": "" },
-    { "name": "Becks Brasserie & Bar", "city": "Skien", "tags": ["Bar", "Mat"], "website": "", "map": "https://www.google.com/maps?q=Becks+Brasserie+%26+Bar+Skien", "note": "" },
-    { "name": "Barkaden", "city": "Skien", "tags": ["Bar", "Spill"], "website": "", "map": "https://www.google.com/maps?q=Barkaden+Skien", "note": "" },
+
+    { "name": "Becks Brasserie & Bar", "city": "Skien", "tags": ["Bar", "Mat"], "website": "https://www.google.com/search?q=Becks+Brasserie+%26+Bar+Skien", "map": "https://www.google.com/maps?q=Becks+Brasserie+%26+Bar+Skien", "note": "" },
+    { "name": "Barkaden", "city": "Skien", "tags": ["Bar", "Spill"], "website": "https://www.google.com/search?q=Barkaden+Skien", "map": "https://www.google.com/maps?q=Barkaden+Skien", "note": "" },
+
     { "name": "The Old Irish Pub (Skien)", "city": "Skien", "tags": ["Pub", "Fotballvisning"], "website": "https://theoldirishpub.no/skien", "map": "https://www.google.com/maps?q=The+Old+Irish+Pub+Skien", "note": "" },
-    { "name": "Lundetangen", "city": "Skien", "tags": ["Pub", "Arrangementer"], "website": "", "map": "https://www.google.com/maps?q=Lundetangen+Skien", "note": "" },
-    { "name": "Mariannes", "city": "Skien", "tags": ["Bar"], "website": "", "map": "https://www.google.com/maps?q=Mariannes+Skien", "note": "" },
-    { "name": "Damslett", "city": "Skien", "tags": ["Bar"], "website": "", "map": "https://www.google.com/maps?q=Damslett+Skien", "note": "" },
-    { "name": "Union Bar", "city": "Skien", "tags": ["Bar", "Fotballvisning"], "website": "", "map": "https://www.google.com/maps?q=Union+Bar+Skien", "note": "" },
+
+    { "name": "Lundetangen", "city": "Skien", "tags": ["Pub", "Arrangementer"], "website": "https://www.google.com/search?q=Lundetangen+Skien", "map": "https://www.google.com/maps?q=Lundetangen+Skien", "note": "" },
+    { "name": "Mariannes", "city": "Skien", "tags": ["Bar"], "website": "https://www.google.com/search?q=Mariannes+Skien", "map": "https://www.google.com/maps?q=Mariannes+Skien", "note": "" },
+    { "name": "Damslett", "city": "Skien", "tags": ["Bar"], "website": "https://www.google.com/search?q=Damslett+Skien", "map": "https://www.google.com/maps?q=Damslett+Skien", "note": "" },
+    { "name": "Union Bar", "city": "Skien", "tags": ["Bar", "Fotballvisning"], "website": "https://www.google.com/search?q=Union+Bar+Skien", "map": "https://www.google.com/maps?q=Union+Bar+Skien", "note": "" },
+
     { "name": "Sykkelbryggeriet", "city": "Skien", "tags": ["Bryggeri", "Bar"], "website": "https://www.sykkelbryggeriet.no", "map": "https://www.google.com/maps?q=Sykkelbryggeriet+Skien", "note": "" },
-    { "name": "Lektern", "city": "Skien", "tags": ["Sommer", "Uteservering"], "website": "", "map": "https://www.google.com/maps?q=Lektern+Skien", "note": "Kun sommer" },
+
+    { "name": "Lektern", "city": "Skien", "tags": ["Sommer", "Uteservering"], "website": "https://www.google.com/search?q=Lektern+Skien", "map": "https://www.google.com/maps?q=Lektern+Skien", "note": "Kun sommer" },
 
     { "name": "Kafé K", "city": "Porsgrunn", "tags": ["Jam nights", "Konserter", "Arrangementer"], "website": "https://www.facebook.com/kafekporsgrunn", "map": "https://www.google.com/maps?q=Kaf%C3%A9+K+Porsgrunn", "note": "" },
-    { "name": "Gamle Polet", "city": "Porsgrunn", "tags": ["Bar"], "website": "", "map": "https://www.google.com/maps?q=Gamle+Polet+Porsgrunn", "note": "" },
-    { "name": "Sailors Inn", "city": "Porsgrunn", "tags": ["Pub"], "website": "", "map": "https://www.google.com/maps?q=Sailors+Inn+Porsgrunn", "note": "" },
-    { "name": "Tollboden Bar", "city": "Porsgrunn", "tags": ["Fotballvisning", "Bar"], "website": "", "map": "https://www.google.com/maps?q=Tollboden+Bar+Porsgrunn", "note": "" },
-    { "name": "Bistroen", "city": "Porsgrunn", "tags": ["Bar", "Mat"], "website": "", "map": "https://www.google.com/maps?q=Bistroen+Porsgrunn", "note": "" },
-    { "name": "Karjolen Pub", "city": "Porsgrunn", "tags": ["Pub"], "website": "", "map": "https://www.google.com/maps?q=Karjolen+Pub+Porsgrunn", "note": "" },
-    { "name": "Daimlers", "city": "Porsgrunn", "tags": ["Fotballvisning", "Pub"], "website": "", "map": "https://www.google.com/maps?q=Daimlers+Porsgrunn", "note": "" },
-    { "name": "Secret Cocktail Bar", "city": "Porsgrunn", "tags": ["Cocktailbar"], "website": "", "map": "https://www.google.com/maps?q=Secret+Cocktail+Bar+Porsgrunn", "note": "" },
-    { "name": "Heistadpub’n", "city": "Porsgrunn", "tags": ["Pub"], "website": "", "map": "https://www.google.com/maps?q=Heistadpub%27n+Porsgrunn", "note": "" },
-    { "name": "Jimmys", "city": "Porsgrunn", "tags": ["Fotballvisning", "Pub"], "website": "", "map": "https://www.google.com/maps?q=Jimmys+Porsgrunn", "note": "" }
+
+    { "name": "Gamle Polet", "city": "Porsgrunn", "tags": ["Bar"], "website": "https://www.google.com/search?q=Gamle+Polet+Porsgrunn", "map": "https://www.google.com/maps?q=Gamle+Polet+Porsgrunn", "note": "" },
+    { "name": "Sailors Inn", "city": "Porsgrunn", "tags": ["Pub"], "website": "https://www.google.com/search?q=Sailors+Inn+Porsgrunn", "map": "https://www.google.com/maps?q=Sailors+Inn+Porsgrunn", "note": "" },
+    { "name": "Tollboden Bar", "city": "Porsgrunn", "tags": ["Fotballvisning", "Bar"], "website": "https://www.google.com/search?q=Tollboden+Bar+Porsgrunn", "map": "https://www.google.com/maps?q=Tollboden+Bar+Porsgrunn", "note": "" },
+    { "name": "Bistroen", "city": "Porsgrunn", "tags": ["Bar", "Mat"], "website": "https://www.google.com/search?q=Bistroen+Porsgrunn", "map": "https://www.google.com/maps?q=Bistroen+Porsgrunn", "note": "" },
+    { "name": "Karjolen Pub", "city": "Porsgrunn", "tags": ["Pub"], "website": "https://www.google.com/search?q=Karjolen+Pub+Porsgrunn", "map": "https://www.google.com/maps?q=Karjolen+Pub+Porsgrunn", "note": "" },
+    { "name": "Daimlers", "city": "Porsgrunn", "tags": ["Fotballvisning", "Pub"], "website": "https://www.google.com/search?q=Daimlers+Porsgrunn", "map": "https://www.google.com/maps?q=Daimlers+Porsgrunn", "note": "" },
+    { "name": "Secret Cocktail Bar", "city": "Porsgrunn", "tags": ["Cocktailbar"], "website": "https://www.google.com/search?q=Secret+Cocktail+Bar+Porsgrunn", "map": "https://www.google.com/maps?q=Secret+Cocktail+Bar+Porsgrunn", "note": "" },
+    { "name": "Heistadpub’n", "city": "Porsgrunn", "tags": ["Pub"], "website": "https://www.google.com/search?q=Heistadpub%E2%80%99n+Porsgrunn", "map": "https://www.google.com/maps?q=Heistadpub%27n+Porsgrunn", "note": "" },
+    { "name": "Jimmys", "city": "Porsgrunn", "tags": ["Fotballvisning", "Pub"], "website": "https://www.google.com/search?q=Jimmys+Porsgrunn", "map": "https://www.google.com/maps?q=Jimmys+Porsgrunn", "note": "" }
   ]
 }
