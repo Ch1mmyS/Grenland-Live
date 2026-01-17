@@ -27,11 +27,25 @@ function inNextDays(iso, days=30){
   return t >= now && t <= now + days * MS_DAY;
 }
 
-function renderInfoBox(el, p){
+function resolvePubLink(p, sources = []){
+  const sourceMatch = sources.find(s => s.name === p.name && s.city === p.city);
+  const sourceLink = sourceMatch?.link || "";
+  if (p.website) return { href: p.website, label: "Nettside / SoMe" };
+  if (sourceLink) return { href: sourceLink, label: "Program / SoMe" };
+  return {
+    href: `https://www.google.com/search?q=${encodeURIComponent(p.name + " " + p.city)}`,
+    label: "Søk etter pub",
+  };
+}
+
+function renderInfoBox(el, p, sources){
   if(!p){ el.innerHTML = ""; return; }
 
   const tags = (p.tags || []).map(t => esc(t)).join(" • ");
-  const website = p.website ? `<a class="glLink" href="${p.website}" target="_blank" rel="noopener">Nettside / SoMe</a>` : "";
+  const websiteInfo = resolvePubLink(p, sources);
+  const websiteHref = websiteInfo.href;
+  const websiteLabel = websiteInfo.label;
+  const website = `<a class="glLink" href="${websiteHref}" target="_blank" rel="noopener">${websiteLabel}</a>`;
   const map = `<a class="glLink" href="${p.map || mapLink(p.name + " " + p.city)}" target="_blank" rel="noopener">Kart</a>`;
 
   el.innerHTML = `
@@ -168,9 +182,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     setSelectOptions(quizSelect, pubs.filter(p => (p.tags||[]).includes("Quiz")), p => `${p.name} (${p.city})`);
     setPubFilterOptions(fbPubFilter, pubs);
 
-    pubSelect.addEventListener("change", () => renderInfoBox(pubInfo, pubs[pubSelect.value]));
-    jamSelect.addEventListener("change", () => renderInfoBox(jamInfo, pubs.filter(p => (p.tags||[]).includes("Jam") || (p.tags||[]).includes("Jam nights"))[jamSelect.value]));
-    quizSelect.addEventListener("change", () => renderInfoBox(quizInfo, pubs.filter(p => (p.tags||[]).includes("Quiz"))[quizSelect.value]));
+    pubSelect.addEventListener("change", () => renderInfoBox(pubInfo, pubs[pubSelect.value], sources));
+    jamSelect.addEventListener("change", () => renderInfoBox(jamInfo, pubs.filter(p => (p.tags||[]).includes("Jam") || (p.tags||[]).includes("Jam nights"))[jamSelect.value], sources));
+    quizSelect.addEventListener("change", () => renderInfoBox(quizInfo, pubs.filter(p => (p.tags||[]).includes("Quiz"))[quizSelect.value], sources));
 
     // ARRANGEMENT-KILDER (programsider)
     const srcData = await loadJSON("./data/event_sources.json");
@@ -179,11 +193,26 @@ document.addEventListener("DOMContentLoaded", async () => {
     eventsSelect.addEventListener("change", () => {
       const s = sources[eventsSelect.value];
       if(!s){ eventsInfo.innerHTML = ""; return; }
+      const pubMatch = pubs.find(p => p.name === s.name && p.city === s.city);
+      const pubWebsite = pubMatch?.website || "";
+      const pubMap = pubMatch?.map || mapLink(`${s.name} ${s.city}`);
+      const programLink = s.link || "";
+      const programLabel = programLink ? "Åpne program" : "";
+      const fallbackLabel = !programLink && pubWebsite ? "Åpne pub" : "";
+      const searchHref = `https://www.google.com/search?q=${encodeURIComponent(`${s.name} ${s.city}`)}`;
+      const searchLabel = !programLink && !pubWebsite ? "Søk etter pub" : "";
+      const programHtml = programLink
+        ? `<a class="glLink" href="${programLink}" target="_blank" rel="noopener">${programLabel}</a>`
+        : (pubWebsite
+          ? `<a class="glLink" href="${pubWebsite}" target="_blank" rel="noopener">${fallbackLabel}</a>`
+          : `<a class="glLink" href="${searchHref}" target="_blank" rel="noopener">${searchLabel}</a>`);
+      const mapHtml = pubMap ? `<a class="glLink" href="${pubMap}" target="_blank" rel="noopener">Kart</a>` : "";
+
       eventsInfo.innerHTML = `
         <div class="item">
           <strong>${esc(s.name)} <span class="badge">${esc(s.city)}</span></strong>
           <div class="meta">${esc(s.details || "")}</div>
-          ${s.link ? `<a class="glLink" href="${s.link}" target="_blank" rel="noopener">Åpne program</a>` : ""}
+          ${programHtml}${mapHtml}
         </div>
       `;
     });
