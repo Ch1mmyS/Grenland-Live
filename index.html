@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Grenland Live – Sport</title>
+
   <link rel="stylesheet" href="/styles.css" />
   <link rel="manifest" href="/manifest.json" />
   <meta name="theme-color" content="#0b1220" />
@@ -17,7 +18,7 @@
           <div class="logo">GL</div>
           <div class="brandText">
             <div class="title">Grenland Live</div>
-            <div class="subtitle">Sport – kampkalender</div>
+            <div class="subtitle">Sport – full oversikt</div>
           </div>
         </div>
 
@@ -30,11 +31,12 @@
       <!-- Turnering-knapper -->
       <div class="btnrow" id="leagueButtons"></div>
 
-      <!-- 15/30 + Søk -->
+      <!-- 15 / 30 / Alle + Søk -->
       <div class="subrow">
-        <div class="seg" aria-label="Dager">
-          <button id="d15" class="segBtn active" type="button">Neste 15</button>
+        <div class="seg" aria-label="Visning">
+          <button id="d15" class="segBtn" type="button">Neste 15</button>
           <button id="d30" class="segBtn" type="button">Neste 30</button>
+          <button id="dAll" class="segBtn active" type="button">Alle</button>
         </div>
 
         <div class="search">
@@ -47,9 +49,10 @@
   <main class="main">
     <div class="wrap">
       <div class="sectionTitle" id="sectionTitle">Laster…</div>
-      <div class="grid" id="grid"></div>
-      <div id="empty" class="empty" style="display:none;"></div>
 
+      <div class="grid" id="grid"></div>
+
+      <div id="empty" class="empty" style="display:none;"></div>
       <div class="foot" id="foot"></div>
     </div>
   </main>
