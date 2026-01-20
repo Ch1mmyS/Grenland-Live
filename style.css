@@ -6,8 +6,6 @@
   --muted:rgba(11,18,32,0.68);
   --line:rgba(11,18,32,0.10);
   --shadow: 0 10px 30px rgba(12,18,32,0.10);
-  --radius:16px;
-  --radius2:22px;
   --btn:#0b1220;
   --btnText:#ffffff;
   --chip:#eef2ff;
@@ -91,7 +89,7 @@ body{
   padding:10px 12px;
   border-radius:999px;
   cursor:pointer;
-  font-weight:800;
+  font-weight:900;
   font-size:13px;
   transition: transform .05s ease, background .15s ease, border-color .15s ease;
   user-select:none;
@@ -126,7 +124,7 @@ body{
   padding:8px 12px;
   border-radius:999px;
   cursor:pointer;
-  font-weight:900;
+  font-weight:1000;
   font-size:13px;
   color:var(--text);
 }
@@ -192,7 +190,7 @@ body{
   margin-top:8px;
   color:var(--muted);
   font-size:13px;
-  font-weight:800;
+  font-weight:900;
 }
 .meta{
   display:flex;
@@ -220,14 +218,14 @@ body{
   border-radius: 22px;
   background: rgba(255,255,255,0.6);
   color:var(--muted);
-  font-weight:900;
+  font-weight:1000;
 }
 
 .foot{
   margin-top:10px;
   color:var(--muted);
   font-size:12px;
-  font-weight:800;
+  font-weight:900;
 }
 
 /* Modal */
@@ -281,14 +279,14 @@ body{
   display:flex;
   gap:10px;
   flex-wrap:wrap;
-  align-items:center;
+  align-items:flex-start;
   padding:10px 12px;
   border:1px solid var(--line);
   border-radius:16px;
   background:#fff;
 }
 .k{ font-weight:1000; color:var(--muted); width:120px; }
-.v{ font-weight:900; }
+.v{ font-weight:900; flex:1; }
 .v ul{ margin:0; padding-left:18px; }
 
 @media (min-width: 780px){
