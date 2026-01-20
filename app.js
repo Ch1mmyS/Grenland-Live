@@ -1,419 +1,379 @@
-/* Grenland Live – app.js (FULL + CLICKABLE FOOTBALL)
-   - PROGRAM-link alltid
-   - Smartere matching mot event_sources (tåler parentes/case/aksenter)
-   - Tag-filter tolerant (Quiz/Jam)
-   - Fotball:
-     * Neste 15/30 dager fungerer uansett dropdown value
-     * Kamper er klikkbare og viser detaljer (pub, tid, kanal)
-     * Pub-filter tolerant + forklaring hvis football.json mangler "pubs"
-*/
+// Grenland Live – Sport app
+const TZ = "Europe/Oslo";
 
-const MS_DAY = 24 * 60 * 60 * 1000;
+// ✅ EN TURNERING = EN FIL (slik du har gjort)
+// Hvis du har andre filnavn, bytt kun "file".
+const LEAGUES = [
+  { id:"eliteserien", label:"Eliteserien", type:"football", file:"/data/eliteserien.json" },
+  { id:"obos", label:"OBOS-ligaen", type:"football", file:"/data/obos.json" },
+  { id:"premier", label:"Premier League", type:"football", file:"/data/premier_league.json" },
+  { id:"champions", label:"Champions League", type:"football", file:"/data/champions.json" },
+  { id:"laliga", label:"La Liga", type:"football", file:"/data/laliga.json" },
 
-async function loadJSON(path) {
-  const url = new URL(path, window.location.href);
-  const res = await fetch(url.toString(), { cache: "no-store" });
-  if (!res.ok) throw new Error(`Kunne ikke laste ${path} (${res.status})`);
-  return await res.json();
+  { id:"handM", label:"Håndball VM (M)", type:"handball", file:"/data/handball_vm_2026_menn.json" },
+  { id:"handK", label:"Håndball VM (K)", type:"handball", file:"/data/handball_vm_2026_damer.json" },
+
+  { id:"winter", label:"Vintersport", type:"wintersport", file:"/data/vintersport.json" },
+
+  { id:"vm2026", label:"VM 2026 ⚽", type:"vm", file:"/data/vm2026.json" },
+];
+
+// Default
+let activeId = "eliteserien";
+let daysAhead = 15;
+let query = "";
+
+// Cache
+const cache = new Map();
+
+// DOM
+const leagueButtons = document.getElementById("leagueButtons");
+const sectionTitle = document.getElementById("sectionTitle");
+const grid = document.getElementById("grid");
+const empty = document.getElementById("empty");
+const foot = document.getElementById("foot");
+const qInput = document.getElementById("q");
+const d15 = document.getElementById("d15");
+const d30 = document.getElementById("d30");
+
+// Modal DOM
+const modalBack = document.getElementById("modalBack");
+const mTitle = document.getElementById("mTitle");
+const mBody = document.getElementById("mBody");
+const mClose = document.getElementById("mClose");
+
+// ----------------------------
+// Nettstatus
+// ----------------------------
+function setNetStatus(){
+  const el = document.getElementById("netStatus");
+  const txt = document.getElementById("netTxt");
+  const online = navigator.onLine;
+  el.classList.toggle("online", online);
+  el.classList.toggle("offline", !online);
+  txt.textContent = online ? "Online" : "Offline";
 }
+window.addEventListener("online", setNetStatus);
+window.addEventListener("offline", setNetStatus);
 
-function esc(s) {
-  return String(s ?? "").replace(/[&<>"']/g, (m) => ({
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    "\"": "&quot;",
-    "'": "&#39;",
-  }[m]));
-}
+// ----------------------------
+// Utils
+// ----------------------------
+function norm(s){ return (s || "").toString().toLowerCase().trim(); }
 
-function mapLink(q) {
-  return `https://www.google.com/maps?q=${encodeURIComponent(q)}`;
-}
-function searchLink(q) {
-  return `https://www.google.com/search?q=${encodeURIComponent(q)}`;
-}
-
-function fmtTime(iso) {
+function fmtOslo(iso){
   const d = new Date(iso);
-  if (isNaN(d)) return String(iso ?? "");
+  if (Number.isNaN(d.getTime())) return "Ugyldig dato";
   return d.toLocaleString("no-NO", {
-    year: "numeric", month: "2-digit", day: "2-digit",
-    hour: "2-digit", minute: "2-digit"
+    timeZone: TZ,
+    weekday:"short",
+    year:"numeric",
+    month:"2-digit",
+    day:"2-digit",
+    hour:"2-digit",
+    minute:"2-digit"
   });
 }
 
-function inNextDays(iso, days = 30) {
+function inNextDays(iso, days){
   const t = new Date(iso).getTime();
-  if (isNaN(t)) return false;
+  if (Number.isNaN(t)) return false;
   const now = Date.now();
-  return t >= now && t <= now + days * MS_DAY;
+  const ms = days * 24 * 60 * 60 * 1000;
+  return t >= (now - 5*60*1000) && t <= (now + ms);
 }
 
-function $(id) { return document.getElementById(id) || null; }
-
-function setSelectOptions(select, items, labelFn) {
-  if (!select) return;
-  select.innerHTML =
-    `<option value="">Velg …</option>` +
-    items.map((it, i) => `<option value="${i}">${esc(labelFn(it))}</option>`).join("");
+async function loadJson(file){
+  if (cache.has(file)) return cache.get(file);
+  const res = await fetch(file, { cache:"no-store" });
+  if (!res.ok) throw new Error(`Kunne ikke laste ${file}`);
+  const json = await res.json();
+  cache.set(file, json);
+  return json;
 }
 
-function setPubFilterOptions(select, pubs) {
-  if (!select) return;
-  select.innerHTML =
-    `<option value="all">Alle puber</option>` +
-    pubs.map((p, i) => `<option value="${i}">${esc(p.name)} (${esc(p.city)})</option>`).join("");
-}
+// ----------------------------
+// Modal
+// ----------------------------
+function openModal(title, rows){
+  mTitle.textContent = title;
+  mBody.innerHTML = "";
 
-/* ---------- SMART MATCHING (Pubs <-> Event sources) ---------- */
-function norm(s) {
-  return String(s ?? "")
-    .toLowerCase()
-    .trim()
-    .replace(/\([^)]*\)/g, "")        // fjern ( ... )
-    .replace(/\s+/g, " ")
-    .replace(/[’'"]/g, "")
-    .normalize("NFKD")
-    .replace(/[\u0300-\u036f]/g, ""); // fjern aksenter
-}
-function key(name, city) {
-  return `${norm(name)}|${norm(city)}`;
-}
-function buildSourceMap(sources) {
-  const m = new Map();
-  for (const s of (sources || [])) m.set(key(s.name, s.city), s);
-  return m;
-}
+  for (const r of rows){
+    const box = document.createElement("div");
+    box.className = "kv";
 
-/* ---------- TAG HELPERS (tolerant) ---------- */
-function hasTag(p, tag) {
-  const want = String(tag || "").trim().toLowerCase();
-  const tags = Array.isArray(p?.tags) ? p.tags : [];
-  return tags.some(t => String(t || "").trim().toLowerCase() === want);
-}
+    const k = document.createElement("div");
+    k.className = "k";
+    k.textContent = r.k;
 
-/* ---------- PROGRAM LINK (always) ---------- */
-function resolveProgramLinkForPub(p, sourceMap) {
-  const w = String(p.website || "").trim();
-  if (w) return { href: w, label: "PROGRAM" };
+    const v = document.createElement("div");
+    v.className = "v";
 
-  const s = sourceMap.get(key(p.name, p.city));
-  const sl = s ? String(s.link || "").trim() : "";
-  if (sl) return { href: sl, label: "PROGRAM" };
-
-  return { href: searchLink(`${p.name} ${p.city}`), label: "PROGRAM" };
-}
-
-function renderInfoBox(el, p, sourceMap) {
-  if (!el) return;
-  if (!p) { el.innerHTML = ""; return; }
-
-  const tags = (p.tags || []).map(t => esc(t)).join(" • ");
-  const prog = resolveProgramLinkForPub(p, sourceMap);
-  const program = `<a class="glLink" href="${prog.href}" target="_blank" rel="noopener">${prog.label}</a>`;
-  const map = `<a class="glLink" href="${p.map || mapLink(p.name + " " + p.city)}" target="_blank" rel="noopener">Kart</a>`;
-
-  el.innerHTML = `
-    <div class="item">
-      <strong>${esc(p.name)} <span class="badge">${esc(p.city)}</span></strong>
-      <div class="meta">${tags}</div>
-      ${program}${map}
-    </div>
-  `;
-}
-
-/* ---------- FOOTBALL (CLICKABLE + MODE FIX) ---------- */
-function normLite(s){
-  return String(s ?? "").toLowerCase().trim().replace(/\s+/g, " ");
-}
-function getTV(g){
-  const v = g.tv ?? g.channel ?? g.kanal ?? "";
-  return String(v || "").trim();
-}
-
-// lager en stabil id pr kamp (for accordion)
-function gameId(g, idx){
-  return `g_${idx}_${(g.home||"").toString().replace(/\W+/g,"")}_${(g.away||"").toString().replace(/\W+/g,"")}_${(g.start||"").toString().replace(/\W+/g,"")}`;
-}
-
-function renderFootball(listEl, games, pubs, pubFilter, mode, sourceMap) {
-  if (!listEl) return;
-
-  let filtered = (games || []).slice();
-
-  // MODE (robust): støtter "next", "next15", "next30", "15", "30", "neste15", osv.
-  const m = String(mode || "").toLowerCase().trim();
-
-  if (m === "today" || m === "i dag") {
-    const now = new Date();
-    const y = now.getFullYear(), mo = now.getMonth(), da = now.getDate();
-    filtered = filtered.filter(g => {
-      const dt = new Date(g.start);
-      return !isNaN(dt) && dt.getFullYear() === y && dt.getMonth() === mo && dt.getDate() === da;
-    });
-  } else {
-    const digits = m.match(/\d+/);
-    const days = digits ? Number(digits[0]) : ((m === "next" || m === "neste") ? 30 : null);
-    if (days) filtered = filtered.filter(g => inNextDays(g.start, days));
-  }
-
-  // PUB FILTER (tolerant + forklaring hvis pubs mangler)
-  if (pubFilter && pubFilter !== "all") {
-    const p = pubs?.[Number(pubFilter)];
-    if (p) {
-      const anyHasPubs = filtered.some(g => Array.isArray(g.pubs) && g.pubs.length);
-
-      if (!anyHasPubs) {
-        listEl.innerHTML = `
-          <div class="item">
-            <strong>Ingen pub-filter mulig ennå</strong>
-            <div class="meta">
-              Kampene i <code>data/football.json</code> har ikke <code>"pubs"</code>-felt,
-              så appen vet ikke hvilke puber som viser hvilke kamper.
-            </div>
-            <div class="meta">
-              Legg inn f.eks:
-              <code>"pubs": [{"name":"Gimle Pub","city":"Skien"}]</code>
-              på kampene som vises på Gimle.
-            </div>
-          </div>
-        `;
-        return;
+    if (r.type === "list"){
+      const ul = document.createElement("ul");
+      for (const it of (r.items || [])){
+        const li = document.createElement("li");
+        li.textContent = it;
+        ul.appendChild(li);
       }
-
-      filtered = filtered.filter(g =>
-        (g.pubs || []).some(x =>
-          normLite(x.city) === normLite(p.city) &&
-          (
-            normLite(x.name) === normLite(p.name) ||
-            normLite(p.name).includes(normLite(x.name)) ||
-            normLite(x.name).includes(normLite(p.name))
-          )
-        )
-      );
+      v.appendChild(ul);
+    } else {
+      v.textContent = r.v ?? "";
     }
+
+    box.appendChild(k);
+    box.appendChild(v);
+    mBody.appendChild(box);
   }
 
-  if (!filtered.length) {
-    listEl.innerHTML = `<div class="item">Ingen kamper å vise.</div>`;
-    return;
-  }
-
-  // Sorter på tidspunkt
-  filtered.sort((a,b)=> new Date(a.start).getTime() - new Date(b.start).getTime());
-
-  // Render clickable list
-  listEl.innerHTML = filtered.map((g, idx) => {
-    const id = gameId(g, idx);
-    const home = esc(g.home || "");
-    const away = esc(g.away || "");
-    const league = esc(g.league || "");
-    const start = esc(fmtTime(g.start));
-    const tv = getTV(g);
-    const tvText = tv ? `TV: ${esc(tv)}` : "TV: (ukjent)";
-    const pubsArr = Array.isArray(g.pubs) ? g.pubs : [];
-
-    // Pubs list: bruk pubs.json hvis vi finner match (for website), ellers bruk navn/city fra kampen
-    const pubsHtml = pubsArr.length
-      ? `<div class="meta" style="margin-top:8px">
-           <strong>Puber som viser kampen:</strong><br/>
-           ${pubsArr.map(pp=>{
-              const full = (pubs || []).find(p => normLite(p.name) === normLite(pp.name) && normLite(p.city) === normLite(pp.city)) || pp;
-              const prog = resolveProgramLinkForPub(full, sourceMap);
-              return `<a class="glLink" href="${prog.href}" target="_blank" rel="noopener">${esc(pp.name)} (${esc(pp.city)})</a>`;
-            }).join(" ")}
-         </div>`
-      : `<div class="meta" style="margin-top:8px">Ingen puber er lagt inn på denne kampen ennå.</div>`;
-
-    return `
-      <div class="item" style="cursor:pointer" data-game-id="${id}">
-        <div class="fbRow" style="display:flex;align-items:center;justify-content:space-between;gap:10px">
-          <div>
-            <strong>${home} – ${away}</strong>
-            <div class="meta">${league} • ${start}</div>
-          </div>
-          <div class="badge" aria-hidden="true">Trykk</div>
-        </div>
-
-        <div id="${id}" class="fbDetails" style="display:none;margin-top:10px">
-          <div class="meta"><strong>Tid:</strong> ${start}</div>
-          <div class="meta"><strong>Liga:</strong> ${league}</div>
-          <div class="meta"><strong>${tvText}</strong></div>
-          ${pubsHtml}
-        </div>
-      </div>
-    `;
-  }).join("");
-
-  // Click handler: toggle details
-  listEl.querySelectorAll(".item[data-game-id]").forEach(card => {
-    card.addEventListener("click", (e) => {
-      // Ikke toggle hvis brukeren klikker på en link
-      const a = e.target.closest("a");
-      if (a) return;
-
-      const id = card.getAttribute("data-game-id");
-      const details = document.getElementById(id);
-      if (!details) return;
-
-      const isOpen = details.style.display === "block";
-      // valgfritt: lukk alle andre
-      listEl.querySelectorAll(".fbDetails").forEach(d => d.style.display = "none");
-      details.style.display = isOpen ? "none" : "block";
-    });
-  });
+  modalBack.classList.add("show");
+  modalBack.setAttribute("aria-hidden", "false");
 }
 
-/* ---------- MAIN ---------- */
-document.addEventListener("DOMContentLoaded", async () => {
-  const pubSelect = $("pubSelect");
-  const pubInfo = $("pubInfo");
+function closeModal(){
+  modalBack.classList.remove("show");
+  modalBack.setAttribute("aria-hidden", "true");
+}
 
-  const jamSelect = $("jamSelect");
-  const jamInfo = $("jamInfo");
+modalBack.addEventListener("click", (e) => {
+  if (e.target === modalBack) closeModal();
+});
+mClose.addEventListener("click", closeModal);
+window.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") closeModal();
+});
 
-  const quizSelect = $("quizSelect");
-  const quizInfo = $("quizInfo");
-
-  const eventsSelect = $("eventsSelect");
-  const eventsInfo = $("eventsInfo");
-
-  const fbMode = $("fbMode");
-  const fbPubFilter = $("fbPubFilter");
-  const footballList = $("footballList");
-
-  const q = $("q");
-  const go = $("go");
-  const searchResults = $("searchResults");
-
-  let pubs = [];
-  let games = [];
-  let sources = [];
-  let sourceMap = new Map();
-
-  function searchAll(query, pubs, sources, games){
-    const needle = String(query || "").trim().toLowerCase();
-    if (!needle) return [];
-    const hits = [];
-
-    const add = (title, meta) => hits.push({ title, meta });
-
-    (pubs || []).forEach(p => {
-      const hay = `${p.name} ${p.city} ${(p.tags || []).join(" ")}`.toLowerCase();
-      if (hay.includes(needle)) add(`${p.name} (${p.city})`, "Pub");
+// ----------------------------
+// UI: knapper
+// ----------------------------
+function renderButtons(){
+  leagueButtons.innerHTML = "";
+  for (const l of LEAGUES){
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "btn" + (l.id === activeId ? " active" : "");
+    b.textContent = l.label;
+    b.addEventListener("click", () => {
+      activeId = l.id;
+      renderButtons();
+      render();
     });
-
-    (sources || []).forEach(s => {
-      const hay = `${s.name} ${s.city} ${s.details || ""}`.toLowerCase();
-      if (hay.includes(needle)) add(`${s.name} (${s.city})`, "Program");
-    });
-
-    (games || []).forEach(g => {
-      const hay = `${g.home} ${g.away} ${g.league || ""}`.toLowerCase();
-      if (hay.includes(needle)) add(`${g.home} – ${g.away}`, `Fotball • ${fmtTime(g.start)}`);
-    });
-
-    return hits;
+    leagueButtons.appendChild(b);
   }
+}
 
-  function renderSearch(el, hits){
-    if (!el) return;
-    if (!hits.length) {
-      el.innerHTML = `<div class="item">Ingen treff.</div>`;
+function setDayButtons(){
+  d15.classList.toggle("active", daysAhead === 15);
+  d30.classList.toggle("active", daysAhead === 30);
+}
+
+// ----------------------------
+// Normaliser dataformat
+// Du kan ha litt ulike keys i JSON.
+// Her støtter vi:
+//  - football/handball: { games: [...] } ELLER [ ... ]
+//  - wintersport: { events: [...] } ELLER [ ... ]
+//  - vm: { matches: [...] } ELLER [ ... ]
+// ----------------------------
+function asArray(obj, keys){
+  if (Array.isArray(obj)) return obj;
+  for (const k of keys){
+    if (obj && Array.isArray(obj[k])) return obj[k];
+  }
+  return [];
+}
+
+// ----------------------------
+// Render
+// ----------------------------
+async function render(){
+  setNetStatus();
+  setDayButtons();
+
+  const league = LEAGUES.find(x => x.id === activeId) || LEAGUES[0];
+  sectionTitle.textContent = `${league.label} – neste ${daysAhead} dager`;
+  grid.innerHTML = "";
+  empty.style.display = "none";
+  empty.textContent = "";
+  foot.textContent = "";
+
+  try{
+    const data = await loadJson(league.file);
+    let items = [];
+
+    // FOOTBALL / HANDBALL
+    if (league.type === "football" || league.type === "handball"){
+      const games = asArray(data, ["games", "matches"]);
+      items = games
+        .filter(g => inNextDays(g.kickoff || g.start || g.time, daysAhead))
+        .filter(g => {
+          if (!query) return true;
+          const s = norm(`${g.home||""} ${g.away||""} ${g.league||""} ${g.channel||""} ${(g.where||[]).join(" ")} ${g.city||""}`);
+          return s.includes(query);
+        })
+        .sort((a,b) => new Date((a.kickoff||a.start||a.time)) - new Date((b.kickoff||b.start||b.time)))
+        .map(g => ({
+          kind: league.type,
+          title: `${g.home || "TBA"} – ${g.away || "TBA"}`,
+          when: g.kickoff || g.start || g.time,
+          league: g.league || league.label,
+          channel: g.channel || "Ukjent kanal",
+          city: g.city || "",
+          where: Array.isArray(g.where) ? g.where : []
+        }));
+    }
+
+    // WINTERSPORT
+    if (league.type === "wintersport"){
+      const events = asArray(data, ["events", "items"]);
+      items = events
+        .filter(e => inNextDays(e.start || e.time, daysAhead))
+        .filter(e => {
+          if (!query) return true;
+          const s = norm(`${e.sport||""} ${e.event||""} ${e.location||""} ${e.channel||""} ${e.gender||""}`);
+          return s.includes(query);
+        })
+        .sort((a,b) => new Date((a.start||a.time)) - new Date((b.start||b.time)))
+        .map(e => ({
+          kind: "wintersport",
+          title: `${e.sport || "Vintersport"} – ${e.event || "Event"}`,
+          when: e.start || e.time,
+          channel: e.channel || "Ukjent kanal",
+          gender: e.gender || "",
+          location: e.location || ""
+        }));
+    }
+
+    // VM 2026
+    if (league.type === "vm"){
+      const matches = asArray(data, ["matches", "games"]);
+      // Mange vil se hele VM, ikke bare 15/30:
+      // Sett VM til 365 dager automatisk:
+      const vmDays = 365;
+
+      items = matches
+        .filter(m => inNextDays(m.kickoff || m.start || m.time, vmDays))
+        .filter(m => {
+          if (!query) return true;
+          const s = norm(`${m.group||""} ${m.home||""} ${m.away||""} ${m.city||""} ${m.stadium||""} ${m.channel||""}`);
+          return s.includes(query);
+        })
+        .sort((a,b) => new Date((a.kickoff||a.start||a.time)) - new Date((b.kickoff||b.start||b.time)))
+        .map(m => ({
+          kind: "vm",
+          title: `${m.home || "TBA"} – ${m.away || "TBA"}`,
+          when: m.kickoff || m.start || m.time,
+          group: m.group || "",
+          stadium: m.stadium || "",
+          city: m.city || "",
+          channel: m.channel || "Ukjent kanal"
+        }));
+
+      sectionTitle.textContent = `${league.label} – kalender (norsk tid)`;
+    }
+
+    if (items.length === 0){
+      empty.style.display = "block";
+      empty.textContent = "Ingen treff i valgt periode.";
+      foot.textContent = "Tips: Bytt til Neste 30 eller søk på lag/sted.";
       return;
     }
-    el.innerHTML = hits.map(h => `
-      <div class="item">
-        <strong>${esc(h.title)}</strong>
-        <div class="meta">${esc(h.meta)}</div>
-      </div>
-    `).join("");
-  }
 
-  try {
-    // Load pubs + sources first (needed for PROGRAM links)
-    const pubsData = await loadJSON("./data/pubs.json");
-    pubs = pubsData.places || [];
+    for (const it of items){
+      const card = document.createElement("div");
+      card.className = "card";
 
-    const srcData = await loadJSON("./data/event_sources.json");
-    sources = srcData.sources || [];
-    sourceMap = buildSourceMap(sources);
+      const row1 = document.createElement("div");
+      row1.className = "row1";
 
-    // PUBS
-    setSelectOptions(pubSelect, pubs, p => `${p.name} (${p.city})`);
-    if (pubSelect) pubSelect.addEventListener("change", () => renderInfoBox(pubInfo, pubs[Number(pubSelect.value)], sourceMap));
+      const left = document.createElement("div");
+      const match = document.createElement("div");
+      match.className = "match";
+      match.textContent = it.title;
 
-    // JAM (tolerant)
-    const jamPubs = pubs.filter(p => hasTag(p, "Jam") || hasTag(p, "Jam nights"));
-    setSelectOptions(jamSelect, jamPubs, p => `${p.name} (${p.city})`);
-    if (jamSelect) jamSelect.addEventListener("change", () => renderInfoBox(jamInfo, jamPubs[Number(jamSelect.value)], sourceMap));
+      const time = document.createElement("div");
+      time.className = "time";
+      time.textContent = fmtOslo(it.when);
 
-    // QUIZ (tolerant)
-    const quizPubs = pubs.filter(p => hasTag(p, "Quiz"));
-    setSelectOptions(quizSelect, quizPubs, p => `${p.name} (${p.city})`);
-    if (quizSelect) quizSelect.addEventListener("change", () => renderInfoBox(quizInfo, quizPubs[Number(quizSelect.value)], sourceMap));
+      left.appendChild(match);
+      left.appendChild(time);
 
-    // EVENTS SOURCES (always PROGRAM)
-    if (eventsSelect) {
-      eventsSelect.innerHTML =
-        `<option value="">Velg program …</option>` +
-        sources.map((s, i) => `<option value="${i}">${esc(s.name)} (${esc(s.city)})</option>`).join("");
+      const meta = document.createElement("div");
+      meta.className = "meta";
 
-      eventsSelect.addEventListener("change", () => {
-        const s = sources[Number(eventsSelect.value)];
-        if (!eventsInfo) return;
-        if (!s) { eventsInfo.innerHTML = ""; return; }
+      const pill1 = document.createElement("span");
+      pill1.className = "pill soft";
+      pill1.textContent =
+        it.kind === "vm" ? (it.group ? `Gruppe ${it.group}` : "VM") :
+        it.kind === "wintersport" ? (it.gender || "Event") :
+        "Kamp";
 
-        const href = String(s.link || "").trim() || searchLink(`${s.name} ${s.city}`);
-        const mapHref = mapLink(`${s.name} ${s.city}`);
+      const pill2 = document.createElement("span");
+      pill2.className = "pill";
+      pill2.textContent = it.channel;
 
-        eventsInfo.innerHTML = `
-          <div class="item">
-            <strong>${esc(s.name)} <span class="badge">${esc(s.city)}</span></strong>
-            <div class="meta">${esc(s.details || "")}</div>
-            <a class="glLink" href="${href}" target="_blank" rel="noopener">PROGRAM</a>
-            <a class="glLink" href="${mapHref}" target="_blank" rel="noopener">Kart</a>
-          </div>
-        `;
+      meta.appendChild(pill1);
+      meta.appendChild(pill2);
+
+      row1.appendChild(left);
+      row1.appendChild(meta);
+      card.appendChild(row1);
+
+      card.addEventListener("click", () => {
+        if (it.kind === "football" || it.kind === "handball"){
+          openModal(it.title, [
+            { k:"Dato", v: fmtOslo(it.when) },
+            { k:"Liga", v: it.league },
+            { k:"Kanal", v: it.channel },
+            ...(it.city ? [{ k:"By", v: it.city }] : []),
+            { k:"Vises på", type:"list", items: (it.where && it.where.length) ? it.where : ["Ingen puber lagt inn ennå"] }
+          ]);
+        }
+
+        if (it.kind === "wintersport"){
+          openModal(it.title, [
+            { k:"Dato", v: fmtOslo(it.when) },
+            { k:"Sted", v: it.location || "Ukjent" },
+            { k:"Kategori", v: it.gender || "Ukjent" },
+            { k:"Kanal", v: it.channel }
+          ]);
+        }
+
+        if (it.kind === "vm"){
+          openModal(it.title, [
+            { k:"Dato", v: fmtOslo(it.when) },
+            { k:"Gruppe", v: it.group || "Ukjent" },
+            { k:"By", v: it.city || "Ukjent" },
+            { k:"Stadion", v: it.stadium || "Ukjent" },
+            { k:"Kanal", v: it.channel }
+          ]);
+        }
       });
+
+      grid.appendChild(card);
     }
 
-    // FOOTBALL DATA
-    const fbData = await loadJSON("./data/football.json");
-    games = fbData.games || [];
+    // ✅ Denne erstatter den teksten du ville fjerne (ingen “Velg visning …”)
+    foot.textContent = "Alle tider vises i norsk tid (Europe/Oslo). Klikk på en kamp for kanal og puber.";
 
-    // Football filters
-    setPubFilterOptions(fbPubFilter, pubs);
-
-    function refreshFootball() {
-      renderFootball(
-        footballList,
-        games,
-        pubs,
-        fbPubFilter?.value || "all",
-        fbMode?.value || "next30",
-        sourceMap
-      );
-    }
-
-    if (fbMode) fbMode.addEventListener("change", refreshFootball);
-    if (fbPubFilter) fbPubFilter.addEventListener("change", refreshFootball);
-    refreshFootball();
-
-    // SEARCH
-    function runSearch(){
-      const hits = searchAll(q?.value, pubs, sources, games);
-      renderSearch(searchResults, hits);
-    }
-    if (go) go.addEventListener("click", runSearch);
-    if (q) q.addEventListener("keydown", (e) => { if (e.key === "Enter") runSearch(); });
-
-  } catch (err) {
-    console.error(err);
-    const msg = `❌ Feil: ${esc(err.message)}`;
-    if (searchResults) searchResults.innerHTML = `<div class="item">${msg}</div>`;
-    else if (pubInfo) pubInfo.innerHTML = `<div class="item">${msg}</div>`;
-    else document.body.insertAdjacentHTML("afterbegin", `<div style="padding:12px;background:#300;color:#fff;font-family:system-ui">${msg}</div>`);
+  } catch (err){
+    empty.style.display = "block";
+    empty.textContent = "Feil: " + (err?.message || "Ukjent feil");
+    foot.textContent = "Sjekk at filnavnene i /data/ stemmer med det som står i app.js.";
   }
+}
+
+// Events
+d15.addEventListener("click", () => { daysAhead = 15; render(); });
+d30.addEventListener("click", () => { daysAhead = 30; render(); });
+
+qInput.addEventListener("input", (e) => {
+  query = norm(e.target.value);
+  render();
 });
+
+// Start
+renderButtons();
+setNetStatus();
+render();
