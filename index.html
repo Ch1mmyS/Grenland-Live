@@ -4,21 +4,17 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Grenland Live – Sport</title>
-
   <link rel="stylesheet" href="/styles.css" />
-  <link rel="manifest" href="/manifest.json" />
-  <meta name="theme-color" content="#0b1220" />
 </head>
-
 <body>
   <header class="header">
     <div class="wrap">
       <div class="toprow">
         <div class="brand">
           <div class="logo">GL</div>
-          <div class="brandText">
+          <div>
             <div class="title">Grenland Live</div>
-            <div class="subtitle">Sport – alle kamper (til 31.12.2026)</div>
+            <div class="subtitle" id="rangeSubtitle">Viser fra i dag → 31.12.2026 (norsk tid)</div>
           </div>
         </div>
 
@@ -28,14 +24,11 @@
         </div>
       </div>
 
-      <!-- 1 knapp per liga/sport -->
       <div class="btnrow" id="leagueButtons"></div>
 
-      <!-- Søk -->
       <div class="subrow">
-        <div class="hint" id="rangeHint">Viser alt fra i dag → 31.12.2026 (norsk tid)</div>
         <div class="search">
-          <input id="q" type="search" placeholder="Søk (lag, sted, event, kanal)..." autocomplete="off" />
+          <input id="q" type="search" placeholder="Søk (lag, sted, event)..." autocomplete="off" />
         </div>
       </div>
     </div>
@@ -50,7 +43,6 @@
     </div>
   </main>
 
-  <!-- Modal / detaljvisning -->
   <div id="modalBack" class="modalBack" role="dialog" aria-modal="true" aria-hidden="true">
     <div class="modal">
       <div class="modalHead">
@@ -62,10 +54,5 @@
   </div>
 
   <script src="/app.js"></script>
-  <script>
-    if ("serviceWorker" in navigator) {
-      window.addEventListener("load", () => navigator.serviceWorker.register("/sw.js"));
-    }
-  </script>
 </body>
 </html>
