@@ -1,0 +1,11 @@
+{
+  "games": [
+    {
+      "home": "Odd",
+      "away": "Brann",
+      "kickoff": "2026-04-12T18:00:00+02:00",
+      "channel": "TV 2 / TV 2 Play",
+      "where": ["Gimle Pub", "Union Bar"]
+    }
+  ]
+}
