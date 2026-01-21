@@ -1,37 +1,77 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="no">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Grenland Live</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Grenland Live – Sport</title>
 
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="manifest" href="manifest.json" />
-
-  <meta name="theme-color" content="#0b1220" />
+  <link rel="stylesheet" href="styles.css?v=20260122">
 </head>
 <body>
+  <div class="wrap">
+    <header class="top">
+      <div class="brand">
+        <div class="logo">GL</div>
+        <div>
+          <h1>Grenland Live</h1>
+          <div class="sub">Kamper & events – full oversikt</div>
+        </div>
+      </div>
 
-<header class="top">
-  <h1>Grenland Live</h1>
-  <p class="subtitle">Kamper & events – full oversikt</p>
-</header>
+      <div class="statusrow">
+        <div class="pill" id="netStatus">🟡 Laster...</div>
+        <div class="pill" id="lastUpdated">Oppdatert: –</div>
+        <div class="pill" id="countInfo">Viser: –</div>
+      </div>
+    </header>
 
-<!-- 🔘 KNAPPER -->
-<nav id="leagueButtons" class="buttons"></nav>
+    <div class="tabs" id="tabs"></div>
 
-<!-- 📋 LISTE -->
-<main>
-  <div id="list" class="list"></div>
-</main>
+    <section class="toolbar">
+      <div class="field">
+        <label for="leagueFilter">Liga/turnering</label>
+        <select id="leagueFilter">
+          <option value="">Alle</option>
+        </select>
+      </div>
 
-<script src="app.js"></script>
+      <div class="field">
+        <label for="pubFilter">Sted (pub)</label>
+        <select id="pubFilter">
+          <option value="">Alle</option>
+        </select>
+      </div>
 
-<script>
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("sw.js");
-  }
-</script>
+      <div class="field">
+        <label for="search">Søk (lag/liga/pub/tv)</label>
+        <input id="search" type="text" placeholder="Søk..." autocomplete="off" />
+      </div>
 
+      <div class="field">
+        <label for="sort">Sortering</label>
+        <select id="sort">
+          <option value="soon">Tid (snart først)</option>
+          <option value="late">Tid (senest først)</option>
+        </select>
+      </div>
+
+      <div class="toggle">
+        <input id="onlyUpcoming" type="checkbox" checked />
+        <label for="onlyUpcoming">Kun kommende</label>
+      </div>
+    </section>
+
+    <section id="errors" class="errors" style="display:none;"></section>
+
+    <section id="list" class="list"></section>
+
+    <footer class="footer">
+      <div class="muted">
+        Data leses fra <code>/data/*.json</code>
+      </div>
+    </footer>
+  </div>
+
+  <script src="app.js?v=20260122"></script>
 </body>
 </html>
