@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Grenland Live – Sport</title>
-  <link rel="stylesheet" href="styles.css?v=20260122d">
+  <title>Grenland Live</title>
+  <link rel="stylesheet" href="styles.css?v=20260122e">
 </head>
 <body>
   <div class="wrap">
@@ -24,9 +24,17 @@
       </div>
     </header>
 
-    <div class="tabs" id="tabs"></div>
+    <!-- TOP NAV -->
+    <nav class="tabs" id="mainTabs"></nav>
 
-    <section class="toolbar">
+    <!-- SUB NAV (for Sport: Fotball/Handball/Vintersport/VM2026) -->
+    <nav class="tabs" id="subTabs" style="display:none;"></nav>
+
+    <!-- SUBSUB NAV (for Handball/Vintersport: menn/damer / menn/kvinner) -->
+    <nav class="tabs" id="subSubTabs" style="display:none;"></nav>
+
+    <!-- FILTER BAR (used for Sport + Events list search) -->
+    <section class="toolbar" id="toolbar" style="display:none;">
       <div class="field">
         <label for="leagueFilter">Liga/turnering</label>
         <select id="leagueFilter">
@@ -42,7 +50,7 @@
       </div>
 
       <div class="field">
-        <label for="search">Søk (lag/liga/pub/tv)</label>
+        <label for="search">Søk</label>
         <input id="search" type="text" placeholder="Søk..." autocomplete="off" />
       </div>
 
@@ -66,12 +74,11 @@
 
     <footer class="footer">
       <div class="muted">
-        Data leses fra <code>data/*.json</code>
+        Data: <code>data/*.json</code> • Kart: OpenStreetMap
       </div>
     </footer>
   </div>
 
-  <!-- CACHE-BUST so Firefox/PWA cannot use old app.js -->
-  <script src="app.js?v=20260122d"></script>
+  <script src="app.js?v=20260122e"></script>
 </body>
 </html>
