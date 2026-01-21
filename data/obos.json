@@ -15,20 +15,6 @@
       "where": []
     },
     {
-      "home": "Ranheim TF Menn",
-      "away": "StrÃ¸mmen Menn Senior 1",
-      "kickoff": "2026-04-06T14:30:00+02:00",
-      "channel": "",
-      "where": []
-    },
-    {
-      "home": "Egersund Menn Senior A",
-      "away": "Raufoss Menn A",
-      "kickoff": "2026-04-06T14:30:00+02:00",
-      "channel": "",
-      "where": []
-    },
-    {
       "home": "Kongsvinger Menn Senior A",
       "away": "Bryne Menn Senior A",
       "kickoff": "2026-04-06T14:30:00+02:00",
@@ -43,9 +29,30 @@
       "where": []
     },
     {
+      "home": "Ranheim TF Menn",
+      "away": "StrÃ¸mmen Menn Senior 1",
+      "kickoff": "2026-04-06T14:30:00+02:00",
+      "channel": "",
+      "where": []
+    },
+    {
+      "home": "Egersund Menn Senior A",
+      "away": "Raufoss Menn A",
+      "kickoff": "2026-04-06T14:30:00+02:00",
+      "channel": "",
+      "where": []
+    },
+    {
       "home": "HÃ¸dd Menn Senior A",
       "away": "Sandnes Ulf Toppfotball",
       "kickoff": "2026-04-07T19:00:00+02:00",
+      "channel": "",
+      "where": []
+    },
+    {
+      "home": "Sogndal Menn Senior A",
+      "away": "Lyn 1896",
+      "kickoff": "2026-04-11T14:00:00+02:00",
       "channel": "",
       "where": []
     },
@@ -66,13 +73,6 @@
     {
       "home": "StrÃ¸mmen Menn Senior 1",
       "away": "Egersund Menn Senior A",
-      "kickoff": "2026-04-11T14:00:00+02:00",
-      "channel": "",
-      "where": []
-    },
-    {
-      "home": "Sogndal Menn Senior A",
-      "away": "Lyn 1896",
       "kickoff": "2026-04-11T14:00:00+02:00",
       "channel": "",
       "where": []
@@ -176,13 +176,6 @@
       "where": []
     },
     {
-      "home": "Sandnes Ulf Toppfotball",
-      "away": "StrÃ¸msgodset Menn Senior A",
-      "kickoff": "2026-04-26T17:00:00+02:00",
-      "channel": "",
-      "where": []
-    },
-    {
       "home": "Moss Menn Senior A",
       "away": "Lyn 1896",
       "kickoff": "2026-04-26T17:00:00+02:00",
@@ -199,6 +192,13 @@
     {
       "home": "StabÃ¦k Menn Senior A",
       "away": "Haugesund Menn Senior A",
+      "kickoff": "2026-04-26T17:00:00+02:00",
+      "channel": "",
+      "where": []
+    },
+    {
+      "home": "Sandnes Ulf Toppfotball",
+      "away": "StrÃ¸msgodset Menn Senior A",
       "kickoff": "2026-04-26T17:00:00+02:00",
       "channel": "",
       "where": []
@@ -337,6 +337,20 @@
       "where": []
     },
     {
+      "home": "Haugesund Menn Senior A",
+      "away": "Ã",
+      "kickoff": "2026-05-16T16:00:00+02:00",
+      "channel": "",
+      "where": []
+    },
+    {
+      "home": "HÃ¸dd Menn Senior A",
+      "away": "Sogndal Menn Senior A",
+      "kickoff": "2026-05-16T16:00:00+02:00",
+      "channel": "",
+      "where": []
+    },
+    {
       "home": "Lyn 1896",
       "away": "Kongsvinger Menn Senior A",
       "kickoff": "2026-05-16T16:00:00+02:00",
@@ -358,20 +372,6 @@
       "where": []
     },
     {
-      "home": "Haugesund Menn Senior A",
-      "away": "Ã",
-      "kickoff": "2026-05-16T16:00:00+02:00",
-      "channel": "",
-      "where": []
-    },
-    {
-      "home": "HÃ¸dd Menn Senior A",
-      "away": "Sogndal Menn Senior A",
-      "kickoff": "2026-05-16T16:00:00+02:00",
-      "channel": "",
-      "where": []
-    },
-    {
       "home": "Moss Menn Senior A",
       "away": "StrÃ¸msgodset Menn Senior A",
       "kickoff": "2026-05-20T19:00:00+02:00",
@@ -381,20 +381,6 @@
     {
       "home": "Raufoss Menn A",
       "away": "Bryne Menn Senior A",
-      "kickoff": "2026-05-20T19:00:00+02:00",
-      "channel": "",
-      "where": []
-    },
-    {
-      "home": "Kongsvinger Menn Senior A",
-      "away": "Odd Menn Senior A",
-      "kickoff": "2026-05-20T19:00:00+02:00",
-      "channel": "",
-      "where": []
-    },
-    {
-      "home": "StrÃ¸mmen Menn Senior 1",
-      "away": "Haugesund Menn Senior A",
       "kickoff": "2026-05-20T19:00:00+02:00",
       "channel": "",
       "where": []
@@ -416,6 +402,20 @@
     {
       "home": "Egersund Menn Senior A",
       "away": "Lyn 1896",
+      "kickoff": "2026-05-20T19:00:00+02:00",
+      "channel": "",
+      "where": []
+    },
+    {
+      "home": "Kongsvinger Menn Senior A",
+      "away": "Odd Menn Senior A",
+      "kickoff": "2026-05-20T19:00:00+02:00",
+      "channel": "",
+      "where": []
+    },
+    {
+      "home": "StrÃ¸mmen Menn Senior 1",
+      "away": "Haugesund Menn Senior A",
       "kickoff": "2026-05-20T19:00:00+02:00",
       "channel": "",
       "where": []
@@ -505,13 +505,6 @@
       "where": []
     },
     {
-      "home": "Bryne Menn Senior A",
-      "away": "HÃ¸dd Menn Senior A",
-      "kickoff": "2026-05-31T17:00:00+02:00",
-      "channel": "",
-      "where": []
-    },
-    {
       "home": "Raufoss Menn A",
       "away": "Haugesund Menn Senior A",
       "kickoff": "2026-05-31T17:00:00+02:00",
@@ -526,6 +519,13 @@
       "where": []
     },
     {
+      "home": "Bryne Menn Senior A",
+      "away": "HÃ¸dd Menn Senior A",
+      "kickoff": "2026-05-31T17:00:00+02:00",
+      "channel": "",
+      "where": []
+    },
+    {
       "home": "Haugesund Menn Senior A",
       "away": "Ranheim TF Menn",
       "kickoff": "2026-06-14T17:00:00+02:00",
@@ -547,20 +547,6 @@
       "where": []
     },
     {
-      "home": "HÃ¸dd Menn Senior A",
-      "away": "Kongsvinger Menn Senior A",
-      "kickoff": "2026-06-14T17:00:00+02:00",
-      "channel": "",
-      "where": []
-    },
-    {
-      "home": "Lyn 1896",
-      "away": "Bryne Menn Senior A",
-      "kickoff": "2026-06-14T17:00:00+02:00",
-      "channel": "",
-      "where": []
-    },
-    {
       "home": "Sogndal Menn Senior A",
       "away": "Moss Menn Senior A",
       "kickoff": "2026-06-14T17:00:00+02:00",
@@ -570,6 +556,20 @@
     {
       "home": "StabÃ¦k Menn Senior A",
       "away": "Egersund Menn Senior A",
+      "kickoff": "2026-06-14T17:00:00+02:00",
+      "channel": "",
+      "where": []
+    },
+    {
+      "home": "HÃ¸dd Menn Senior A",
+      "away": "Kongsvinger Menn Senior A",
+      "kickoff": "2026-06-14T17:00:00+02:00",
+      "channel": "",
+      "where": []
+    },
+    {
+      "home": "Lyn 1896",
+      "away": "Bryne Menn Senior A",
       "kickoff": "2026-06-14T17:00:00+02:00",
       "channel": "",
       "where": []
@@ -596,20 +596,6 @@
       "where": []
     },
     {
-      "home": "Bryne Menn Senior A",
-      "away": "Ã",
-      "kickoff": "2026-06-21T17:00:00+02:00",
-      "channel": "",
-      "where": []
-    },
-    {
-      "home": "Odd Menn Senior A",
-      "away": "HÃ¸dd Menn Senior A",
-      "kickoff": "2026-06-21T17:00:00+02:00",
-      "channel": "",
-      "where": []
-    },
-    {
       "home": "Kongsvinger Menn Senior A",
       "away": "StrÃ¸msgodset Menn Senior A",
       "kickoff": "2026-06-21T17:00:00+02:00",
@@ -631,8 +617,29 @@
       "where": []
     },
     {
+      "home": "Bryne Menn Senior A",
+      "away": "Ã",
+      "kickoff": "2026-06-21T17:00:00+02:00",
+      "channel": "",
+      "where": []
+    },
+    {
+      "home": "Odd Menn Senior A",
+      "away": "HÃ¸dd Menn Senior A",
+      "kickoff": "2026-06-21T17:00:00+02:00",
+      "channel": "",
+      "where": []
+    },
+    {
       "home": "Lyn 1896",
       "away": "HÃ¸dd Menn Senior A",
+      "kickoff": "2026-06-28T17:00:00+02:00",
+      "channel": "",
+      "where": []
+    },
+    {
+      "home": "StrÃ¸msgodset Menn Senior A",
+      "away": "Odd Menn Senior A",
       "kickoff": "2026-06-28T17:00:00+02:00",
       "channel": "",
       "where": []
@@ -673,13 +680,6 @@
       "where": []
     },
     {
-      "home": "StrÃ¸msgodset Menn Senior A",
-      "away": "Odd Menn Senior A",
-      "kickoff": "2026-06-28T17:00:00+02:00",
-      "channel": "",
-      "where": []
-    },
-    {
       "home": "Odd Menn Senior A",
       "away": "Haugesund Menn Senior A",
       "kickoff": "2026-07-03T19:00:00+02:00",
@@ -689,27 +689,6 @@
     {
       "home": "Raufoss Menn A",
       "away": "StrÃ¸mmen Menn Senior 1",
-      "kickoff": "2026-07-03T19:00:00+02:00",
-      "channel": "",
-      "where": []
-    },
-    {
-      "home": "HÃ¸dd Menn Senior A",
-      "away": "StrÃ¸msgodset Menn Senior A",
-      "kickoff": "2026-07-03T19:00:00+02:00",
-      "channel": "",
-      "where": []
-    },
-    {
-      "home": "Kongsvinger Menn Senior A",
-      "away": "Sogndal Menn Senior A",
-      "kickoff": "2026-07-03T19:00:00+02:00",
-      "channel": "",
-      "where": []
-    },
-    {
-      "home": "Lyn 1896",
-      "away": "Ã",
       "kickoff": "2026-07-03T19:00:00+02:00",
       "channel": "",
       "where": []
@@ -736,6 +715,27 @@
       "where": []
     },
     {
+      "home": "HÃ¸dd Menn Senior A",
+      "away": "StrÃ¸msgodset Menn Senior A",
+      "kickoff": "2026-07-03T19:00:00+02:00",
+      "channel": "",
+      "where": []
+    },
+    {
+      "home": "Kongsvinger Menn Senior A",
+      "away": "Sogndal Menn Senior A",
+      "kickoff": "2026-07-03T19:00:00+02:00",
+      "channel": "",
+      "where": []
+    },
+    {
+      "home": "Lyn 1896",
+      "away": "Ã",
+      "kickoff": "2026-07-03T19:00:00+02:00",
+      "channel": "",
+      "where": []
+    },
+    {
       "home": "Moss Menn Senior A",
       "away": "Raufoss Menn A",
       "kickoff": "2026-07-26T17:00:00+02:00",
@@ -745,20 +745,6 @@
     {
       "home": "StabÃ¦k Menn Senior A",
       "away": "HÃ¸dd Menn Senior A",
-      "kickoff": "2026-07-26T17:00:00+02:00",
-      "channel": "",
-      "where": []
-    },
-    {
-      "home": "Sandnes Ulf Toppfotball",
-      "away": "Kongsvinger Menn Senior A",
-      "kickoff": "2026-07-26T17:00:00+02:00",
-      "channel": "",
-      "where": []
-    },
-    {
-      "home": "Sogndal Menn Senior A",
-      "away": "Ranheim TF Menn",
       "kickoff": "2026-07-26T17:00:00+02:00",
       "channel": "",
       "where": []
@@ -785,6 +771,20 @@
       "where": []
     },
     {
+      "home": "Sandnes Ulf Toppfotball",
+      "away": "Kongsvinger Menn Senior A",
+      "kickoff": "2026-07-26T17:00:00+02:00",
+      "channel": "",
+      "where": []
+    },
+    {
+      "home": "Sogndal Menn Senior A",
+      "away": "Ranheim TF Menn",
+      "kickoff": "2026-07-26T17:00:00+02:00",
+      "channel": "",
+      "where": []
+    },
+    {
       "home": "HÃ¸dd Menn Senior A",
       "away": "Moss Menn Senior A",
       "kickoff": "2026-08-02T17:00:00+02:00",
@@ -813,20 +813,6 @@
       "where": []
     },
     {
-      "home": "Bryne Menn Senior A",
-      "away": "StrÃ¸msgodset Menn Senior A",
-      "kickoff": "2026-08-02T17:00:00+02:00",
-      "channel": "",
-      "where": []
-    },
-    {
-      "home": "Egersund Menn Senior A",
-      "away": "Sandnes Ulf Toppfotball",
-      "kickoff": "2026-08-02T17:00:00+02:00",
-      "channel": "",
-      "where": []
-    },
-    {
       "home": "Ranheim TF Menn",
       "away": "Haugesund Menn Senior A",
       "kickoff": "2026-08-02T17:00:00+02:00",
@@ -841,8 +827,36 @@
       "where": []
     },
     {
+      "home": "Bryne Menn Senior A",
+      "away": "StrÃ¸msgodset Menn Senior A",
+      "kickoff": "2026-08-02T17:00:00+02:00",
+      "channel": "",
+      "where": []
+    },
+    {
+      "home": "Egersund Menn Senior A",
+      "away": "Sandnes Ulf Toppfotball",
+      "kickoff": "2026-08-02T17:00:00+02:00",
+      "channel": "",
+      "where": []
+    },
+    {
       "home": "Sogndal Menn Senior A",
       "away": "Bryne Menn Senior A",
+      "kickoff": "2026-08-09T17:00:00+02:00",
+      "channel": "",
+      "where": []
+    },
+    {
+      "home": "Haugesund Menn Senior A",
+      "away": "Raufoss Menn A",
+      "kickoff": "2026-08-09T17:00:00+02:00",
+      "channel": "",
+      "where": []
+    },
+    {
+      "home": "StabÃ¦k Menn Senior A",
+      "away": "Lyn 1896",
       "kickoff": "2026-08-09T17:00:00+02:00",
       "channel": "",
       "where": []
@@ -876,20 +890,6 @@
       "where": []
     },
     {
-      "home": "Haugesund Menn Senior A",
-      "away": "Raufoss Menn A",
-      "kickoff": "2026-08-09T17:00:00+02:00",
-      "channel": "",
-      "where": []
-    },
-    {
-      "home": "StabÃ¦k Menn Senior A",
-      "away": "Lyn 1896",
-      "kickoff": "2026-08-09T17:00:00+02:00",
-      "channel": "",
-      "where": []
-    },
-    {
       "home": "Kongsvinger Menn Senior A",
       "away": "Haugesund Menn Senior A",
       "kickoff": "2026-08-16T17:00:00+02:00",
@@ -899,6 +899,20 @@
     {
       "home": "Lyn 1896",
       "away": "Odd Menn Senior A",
+      "kickoff": "2026-08-16T17:00:00+02:00",
+      "channel": "",
+      "where": []
+    },
+    {
+      "home": "Bryne Menn Senior A",
+      "away": "Moss Menn Senior A",
+      "kickoff": "2026-08-16T17:00:00+02:00",
+      "channel": "",
+      "where": []
+    },
+    {
+      "home": "Egersund Menn Senior A",
+      "away": "StabÃ¦k Menn Senior A",
       "kickoff": "2026-08-16T17:00:00+02:00",
       "channel": "",
       "where": []
@@ -927,20 +941,6 @@
     {
       "home": "Sogndal Menn Senior A",
       "away": "Sandnes Ulf Toppfotball",
-      "kickoff": "2026-08-16T17:00:00+02:00",
-      "channel": "",
-      "where": []
-    },
-    {
-      "home": "Bryne Menn Senior A",
-      "away": "Moss Menn Senior A",
-      "kickoff": "2026-08-16T17:00:00+02:00",
-      "channel": "",
-      "where": []
-    },
-    {
-      "home": "Egersund Menn Senior A",
-      "away": "StabÃ¦k Menn Senior A",
       "kickoff": "2026-08-16T17:00:00+02:00",
       "channel": "",
       "where": []
@@ -1009,6 +1009,20 @@
       "where": []
     },
     {
+      "home": "Kongsvinger Menn Senior A",
+      "away": "Lyn 1896",
+      "kickoff": "2026-08-30T17:00:00+02:00",
+      "channel": "",
+      "where": []
+    },
+    {
+      "home": "Moss Menn Senior A",
+      "away": "StrÃ¸mmen Menn Senior 1",
+      "kickoff": "2026-08-30T17:00:00+02:00",
+      "channel": "",
+      "where": []
+    },
+    {
       "home": "Bryne Menn Senior A",
       "away": "Haugesund Menn Senior A",
       "kickoff": "2026-08-30T17:00:00+02:00",
@@ -1037,29 +1051,8 @@
       "where": []
     },
     {
-      "home": "Kongsvinger Menn Senior A",
-      "away": "Lyn 1896",
-      "kickoff": "2026-08-30T17:00:00+02:00",
-      "channel": "",
-      "where": []
-    },
-    {
-      "home": "Moss Menn Senior A",
-      "away": "StrÃ¸mmen Menn Senior 1",
-      "kickoff": "2026-08-30T17:00:00+02:00",
-      "channel": "",
-      "where": []
-    },
-    {
       "home": "Haugesund Menn Senior A",
       "away": "Sogndal Menn Senior A",
-      "kickoff": "2026-09-06T17:00:00+02:00",
-      "channel": "",
-      "where": []
-    },
-    {
-      "home": "Lyn 1896",
-      "away": "Egersund Menn Senior A",
       "kickoff": "2026-09-06T17:00:00+02:00",
       "channel": "",
       "where": []
@@ -1095,6 +1088,13 @@
     {
       "home": "StrÃ¸mmen Menn Senior 1",
       "away": "Bryne Menn Senior A",
+      "kickoff": "2026-09-06T17:00:00+02:00",
+      "channel": "",
+      "where": []
+    },
+    {
+      "home": "Lyn 1896",
+      "away": "Egersund Menn Senior A",
       "kickoff": "2026-09-06T17:00:00+02:00",
       "channel": "",
       "where": []
@@ -1163,20 +1163,6 @@
       "where": []
     },
     {
-      "home": "Kongsvinger Menn Senior A",
-      "away": "HÃ¸dd Menn Senior A",
-      "kickoff": "2026-09-20T17:00:00+02:00",
-      "channel": "",
-      "where": []
-    },
-    {
-      "home": "Lyn 1896",
-      "away": "Ranheim TF Menn",
-      "kickoff": "2026-09-20T17:00:00+02:00",
-      "channel": "",
-      "where": []
-    },
-    {
       "home": "Raufoss Menn A",
       "away": "StrÃ¸msgodset Menn Senior A",
       "kickoff": "2026-09-20T17:00:00+02:00",
@@ -1200,6 +1186,20 @@
     {
       "home": "Odd Menn Senior A",
       "away": "Egersund Menn Senior A",
+      "kickoff": "2026-09-20T17:00:00+02:00",
+      "channel": "",
+      "where": []
+    },
+    {
+      "home": "Kongsvinger Menn Senior A",
+      "away": "HÃ¸dd Menn Senior A",
+      "kickoff": "2026-09-20T17:00:00+02:00",
+      "channel": "",
+      "where": []
+    },
+    {
+      "home": "Lyn 1896",
+      "away": "Ranheim TF Menn",
       "kickoff": "2026-09-20T17:00:00+02:00",
       "channel": "",
       "where": []
@@ -1247,15 +1247,15 @@
       "where": []
     },
     {
-      "home": "Haugesund Menn Senior A",
-      "away": "StabÃ¦k Menn Senior A",
+      "home": "StrÃ¸msgodset Menn Senior A",
+      "away": "Ã",
       "kickoff": "2026-10-04T17:00:00+02:00",
       "channel": "",
       "where": []
     },
     {
-      "home": "StrÃ¸msgodset Menn Senior A",
-      "away": "Ã",
+      "home": "Haugesund Menn Senior A",
+      "away": "StabÃ¦k Menn Senior A",
       "kickoff": "2026-10-04T17:00:00+02:00",
       "channel": "",
       "where": []
@@ -1275,6 +1275,20 @@
       "where": []
     },
     {
+      "home": "Lyn 1896",
+      "away": "StrÃ¸msgodset Menn Senior A",
+      "kickoff": "2026-10-11T17:00:00+02:00",
+      "channel": "",
+      "where": []
+    },
+    {
+      "home": "Egersund Menn Senior A",
+      "away": "HÃ¸dd Menn Senior A",
+      "kickoff": "2026-10-11T17:00:00+02:00",
+      "channel": "",
+      "where": []
+    },
+    {
       "home": "Kongsvinger Menn Senior A",
       "away": "Ranheim TF Menn",
       "kickoff": "2026-10-11T17:00:00+02:00",
@@ -1296,20 +1310,6 @@
       "where": []
     },
     {
-      "home": "Lyn 1896",
-      "away": "StrÃ¸msgodset Menn Senior A",
-      "kickoff": "2026-10-11T17:00:00+02:00",
-      "channel": "",
-      "where": []
-    },
-    {
-      "home": "Egersund Menn Senior A",
-      "away": "HÃ¸dd Menn Senior A",
-      "kickoff": "2026-10-11T17:00:00+02:00",
-      "channel": "",
-      "where": []
-    },
-    {
       "home": "HÃ¸dd Menn Senior A",
       "away": "Ranheim TF Menn",
       "kickoff": "2026-10-14T19:00:00+02:00",
@@ -1326,13 +1326,6 @@
     {
       "home": "Moss Menn Senior A",
       "away": "Egersund Menn Senior A",
-      "kickoff": "2026-10-14T19:00:00+02:00",
-      "channel": "",
-      "where": []
-    },
-    {
-      "home": "StabÃ¦k Menn Senior A",
-      "away": "Sandnes Ulf Toppfotball",
       "kickoff": "2026-10-14T19:00:00+02:00",
       "channel": "",
       "where": []
@@ -1366,8 +1359,29 @@
       "where": []
     },
     {
+      "home": "StabÃ¦k Menn Senior A",
+      "away": "Sandnes Ulf Toppfotball",
+      "kickoff": "2026-10-14T19:00:00+02:00",
+      "channel": "",
+      "where": []
+    },
+    {
       "home": "Kongsvinger Menn Senior A",
       "away": "Sandnes Ulf Toppfotball",
+      "kickoff": "2026-10-18T17:00:00+02:00",
+      "channel": "",
+      "where": []
+    },
+    {
+      "home": "HÃ¸dd Menn Senior A",
+      "away": "Raufoss Menn A",
+      "kickoff": "2026-10-18T17:00:00+02:00",
+      "channel": "",
+      "where": []
+    },
+    {
+      "home": "Lyn 1896",
+      "away": "Moss Menn Senior A",
       "kickoff": "2026-10-18T17:00:00+02:00",
       "channel": "",
       "where": []
@@ -1401,16 +1415,16 @@
       "where": []
     },
     {
-      "home": "HÃ¸dd Menn Senior A",
-      "away": "Raufoss Menn A",
-      "kickoff": "2026-10-18T17:00:00+02:00",
+      "home": "Moss Menn Senior A",
+      "away": "Ã",
+      "kickoff": "2026-10-25T17:00:00+01:00",
       "channel": "",
       "where": []
     },
     {
-      "home": "Lyn 1896",
-      "away": "Moss Menn Senior A",
-      "kickoff": "2026-10-18T17:00:00+02:00",
+      "home": "StrÃ¸mmen Menn Senior 1",
+      "away": "StrÃ¸msgodset Menn Senior A",
+      "kickoff": "2026-10-25T17:00:00+01:00",
       "channel": "",
       "where": []
     },
@@ -1452,20 +1466,6 @@
     {
       "home": "Bryne Menn Senior A",
       "away": "Egersund Menn Senior A",
-      "kickoff": "2026-10-25T17:00:00+01:00",
-      "channel": "",
-      "where": []
-    },
-    {
-      "home": "Moss Menn Senior A",
-      "away": "Ã",
-      "kickoff": "2026-10-25T17:00:00+01:00",
-      "channel": "",
-      "where": []
-    },
-    {
-      "home": "StrÃ¸mmen Menn Senior 1",
-      "away": "StrÃ¸msgodset Menn Senior A",
       "kickoff": "2026-10-25T17:00:00+01:00",
       "channel": "",
       "where": []
@@ -1499,13 +1499,6 @@
       "where": []
     },
     {
-      "home": "Lyn 1896",
-      "away": "Raufoss Menn A",
-      "kickoff": "2026-11-01T17:00:00+01:00",
-      "channel": "",
-      "where": []
-    },
-    {
       "home": "Odd Menn Senior A",
       "away": "Sandnes Ulf Toppfotball",
       "kickoff": "2026-11-01T17:00:00+01:00",
@@ -1515,6 +1508,13 @@
     {
       "home": "Ranheim TF Menn",
       "away": "Sogndal Menn Senior A",
+      "kickoff": "2026-11-01T17:00:00+01:00",
+      "channel": "",
+      "where": []
+    },
+    {
+      "home": "Lyn 1896",
+      "away": "Raufoss Menn A",
       "kickoff": "2026-11-01T17:00:00+01:00",
       "channel": "",
       "where": []
@@ -1548,13 +1548,6 @@
       "where": []
     },
     {
-      "home": "Sogndal Menn Senior A",
-      "away": "HÃ¸dd Menn Senior A",
-      "kickoff": "2026-11-08T17:00:00+01:00",
-      "channel": "",
-      "where": []
-    },
-    {
       "home": "Bryne Menn Senior A",
       "away": "Kongsvinger Menn Senior A",
       "kickoff": "2026-11-08T17:00:00+01:00",
@@ -1571,6 +1564,13 @@
     {
       "home": "Raufoss Menn A",
       "away": "Egersund Menn Senior A",
+      "kickoff": "2026-11-08T17:00:00+01:00",
+      "channel": "",
+      "where": []
+    },
+    {
+      "home": "Sogndal Menn Senior A",
+      "away": "HÃ¸dd Menn Senior A",
       "kickoff": "2026-11-08T17:00:00+01:00",
       "channel": "",
       "where": []
