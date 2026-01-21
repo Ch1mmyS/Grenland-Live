@@ -1,146 +1,158 @@
-<<<<<<< HEAD:style.css
-body { font-family: system-ui, Arial; margin:0; background:#f6f8ff; color:#0b1220; }
-.top { padding:16px; background:#0b1220; color:white; }
-.subtitle { margin:6px 0 0; opacity:.85; }
+# app.py — Grenland Live Sport (STABIL LIGHT VERSION)
+# --------------------------------------------------
 
-.buttons { display:flex; flex-wrap:wrap; gap:8px; padding:12px; background:white; position:sticky; top:0; border-bottom:1px solid rgba(0,0,0,.08); }
-.buttons button { padding:10px 12px; border-radius:12px; border:1px solid rgba(0,0,0,.15); background:#fff; cursor:pointer; }
-.buttons button.active { background:#0b1220; color:#fff; border-color:#0b1220; }
+import json
+from pathlib import Path
+from datetime import datetime
+from zoneinfo import ZoneInfo
 
-.list { padding:12px; display:grid; gap:10px; }
-.card { background:#fff; border:1px solid rgba(0,0,0,.10); border-radius:16px; padding:12px; box-shadow: 0 6px 20px rgba(0,0,0,.04); }
-.time { margin-top:6px; opacity:.8; }
-.tv, .where { margin-top:6px; }
-.empty { padding:16px; opacity:.7; }
-.error { padding:16px; color:#b00020; }
-=======
-* {
-  box-sizing: border-box;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, Inter, Arial, sans-serif;
+import streamlit as st
+
+# ----------------------------
+# BASIC CONFIG
+# ----------------------------
+st.set_page_config(
+    page_title="Grenland Live – Sport",
+    layout="wide"
+)
+
+TZ = ZoneInfo("Europe/Oslo")
+
+# ----------------------------
+# SAFE LIGHT CSS (IKKE aggressiv)
+# ----------------------------
+CSS = """
+<style>
+[data-testid="stAppViewContainer"]{
+  background:#f6f8ff;
 }
 
-body {
-  margin: 0;
-  min-height: 100vh;
-  background: #020617;
-  color: #ffffff;
+[data-testid="stMarkdownContainer"],
+[data-testid="stMarkdownContainer"] *{
+  color:#0b1220 !important;
 }
 
-.wrap {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 24px 16px 60px;
+.card{
+  background:#ffffff;
+  border:1px solid rgba(11,18,32,.12);
+  border-radius:14px;
+  padding:14px;
+  margin:10px 0;
 }
 
-h1 {
-  font-size: 2.4rem;
-  margin-bottom: 6px;
-}
+.meta{ color:rgba(11,18,32,.65); font-size:.9rem; }
 
-.sub {
-  color: #c7d2fe;
-  max-width: 720px;
-  margin-bottom: 16px;
+.badge{
+  display:inline-block;
+  padding:4px 9px;
+  border-radius:999px;
+  border:1px solid rgba(11,18,32,.15);
+  background:#eef1ff;
+  font-size:.8rem;
+  margin-right:6px;
 }
+</style>
+"""
+st.markdown(CSS, unsafe_allow_html=True)
 
-.netStatus {
-  display: inline-block;
-  padding: 6px 12px;
-  border-radius: 999px;
-  font-size: 13px;
-  font-weight: 700;
-  border: 1px solid #334155;
-  margin-bottom: 16px;
-}
+# ----------------------------
+# DATA
+# ----------------------------
+DATA_DIR = Path(__file__).parent / "data"
 
-.netStatus.online {
-  background: #052e16;
-  color: #86efac;
-}
+def load_json(name):
+    path = DATA_DIR / name
+    if not path.exists():
+        return []
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+        return data.get("games", [])
+    except Exception:
+        return []
 
-.netStatus.offline {
-  background: #450a0a;
-  color: #fca5a5;
-}
+def parse_time(val):
+    if not val:
+        return None
+    try:
+        dt = datetime.fromisoformat(val.replace("Z","+00:00"))
+        if not dt.tzinfo:
+            dt = dt.replace(tzinfo=TZ)
+        return dt.astimezone(TZ)
+    except Exception:
+        return None
 
-.panel {
-  border: 1px solid #1e293b;
-  border-radius: 14px;
-  padding: 14px;
-}
+def normalize(games):
+    out = []
+    for g in games:
+        pubs = []
+        raw = g.get("where") or g.get("pubs") or []
+        if isinstance(raw, list):
+            for p in raw:
+                if isinstance(p, str):
+                    pubs.append(p)
+                elif isinstance(p, dict):
+                    n = p.get("name","")
+                    c = p.get("city")
+                    pubs.append(f"{n} ({c})" if c else n)
 
-.inputRow {
-  display: flex;
-  gap: 10px;
-}
+        out.append({
+            "league": g.get("league",""),
+            "home": g.get("home",""),
+            "away": g.get("away",""),
+            "time": parse_time(g.get("kickoff") or g.get("start")),
+            "tv": g.get("channel") or g.get("tv",""),
+            "pubs": pubs
+        })
+    return out
 
-input {
-  flex: 1;
-  background: #020617;
-  border: 1px solid #334155;
-  color: #fff;
-  padding: 12px;
-  border-radius: 10px;
-}
+def fmt(dt):
+    return dt.strftime("%a %d.%m kl %H:%M") if dt else "Tid ikke satt"
 
-.primary {
-  background: #2563eb;
-  border: none;
-  border-radius: 10px;
-  padding: 12px 18px;
-  font-weight: 800;
-  color: #fff;
-  cursor: pointer;
-}
+# ----------------------------
+# LOAD ALL
+# ----------------------------
+football = normalize(load_json("football.json"))
+handball = normalize(load_json("handball.json"))
+wintersport = normalize(load_json("wintersport.json"))
+vm2026 = normalize(load_json("vm2026.json"))
 
-.results {
-  margin-top: 16px;
-  display: grid;
-  gap: 14px;
-}
+# ----------------------------
+# UI
+# ----------------------------
+st.title("Grenland Live – Sport")
+st.caption("Viser kamper og mesterskap fra lokale sportsbarer")
 
-.card {
-  border: 1px solid #1e293b;
-  border-radius: 14px;
-  padding: 14px;
-}
+tabs = st.tabs(["⚽ Fotball", "🤾 Håndball", "⛷️ Vintersport", "🏆 VM 2026"])
 
-.title {
-  font-weight: 900;
-  font-size: 16px;
-}
+def render(games):
+    if not games:
+        st.info("Ingen arrangementer funnet.")
+        return
 
-.meta {
-  font-size: 13px;
-  color: #c7d2fe;
-}
+    for g in sorted(games, key=lambda x: x["time"] or datetime.max):
+        st.markdown(
+            f"""
+            <div class="card">
+              <b>{g["home"]} – {g["away"]}</b><br>
+              <span class="meta">{fmt(g["time"])}</span><br><br>
+              {f"<span class='badge'>{g['league']}</span>" if g["league"] else ""}
+              {f"<span class='badge'>📺 {g['tv']}</span>" if g["tv"] else ""}
+              <div class="meta" style="margin-top:8px">
+                <b>Hvor:</b> {", ".join(g["pubs"]) if g["pubs"] else "Ikke satt"}
+              </div>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
 
-.glSelect {
-  width: 100%;
-  background: #020617;
-  border: 1px solid #334155;
-  color: #fff;
-  padding: 10px;
-  border-radius: 10px;
-  margin-top: 6px;
-}
+with tabs[0]:
+    render(football)
 
-.infoBox {
-  margin-top: 10px;
-  border: 1px solid #334155;
-  border-radius: 12px;
-  padding: 10px;
-}
+with tabs[1]:
+    render(handball)
 
-.glLink {
-  display: inline-block;
-  margin-top: 8px;
-  padding: 8px 12px;
-  border-radius: 10px;
-  background: #1e293b;
-  color: #fff;
-  text-decoration: none;
-  font-weight: 800;
-}
->>>>>>> dc2a6b1 (Fix filenames: styles.css and manifest.json):styles.css
+with tabs[2]:
+    render(wintersport)
+
+with tabs[3]:
+    render(vm2026)
