@@ -1,17 +1,12 @@
-// sw.js — SAFE VERSION (no cache for app.js / data)
-// Prevents stale JS + JSON issues on GitHub Pages
-
-const CACHE_NAME = "grenland-live-static-v1";
+// sw.js — SAFE (avoid caching app.js/styles/data)
+const CACHE_NAME = "grenland-live-shell-v1";
 
 const STATIC_ASSETS = [
   "./",
   "./index.html",
-  "./manifest.json",
-  "./icons/icon-192.png",
-  "./icons/icon-512.png"
+  "./manifest.json"
 ];
 
-// Install: cache ONLY static shell (not JS/data)
 self.addEventListener("install", (event) => {
   self.skipWaiting();
   event.waitUntil(
@@ -19,28 +14,22 @@ self.addEventListener("install", (event) => {
   );
 });
 
-// Activate: clean old caches
 self.addEventListener("activate", (event) => {
   event.waitUntil(
-    caches.keys().then((keys) =>
-      Promise.all(keys.map((k) => k !== CACHE_NAME && caches.delete(k)))
-    )
+    caches.keys().then((keys) => Promise.all(keys.map((k) => (k !== CACHE_NAME) ? caches.delete(k) : null)))
   );
   self.clients.claim();
 });
 
-// Fetch strategy:
-// - NEVER cache app.js, styles.css, data/*.json
-// - Network first for everything else
 self.addEventListener("fetch", (event) => {
   const url = new URL(event.request.url);
 
-  // Do NOT cache dynamic content
-  if (
-    url.pathname.endsWith("app.js") ||
-    url.pathname.endsWith("styles.css") ||
-    url.pathname.startsWith("/Grenland-Live/data/")
-  ) {
+  // Never cache these (prevents stale JS + JSON)
+  const isAppJs = url.pathname.endsWith("/app.js") || url.pathname.endsWith("app.js");
+  const isCss = url.pathname.endsWith("/styles.css") || url.pathname.endsWith("styles.css");
+  const isData = url.pathname.includes("/Grenland-Live/data/") || url.pathname.endsWith(".json");
+
+  if (isAppJs || isCss || isData) {
     event.respondWith(fetch(event.request));
     return;
   }
