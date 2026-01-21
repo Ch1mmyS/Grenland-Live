@@ -1,229 +1,296 @@
-# app.py — Grenland Live Sport (FAILSAFE / NO BLANK PAGE)
-# -------------------------------------------------------
-# - Viser alltid UI selv om data mangler/feiler
-# - Leser fra ./data/*.json
-# - Timezone: Europe/Oslo
+// app.js — Grenland Live Sport (JS)
+// Leser fra /data/*.json i repoet ditt (GitHub Pages / Netlify).
 
-import json
-from pathlib import Path
-from datetime import datetime
-from zoneinfo import ZoneInfo
+const TZ = "Europe/Oslo";
 
-import streamlit as st
+const SOURCES = [
+  { key: "eliteserien", label: "Eliteserien", file: "/data/eliteserien.json" },
+  { key: "obos", label: "OBOS-ligaen", file: "/data/obos.json" },
+  { key: "premier", label: "Premier League", file: "/data/premier_league.json" },
+  { key: "champions", label: "Champions League", file: "/data/champions.json" },
+  { key: "laliga", label: "La Liga", file: "/data/laliga.json" },
 
-TZ = ZoneInfo("Europe/Oslo")
+  { key: "hb_menn", label: "Håndball VM 2026 – Menn", file: "/data/handball_vm_2026_menn.json" },
+  { key: "hb_damer", label: "Håndball VM 2026 – Damer", file: "/data/handball_vm_2026_damer.json" },
 
-# ----------------------------
-# PAGE CONFIG
-# ----------------------------
-st.set_page_config(page_title="Grenland Live – Sport", layout="wide")
+  { key: "vinter_menn", label: "Vintersport – Menn", file: "/data/vintersport_menn.json" },
+  { key: "vinter_kvinner", label: "Vintersport – Kvinner", file: "/data/vintersport_kvinner.json" },
 
-# ----------------------------
-# SAFE, MINIMAL CSS (ikke aggressiv)
-# ----------------------------
-CSS = """
-<style>
-/* Litt lys bakgrunn på "canvas" */
-[data-testid="stAppViewContainer"] { background: #f6f8ff; }
+  { key: "vm2026", label: "VM 2026", file: "/data/vm2026.json" },
 
-/* Kort / cards */
-.card{
-  background:#ffffff;
-  border:1px solid rgba(11,18,32,.12);
-  border-radius:16px;
-  padding:14px;
-  margin:10px 0;
+  // (valgfri fallback hvis du vil)
+  // { key: "football", label: "Fotball (samlet)", file: "/data/football.json" },
+];
+
+const elTabs = document.getElementById("tabs");
+const elList = document.getElementById("list");
+const elErrors = document.getElementById("errors");
+
+const elLeagueFilter = document.getElementById("leagueFilter");
+const elPubFilter = document.getElementById("pubFilter");
+const elSearch = document.getElementById("search");
+const elOnlyUpcoming = document.getElementById("onlyUpcoming");
+const elSort = document.getElementById("sort");
+
+const elNetStatus = document.getElementById("netStatus");
+const elLastUpdated = document.getElementById("lastUpdated");
+const elCountInfo = document.getElementById("countInfo");
+
+let state = {
+  activeKey: SOURCES[0].key,
+  byKey: {},   // key -> normalized games
+  errors: []
+};
+
+function setNetStatus(){
+  const online = navigator.onLine;
+  elNetStatus.textContent = online ? "🟢 Online" : "🔴 Offline";
 }
-.meta{ color: rgba(11,18,32,.65); font-size: .92rem; }
-.badge{
-  display:inline-block;
-  padding:4px 10px;
-  border-radius:999px;
-  border:1px solid rgba(11,18,32,.15);
-  background:#eef1ff;
-  font-size:.82rem;
-  margin-right:6px;
+window.addEventListener("online", setNetStatus);
+window.addEventListener("offline", setNetStatus);
+
+function fmtOslo(isoOrDate){
+  const d = (isoOrDate instanceof Date) ? isoOrDate : new Date(isoOrDate);
+  if (isNaN(d.getTime())) return "Tid ikke satt";
+  return d.toLocaleString("no-NO", {
+    timeZone: TZ,
+    weekday:"short",
+    year:"numeric",
+    month:"2-digit",
+    day:"2-digit",
+    hour:"2-digit",
+    minute:"2-digit"
+  });
 }
-hr{ border:none; border-top:1px solid rgba(11,18,32,.12); margin: 14px 0; }
-</style>
-"""
-st.markdown(CSS, unsafe_allow_html=True)
 
-# ----------------------------
-# DATA HELPERS
-# ----------------------------
-BASE_DIR = Path(__file__).parent
-DATA_DIR = BASE_DIR / "data"
+function parseISO(val){
+  if (!val) return null;
+  const d = new Date(val);
+  if (!isNaN(d.getTime())) return d;
+  return null;
+}
 
-def parse_dt(val: str | None):
-    if not val:
-        return None
-    try:
-        dt = datetime.fromisoformat(val.replace("Z", "+00:00"))
-        if dt.tzinfo is None:
-            dt = dt.replace(tzinfo=TZ)
-        return dt.astimezone(TZ)
-    except Exception:
-        return None
+// Normaliser til samme format uansett JSON
+// Forventer at hver fil er { games: [...] } (slik du allerede bruker)
+function normalizeGames(payload){
+  const games = (payload && payload.games) ? payload.games : [];
+  const out = [];
 
-def safe_read_json(path: Path) -> dict:
-    # Returnerer alltid en dict med "games"
-    if not path.exists():
-        return {"games": []}
-    try:
-        txt = path.read_text(encoding="utf-8")
-        data = json.loads(txt)
-        if isinstance(data, dict) and "games" in data:
-            return data
-        # Hvis noen har lagret liste direkte
-        if isinstance(data, list):
-            return {"games": data}
-        return {"games": []}
-    except Exception as e:
-        # Legg feilen i et felt så vi kan vise den
-        return {"games": [], "_error": f"{e.__class__.__name__}: {e}"}
+  for (const g of games){
+    const league = (g.league || g.tournament || "").trim();
+    const home = (g.home || "").trim();
+    const away = (g.away || "").trim();
 
-def normalize_games(payload: dict) -> list[dict]:
-    games = payload.get("games", []) or []
-    out = []
-    for g in games:
-        # Tåler forskjellige feltnavn
-        league = (g.get("league") or g.get("tournament") or "").strip()
-        home = (g.get("home") or "").strip()
-        away = (g.get("away") or "").strip()
+    const dt = parseISO(g.kickoff || g.start || g.datetime);
 
-        dt = parse_dt(g.get("kickoff") or g.get("start") or g.get("datetime"))
+    const tv = (g.channel || g.tv || "").trim();
 
-        channel = (g.get("channel") or g.get("tv") or "").strip()
+    // where/pubs kan være ["Gimle Pub"] eller [{name,city}]
+    const raw = g.where || g.pubs || [];
+    let pubs = [];
+    if (Array.isArray(raw)){
+      for (const p of raw){
+        if (typeof p === "string") pubs.push(p);
+        else if (p && typeof p === "object"){
+          const name = (p.name || "").trim();
+          const city = (p.city || "").trim();
+          pubs.push(city ? `${name} (${city})` : name);
+        }
+      }
+    } else if (typeof raw === "string"){
+      pubs = [raw];
+    }
 
-        pubs_raw = g.get("where") or g.get("pubs") or []
-        pubs = []
-        if isinstance(pubs_raw, list):
-            for p in pubs_raw:
-                if isinstance(p, str):
-                    pubs.append(p)
-                elif isinstance(p, dict):
-                    name = (p.get("name") or "").strip()
-                    city = (p.get("city") or "").strip()
-                    if name and city:
-                        pubs.append(f"{name} ({city})")
-                    elif name:
-                        pubs.append(name)
-        elif isinstance(pubs_raw, str):
-            pubs = [pubs_raw]
+    out.push({
+      league,
+      home,
+      away,
+      dt,       // Date|null
+      tv,
+      pubs: pubs.filter(Boolean),
+      _raw: g
+    });
+  }
 
-        out.append({
-            "league": league,
-            "home": home,
-            "away": away,
-            "dt": dt,
-            "channel": channel,
-            "pubs": [x for x in pubs if x],
-        })
-    return out
+  return out;
+}
 
-def fmt_dt(dt):
-    if not dt:
-        return "Tid ikke satt"
-    return dt.strftime("%a %d.%m.%Y kl %H:%M")
+async function fetchJSON(url){
+  const res = await fetch(url, { cache: "no-store" });
+  if (!res.ok) throw new Error(`${res.status} ${res.statusText} (${url})`);
+  return await res.json();
+}
 
-def render_cards(games: list[dict]):
-    if not games:
-        st.info("Ingen arrangementer å vise (sjekk JSON-filene).")
-        return
+function renderTabs(){
+  elTabs.innerHTML = "";
+  for (const s of SOURCES){
+    const btn = document.createElement("button");
+    btn.className = "tabbtn" + (s.key === state.activeKey ? " active" : "");
+    btn.textContent = s.label;
+    btn.onclick = () => {
+      state.activeKey = s.key;
+      renderTabs();
+      rebuildFilters();
+      renderList();
+    };
+    elTabs.appendChild(btn);
+  }
+}
 
-    # Sorter: først de med tid, så uten
-    def key(x):
-        return x["dt"] if x["dt"] else datetime(2100, 1, 1, tzinfo=TZ)
+function showErrors(){
+  if (!state.errors.length){
+    elErrors.style.display = "none";
+    elErrors.innerHTML = "";
+    return;
+  }
+  elErrors.style.display = "block";
+  elErrors.innerHTML = `
+    <b>Det er problemer med noen datafiler:</b>
+    <ul>
+      ${state.errors.map(e => `<li>${escapeHTML(e)}</li>`).join("")}
+    </ul>
+  `;
+}
 
-    for g in sorted(games, key=key):
-        title = " vs ".join([x for x in [g.get("home"), g.get("away")] if x]).strip()
-        if not title:
-            title = "(Uten lagnavn)"
+function escapeHTML(s){
+  return (s || "").toString()
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
 
-        league_badge = f"<span class='badge'>{g['league']}</span>" if g.get("league") else ""
-        tv_badge = f"<span class='badge'>📺 {g['channel']}</span>" if g.get("channel") else ""
+function getActiveGames(){
+  return state.byKey[state.activeKey] || [];
+}
 
-        where_txt = ", ".join(g.get("pubs") or []) if g.get("pubs") else "Ikke satt"
+function rebuildFilters(){
+  const games = getActiveGames();
 
-        st.markdown(
-            f"""
-            <div class="card">
-              <div style="font-size:1.05rem; font-weight:700;">{title}</div>
-              <div class="meta">{fmt_dt(g.get("dt"))}</div>
-              <div style="margin-top:8px;">
-                {league_badge}
-                {tv_badge}
-              </div>
-              <div class="meta" style="margin-top:10px;">
-                <b>Hvor:</b> {where_txt}
-              </div>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
+  // leagues
+  const leagues = Array.from(new Set(games.map(g => g.league).filter(Boolean))).sort((a,b)=>a.localeCompare(b,"no"));
+  const pubs = Array.from(new Set(games.flatMap(g => g.pubs || []).filter(Boolean))).sort((a,b)=>a.localeCompare(b,"no"));
 
-def load_category(filename: str):
-    payload = safe_read_json(DATA_DIR / filename)
-    games = normalize_games(payload)
-    err = payload.get("_error")
-    return games, err
+  const currentLeague = elLeagueFilter.value;
+  const currentPub = elPubFilter.value;
 
-# ----------------------------
-# APP (WRAP I TRY så du aldri får blank side)
-# ----------------------------
-try:
-    st.title("Grenland Live – Sport")
-    st.caption(f"Klokke: {datetime.now(TZ).strftime('%d.%m.%Y %H:%M')} • Leser fra ./data/*.json")
+  elLeagueFilter.innerHTML = `<option value="">Alle</option>` + leagues.map(x => `<option value="${escapeHTML(x)}">${escapeHTML(x)}</option>`).join("");
+  elPubFilter.innerHTML = `<option value="">Alle</option>` + pubs.map(x => `<option value="${escapeHTML(x)}">${escapeHTML(x)}</option>`).join("");
 
-    # Status / fil-sjekk
-    with st.expander("📁 Filstatus (viktig)", expanded=False):
-        st.write("Forventet struktur:")
-        st.code(
-            """.\n├─ app.py\n└─ data/\n   ├─ football.json\n   ├─ handball.json\n   ├─ wintersport.json\n   └─ vm2026.json\n""",
-            language="text"
-        )
-        files = ["football.json", "handball.json", "wintersport.json", "vm2026.json"]
-        for f in files:
-            p = DATA_DIR / f
-            st.write(("✅" if p.exists() else "❌"), f, "—", str(p))
+  // forsøk å beholde valgt verdi om den finnes
+  if (leagues.includes(currentLeague)) elLeagueFilter.value = currentLeague;
+  if (pubs.includes(currentPub)) elPubFilter.value = currentPub;
+}
 
-    football, err_f = load_category("football.json")
-    handball, err_h = load_category("handball.json")
-    wintersport, err_w = load_category("wintersport.json")
-    vm2026, err_v = load_category("vm2026.json")
+function passesFilters(g){
+  // upcoming
+  if (elOnlyUpcoming.checked && g.dt){
+    const now = new Date();
+    if (g.dt.getTime() < now.getTime()) return false;
+  }
 
-    # Vis eventuelle JSON-lesefeil
-    errs = [( "football.json", err_f), ("handball.json", err_h), ("wintersport.json", err_w), ("vm2026.json", err_v)]
-    bad = [(f,e) for f,e in errs if e]
-    if bad:
-        st.error("En eller flere JSON-filer kunne ikke leses (format-feil). Se detaljer under.")
-        with st.expander("Detaljer på JSON-feil", expanded=True):
-            for f,e in bad:
-                st.write(f"**{f}**: {e}")
+  // league filter
+  if (elLeagueFilter.value && g.league !== elLeagueFilter.value) return false;
 
-    st.markdown("---")
+  // pub filter
+  if (elPubFilter.value){
+    const has = (g.pubs || []).includes(elPubFilter.value);
+    if (!has) return false;
+  }
 
-    tabs = st.tabs(["⚽ Fotball", "🤾 Håndball", "⛷️ Vintersport", "🏆 VM 2026"])
+  // search
+  const q = (elSearch.value || "").trim().toLowerCase();
+  if (q){
+    const hay = [
+      g.league, g.home, g.away, g.tv, ...(g.pubs || [])
+    ].join(" ").toLowerCase();
+    if (!hay.includes(q)) return false;
+  }
 
-    with tabs[0]:
-        st.subheader("Fotball")
-        render_cards(football)
+  return true;
+}
 
-    with tabs[1]:
-        st.subheader("Håndball")
-        render_cards(handball)
+function sortGames(arr){
+  const mode = elSort.value; // soon or late
 
-    with tabs[2]:
-        st.subheader("Vintersport")
-        render_cards(wintersport)
+  const key = (x) => x.dt ? x.dt.getTime() : 4102444800000; // year 2100
+  arr.sort((a,b) => key(a) - key(b));
 
-    with tabs[3]:
-        st.subheader("VM 2026")
-        render_cards(vm2026)
+  if (mode === "late") arr.reverse();
+  return arr;
+}
 
-except Exception as e:
-    # Dette gjør at du aldri får "helt hvit side" uten forklaring
-    st.error("Appen krasjet – her er feilen:")
-    st.code(f"{e.__class__.__name__}: {e}", language="text")
-    st.info("Tips: Dette skjer ofte hvis en JSON-fil har komma/klammefeil, eller hvis filene ikke ligger i ./data/")
+function renderList(){
+  const all = getActiveGames();
+  const filtered = sortGames(all.filter(passesFilters));
+
+  elCountInfo.textContent = `Viser: ${filtered.length} / ${all.length}`;
+
+  if (!filtered.length){
+    elList.innerHTML = `<div class="card"><b>Ingen treff</b><div class="meta">Prøv å slå av “kun kommende”, eller endre filter.</div></div>`;
+    return;
+  }
+
+  elList.innerHTML = filtered.slice(0, 300).map(g => {
+    const title = `${escapeHTML(g.home || "")}${g.away ? " – " + escapeHTML(g.away) : ""}` || "(mangler lag)";
+    const time = g.dt ? fmtOslo(g.dt) : "Tid ikke satt";
+    const leagueBadge = g.league ? `<span class="badge">${escapeHTML(g.league)}</span>` : "";
+    const tvBadge = g.tv ? `<span class="badge">📺 ${escapeHTML(g.tv)}</span>` : "";
+    const where = (g.pubs && g.pubs.length) ? escapeHTML(g.pubs.join(", ")) : "Ikke satt";
+
+    return `
+      <div class="card">
+        <div class="cardtop">
+          <div>
+            <div class="title">${title}</div>
+            <div class="meta">${escapeHTML(time)}</div>
+          </div>
+        </div>
+        <div class="badges">
+          ${leagueBadge}
+          ${tvBadge}
+        </div>
+        <div class="where"><b>Hvor:</b> ${where}</div>
+      </div>
+    `;
+  }).join("");
+}
+
+function bindUI(){
+  elLeagueFilter.addEventListener("change", renderList);
+  elPubFilter.addEventListener("change", renderList);
+  elSearch.addEventListener("input", renderList);
+  elOnlyUpcoming.addEventListener("change", renderList);
+  elSort.addEventListener("change", renderList);
+}
+
+async function init(){
+  setNetStatus();
+  bindUI();
+  renderTabs();
+
+  state.errors = [];
+  state.byKey = {};
+
+  // last alt
+  await Promise.all(SOURCES.map(async (s) => {
+    try{
+      const payload = await fetchJSON(s.file);
+      state.byKey[s.key] = normalizeGames(payload);
+    }catch(e){
+      state.byKey[s.key] = [];
+      state.errors.push(`${s.file}: ${e.message}`);
+    }
+  }));
+
+  showErrors();
+
+  // oppdater "Oppdatert"
+  elLastUpdated.textContent = `Oppdatert: ${new Date().toLocaleString("no-NO", { timeZone: TZ })}`;
+
+  rebuildFilters();
+  renderList();
+}
+
+init();
