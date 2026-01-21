@@ -12,8 +12,11 @@ jobs:
   update:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repo
+      - name: Checkout repo (main branch)
         uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -38,4 +41,4 @@ jobs:
 
       - name: Push changes
         run: |
-          git push
+          git push origin main
