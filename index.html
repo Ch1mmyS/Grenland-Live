@@ -4,8 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Grenland Live – Sport</title>
-
-  <link rel="stylesheet" href="styles.css?v=20260122">
+  <link rel="stylesheet" href="styles.css?v=20260122d">
 </head>
 <body>
   <div class="wrap">
@@ -67,11 +66,12 @@
 
     <footer class="footer">
       <div class="muted">
-        Data leses fra <code>/data/*.json</code>
+        Data leses fra <code>data/*.json</code>
       </div>
     </footer>
   </div>
 
-  <script src="app.js?v=20260122"></script>
+  <!-- CACHE-BUST so Firefox/PWA cannot use old app.js -->
+  <script src="app.js?v=20260122d"></script>
 </body>
 </html>
