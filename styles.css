@@ -1,57 +1,158 @@
+# app.py — Grenland Live Sport (STABIL LIGHT VERSION)
+# --------------------------------------------------
+
+import json
+from pathlib import Path
+from datetime import datetime
+from zoneinfo import ZoneInfo
+
+import streamlit as st
+
+# ----------------------------
+# BASIC CONFIG
+# ----------------------------
+st.set_page_config(
+    page_title="Grenland Live – Sport",
+    layout="wide"
+)
+
+TZ = ZoneInfo("Europe/Oslo")
+
+# ----------------------------
+# SAFE LIGHT CSS (IKKE aggressiv)
+# ----------------------------
 CSS = """
 <style>
-/* ---- FORCE LIGHT THEME + DARK TEXT ---- */
-html, body, [data-testid="stAppViewContainer"]{
-  background:#f6f8ff !important;
-  color:#0b1220 !important;
+[data-testid="stAppViewContainer"]{
+  background:#f6f8ff;
 }
 
-/* ALL TEXT */
-*, p, span, div, label, h1, h2, h3, h4, h5, h6 {
-  color:#0b1220 !important;
-}
-
-/* STREAMLIT WIDGETS */
+[data-testid="stMarkdownContainer"],
 [data-testid="stMarkdownContainer"] *{
   color:#0b1220 !important;
 }
 
-[data-testid="stSelectbox"] label,
-[data-testid="stMultiSelect"] label,
-[data-testid="stTextInput"] label,
-[data-testid="stToggle"] label {
-  color:#0b1220 !important;
-}
-
-/* INPUT FIELDS */
-input, textarea, select {
-  color:#0b1220 !important;
-  background:#ffffff !important;
-}
-
-/* CARDS */
 .card{
   background:#ffffff;
   border:1px solid rgba(11,18,32,.12);
-  border-radius:16px;
+  border-radius:14px;
   padding:14px;
   margin:10px 0;
 }
 
-.meta{
-  color:rgba(11,18,32,.65) !important;
-  font-size:0.92rem;
-}
+.meta{ color:rgba(11,18,32,.65); font-size:.9rem; }
 
 .badge{
   display:inline-block;
-  padding:3px 8px;
+  padding:4px 9px;
   border-radius:999px;
   border:1px solid rgba(11,18,32,.15);
+  background:#eef1ff;
+  font-size:.8rem;
   margin-right:6px;
-  font-size:0.85rem;
-  color:#0b1220 !important;
-  background:#f1f3ff;
 }
 </style>
 """
+st.markdown(CSS, unsafe_allow_html=True)
+
+# ----------------------------
+# DATA
+# ----------------------------
+DATA_DIR = Path(__file__).parent / "data"
+
+def load_json(name):
+    path = DATA_DIR / name
+    if not path.exists():
+        return []
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+        return data.get("games", [])
+    except Exception:
+        return []
+
+def parse_time(val):
+    if not val:
+        return None
+    try:
+        dt = datetime.fromisoformat(val.replace("Z","+00:00"))
+        if not dt.tzinfo:
+            dt = dt.replace(tzinfo=TZ)
+        return dt.astimezone(TZ)
+    except Exception:
+        return None
+
+def normalize(games):
+    out = []
+    for g in games:
+        pubs = []
+        raw = g.get("where") or g.get("pubs") or []
+        if isinstance(raw, list):
+            for p in raw:
+                if isinstance(p, str):
+                    pubs.append(p)
+                elif isinstance(p, dict):
+                    n = p.get("name","")
+                    c = p.get("city")
+                    pubs.append(f"{n} ({c})" if c else n)
+
+        out.append({
+            "league": g.get("league",""),
+            "home": g.get("home",""),
+            "away": g.get("away",""),
+            "time": parse_time(g.get("kickoff") or g.get("start")),
+            "tv": g.get("channel") or g.get("tv",""),
+            "pubs": pubs
+        })
+    return out
+
+def fmt(dt):
+    return dt.strftime("%a %d.%m kl %H:%M") if dt else "Tid ikke satt"
+
+# ----------------------------
+# LOAD ALL
+# ----------------------------
+football = normalize(load_json("football.json"))
+handball = normalize(load_json("handball.json"))
+wintersport = normalize(load_json("wintersport.json"))
+vm2026 = normalize(load_json("vm2026.json"))
+
+# ----------------------------
+# UI
+# ----------------------------
+st.title("Grenland Live – Sport")
+st.caption("Viser kamper og mesterskap fra lokale sportsbarer")
+
+tabs = st.tabs(["⚽ Fotball", "🤾 Håndball", "⛷️ Vintersport", "🏆 VM 2026"])
+
+def render(games):
+    if not games:
+        st.info("Ingen arrangementer funnet.")
+        return
+
+    for g in sorted(games, key=lambda x: x["time"] or datetime.max):
+        st.markdown(
+            f"""
+            <div class="card">
+              <b>{g["home"]} – {g["away"]}</b><br>
+              <span class="meta">{fmt(g["time"])}</span><br><br>
+              {f"<span class='badge'>{g['league']}</span>" if g["league"] else ""}
+              {f"<span class='badge'>📺 {g['tv']}</span>" if g["tv"] else ""}
+              <div class="meta" style="margin-top:8px">
+                <b>Hvor:</b> {", ".join(g["pubs"]) if g["pubs"] else "Ikke satt"}
+              </div>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+
+with tabs[0]:
+    render(football)
+
+with tabs[1]:
+    render(handball)
+
+with tabs[2]:
+    render(wintersport)
+
+with tabs[3]:
+    render(vm2026)
