@@ -1,129 +1,14 @@
-* {
-  box-sizing: border-box;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, Inter, Arial, sans-serif;
-}
+body { font-family: system-ui, Arial; margin:0; background:#f6f8ff; color:#0b1220; }
+.top { padding:16px; background:#0b1220; color:white; }
+.subtitle { margin:6px 0 0; opacity:.85; }
 
-body {
-  margin: 0;
-  min-height: 100vh;
-  background: #020617;
-  color: #ffffff;
-}
+.buttons { display:flex; flex-wrap:wrap; gap:8px; padding:12px; background:white; position:sticky; top:0; border-bottom:1px solid rgba(0,0,0,.08); }
+.buttons button { padding:10px 12px; border-radius:12px; border:1px solid rgba(0,0,0,.15); background:#fff; cursor:pointer; }
+.buttons button.active { background:#0b1220; color:#fff; border-color:#0b1220; }
 
-.wrap {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 24px 16px 60px;
-}
-
-h1 {
-  font-size: 2.4rem;
-  margin-bottom: 6px;
-}
-
-.sub {
-  color: #c7d2fe;
-  max-width: 720px;
-  margin-bottom: 16px;
-}
-
-.netStatus {
-  display: inline-block;
-  padding: 6px 12px;
-  border-radius: 999px;
-  font-size: 13px;
-  font-weight: 700;
-  border: 1px solid #334155;
-  margin-bottom: 16px;
-}
-
-.netStatus.online {
-  background: #052e16;
-  color: #86efac;
-}
-
-.netStatus.offline {
-  background: #450a0a;
-  color: #fca5a5;
-}
-
-.panel {
-  border: 1px solid #1e293b;
-  border-radius: 14px;
-  padding: 14px;
-}
-
-.inputRow {
-  display: flex;
-  gap: 10px;
-}
-
-input {
-  flex: 1;
-  background: #020617;
-  border: 1px solid #334155;
-  color: #fff;
-  padding: 12px;
-  border-radius: 10px;
-}
-
-.primary {
-  background: #2563eb;
-  border: none;
-  border-radius: 10px;
-  padding: 12px 18px;
-  font-weight: 800;
-  color: #fff;
-  cursor: pointer;
-}
-
-.results {
-  margin-top: 16px;
-  display: grid;
-  gap: 14px;
-}
-
-.card {
-  border: 1px solid #1e293b;
-  border-radius: 14px;
-  padding: 14px;
-}
-
-.title {
-  font-weight: 900;
-  font-size: 16px;
-}
-
-.meta {
-  font-size: 13px;
-  color: #c7d2fe;
-}
-
-.glSelect {
-  width: 100%;
-  background: #020617;
-  border: 1px solid #334155;
-  color: #fff;
-  padding: 10px;
-  border-radius: 10px;
-  margin-top: 6px;
-}
-
-.infoBox {
-  margin-top: 10px;
-  border: 1px solid #334155;
-  border-radius: 12px;
-  padding: 10px;
-}
-
-.glLink {
-  display: inline-block;
-  margin-top: 8px;
-  padding: 8px 12px;
-  border-radius: 10px;
-  background: #1e293b;
-  color: #fff;
-  text-decoration: none;
-  font-weight: 800;
-}
+.list { padding:12px; display:grid; gap:10px; }
+.card { background:#fff; border:1px solid rgba(0,0,0,.10); border-radius:16px; padding:12px; box-shadow: 0 6px 20px rgba(0,0,0,.04); }
+.time { margin-top:6px; opacity:.8; }
+.tv, .where { margin-top:6px; }
+.empty { padding:16px; opacity:.7; }
+.error { padding:16px; color:#b00020; }
