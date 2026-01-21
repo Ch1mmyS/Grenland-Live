@@ -1,13 +1,14 @@
-// sw.js — Grenland Live (SAFE) — do NOT cache app.js, styles.css, or data/*.json
-const CACHE_NAME = "grenland-live-shell-v2";
+// sw.js — SAFE (avoid stale caching)
+const CACHE_NAME = "grenland-live-shell-v3";
 
 const STATIC_SHELL = [
   "./",
   "./index.html",
-  "./manifest.json"
+  "./manifest.json",
+  "./icons/icon-192.png",
+  "./icons/icon-512.png"
 ];
 
-// Install: cache only shell
 self.addEventListener("install", (event) => {
   self.skipWaiting();
   event.waitUntil(
@@ -15,7 +16,6 @@ self.addEventListener("install", (event) => {
   );
 });
 
-// Activate: remove old caches
 self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys().then((keys) =>
@@ -25,10 +25,8 @@ self.addEventListener("activate", (event) => {
   self.clients.claim();
 });
 
-// Fetch: never cache JS/CSS/JSON
 self.addEventListener("fetch", (event) => {
   const url = new URL(event.request.url);
-
   const isJS = url.pathname.endsWith("app.js");
   const isCSS = url.pathname.endsWith("styles.css");
   const isJSON = url.pathname.endsWith(".json");
@@ -38,7 +36,5 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  event.respondWith(
-    fetch(event.request).catch(() => caches.match(event.request))
-  );
+  event.respondWith(fetch(event.request).catch(() => caches.match(event.request)));
 });
