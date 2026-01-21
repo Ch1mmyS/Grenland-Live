@@ -1,6 +1,3 @@
-// Grenland Live – JSON-feed version
-// Oppdatering: Endre kun /data/*.json (GitHub/Netlify) – appen leser data ved refresh.
-
 const MS_DAY = 24 * 60 * 60 * 1000;
 const TZ = "Europe/Oslo";
 
@@ -82,34 +79,8 @@ async function loadJSON(path){
   return await res.json();
 }
 
-// ---- RULE ENGINES (Jam/Quiz genereres automatisk fra rules JSON) ----
-
-function firstSaturdayOfMonth(year, monthIndex /*0-11*/){
-  const d = new Date(Date.UTC(year, monthIndex, 1, 12, 0, 0)); // midt på dagen (stabilt)
-  // Finn første lørdag
-  const day = d.getUTCDay(); // 0..6
-  const add = (6 - day + 7) % 7;
-  return new Date(Date.UTC(year, monthIndex, 1 + add, 12, 0, 0));
-}
-
-function buildMonthlyFirstSaturday({ hour, minute, monthsAhead=6, title, place, city, details, link }){
-  const now = new Date();
-  const out = [];
-  for (let i=0; i<monthsAhead; i++){
-    const m = new Date(now.getFullYear(), now.getMonth()+i, 1);
-    const fs = firstSaturdayOfMonth(m.getFullYear(), m.getMonth());
-    // sett Oslo-tid klokkeslett ved å bygge ISO med +01/+02 automatisk via local constructor:
-    const local = new Date(fs.getUTCFullYear(), fs.getUTCMonth(), fs.getUTCDate(), hour, minute, 0);
-    out.push({
-      title,
-      iso: local.toISOString(),
-      place, city, details, link
-    });
-  }
-  return out;
-}
-
-function nextWeekdayDates(weekday /*0=Sun..6*/, hour, minute, count=5){
+// ---- rule generators ----
+function nextWeekdayDates(weekday /*0=Sun..6*/, hour, minute, count=6){
   const out = [];
   const now = new Date();
   let d = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hour, minute, 0);
@@ -124,28 +95,37 @@ function nextWeekdayDates(weekday /*0=Sun..6*/, hour, minute, count=5){
   return out;
 }
 
-// ---- TV CHANNELS (per kamp) ----
+function firstSaturdayOfMonth(year, monthIndex /*0-11*/){
+  const d = new Date(Date.UTC(year, monthIndex, 1, 12, 0, 0));
+  const day = d.getUTCDay(); // 0..6
+  const add = (6 - day + 7) % 7;
+  return new Date(Date.UTC(year, monthIndex, 1 + add, 12, 0, 0));
+}
+
+function buildMonthlyFirstSaturday(rule){
+  const { hour, minute, monthsAhead=6, title, place, city, details, link } = rule;
+  const now = new Date();
+  const out = [];
+  for (let i=0; i<monthsAhead; i++){
+    const m = new Date(now.getFullYear(), now.getMonth()+i, 1);
+    const fs = firstSaturdayOfMonth(m.getFullYear(), m.getMonth());
+    // Sett Oslo-lokal tid ved å bruke lokal konstruktør
+    const local = new Date(fs.getUTCFullYear(), fs.getUTCMonth(), fs.getUTCDate(), hour, minute, 0);
+    out.push({ title, iso: local.toISOString(), place, city, details, link });
+  }
+  return out;
+}
+
 function tvForCompetition(competition){
   const c = (competition || "").toLowerCase();
-  // Norge: Odd/Eliteserien -> TV 2. Premier League -> Viaplay/V Sport.
   if (c.includes("premier")) return "V Sport / Viaplay";
   if (c.includes("odd") || c.includes("eliteserien") || c.includes("nm")) return "TV 2 Sport 1 / TV 2 Play";
   return "Sjekk rettigheter";
 }
 
-// ---- MAIN ----
-let DATA = null;
-
-function applySearchTerm(term, items){
-  const q = (term || "").toLowerCase().trim();
-  if (!q) return items;
-  return items.filter(it => JSON.stringify(it).toLowerCase().includes(q));
-}
-
 function sortByIsoAsc(arr){
   return arr.slice().sort((a,b)=>new Date(a.iso)-new Date(b.iso));
 }
-
 function upcomingOnly(arr){
   const now = Date.now();
   return arr.filter(x => new Date(x.iso).getTime() >= now - 2*60*60*1000);
@@ -179,13 +159,21 @@ function buildWhatsOn30({ jams, quizzes, footballMatches }){
   return sortByIsoAsc(out);
 }
 
+let DATA = null;
+
+function applySearchTerm(term, items){
+  const q = (term || "").toLowerCase().trim();
+  if (!q) return items;
+  return items.filter(it => JSON.stringify(it).toLowerCase().includes(q));
+}
+
 function render(){
   const root = document.getElementById("results");
   root.innerHTML = "";
 
   const term = document.getElementById("q")?.value || "";
 
-  // pubs
+  // PUBS
   const pubs = applySearchTerm(term, DATA.pubs);
   const pubOptions = pubs.map((p,i)=>`<option value="${i}">${p.name} (${p.city})</option>`).join("");
 
@@ -194,10 +182,9 @@ function render(){
     type:"Pub",
     when:"Alltid",
     where:"Skien / Porsgrunn",
-    desc:"Velg et sted for info og link.",
+    desc:"Velg et sted for info.",
     inner: `
       <hr class="sep">
-      <label class="small"><strong>Velg sted:</strong></label>
       <select class="glSelect" id="pubSelect">
         <option value="">Velg…</option>
         ${pubOptions}
@@ -206,19 +193,18 @@ function render(){
     `
   }));
 
-  // jam dropdown
+  // JAM
   const jams = applySearchTerm(term, DATA.jams);
   const jamOptions = sortByIsoAsc(jams).map((e,i)=>`<option value="${i}">${fmtOslo(e.iso)} – ${e.place}</option>`).join("");
 
   root.insertAdjacentHTML("beforeend", cardHTML({
-    title:"Jam-kvelder i Grenland",
+    title:"Jam nights i Grenland",
     type:"Jam",
     when:"Kommende",
     where:"Grenland",
     desc:"Velg jam for tid, sted og info.",
     inner: `
       <hr class="sep">
-      <label class="small"><strong>Velg jam:</strong></label>
       <select class="glSelect" id="jamSelect">
         <option value="">Velg…</option>
         ${jamOptions}
@@ -227,7 +213,7 @@ function render(){
     `
   }));
 
-  // quiz dropdown
+  // QUIZ
   const quizzes = applySearchTerm(term, DATA.quizzes);
   const quizOptions = sortByIsoAsc(quizzes).map((e,i)=>`<option value="${i}">${e.place} (${e.city}) – ${fmtOslo(e.iso)}</option>`).join("");
 
@@ -239,7 +225,6 @@ function render(){
     desc:"Velg quiz for tid, sted og info.",
     inner: `
       <hr class="sep">
-      <label class="small"><strong>Velg quiz:</strong></label>
       <select class="glSelect" id="quizSelect">
         <option value="">Velg…</option>
         ${quizOptions}
@@ -248,7 +233,7 @@ function render(){
     `
   }));
 
-  // event sources dropdown (programlenker – alltid oppdatert uten at du vedlikeholder datoer)
+  // ARRANGEMENTER (kilder)
   const sources = applySearchTerm(term, DATA.eventSources);
   const srcOptions = sources.map((s,i)=>`<option value="${i}">${s.name} (${s.city})</option>`).join("");
 
@@ -260,7 +245,6 @@ function render(){
     desc:"Velg sted for å åpne oppdatert program/arrangementsliste.",
     inner: `
       <hr class="sep">
-      <label class="small"><strong>Velg sted:</strong></label>
       <select class="glSelect" id="srcSelect">
         <option value="">Velg…</option>
         ${srcOptions}
@@ -269,7 +253,7 @@ function render(){
     `
   }));
 
-  // football dropdown (15 vs 30)
+  // FOTBALL
   const footballMatches = applySearchTerm(term, DATA.footballMatches).map(m => ({
     ...m,
     tv: m.tv || tvForCompetition(m.competition)
@@ -287,27 +271,23 @@ function render(){
       <hr class="sep">
       <div class="twoCol">
         <div>
-          <label class="small"><strong>Visning:</strong></label>
           <select class="glSelect" id="fbMode">
             <option value="15">15 kamper (neste)</option>
             <option value="30">Kommende fotball (neste 30 dager)</option>
           </select>
         </div>
         <div>
-          <label class="small"><strong>Velg kamp:</strong></label>
           <select class="glSelect" id="fbSelect">
             <option value="">Velg…</option>
           </select>
         </div>
       </div>
       <div id="fbInfo"></div>
-      <div class="small" style="margin-top:10px;">
-        Tider vises alltid i Norge (Europe/Oslo). 📺 Kanal er oppgitt per liga.
-      </div>
+      <div class="meta" style="margin-top:10px;">Tider vises alltid i Norge (Europe/Oslo).</div>
     `
   }));
 
-  // “Hva skjer 30 dager” dropdown
+  // HVA SKJER 30 DAGER
   const whats = buildWhatsOn30({ jams: DATA.jams, quizzes: DATA.quizzes, footballMatches });
   const whOptions = whats.map((e,i)=>`<option value="${i}">${e.kind} • ${fmtOslo(e.iso)} • ${e.title}</option>`).join("");
 
@@ -319,7 +299,6 @@ function render(){
     desc:"Samlet oversikt (jam + quiz + fotball).",
     inner: `
       <hr class="sep">
-      <label class="small"><strong>Velg:</strong></label>
       <select class="glSelect" id="whSelect">
         <option value="">Velg…</option>
         ${whOptions}
@@ -340,6 +319,7 @@ function wirePubs(pubs){
   const sel = document.getElementById("pubSelect");
   const out = document.getElementById("pubInfo");
   if (!sel || !out) return;
+
   sel.addEventListener("change", ()=>{
     if (sel.value===""){ out.innerHTML=""; return; }
     const p = pubs[Number(sel.value)];
@@ -358,6 +338,7 @@ function wireJam(list){
   const sel = document.getElementById("jamSelect");
   const out = document.getElementById("jamInfo");
   if (!sel || !out) return;
+
   sel.addEventListener("change", ()=>{
     if (sel.value===""){ out.innerHTML=""; return; }
     const e = list[Number(sel.value)];
@@ -373,6 +354,7 @@ function wireQuiz(list){
   const sel = document.getElementById("quizSelect");
   const out = document.getElementById("quizInfo");
   if (!sel || !out) return;
+
   sel.addEventListener("change", ()=>{
     if (sel.value===""){ out.innerHTML=""; return; }
     const e = list[Number(sel.value)];
@@ -388,6 +370,7 @@ function wireSources(list){
   const sel = document.getElementById("srcSelect");
   const out = document.getElementById("srcInfo");
   if (!sel || !out) return;
+
   sel.addEventListener("change", ()=>{
     if (sel.value===""){ out.innerHTML=""; return; }
     const s = list[Number(sel.value)];
@@ -401,7 +384,6 @@ function wireSources(list){
 
 function fillFootballSelect(sel, matches){
   sel.innerHTML = `<option value="">Velg…</option>` + matches.map((m,i)=>{
-    // label: dato + kamp + liten kanalhint
     const tv = m.tv || tvForCompetition(m.competition);
     return `<option value="${i}">${fmtOslo(m.iso)} – ${m.match} (📺 ${tv})</option>`;
   }).join("");
@@ -445,6 +427,7 @@ function wireWhatsOn(list){
   const sel = document.getElementById("whSelect");
   const out = document.getElementById("whInfo");
   if (!sel || !out) return;
+
   sel.addEventListener("change", ()=>{
     if (sel.value===""){ out.innerHTML=""; return; }
     const e = list[Number(sel.value)];
@@ -459,7 +442,6 @@ function wireWhatsOn(list){
 async function init(){
   setNetStatus();
 
-  // Load feeds
   const [pubs, football, jamRules, quizRules, eventSources] = await Promise.all([
     loadJSON("./data/pubs.json"),
     loadJSON("./data/football.json"),
@@ -468,44 +450,43 @@ async function init(){
     loadJSON("./data/event_sources.json")
   ]);
 
-  // Build jams from rules
+  // Jams
   const jams = [];
-  jamRules.rules.forEach(r => {
+  (jamRules.rules || []).forEach(r => {
     if (r.type === "monthly_first_saturday") {
       jams.push(...buildMonthlyFirstSaturday(r));
+    } else if (r.type === "weekly") {
+      const dates = nextWeekdayDates(r.weekday, r.hour, r.minute, r.count || 8);
+      dates.forEach(dt => jams.push({
+        title: r.title, iso: dt.toISOString(), place: r.place, city: r.city,
+        details: r.details, link: r.link || ""
+      }));
     }
   });
 
-  // Build quizzes from rules
+  // Quizzes
   const quizzes = [];
-  quizRules.rules.forEach(r => {
+  (quizRules.rules || []).forEach(r => {
     if (r.type === "weekly") {
-      const dates = nextWeekdayDates(r.weekday, r.hour, r.minute, r.count || 6);
-      dates.forEach(dt => {
-        quizzes.push({
-          title: r.title,
-          iso: dt.toISOString(),
-          place: r.place,
-          city: r.city,
-          details: r.details,
-          link: r.link || ""
-        });
-      });
+      const dates = nextWeekdayDates(r.weekday, r.hour, r.minute, r.count || 10);
+      dates.forEach(dt => quizzes.push({
+        title: r.title, iso: dt.toISOString(), place: r.place, city: r.city,
+        details: r.details, link: r.link || ""
+      }));
     }
   });
 
-  // Normalize football: make sure tv exists, show Oslo times via fmtOslo anyway
-  const footballMatches = football.matches.map(m => ({
+  const footballMatches = (football.matches || []).map(m => ({
     ...m,
     tv: m.tv || tvForCompetition(m.competition)
   }));
 
   DATA = {
-    pubs: pubs.places,
+    pubs: pubs.places || [],
     footballMatches,
     jams: upcomingOnly(sortByIsoAsc(jams)),
     quizzes: upcomingOnly(sortByIsoAsc(quizzes)),
-    eventSources: eventSources.sources
+    eventSources: eventSources.sources || []
   };
 
   render();
@@ -516,18 +497,13 @@ async function init(){
   if (input) input.addEventListener("keydown", (e)=>{ if(e.key==="Enter") render(); });
 }
 
-function sortByIsoAsc(arr){ return arr.slice().sort((a,b)=>new Date(a.iso)-new Date(b.iso)); }
-function upcomingOnly(arr){
-  const now = Date.now();
-  return arr.filter(x => new Date(x.iso).getTime() >= now - 2*60*60*1000);
-}
-
 window.addEventListener("online", setNetStatus);
 window.addEventListener("offline", setNetStatus);
 
 document.addEventListener("DOMContentLoaded", () => {
   init().catch(err => {
     const root = document.getElementById("results");
-    if (root) root.innerHTML = `<div class="card"><div class="title">Kunne ikke laste data</div><div class="meta">${esc(err.message)}</div></div>`;
+    if (root) root.innerHTML =
+      `<div class="card"><div class="title">Kunne ikke laste data</div><div class="meta">${esc(err.message)}</div></div>`;
   });
 });
