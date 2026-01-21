@@ -22,9 +22,7 @@ FILES = {
 }
 
 def main():
-    print("Oppdaterer /data")
-    print("Periode: nå ->", END.date())
-
+    print("Oppdaterer data-filer (nå -> 31.12.2026)")
     for filename, empty in FILES.items():
         path = DATA / filename
         if path.exists():

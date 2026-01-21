@@ -1,0 +1,1 @@
+requests==2.32.3echo beautifulsoup4==4.12.3echo lxml==5.2.2
