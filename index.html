@@ -1,46 +1,37 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="no">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Grenland Live</title>
 
-  <link rel="manifest" href="./manifest.webmanifest">
-  <meta name="theme-color" content="#020617">
-  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="manifest" href="manifest.json" />
+
+  <meta name="theme-color" content="#0b1220" />
 </head>
-
 <body>
-  <main class="wrap">
-    <h1>Grenland Live</h1>
 
-    <p class="sub">
-      Grenland Live samler puber, fotball og ting som skjer i Grenland – så du raskt ser hva som skjer, hvor det skjer og når.
-    </p>
+<header class="top">
+  <h1>Grenland Live</h1>
+  <p class="subtitle">Kamper & events – full oversikt</p>
+</header>
 
-    <div id="netStatus" class="netStatus" aria-live="polite">Sjekker nett…</div>
+<!-- 🔘 KNAPPER -->
+<nav id="leagueButtons" class="buttons"></nav>
 
-    <div class="panel">
-      <div class="inputRow">
-        <input id="q" placeholder="Søk: Odd, Premier League, jam, quiz, pub…" autocomplete="off" />
-        <button id="go" class="primary">Søk</button>
-      </div>
+<!-- 📋 LISTE -->
+<main>
+  <div id="list" class="list"></div>
+</main>
 
-      <div class="hint">
-        Tips: Søk på sted (“Skien”), pub (“Vikinghjørnet”), eller liga (“Premier League”).
-      </div>
+<script src="app.js"></script>
 
-      <div id="results" class="results"></div>
-    </div>
-  </main>
+<script>
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("sw.js");
+  }
+</script>
 
-  <script src="./app.js"></script>
-
-  <script>
-    // Under utvikling: hvis cache krangler, kommenter ut service worker-linjene.
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("./sw.js");
-    }
-  </script>
 </body>
 </html>
