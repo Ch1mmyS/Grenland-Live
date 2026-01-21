@@ -1,158 +1,204 @@
-# app.py — Grenland Live Sport (STABIL LIGHT VERSION)
-# --------------------------------------------------
-
-import json
-from pathlib import Path
-from datetime import datetime
-from zoneinfo import ZoneInfo
-
-import streamlit as st
-
-# ----------------------------
-# BASIC CONFIG
-# ----------------------------
-st.set_page_config(
-    page_title="Grenland Live – Sport",
-    layout="wide"
-)
-
-TZ = ZoneInfo("Europe/Oslo")
-
-# ----------------------------
-# SAFE LIGHT CSS (IKKE aggressiv)
-# ----------------------------
-CSS = """
-<style>
-[data-testid="stAppViewContainer"]{
-  background:#f6f8ff;
+:root{
+  --bg:#f6f8ff;
+  --panel:#ffffff;
+  --text:#0b1220;
+  --muted:rgba(11,18,32,.65);
+  --line:rgba(11,18,32,.12);
+  --chip:#eef2ff;
+  --shadow:0 10px 22px rgba(0,0,0,.06);
 }
 
-[data-testid="stMarkdownContainer"],
-[data-testid="stMarkdownContainer"] *{
-  color:#0b1220 !important;
+*{ box-sizing:border-box; }
+html, body{
+  margin:0;
+  padding:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+.wrap{ max-width:1100px; margin:0 auto; padding:18px 14px 44px; }
+
+.top{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:16px;
+  box-shadow:var(--shadow);
+}
+
+.brand{ display:flex; gap:12px; align-items:center; }
+.logo{
+  width:44px; height:44px;
+  border-radius:14px;
+  background:var(--text);
+  color:#fff;
+  display:grid; place-items:center;
+  font-weight:900;
+}
+
+h1{ margin:0; font-size:22px; line-height:1.1; }
+.sub{ color:var(--muted); font-size:14px; margin-top:3px; }
+
+.statusrow{
+  margin-top:12px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+
+.pill{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:6px 10px;
+  font-size:13px;
+  color:var(--muted);
+}
+
+.tabs{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin:14px 0 10px;
+}
+
+.tabbtn{
+  border:1px solid var(--line);
+  background:var(--panel);
+  color:var(--text);
+  border-radius:999px;
+  padding:9px 12px;
+  cursor:pointer;
+  font-weight:800;
+  font-size:14px;
+}
+
+.tabbtn.active{
+  background:var(--text);
+  color:#fff;
+  border-color:transparent;
+}
+
+.toolbar{
+  display:grid;
+  grid-template-columns: 1.1fr 1.1fr 1.4fr 1.1fr 0.9fr;
+  gap:10px;
+  margin:10px 0 12px;
+}
+
+@media (max-width:900px){
+  .toolbar{ grid-template-columns: 1fr 1fr; }
+}
+
+.field{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:10px;
+  box-shadow:0 6px 18px rgba(0,0,0,.03);
+}
+
+label{
+  display:block;
+  font-size:12px;
+  color:var(--muted);
+  margin-bottom:6px;
+  font-weight:800;
+}
+
+select, input{
+  width:100%;
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:9px 10px;
+  background:#fff;
+  color:var(--text);
+  outline:none;
+  font-size:14px;
+}
+
+.toggle{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  padding:10px 12px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:var(--panel);
+  box-shadow:0 6px 18px rgba(0,0,0,.03);
+  user-select:none;
+}
+
+.toggle input{ width:auto; }
+
+.errors{
+  background:#fff0f0;
+  border:1px solid rgba(220,38,38,.25);
+  color:#7f1d1d;
+  border-radius:16px;
+  padding:12px 14px;
+  margin:10px 0 14px;
+}
+
+.list{
+  margin-top:10px;
+  display:grid;
+  gap:12px;
 }
 
 .card{
-  background:#ffffff;
-  border:1px solid rgba(11,18,32,.12);
-  border-radius:14px;
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:18px;
   padding:14px;
-  margin:10px 0;
+  box-shadow:var(--shadow);
 }
 
-.meta{ color:rgba(11,18,32,.65); font-size:.9rem; }
+.cardtop{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  align-items:flex-start;
+}
 
+.title{
+  font-weight:900;
+  font-size:16px;
+}
+
+.meta{
+  color:var(--muted);
+  font-size:13px;
+  margin-top:3px;
+}
+
+.badges{ margin-top:10px; display:flex; gap:8px; flex-wrap:wrap; }
 .badge{
-  display:inline-block;
-  padding:4px 9px;
+  border:1px solid var(--line);
+  background:var(--chip);
   border-radius:999px;
-  border:1px solid rgba(11,18,32,.15);
-  background:#eef1ff;
-  font-size:.8rem;
-  margin-right:6px;
+  padding:5px 10px;
+  font-size:12px;
+  font-weight:800;
 }
-</style>
-"""
-st.markdown(CSS, unsafe_allow_html=True)
 
-# ----------------------------
-# DATA
-# ----------------------------
-DATA_DIR = Path(__file__).parent / "data"
+.where{
+  margin-top:10px;
+  color:var(--muted);
+  font-size:13px;
+}
 
-def load_json(name):
-    path = DATA_DIR / name
-    if not path.exists():
-        return []
-    try:
-        data = json.loads(path.read_text(encoding="utf-8"))
-        return data.get("games", [])
-    except Exception:
-        return []
+.footer{
+  margin-top:18px;
+  color:var(--muted);
+  font-size:13px;
+}
 
-def parse_time(val):
-    if not val:
-        return None
-    try:
-        dt = datetime.fromisoformat(val.replace("Z","+00:00"))
-        if not dt.tzinfo:
-            dt = dt.replace(tzinfo=TZ)
-        return dt.astimezone(TZ)
-    except Exception:
-        return None
-
-def normalize(games):
-    out = []
-    for g in games:
-        pubs = []
-        raw = g.get("where") or g.get("pubs") or []
-        if isinstance(raw, list):
-            for p in raw:
-                if isinstance(p, str):
-                    pubs.append(p)
-                elif isinstance(p, dict):
-                    n = p.get("name","")
-                    c = p.get("city")
-                    pubs.append(f"{n} ({c})" if c else n)
-
-        out.append({
-            "league": g.get("league",""),
-            "home": g.get("home",""),
-            "away": g.get("away",""),
-            "time": parse_time(g.get("kickoff") or g.get("start")),
-            "tv": g.get("channel") or g.get("tv",""),
-            "pubs": pubs
-        })
-    return out
-
-def fmt(dt):
-    return dt.strftime("%a %d.%m kl %H:%M") if dt else "Tid ikke satt"
-
-# ----------------------------
-# LOAD ALL
-# ----------------------------
-football = normalize(load_json("football.json"))
-handball = normalize(load_json("handball.json"))
-wintersport = normalize(load_json("wintersport.json"))
-vm2026 = normalize(load_json("vm2026.json"))
-
-# ----------------------------
-# UI
-# ----------------------------
-st.title("Grenland Live – Sport")
-st.caption("Viser kamper og mesterskap fra lokale sportsbarer")
-
-tabs = st.tabs(["⚽ Fotball", "🤾 Håndball", "⛷️ Vintersport", "🏆 VM 2026"])
-
-def render(games):
-    if not games:
-        st.info("Ingen arrangementer funnet.")
-        return
-
-    for g in sorted(games, key=lambda x: x["time"] or datetime.max):
-        st.markdown(
-            f"""
-            <div class="card">
-              <b>{g["home"]} – {g["away"]}</b><br>
-              <span class="meta">{fmt(g["time"])}</span><br><br>
-              {f"<span class='badge'>{g['league']}</span>" if g["league"] else ""}
-              {f"<span class='badge'>📺 {g['tv']}</span>" if g["tv"] else ""}
-              <div class="meta" style="margin-top:8px">
-                <b>Hvor:</b> {", ".join(g["pubs"]) if g["pubs"] else "Ikke satt"}
-              </div>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-
-with tabs[0]:
-    render(football)
-
-with tabs[1]:
-    render(handball)
-
-with tabs[2]:
-    render(wintersport)
-
-with tabs[3]:
-    render(vm2026)
+code{
+  background:#eef2ff;
+  border:1px solid rgba(0,0,0,.08);
+  padding:2px 6px;
+  border-radius:8px;
+}
