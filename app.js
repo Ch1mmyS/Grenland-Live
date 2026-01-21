@@ -1,73 +1,101 @@
-# app.py — Grenland Live (Sportsmeny / JSON-feed)
-# Leser kun /data/*.json (lokalt i repo). Fungerer på Streamlit Cloud/Netlify JSON.
-# Timezone: Europe/Oslo
+# app.py — Grenland Live Sport (FAILSAFE / NO BLANK PAGE)
+# -------------------------------------------------------
+# - Viser alltid UI selv om data mangler/feiler
+# - Leser fra ./data/*.json
+# - Timezone: Europe/Oslo
 
 import json
 from pathlib import Path
-from datetime import datetime, timezone
+from datetime import datetime
 from zoneinfo import ZoneInfo
 
-import pandas as pd
 import streamlit as st
 
 TZ = ZoneInfo("Europe/Oslo")
 
 # ----------------------------
-# PAGE
+# PAGE CONFIG
 # ----------------------------
 st.set_page_config(page_title="Grenland Live – Sport", layout="wide")
 
+# ----------------------------
+# SAFE, MINIMAL CSS (ikke aggressiv)
+# ----------------------------
 CSS = """
 <style>
-:root{--bg:#f6f8ff;--panel:#ffffff;--text:#0b1220;--muted:rgba(11,18,32,.62);--line:rgba(11,18,32,.10);}
-html, body, [data-testid="stAppViewContainer"]{background:var(--bg);}
-.block-container{padding-top:1.2rem;}
-.card{background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:14px 14px; margin:10px 0;}
-.meta{color:var(--muted); font-size:0.92rem;}
-.badge{display:inline-block; padding:3px 8px; border-radius:999px; border:1px solid var(--line); margin-right:6px; font-size:0.85rem;}
-hr{border:none; border-top:1px solid var(--line); margin:14px 0;}
-.small{font-size:.9rem; color:var(--muted);}
+/* Litt lys bakgrunn på "canvas" */
+[data-testid="stAppViewContainer"] { background: #f6f8ff; }
+
+/* Kort / cards */
+.card{
+  background:#ffffff;
+  border:1px solid rgba(11,18,32,.12);
+  border-radius:16px;
+  padding:14px;
+  margin:10px 0;
+}
+.meta{ color: rgba(11,18,32,.65); font-size: .92rem; }
+.badge{
+  display:inline-block;
+  padding:4px 10px;
+  border-radius:999px;
+  border:1px solid rgba(11,18,32,.15);
+  background:#eef1ff;
+  font-size:.82rem;
+  margin-right:6px;
+}
+hr{ border:none; border-top:1px solid rgba(11,18,32,.12); margin: 14px 0; }
 </style>
 """
 st.markdown(CSS, unsafe_allow_html=True)
 
 # ----------------------------
-# HELPERS
+# DATA HELPERS
 # ----------------------------
-DATA_DIR = Path(__file__).parent / "data"
+BASE_DIR = Path(__file__).parent
+DATA_DIR = BASE_DIR / "data"
 
-def _read_json_file(path: Path):
-    if not path.exists():
-        return {"games": []}
-    try:
-        return json.loads(path.read_text(encoding="utf-8"))
-    except Exception:
-        return {"games": []}
-
-def parse_dt(s: str | None):
-    if not s:
+def parse_dt(val: str | None):
+    if not val:
         return None
     try:
-        # Støtter ISO med/uten offset
-        dt = datetime.fromisoformat(s.replace("Z", "+00:00"))
+        dt = datetime.fromisoformat(val.replace("Z", "+00:00"))
         if dt.tzinfo is None:
             dt = dt.replace(tzinfo=TZ)
         return dt.astimezone(TZ)
     except Exception:
         return None
 
-def normalize_games(payload: dict):
+def safe_read_json(path: Path) -> dict:
+    # Returnerer alltid en dict med "games"
+    if not path.exists():
+        return {"games": []}
+    try:
+        txt = path.read_text(encoding="utf-8")
+        data = json.loads(txt)
+        if isinstance(data, dict) and "games" in data:
+            return data
+        # Hvis noen har lagret liste direkte
+        if isinstance(data, list):
+            return {"games": data}
+        return {"games": []}
+    except Exception as e:
+        # Legg feilen i et felt så vi kan vise den
+        return {"games": [], "_error": f"{e.__class__.__name__}: {e}"}
+
+def normalize_games(payload: dict) -> list[dict]:
     games = payload.get("games", []) or []
     out = []
     for g in games:
-        league = g.get("league") or g.get("tournament") or ""
-        home = g.get("home") or ""
-        away = g.get("away") or ""
-        # kickoff / start / datetime
-        dt = parse_dt(g.get("kickoff") or g.get("start") or g.get("datetime"))
-        channel = g.get("channel") or g.get("tv") or ""
+        # Tåler forskjellige feltnavn
+        league = (g.get("league") or g.get("tournament") or "").strip()
+        home = (g.get("home") or "").strip()
+        away = (g.get("away") or "").strip()
 
-        # pubs/where kan være liste av str eller liste av dict
+        dt = parse_dt(g.get("kickoff") or g.get("start") or g.get("datetime"))
+
+        channel = (g.get("channel") or g.get("tv") or "").strip()
+
         pubs_raw = g.get("where") or g.get("pubs") or []
         pubs = []
         if isinstance(pubs_raw, list):
@@ -75,195 +103,127 @@ def normalize_games(payload: dict):
                 if isinstance(p, str):
                     pubs.append(p)
                 elif isinstance(p, dict):
-                    name = p.get("name") or ""
-                    city = p.get("city")
-                    pubs.append(f"{name} ({city})" if city else name)
+                    name = (p.get("name") or "").strip()
+                    city = (p.get("city") or "").strip()
+                    if name and city:
+                        pubs.append(f"{name} ({city})")
+                    elif name:
+                        pubs.append(name)
         elif isinstance(pubs_raw, str):
             pubs = [pubs_raw]
 
         out.append({
-            "league": league.strip(),
-            "home": home.strip(),
-            "away": away.strip(),
+            "league": league,
+            "home": home,
+            "away": away,
             "dt": dt,
-            "channel": channel.strip(),
+            "channel": channel,
             "pubs": [x for x in pubs if x],
         })
     return out
 
-def fmt_dt(dt: datetime | None):
+def fmt_dt(dt):
     if not dt:
-        return "Ukjent tid"
+        return "Tid ikke satt"
     return dt.strftime("%a %d.%m.%Y kl %H:%M")
-
-def is_upcoming(dt: datetime | None):
-    if not dt:
-        return True
-    now = datetime.now(TZ)
-    return dt >= now
 
 def render_cards(games: list[dict]):
     if not games:
-        st.info("Ingen kamper/arrangementer å vise (sjekk at JSON har data).")
+        st.info("Ingen arrangementer å vise (sjekk JSON-filene).")
         return
 
-    for g in games:
-        title = f"{g['home']} vs {g['away']}".strip(" vs ")
+    # Sorter: først de med tid, så uten
+    def key(x):
+        return x["dt"] if x["dt"] else datetime(2100, 1, 1, tzinfo=TZ)
+
+    for g in sorted(games, key=key):
+        title = " vs ".join([x for x in [g.get("home"), g.get("away")] if x]).strip()
+        if not title:
+            title = "(Uten lagnavn)"
+
+        league_badge = f"<span class='badge'>{g['league']}</span>" if g.get("league") else ""
+        tv_badge = f"<span class='badge'>📺 {g['channel']}</span>" if g.get("channel") else ""
+
+        where_txt = ", ".join(g.get("pubs") or []) if g.get("pubs") else "Ikke satt"
+
         st.markdown(
             f"""
             <div class="card">
               <div style="font-size:1.05rem; font-weight:700;">{title}</div>
               <div class="meta">{fmt_dt(g.get("dt"))}</div>
               <div style="margin-top:8px;">
-                {f"<span class='badge'>{g['league']}</span>" if g.get("league") else ""}
-                {f"<span class='badge'>📺 {g['channel']}</span>" if g.get("channel") else ""}
+                {league_badge}
+                {tv_badge}
               </div>
-              <div style="margin-top:10px;" class="small">
-                <b>Hvor:</b> {", ".join(g.get("pubs") or []) if (g.get("pubs")) else "Ikke satt"}
+              <div class="meta" style="margin-top:10px;">
+                <b>Hvor:</b> {where_txt}
               </div>
             </div>
             """,
             unsafe_allow_html=True
         )
 
-def build_filters(games: list[dict], key_prefix: str):
-    # Samle filter-verdier
-    leagues = sorted({g["league"] for g in games if g.get("league")})
-    pubs = sorted({p for g in games for p in (g.get("pubs") or [])})
-
-    c1, c2, c3, c4 = st.columns([1.2, 1.2, 1.2, 1.4])
-    with c1:
-        only_upcoming = st.toggle("Vis kun kommende", value=True, key=f"{key_prefix}_upcoming")
-    with c2:
-        league_sel = st.multiselect("Liga/turnering", leagues, default=[], key=f"{key_prefix}_league")
-    with c3:
-        pub_sel = st.multiselect("Sted (pub)", pubs, default=[], key=f"{key_prefix}_pub")
-    with c4:
-        q = st.text_input("Søk (lag/liga/pub)", value="", key=f"{key_prefix}_q")
-
-    # Sortering
-    sort_mode = st.radio("Sorter", ["Tid (snart først)", "Tid (senest først)"], horizontal=True, key=f"{key_prefix}_sort")
-    reverse = (sort_mode == "Tid (senest først)")
-
-    filtered = []
-    for g in games:
-        if only_upcoming and not is_upcoming(g.get("dt")):
-            continue
-        if league_sel and g.get("league") not in league_sel:
-            continue
-        if pub_sel:
-            gp = set(g.get("pubs") or [])
-            if not any(p in gp for p in pub_sel):
-                continue
-        if q.strip():
-            qq = q.strip().lower()
-            hay = " ".join([
-                g.get("league",""),
-                g.get("home",""),
-                g.get("away",""),
-                g.get("channel",""),
-                " ".join(g.get("pubs") or [])
-            ]).lower()
-            if qq not in hay:
-                continue
-        filtered.append(g)
-
-    # sorter på dt (None håndteres)
-    def sort_key(x):
-        dt = x.get("dt")
-        return dt if dt else datetime(2100,1,1,tzinfo=TZ)
-
-    filtered.sort(key=sort_key, reverse=reverse)
-    return filtered
-
-# ----------------------------
-# LOAD DATA
-# ----------------------------
-@st.cache_data(show_spinner=False)
 def load_category(filename: str):
-    payload = _read_json_file(DATA_DIR / filename)
-    return normalize_games(payload)
-
-football = load_category("football.json")
-handball = load_category("handball.json")
-wintersport = load_category("wintersport.json")
-vm2026 = load_category("vm2026.json")
+    payload = safe_read_json(DATA_DIR / filename)
+    games = normalize_games(payload)
+    err = payload.get("_error")
+    return games, err
 
 # ----------------------------
-# HEADER
+# APP (WRAP I TRY så du aldri får blank side)
 # ----------------------------
-now = datetime.now(TZ).strftime("%d.%m.%Y %H:%M")
-st.title("Grenland Live – Sport")
-st.caption(f"Sist oppdatert (lokalt): {now} • Leser fra /data/*.json")
+try:
+    st.title("Grenland Live – Sport")
+    st.caption(f"Klokke: {datetime.now(TZ).strftime('%d.%m.%Y %H:%M')} • Leser fra ./data/*.json")
 
-with st.expander("📁 Sjekk at filene finnes", expanded=False):
-    st.write("Forventet struktur:")
-    st.code(
-        """.
-├─ app.py
-└─ data/
-   ├─ football.json
-   ├─ handball.json
-   ├─ wintersport.json
-   └─ vm2026.json
-""",
-        language="text"
-    )
-    missing = [f for f in ["football.json","handball.json","wintersport.json","vm2026.json"] if not (DATA_DIR/f).exists()]
-    if missing:
-        st.warning("Mangler: " + ", ".join(missing))
-    else:
-        st.success("Alle filene finnes ✅")
+    # Status / fil-sjekk
+    with st.expander("📁 Filstatus (viktig)", expanded=False):
+        st.write("Forventet struktur:")
+        st.code(
+            """.\n├─ app.py\n└─ data/\n   ├─ football.json\n   ├─ handball.json\n   ├─ wintersport.json\n   └─ vm2026.json\n""",
+            language="text"
+        )
+        files = ["football.json", "handball.json", "wintersport.json", "vm2026.json"]
+        for f in files:
+            p = DATA_DIR / f
+            st.write(("✅" if p.exists() else "❌"), f, "—", str(p))
 
-st.markdown("---")
+    football, err_f = load_category("football.json")
+    handball, err_h = load_category("handball.json")
+    wintersport, err_w = load_category("wintersport.json")
+    vm2026, err_v = load_category("vm2026.json")
 
-# ----------------------------
-# TABS / MENU
-# ----------------------------
-tabs = st.tabs(["⚽ Fotball", "🤾 Håndball", "⛷️ Vintersport", "🏆 VM 2026"])
+    # Vis eventuelle JSON-lesefeil
+    errs = [( "football.json", err_f), ("handball.json", err_h), ("wintersport.json", err_w), ("vm2026.json", err_v)]
+    bad = [(f,e) for f,e in errs if e]
+    if bad:
+        st.error("En eller flere JSON-filer kunne ikke leses (format-feil). Se detaljer under.")
+        with st.expander("Detaljer på JSON-feil", expanded=True):
+            for f,e in bad:
+                st.write(f"**{f}**: {e}")
 
-with tabs[0]:
-    st.subheader("Fotball")
-    filtered = build_filters(football, "football")
-    render_cards(filtered)
+    st.markdown("---")
 
-with tabs[1]:
-    st.subheader("Håndball")
-    filtered = build_filters(handball, "handball")
-    render_cards(filtered)
+    tabs = st.tabs(["⚽ Fotball", "🤾 Håndball", "⛷️ Vintersport", "🏆 VM 2026"])
 
-with tabs[2]:
-    st.subheader("Vintersport")
-    filtered = build_filters(wintersport, "wintersport")
-    render_cards(filtered)
+    with tabs[0]:
+        st.subheader("Fotball")
+        render_cards(football)
 
-with tabs[3]:
-    st.subheader("VM 2026")
-    filtered = build_filters(vm2026, "vm2026")
-    render_cards(filtered)
+    with tabs[1]:
+        st.subheader("Håndball")
+        render_cards(handball)
 
-# ----------------------------
-# OPTIONAL: RAW TABLE VIEW
-# ----------------------------
-with st.expander("🧾 Se tabell (debug)", expanded=False):
-    def to_df(games):
-        rows = []
-        for g in games:
-            rows.append({
-                "Tid": fmt_dt(g.get("dt")),
-                "Liga": g.get("league",""),
-                "Hjemme": g.get("home",""),
-                "Borte": g.get("away",""),
-                "TV": g.get("channel",""),
-                "Hvor": ", ".join(g.get("pubs") or []),
-            })
-        return pd.DataFrame(rows)
+    with tabs[2]:
+        st.subheader("Vintersport")
+        render_cards(wintersport)
 
-    st.write("Fotball:")
-    st.dataframe(to_df(football), use_container_width=True)
-    st.write("Håndball:")
-    st.dataframe(to_df(handball), use_container_width=True)
-    st.write("Vintersport:")
-    st.dataframe(to_df(wintersport), use_container_width=True)
-    st.write("VM 2026:")
-    st.dataframe(to_df(vm2026), use_container_width=True)
+    with tabs[3]:
+        st.subheader("VM 2026")
+        render_cards(vm2026)
+
+except Exception as e:
+    # Dette gjør at du aldri får "helt hvit side" uten forklaring
+    st.error("Appen krasjet – her er feilen:")
+    st.code(f"{e.__class__.__name__}: {e}", language="text")
+    st.info("Tips: Dette skjer ofte hvis en JSON-fil har komma/klammefeil, eller hvis filene ikke ligger i ./data/")
