@@ -1,0 +1,14 @@
+{
+  "sources": [
+    {
+      "key": "eliteserien",
+      "league": "Eliteserien",
+      "url": "LIM_INN_ICS_LENKE_HER"
+    },
+    {
+      "key": "obos",
+      "league": "OBOS-ligaen",
+      "url": "LIM_INN_ICS_LENKE_HER"
+    }
+  ]
+}
