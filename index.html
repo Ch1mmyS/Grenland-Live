@@ -2,10 +2,14 @@
 <html lang="no">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Grenland Live</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Grenland Live – Sportsmeny</title>
+
+  <!-- Viktig på GitHub Pages project repo: IKKE bruk / foran -->
   <link rel="manifest" href="manifest.json" />
   <link rel="stylesheet" href="styles.css" />
+
+  <meta name="theme-color" content="#0b1220" />
 </head>
 <body>
   <header class="topbar">
@@ -13,64 +17,61 @@
       <div class="logo">GL</div>
       <div>
         <div class="title">Grenland Live</div>
-        <div class="subtitle">Kamper & events – full oversikt</div>
+        <div class="subtitle">Sportsmeny (data fra /data/*.json)</div>
       </div>
     </div>
 
-    <div class="status">
-      <span id="netStatus" class="pill offline">🔴 Offline</span>
-      <span id="updatedAt" class="pill">Oppdatert: -</span>
-      <span id="countInfo" class="pill">Viser: -</span>
+    <div class="right">
+      <div id="netStatus" class="pill">…</div>
+      <button id="refreshBtn" class="btn">Oppdater</button>
     </div>
   </header>
 
   <main class="wrap">
-    <nav class="tabs" id="tabs"></nav>
+    <section class="card">
+      <div class="row">
+        <label for="viewSelect">Vis:</label>
+        <select id="viewSelect">
+          <option value="football">Fotball</option>
+          <option value="handball">Håndball</option>
+          <option value="wintersport">Vintersport</option>
+          <option value="vm2026">VM 2026</option>
+          <option value="events">Events</option>
+        </select>
 
-    <section class="panel">
-      <div class="controls" id="controls">
-        <div class="ctrl">
-          <label for="leagueSelect">Liga/turnering</label>
-          <select id="leagueSelect"></select>
-        </div>
+        <label for="daysSelect">Dager:</label>
+        <select id="daysSelect">
+          <option value="7">7</option>
+          <option value="14">14</option>
+          <option value="30" selected>30</option>
+          <option value="60">60</option>
+        </select>
 
-        <div class="ctrl">
-          <label for="pubSelect">Sted (pub)</label>
-          <select id="pubSelect"></select>
-        </div>
-
-        <div class="ctrl">
-          <label for="q">Søk</label>
-          <input id="q" type="search" placeholder="Lag, liga, pub, kanal..." />
-        </div>
-
-        <div class="ctrl">
-          <label for="sortSelect">Sortering</label>
-          <select id="sortSelect">
-            <option value="time_asc">Tid (stigende)</option>
-            <option value="time_desc">Tid (synkende)</option>
-            <option value="league_asc">Liga (A–Å)</option>
-            <option value="league_desc">Liga (Å–A)</option>
-          </select>
-        </div>
-
-        <div class="ctrl toggle">
-          <label class="chk">
-            <input id="upcomingOnly" type="checkbox" checked />
-            <span>Kun kommende</span>
-          </label>
-        </div>
+        <input id="q" class="search" placeholder="Søk (lag, by, arena, kanal…)" />
       </div>
-
-      <div id="subtabs" class="subtabs" style="display:none;"></div>
-
-      <div id="content"></div>
     </section>
 
-    <footer class="foot">
-      <div id="footNote">Data: data/*.json • Kart: OpenStreetMap</div>
-    </footer>
+    <section class="grid">
+      <aside class="card">
+        <h2>Kilder</h2>
+        <div id="sources" class="sources"></div>
+        <div class="hint">
+          Tips: Hvis noe står som “mangler”, så finnes ikke JSON-filen eller navnet er feil i /data/.
+        </div>
+      </aside>
+
+      <section class="card">
+        <h2 id="sectionTitle">Laster…</h2>
+        <div id="list" class="list"></div>
+      </section>
+    </section>
   </main>
+
+  <footer class="footer">
+    <span>Grenland Live</span>
+    <span>•</span>
+    <span id="buildInfo"></span>
+  </footer>
 
   <script src="app.js"></script>
 </body>
