@@ -1,12 +1,3 @@
 {
-  "events": [
-    {
-      "title": "Eksempel: Quizkveld",
-      "venue": "Gimle Pub",
-      "city": "Skien",
-      "start": "2026-01-30T19:00:00+01:00",
-      "category": "Quiz",
-      "url": "https://example.com"
-    }
-  ]
+  "events": []
 }
