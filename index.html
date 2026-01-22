@@ -4,81 +4,74 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Grenland Live</title>
-  <link rel="stylesheet" href="styles.css?v=20260122e">
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="wrap">
-    <header class="top">
-      <div class="brand">
-        <div class="logo">GL</div>
-        <div>
-          <h1>Grenland Live</h1>
-          <div class="sub">Kamper & events – full oversikt</div>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">GL</div>
+      <div>
+        <div class="title">Grenland Live</div>
+        <div class="subtitle">Kamper & events – full oversikt</div>
+      </div>
+    </div>
+
+    <div class="status">
+      <span id="netStatus" class="pill offline">🔴 Offline</span>
+      <span id="updatedAt" class="pill">Oppdatert: -</span>
+      <span id="countInfo" class="pill">Viser: -</span>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <nav class="tabs" id="tabs"></nav>
+
+    <section class="panel">
+      <div class="controls" id="controls">
+        <div class="ctrl">
+          <label for="leagueSelect">Liga/turnering</label>
+          <select id="leagueSelect"></select>
+        </div>
+
+        <div class="ctrl">
+          <label for="pubSelect">Sted (pub)</label>
+          <select id="pubSelect"></select>
+        </div>
+
+        <div class="ctrl">
+          <label for="q">Søk</label>
+          <input id="q" type="search" placeholder="Lag, liga, pub, kanal..." />
+        </div>
+
+        <div class="ctrl">
+          <label for="sortSelect">Sortering</label>
+          <select id="sortSelect">
+            <option value="time_asc">Tid (stigende)</option>
+            <option value="time_desc">Tid (synkende)</option>
+            <option value="league_asc">Liga (A–Å)</option>
+            <option value="league_desc">Liga (Å–A)</option>
+          </select>
+        </div>
+
+        <div class="ctrl toggle">
+          <label class="chk">
+            <input id="upcomingOnly" type="checkbox" checked />
+            <span>Kun kommende</span>
+          </label>
         </div>
       </div>
 
-      <div class="statusrow">
-        <div class="pill" id="netStatus">🟡 Laster...</div>
-        <div class="pill" id="lastUpdated">Oppdatert: –</div>
-        <div class="pill" id="countInfo">Viser: –</div>
-      </div>
-    </header>
+      <div id="subtabs" class="subtabs" style="display:none;"></div>
 
-    <!-- TOP NAV -->
-    <nav class="tabs" id="mainTabs"></nav>
-
-    <!-- SUB NAV (for Sport: Fotball/Handball/Vintersport/VM2026) -->
-    <nav class="tabs" id="subTabs" style="display:none;"></nav>
-
-    <!-- SUBSUB NAV (for Handball/Vintersport: menn/damer / menn/kvinner) -->
-    <nav class="tabs" id="subSubTabs" style="display:none;"></nav>
-
-    <!-- FILTER BAR (used for Sport + Events list search) -->
-    <section class="toolbar" id="toolbar" style="display:none;">
-      <div class="field">
-        <label for="leagueFilter">Liga/turnering</label>
-        <select id="leagueFilter">
-          <option value="">Alle</option>
-        </select>
-      </div>
-
-      <div class="field">
-        <label for="pubFilter">Sted (pub)</label>
-        <select id="pubFilter">
-          <option value="">Alle</option>
-        </select>
-      </div>
-
-      <div class="field">
-        <label for="search">Søk</label>
-        <input id="search" type="text" placeholder="Søk..." autocomplete="off" />
-      </div>
-
-      <div class="field">
-        <label for="sort">Sortering</label>
-        <select id="sort">
-          <option value="soon">Tid (snart først)</option>
-          <option value="late">Tid (senest først)</option>
-        </select>
-      </div>
-
-      <div class="toggle">
-        <input id="onlyUpcoming" type="checkbox" checked />
-        <label for="onlyUpcoming">Kun kommende</label>
-      </div>
+      <div id="content"></div>
     </section>
 
-    <section id="errors" class="errors" style="display:none;"></section>
-
-    <section id="list" class="list"></section>
-
-    <footer class="footer">
-      <div class="muted">
-        Data: <code>data/*.json</code> • Kart: OpenStreetMap
-      </div>
+    <footer class="foot">
+      <div id="footNote">Data: data/*.json • Kart: OpenStreetMap</div>
     </footer>
-  </div>
+  </main>
 
-  <script src="app.js?v=20260122e"></script>
+  <script src="app.js"></script>
 </body>
 </html>
