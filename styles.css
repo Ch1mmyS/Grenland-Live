@@ -1,84 +1,198 @@
-<!doctype html>
-<html lang="no">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Grenland Live</title>
-  <link rel="stylesheet" href="styles.css?v=20260122e">
-</head>
-<body>
-  <div class="wrap">
-    <header class="top">
-      <div class="brand">
-        <div class="logo">GL</div>
-        <div>
-          <h1>Grenland Live</h1>
-          <div class="sub">Kamper & events – full oversikt</div>
-        </div>
-      </div>
+:root{
+  --bg:#0b1220;
+  --panel:#0f1a30;
+  --card:#101e39;
+  --text:#e9eefc;
+  --muted:rgba(233,238,252,.72);
+  --line:rgba(233,238,252,.12);
+  --pill:#13254a;
+  --accent:#7aa2ff;
+  --ok:#2ad67a;
+  --bad:#ff4d4d;
+}
 
-      <div class="statusrow">
-        <div class="pill" id="netStatus">🟡 Laster...</div>
-        <div class="pill" id="lastUpdated">Oppdatert: –</div>
-        <div class="pill" id="countInfo">Viser: –</div>
-      </div>
-    </header>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  background: radial-gradient(1200px 600px at 20% -10%, rgba(122,162,255,.22), transparent 55%),
+              radial-gradient(1000px 500px at 90% 10%, rgba(42,214,122,.14), transparent 55%),
+              var(--bg);
+  color:var(--text);
+}
 
-    <!-- TOP NAV -->
-    <nav class="tabs" id="mainTabs"></nav>
+.topbar{
+  display:flex;
+  gap:16px;
+  align-items:center;
+  justify-content:space-between;
+  padding:16px 18px;
+  border-bottom:1px solid var(--line);
+  background: rgba(11,18,32,.7);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top:0;
+  z-index:20;
+}
 
-    <!-- SUB NAV (for Sport: Fotball/Handball/Vintersport/VM2026) -->
-    <nav class="tabs" id="subTabs" style="display:none;"></nav>
+.brand{display:flex; gap:12px; align-items:center}
+.logo{
+  width:44px;height:44px;
+  border-radius:14px;
+  display:grid; place-items:center;
+  background: linear-gradient(145deg, rgba(122,162,255,.28), rgba(42,214,122,.18));
+  border:1px solid var(--line);
+  font-weight:800;
+}
+.title{font-weight:800; font-size:18px; line-height:1}
+.subtitle{color:var(--muted); font-size:13px; margin-top:3px}
 
-    <!-- SUBSUB NAV (for Handball/Vintersport: menn/damer / menn/kvinner) -->
-    <nav class="tabs" id="subSubTabs" style="display:none;"></nav>
+.status{display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end}
+.pill{
+  background: var(--pill);
+  border:1px solid var(--line);
+  padding:8px 10px;
+  border-radius:999px;
+  font-size:12px;
+  color:var(--text);
+}
+.pill.online{border-color: rgba(42,214,122,.35)}
+.pill.offline{border-color: rgba(255,77,77,.35)}
 
-    <!-- FILTER BAR (used for Sport + Events list search) -->
-    <section class="toolbar" id="toolbar" style="display:none;">
-      <div class="field">
-        <label for="leagueFilter">Liga/turnering</label>
-        <select id="leagueFilter">
-          <option value="">Alle</option>
-        </select>
-      </div>
+.wrap{max-width:1100px; margin:18px auto; padding:0 14px}
 
-      <div class="field">
-        <label for="pubFilter">Sted (pub)</label>
-        <select id="pubFilter">
-          <option value="">Alle</option>
-        </select>
-      </div>
+.tabs{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin:10px 0 14px;
+}
+.tab{
+  border:1px solid var(--line);
+  background: rgba(15,26,48,.7);
+  color: var(--text);
+  padding:10px 12px;
+  border-radius:14px;
+  cursor:pointer;
+  user-select:none;
+  font-weight:650;
+}
+.tab.active{
+  border-color: rgba(122,162,255,.55);
+  box-shadow: 0 0 0 2px rgba(122,162,255,.12) inset;
+}
 
-      <div class="field">
-        <label for="search">Søk</label>
-        <input id="search" type="text" placeholder="Søk..." autocomplete="off" />
-      </div>
+.panel{
+  border:1px solid var(--line);
+  background: rgba(15,26,48,.55);
+  border-radius:18px;
+  padding:14px;
+}
 
-      <div class="field">
-        <label for="sort">Sortering</label>
-        <select id="sort">
-          <option value="soon">Tid (snart først)</option>
-          <option value="late">Tid (senest først)</option>
-        </select>
-      </div>
+.controls{
+  display:grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap:10px;
+  margin-bottom:12px;
+}
+@media (max-width: 980px){
+  .controls{grid-template-columns: repeat(2, minmax(0, 1fr));}
+}
+.ctrl label{
+  display:block;
+  font-size:12px;
+  color:var(--muted);
+  margin:0 0 6px 2px;
+}
+.ctrl select, .ctrl input{
+  width:100%;
+  background: rgba(16,30,57,.85);
+  border:1px solid var(--line);
+  color:var(--text);
+  padding:10px 10px;
+  border-radius:12px;
+  outline:none;
+}
+.ctrl.toggle{display:flex; align-items:flex-end}
+.chk{
+  display:flex; gap:8px; align-items:center;
+  background: rgba(16,30,57,.85);
+  border:1px solid var(--line);
+  padding:10px 12px;
+  border-radius:12px;
+  width:100%;
+}
 
-      <div class="toggle">
-        <input id="onlyUpcoming" type="checkbox" checked />
-        <label for="onlyUpcoming">Kun kommende</label>
-      </div>
-    </section>
+.subtabs{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin:0 0 12px;
+}
+.subtab{
+  border:1px dashed var(--line);
+  background: rgba(16,30,57,.6);
+  color:var(--text);
+  padding:8px 10px;
+  border-radius:12px;
+  cursor:pointer;
+  user-select:none;
+  font-weight:650;
+}
+.subtab.active{
+  border-style:solid;
+  border-color: rgba(122,162,255,.55);
+}
 
-    <section id="errors" class="errors" style="display:none;"></section>
+.cards{display:flex; flex-direction:column; gap:10px}
+.card{
+  border:1px solid var(--line);
+  background: rgba(16,30,57,.55);
+  border-radius:18px;
+  padding:12px 12px;
+}
+.card h3{margin:0 0 8px; font-size:15px}
+.meta{display:flex; gap:10px; flex-wrap:wrap; color:var(--muted); font-size:13px}
+.badge{
+  display:inline-flex;
+  gap:6px;
+  align-items:center;
+  padding:7px 10px;
+  border-radius:999px;
+  background: rgba(19,37,74,.9);
+  border:1px solid var(--line);
+  color:var(--text);
+}
+.badge strong{color:var(--text)}
+.publine{margin-top:10px; color:var(--text); font-size:13px}
+.publine .muted{color:var(--muted)}
 
-    <section id="list" class="list"></section>
+.hr{height:1px;background:var(--line); margin:10px 0}
 
-    <footer class="footer">
-      <div class="muted">
-        Data: <code>data/*.json</code> • Kart: OpenStreetMap
-      </div>
-    </footer>
-  </div>
+.pubBox{
+  display:grid;
+  grid-template-columns: 1.2fr .8fr;
+  gap:12px;
+}
+@media (max-width: 980px){
+  .pubBox{grid-template-columns: 1fr;}
+}
+.pubCard{
+  border:1px solid var(--line);
+  background: rgba(16,30,57,.55);
+  border-radius:18px;
+  padding:12px;
+}
+.pubCard h3{margin:0 0 8px}
+.pubCard a{color:var(--accent); text-decoration:none}
+.pubCard a:hover{text-decoration:underline}
+.mapFrame{
+  width:100%;
+  height:320px;
+  border:1px solid var(--line);
+  border-radius:18px;
+  overflow:hidden;
+  background: rgba(16,30,57,.55);
+}
 
-  <script src="app.js?v=20260122e"></script>
-</body>
-</html>
+.foot{color:var(--muted); font-size:12px; padding:12px 2px}
