@@ -1,51 +1,43 @@
-name: Auto update Grenland Live data
+name: Update data (fixtures JSON)
 
 on:
+  workflow_dispatch:
   schedule:
-    - cron: "15 03 * * *"   # hver dag 03:15 UTC
-  workflow_dispatch: {}
+    - cron: "15 06,18 * * *"   # 06:15 og 18:15 UTC (07/19 norsk tid, ca)
+  push:
+    paths:
+      - "tools/**"
+      - "data/ics_sources.json"
+      - ".github/workflows/Update-data.yml"
 
 permissions:
   contents: write
 
+concurrency:
+  group: update-data
+  cancel-in-progress: true
+
 jobs:
   update:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
 
-      - name: Set up Python
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      - name: Install deps
+      - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r tools/requirements-tools.txt
-          pip install requests
 
-      - name: Update sports JSON (existing)
+      - name: Run fixtures pipeline
         run: |
           python tools/fetch_official.py
-
-      - name: Update Champions League + LaLiga (FixtureDownload)
-        run: |
-          python tools/fetch_fixturedownload.py
-
-      - name: Fill empty league files from football.json
-        run: |
-          python tools/fill_empty_leagues.py
-
-      - name: Update events JSON
-        run: |
-          python tools/fetch_events.py
-
-      - name: Commit and push if changed
-        run: |
-          git config user.name "grenland-live-bot"
-          git config user.email "actions@users.noreply.github.com"
-          git add data/*.json tools/*.py
-          git diff --cached --quiet || git commit -m "Auto update data (sports/events)"
-          git push
