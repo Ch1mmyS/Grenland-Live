@@ -1,3804 +1,3434 @@
 {
+  "generated_at": "2026-01-23T18:25:10+01:00",
+  "timezone": "Europe/Oslo",
+  "league": "La Liga",
+  "default_tv": "TV 2 / TV 2 Play",
+  "source": {
+    "key": "laliga",
+    "name": "La Liga",
+    "type": "fixturedownload_json",
+    "url": "https://fixturedownload.com/feed/json/la-liga-2025"
+  },
   "games": [
     {
       "league": "La Liga",
       "home": "Girona FC",
       "away": "Rayo Vallecano",
-      "kickoff": "2025-08-15T17:00:00+00:00",
-      "location": "Estadio Municipal de Montilivi",
-      "round": 1,
-      "homeScore": 1,
-      "awayScore": 3
+      "kickoff": "2025-08-15T19:00:00+02:00",
+      "start": "2025-08-15T19:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Villarreal CF",
       "away": "Real Oviedo",
-      "kickoff": "2025-08-15T19:30:00+00:00",
-      "location": "Estadio de la Cerámica",
-      "round": 1,
-      "homeScore": 2,
-      "awayScore": 0
+      "kickoff": "2025-08-15T21:30:00+02:00",
+      "start": "2025-08-15T21:30:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "RCD Mallorca",
       "away": "FC Barcelona",
-      "kickoff": "2025-08-16T17:30:00+00:00",
-      "location": "Estadi Mallorca Son Moix",
-      "round": 1,
-      "homeScore": 0,
-      "awayScore": 3
+      "kickoff": "2025-08-16T19:30:00+02:00",
+      "start": "2025-08-16T19:30:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Deportivo Alavés",
       "away": "Levante UD",
-      "kickoff": "2025-08-16T19:30:00+00:00",
-      "location": "Mendizorroza",
-      "round": 1,
-      "homeScore": 2,
-      "awayScore": 1
+      "kickoff": "2025-08-16T21:30:00+02:00",
+      "start": "2025-08-16T21:30:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Valencia CF",
       "away": "Real Sociedad",
-      "kickoff": "2025-08-16T19:30:00+00:00",
-      "location": "Camp de Mestalla",
-      "round": 1,
-      "homeScore": 1,
-      "awayScore": 1
+      "kickoff": "2025-08-16T21:30:00+02:00",
+      "start": "2025-08-16T21:30:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Celta",
       "away": "Getafe CF",
-      "kickoff": "2025-08-17T15:00:00+00:00",
-      "location": "Estadio ABANCA Balaídos",
-      "round": 1,
-      "homeScore": 0,
-      "awayScore": 2
+      "kickoff": "2025-08-17T17:00:00+02:00",
+      "start": "2025-08-17T17:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Athletic Club",
       "away": "Sevilla FC",
-      "kickoff": "2025-08-17T17:30:00+00:00",
-      "location": "Estadio San Mamés",
-      "round": 1,
-      "homeScore": 3,
-      "awayScore": 2
+      "kickoff": "2025-08-17T19:30:00+02:00",
+      "start": "2025-08-17T19:30:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "RCD Espanyol de Barcelona",
       "away": "Atlético de Madrid",
-      "kickoff": "2025-08-17T19:30:00+00:00",
-      "location": "RCDE Stadium",
-      "round": 1,
-      "homeScore": 2,
-      "awayScore": 1
+      "kickoff": "2025-08-17T21:30:00+02:00",
+      "start": "2025-08-17T21:30:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Elche CF",
       "away": "Real Betis",
-      "kickoff": "2025-08-18T19:00:00+00:00",
-      "location": "Estadio Martínez Valero",
-      "round": 1,
-      "homeScore": 1,
-      "awayScore": 1
+      "kickoff": "2025-08-18T21:00:00+02:00",
+      "start": "2025-08-18T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Madrid",
       "away": "CA Osasuna",
-      "kickoff": "2025-08-19T19:00:00+00:00",
-      "location": "Estadio Santiago Bernabéu",
-      "round": 1,
-      "homeScore": 1,
-      "awayScore": 0
+      "kickoff": "2025-08-19T21:00:00+02:00",
+      "start": "2025-08-19T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Betis",
       "away": "Deportivo Alavés",
-      "kickoff": "2025-08-22T19:30:00+00:00",
-      "location": "Estadio Olímpico de La Cartuja",
-      "round": 2,
-      "homeScore": 1,
-      "awayScore": 0
+      "kickoff": "2025-08-22T21:30:00+02:00",
+      "start": "2025-08-22T21:30:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "RCD Mallorca",
       "away": "Celta",
-      "kickoff": "2025-08-23T15:00:00+00:00",
-      "location": "Estadi Mallorca Son Moix",
-      "round": 2,
-      "homeScore": 1,
-      "awayScore": 1
+      "kickoff": "2025-08-23T17:00:00+02:00",
+      "start": "2025-08-23T17:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Atlético de Madrid",
       "away": "Elche CF",
-      "kickoff": "2025-08-23T17:30:00+00:00",
-      "location": "Riyadh Air Metropolitano",
-      "round": 2,
-      "homeScore": 1,
-      "awayScore": 1
+      "kickoff": "2025-08-23T19:30:00+02:00",
+      "start": "2025-08-23T19:30:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Levante UD",
       "away": "FC Barcelona",
-      "kickoff": "2025-08-23T19:30:00+00:00",
-      "location": "Estadio Ciutat de València",
-      "round": 2,
-      "homeScore": 2,
-      "awayScore": 3
+      "kickoff": "2025-08-23T21:30:00+02:00",
+      "start": "2025-08-23T21:30:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "CA Osasuna",
       "away": "Valencia CF",
-      "kickoff": "2025-08-24T15:00:00+00:00",
-      "location": "Estadio El Sadar",
-      "round": 2,
-      "homeScore": 1,
-      "awayScore": 0
+      "kickoff": "2025-08-24T17:00:00+02:00",
+      "start": "2025-08-24T17:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Sociedad",
       "away": "RCD Espanyol de Barcelona",
-      "kickoff": "2025-08-24T17:30:00+00:00",
-      "location": "Anoeta",
-      "round": 2,
-      "homeScore": 2,
-      "awayScore": 2
+      "kickoff": "2025-08-24T19:30:00+02:00",
+      "start": "2025-08-24T19:30:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Villarreal CF",
       "away": "Girona FC",
-      "kickoff": "2025-08-24T17:30:00+00:00",
-      "location": "Estadio de la Cerámica",
-      "round": 2,
-      "homeScore": 5,
-      "awayScore": 0
+      "kickoff": "2025-08-24T19:30:00+02:00",
+      "start": "2025-08-24T19:30:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Oviedo",
       "away": "Real Madrid",
-      "kickoff": "2025-08-24T19:30:00+00:00",
-      "location": "Estadio Carlos Tartiere",
-      "round": 2,
-      "homeScore": 0,
-      "awayScore": 3
+      "kickoff": "2025-08-24T21:30:00+02:00",
+      "start": "2025-08-24T21:30:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Athletic Club",
       "away": "Rayo Vallecano",
-      "kickoff": "2025-08-25T17:30:00+00:00",
-      "location": "Estadio San Mamés",
-      "round": 2,
-      "homeScore": 1,
-      "awayScore": 0
+      "kickoff": "2025-08-25T19:30:00+02:00",
+      "start": "2025-08-25T19:30:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Sevilla FC",
       "away": "Getafe CF",
-      "kickoff": "2025-08-25T19:30:00+00:00",
-      "location": "Ramón Sánchez-Pizjuán",
-      "round": 2,
-      "homeScore": 1,
-      "awayScore": 2
+      "kickoff": "2025-08-25T21:30:00+02:00",
+      "start": "2025-08-25T21:30:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Celta",
       "away": "Real Betis",
-      "kickoff": "2025-08-27T19:00:00+00:00",
-      "location": "Estadio ABANCA Balaídos",
-      "round": 6,
-      "homeScore": 1,
-      "awayScore": 1
+      "kickoff": "2025-08-27T21:00:00+02:00",
+      "start": "2025-08-27T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Elche CF",
       "away": "Levante UD",
-      "kickoff": "2025-08-29T17:30:00+00:00",
-      "location": "Estadio Martínez Valero",
-      "round": 3,
-      "homeScore": 2,
-      "awayScore": 0
+      "kickoff": "2025-08-29T19:30:00+02:00",
+      "start": "2025-08-29T19:30:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Valencia CF",
       "away": "Getafe CF",
-      "kickoff": "2025-08-29T19:30:00+00:00",
-      "location": "Camp de Mestalla",
-      "round": 3,
-      "homeScore": 3,
-      "awayScore": 0
+      "kickoff": "2025-08-29T21:30:00+02:00",
+      "start": "2025-08-29T21:30:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Deportivo Alavés",
       "away": "Atlético de Madrid",
-      "kickoff": "2025-08-30T15:00:00+00:00",
-      "location": "Mendizorroza",
-      "round": 3,
-      "homeScore": 1,
-      "awayScore": 1
+      "kickoff": "2025-08-30T17:00:00+02:00",
+      "start": "2025-08-30T17:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Oviedo",
       "away": "Real Sociedad",
-      "kickoff": "2025-08-30T17:00:00+00:00",
-      "location": "Estadio Carlos Tartiere",
-      "round": 3,
-      "homeScore": 1,
-      "awayScore": 0
+      "kickoff": "2025-08-30T19:00:00+02:00",
+      "start": "2025-08-30T19:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Girona FC",
       "away": "Sevilla FC",
-      "kickoff": "2025-08-30T17:30:00+00:00",
-      "location": "Estadio Municipal de Montilivi",
-      "round": 3,
-      "homeScore": 0,
-      "awayScore": 2
+      "kickoff": "2025-08-30T19:30:00+02:00",
+      "start": "2025-08-30T19:30:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Madrid",
       "away": "RCD Mallorca",
-      "kickoff": "2025-08-30T19:30:00+00:00",
-      "location": "Estadio Santiago Bernabéu",
-      "round": 3,
-      "homeScore": 2,
-      "awayScore": 1
+      "kickoff": "2025-08-30T21:30:00+02:00",
+      "start": "2025-08-30T21:30:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Celta",
       "away": "Villarreal CF",
-      "kickoff": "2025-08-31T15:00:00+00:00",
-      "location": "Estadio ABANCA Balaídos",
-      "round": 3,
-      "homeScore": 1,
-      "awayScore": 1
+      "kickoff": "2025-08-31T17:00:00+02:00",
+      "start": "2025-08-31T17:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Betis",
       "away": "Athletic Club",
-      "kickoff": "2025-08-31T17:00:00+00:00",
-      "location": "Estadio Olímpico de La Cartuja",
-      "round": 3,
-      "homeScore": 1,
-      "awayScore": 2
+      "kickoff": "2025-08-31T19:00:00+02:00",
+      "start": "2025-08-31T19:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "RCD Espanyol de Barcelona",
       "away": "CA Osasuna",
-      "kickoff": "2025-08-31T17:30:00+00:00",
-      "location": "RCDE Stadium",
-      "round": 3,
-      "homeScore": 1,
-      "awayScore": 0
+      "kickoff": "2025-08-31T19:30:00+02:00",
+      "start": "2025-08-31T19:30:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Rayo Vallecano",
       "away": "FC Barcelona",
-      "kickoff": "2025-08-31T19:30:00+00:00",
-      "location": "Estadio de Vallecas",
-      "round": 3,
-      "homeScore": 1,
-      "awayScore": 1
+      "kickoff": "2025-08-31T21:30:00+02:00",
+      "start": "2025-08-31T21:30:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Sevilla FC",
       "away": "Elche CF",
-      "kickoff": "2025-09-12T19:00:00+00:00",
-      "location": "Ramón Sánchez-Pizjuán",
-      "round": 4,
-      "homeScore": 2,
-      "awayScore": 2
+      "kickoff": "2025-09-12T21:00:00+02:00",
+      "start": "2025-09-12T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Getafe CF",
       "away": "Real Oviedo",
-      "kickoff": "2025-09-13T12:00:00+00:00",
-      "location": "Coliseum",
-      "round": 4,
-      "homeScore": 2,
-      "awayScore": 0
+      "kickoff": "2025-09-13T14:00:00+02:00",
+      "start": "2025-09-13T14:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Sociedad",
       "away": "Real Madrid",
-      "kickoff": "2025-09-13T14:15:00+00:00",
-      "location": "Anoeta",
-      "round": 4,
-      "homeScore": 1,
-      "awayScore": 2
+      "kickoff": "2025-09-13T16:15:00+02:00",
+      "start": "2025-09-13T16:15:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Athletic Club",
       "away": "Deportivo Alavés",
-      "kickoff": "2025-09-13T16:30:00+00:00",
-      "location": "Estadio San Mamés",
-      "round": 4,
-      "homeScore": 0,
-      "awayScore": 1
+      "kickoff": "2025-09-13T18:30:00+02:00",
+      "start": "2025-09-13T18:30:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Atlético de Madrid",
       "away": "Villarreal CF",
-      "kickoff": "2025-09-13T19:00:00+00:00",
-      "location": "Riyadh Air Metropolitano",
-      "round": 4,
-      "homeScore": 2,
-      "awayScore": 0
+      "kickoff": "2025-09-13T21:00:00+02:00",
+      "start": "2025-09-13T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Celta",
       "away": "Girona FC",
-      "kickoff": "2025-09-14T12:00:00+00:00",
-      "location": "Estadio ABANCA Balaídos",
-      "round": 4,
-      "homeScore": 1,
-      "awayScore": 1
+      "kickoff": "2025-09-14T14:00:00+02:00",
+      "start": "2025-09-14T14:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Levante UD",
       "away": "Real Betis",
-      "kickoff": "2025-09-14T14:15:00+00:00",
-      "location": "Estadio Ciutat de València",
-      "round": 4,
-      "homeScore": 2,
-      "awayScore": 2
+      "kickoff": "2025-09-14T16:15:00+02:00",
+      "start": "2025-09-14T16:15:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "CA Osasuna",
       "away": "Rayo Vallecano",
-      "kickoff": "2025-09-14T16:30:00+00:00",
-      "location": "Estadio El Sadar",
-      "round": 4,
-      "homeScore": 2,
-      "awayScore": 0
+      "kickoff": "2025-09-14T18:30:00+02:00",
+      "start": "2025-09-14T18:30:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "FC Barcelona",
       "away": "Valencia CF",
-      "kickoff": "2025-09-14T19:00:00+00:00",
-      "location": "Estadi Johan Cruyff",
-      "round": 4,
-      "homeScore": 6,
-      "awayScore": 0
+      "kickoff": "2025-09-14T21:00:00+02:00",
+      "start": "2025-09-14T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "RCD Espanyol de Barcelona",
       "away": "RCD Mallorca",
-      "kickoff": "2025-09-15T19:00:00+00:00",
-      "location": "RCDE Stadium",
-      "round": 4,
-      "homeScore": 3,
-      "awayScore": 2
+      "kickoff": "2025-09-15T21:00:00+02:00",
+      "start": "2025-09-15T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Betis",
       "away": "Real Sociedad",
-      "kickoff": "2025-09-19T19:00:00+00:00",
-      "location": "Estadio Olímpico de La Cartuja",
-      "round": 5,
-      "homeScore": 3,
-      "awayScore": 1
+      "kickoff": "2025-09-19T21:00:00+02:00",
+      "start": "2025-09-19T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Girona FC",
       "away": "Levante UD",
-      "kickoff": "2025-09-20T12:00:00+00:00",
-      "location": "Estadio Municipal de Montilivi",
-      "round": 5,
-      "homeScore": 0,
-      "awayScore": 4
+      "kickoff": "2025-09-20T14:00:00+02:00",
+      "start": "2025-09-20T14:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Madrid",
       "away": "RCD Espanyol de Barcelona",
-      "kickoff": "2025-09-20T14:15:00+00:00",
-      "location": "Estadio Santiago Bernabéu",
-      "round": 5,
-      "homeScore": 2,
-      "awayScore": 0
+      "kickoff": "2025-09-20T16:15:00+02:00",
+      "start": "2025-09-20T16:15:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Deportivo Alavés",
       "away": "Sevilla FC",
-      "kickoff": "2025-09-20T16:30:00+00:00",
-      "location": "Mendizorroza",
-      "round": 5,
-      "homeScore": 1,
-      "awayScore": 2
+      "kickoff": "2025-09-20T18:30:00+02:00",
+      "start": "2025-09-20T18:30:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Villarreal CF",
       "away": "CA Osasuna",
-      "kickoff": "2025-09-20T16:30:00+00:00",
-      "location": "Estadio de la Cerámica",
-      "round": 5,
-      "homeScore": 2,
-      "awayScore": 1
+      "kickoff": "2025-09-20T18:30:00+02:00",
+      "start": "2025-09-20T18:30:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Valencia CF",
       "away": "Athletic Club",
-      "kickoff": "2025-09-20T19:00:00+00:00",
-      "location": "Camp de Mestalla",
-      "round": 5,
-      "homeScore": 2,
-      "awayScore": 0
+      "kickoff": "2025-09-20T21:00:00+02:00",
+      "start": "2025-09-20T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Rayo Vallecano",
       "away": "Celta",
-      "kickoff": "2025-09-21T12:00:00+00:00",
-      "location": "Estadio de Vallecas",
-      "round": 5,
-      "homeScore": 1,
-      "awayScore": 1
+      "kickoff": "2025-09-21T14:00:00+02:00",
+      "start": "2025-09-21T14:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "RCD Mallorca",
       "away": "Atlético de Madrid",
-      "kickoff": "2025-09-21T14:15:00+00:00",
-      "location": "Estadi Mallorca Son Moix",
-      "round": 5,
-      "homeScore": 1,
-      "awayScore": 1
+      "kickoff": "2025-09-21T16:15:00+02:00",
+      "start": "2025-09-21T16:15:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Elche CF",
       "away": "Real Oviedo",
-      "kickoff": "2025-09-21T16:15:00+00:00",
-      "location": "Estadio Martínez Valero",
-      "round": 5,
-      "homeScore": 1,
-      "awayScore": 0
+      "kickoff": "2025-09-21T18:15:00+02:00",
+      "start": "2025-09-21T18:15:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "FC Barcelona",
       "away": "Getafe CF",
-      "kickoff": "2025-09-21T19:00:00+00:00",
-      "location": "Estadi Johan Cruyff",
-      "round": 5,
-      "homeScore": 3,
-      "awayScore": 0
+      "kickoff": "2025-09-21T21:00:00+02:00",
+      "start": "2025-09-21T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Athletic Club",
       "away": "Girona FC",
-      "kickoff": "2025-09-23T17:00:00+00:00",
-      "location": "Estadio San Mamés",
-      "round": 6,
-      "homeScore": 1,
-      "awayScore": 1
+      "kickoff": "2025-09-23T19:00:00+02:00",
+      "start": "2025-09-23T19:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "RCD Espanyol de Barcelona",
       "away": "Valencia CF",
-      "kickoff": "2025-09-23T17:00:00+00:00",
-      "location": "RCDE Stadium",
-      "round": 6,
-      "homeScore": 2,
-      "awayScore": 2
+      "kickoff": "2025-09-23T19:00:00+02:00",
+      "start": "2025-09-23T19:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Levante UD",
       "away": "Real Madrid",
-      "kickoff": "2025-09-23T19:30:00+00:00",
-      "location": "Estadio Ciutat de València",
-      "round": 6,
-      "homeScore": 1,
-      "awayScore": 4
+      "kickoff": "2025-09-23T21:30:00+02:00",
+      "start": "2025-09-23T21:30:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Sevilla FC",
       "away": "Villarreal CF",
-      "kickoff": "2025-09-23T19:30:00+00:00",
-      "location": "Ramón Sánchez-Pizjuán",
-      "round": 6,
-      "homeScore": 1,
-      "awayScore": 2
+      "kickoff": "2025-09-23T21:30:00+02:00",
+      "start": "2025-09-23T21:30:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Getafe CF",
       "away": "Deportivo Alavés",
-      "kickoff": "2025-09-24T17:00:00+00:00",
-      "location": "Coliseum",
-      "round": 6,
-      "homeScore": 1,
-      "awayScore": 1
+      "kickoff": "2025-09-24T19:00:00+02:00",
+      "start": "2025-09-24T19:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Atlético de Madrid",
       "away": "Rayo Vallecano",
-      "kickoff": "2025-09-24T19:30:00+00:00",
-      "location": "Riyadh Air Metropolitano",
-      "round": 6,
-      "homeScore": 3,
-      "awayScore": 2
+      "kickoff": "2025-09-24T21:30:00+02:00",
+      "start": "2025-09-24T21:30:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Sociedad",
       "away": "RCD Mallorca",
-      "kickoff": "2025-09-24T19:30:00+00:00",
-      "location": "Anoeta",
-      "round": 6,
-      "homeScore": 1,
-      "awayScore": 0
+      "kickoff": "2025-09-24T21:30:00+02:00",
+      "start": "2025-09-24T21:30:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "CA Osasuna",
       "away": "Elche CF",
-      "kickoff": "2025-09-25T17:30:00+00:00",
-      "location": "Estadio El Sadar",
-      "round": 6,
-      "homeScore": 1,
-      "awayScore": 1
+      "kickoff": "2025-09-25T19:30:00+02:00",
+      "start": "2025-09-25T19:30:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Oviedo",
       "away": "FC Barcelona",
-      "kickoff": "2025-09-25T19:30:00+00:00",
-      "location": "Estadio Carlos Tartiere",
-      "round": 6,
-      "homeScore": 1,
-      "awayScore": 3
+      "kickoff": "2025-09-25T21:30:00+02:00",
+      "start": "2025-09-25T21:30:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Girona FC",
       "away": "RCD Espanyol de Barcelona",
-      "kickoff": "2025-09-26T19:00:00+00:00",
-      "location": "Estadio Municipal de Montilivi",
-      "round": 7,
-      "homeScore": 0,
-      "awayScore": 0
+      "kickoff": "2025-09-26T21:00:00+02:00",
+      "start": "2025-09-26T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Getafe CF",
       "away": "Levante UD",
-      "kickoff": "2025-09-27T12:00:00+00:00",
-      "location": "Coliseum",
-      "round": 7,
-      "homeScore": 1,
-      "awayScore": 1
+      "kickoff": "2025-09-27T14:00:00+02:00",
+      "start": "2025-09-27T14:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Atlético de Madrid",
       "away": "Real Madrid",
-      "kickoff": "2025-09-27T14:15:00+00:00",
-      "location": "Riyadh Air Metropolitano",
-      "round": 7,
-      "homeScore": 5,
-      "awayScore": 2
+      "kickoff": "2025-09-27T16:15:00+02:00",
+      "start": "2025-09-27T16:15:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "RCD Mallorca",
       "away": "Deportivo Alavés",
-      "kickoff": "2025-09-27T16:30:00+00:00",
-      "location": "Estadi Mallorca Son Moix",
-      "round": 7,
-      "homeScore": 1,
-      "awayScore": 0
+      "kickoff": "2025-09-27T18:30:00+02:00",
+      "start": "2025-09-27T18:30:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Villarreal CF",
       "away": "Athletic Club",
-      "kickoff": "2025-09-27T19:00:00+00:00",
-      "location": "Estadio de la Cerámica",
-      "round": 7,
-      "homeScore": 1,
-      "awayScore": 0
+      "kickoff": "2025-09-27T21:00:00+02:00",
+      "start": "2025-09-27T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Rayo Vallecano",
       "away": "Sevilla FC",
-      "kickoff": "2025-09-28T12:00:00+00:00",
-      "location": "Estadio de Vallecas",
-      "round": 7,
-      "homeScore": 0,
-      "awayScore": 1
+      "kickoff": "2025-09-28T14:00:00+02:00",
+      "start": "2025-09-28T14:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Elche CF",
       "away": "Celta",
-      "kickoff": "2025-09-28T14:15:00+00:00",
-      "location": "Estadio Martínez Valero",
-      "round": 7,
-      "homeScore": 2,
-      "awayScore": 1
+      "kickoff": "2025-09-28T16:15:00+02:00",
+      "start": "2025-09-28T16:15:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "FC Barcelona",
       "away": "Real Sociedad",
-      "kickoff": "2025-09-28T16:30:00+00:00",
-      "location": "Estadi Olímpic Lluís Companys",
-      "round": 7,
-      "homeScore": 2,
-      "awayScore": 1
+      "kickoff": "2025-09-28T18:30:00+02:00",
+      "start": "2025-09-28T18:30:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Betis",
       "away": "CA Osasuna",
-      "kickoff": "2025-09-28T19:00:00+00:00",
-      "location": "Estadio Olímpico de La Cartuja",
-      "round": 7,
-      "homeScore": 2,
-      "awayScore": 0
+      "kickoff": "2025-09-28T21:00:00+02:00",
+      "start": "2025-09-28T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Valencia CF",
       "away": "Real Oviedo",
-      "kickoff": "2025-09-30T18:00:00+00:00",
-      "location": "Camp de Mestalla",
-      "round": 7,
-      "homeScore": 1,
-      "awayScore": 2
+      "kickoff": "2025-09-30T20:00:00+02:00",
+      "start": "2025-09-30T20:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "CA Osasuna",
       "away": "Getafe CF",
-      "kickoff": "2025-10-03T19:00:00+00:00",
-      "location": "Estadio El Sadar",
-      "round": 8,
-      "homeScore": 2,
-      "awayScore": 1
+      "kickoff": "2025-10-03T21:00:00+02:00",
+      "start": "2025-10-03T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Oviedo",
       "away": "Levante UD",
-      "kickoff": "2025-10-04T12:00:00+00:00",
-      "location": "Estadio Carlos Tartiere",
-      "round": 8,
-      "homeScore": 0,
-      "awayScore": 2
+      "kickoff": "2025-10-04T14:00:00+02:00",
+      "start": "2025-10-04T14:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Girona FC",
       "away": "Valencia CF",
-      "kickoff": "2025-10-04T14:15:00+00:00",
-      "location": "Estadio Municipal de Montilivi",
-      "round": 8,
-      "homeScore": 2,
-      "awayScore": 1
+      "kickoff": "2025-10-04T16:15:00+02:00",
+      "start": "2025-10-04T16:15:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Athletic Club",
       "away": "RCD Mallorca",
-      "kickoff": "2025-10-04T16:30:00+00:00",
-      "location": "Estadio San Mamés",
-      "round": 8,
-      "homeScore": 2,
-      "awayScore": 1
+      "kickoff": "2025-10-04T18:30:00+02:00",
+      "start": "2025-10-04T18:30:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Madrid",
       "away": "Villarreal CF",
-      "kickoff": "2025-10-04T19:00:00+00:00",
-      "location": "Estadio Santiago Bernabéu",
-      "round": 8,
-      "homeScore": 3,
-      "awayScore": 1
+      "kickoff": "2025-10-04T21:00:00+02:00",
+      "start": "2025-10-04T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Deportivo Alavés",
       "away": "Elche CF",
-      "kickoff": "2025-10-05T12:00:00+00:00",
-      "location": "Mendizorroza",
-      "round": 8,
-      "homeScore": 3,
-      "awayScore": 1
+      "kickoff": "2025-10-05T14:00:00+02:00",
+      "start": "2025-10-05T14:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Sevilla FC",
       "away": "FC Barcelona",
-      "kickoff": "2025-10-05T14:15:00+00:00",
-      "location": "Ramón Sánchez-Pizjuán",
-      "round": 8,
-      "homeScore": 4,
-      "awayScore": 1
+      "kickoff": "2025-10-05T16:15:00+02:00",
+      "start": "2025-10-05T16:15:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "RCD Espanyol de Barcelona",
       "away": "Real Betis",
-      "kickoff": "2025-10-05T16:30:00+00:00",
-      "location": "RCDE Stadium",
-      "round": 8,
-      "homeScore": 1,
-      "awayScore": 2
+      "kickoff": "2025-10-05T18:30:00+02:00",
+      "start": "2025-10-05T18:30:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Sociedad",
       "away": "Rayo Vallecano",
-      "kickoff": "2025-10-05T16:30:00+00:00",
-      "location": "Anoeta",
-      "round": 8,
-      "homeScore": 0,
-      "awayScore": 1
+      "kickoff": "2025-10-05T18:30:00+02:00",
+      "start": "2025-10-05T18:30:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Celta",
       "away": "Atlético de Madrid",
-      "kickoff": "2025-10-05T19:00:00+00:00",
-      "location": "Estadio ABANCA Balaídos",
-      "round": 8,
-      "homeScore": 1,
-      "awayScore": 1
+      "kickoff": "2025-10-05T21:00:00+02:00",
+      "start": "2025-10-05T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Oviedo",
       "away": "RCD Espanyol de Barcelona",
-      "kickoff": "2025-10-17T19:00:00+00:00",
-      "location": "Estadio Carlos Tartiere",
-      "round": 9,
-      "homeScore": 0,
-      "awayScore": 2
+      "kickoff": "2025-10-17T21:00:00+02:00",
+      "start": "2025-10-17T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Sevilla FC",
       "away": "RCD Mallorca",
-      "kickoff": "2025-10-18T12:00:00+00:00",
-      "location": "Ramón Sánchez-Pizjuán",
-      "round": 9,
-      "homeScore": 1,
-      "awayScore": 3
+      "kickoff": "2025-10-18T14:00:00+02:00",
+      "start": "2025-10-18T14:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "FC Barcelona",
       "away": "Girona FC",
-      "kickoff": "2025-10-18T14:15:00+00:00",
-      "location": "Estadi Olímpic Lluís Companys",
-      "round": 9,
-      "homeScore": 2,
-      "awayScore": 1
+      "kickoff": "2025-10-18T16:15:00+02:00",
+      "start": "2025-10-18T16:15:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Villarreal CF",
       "away": "Real Betis",
-      "kickoff": "2025-10-18T16:30:00+00:00",
-      "location": "Estadio de la Cerámica",
-      "round": 9,
-      "homeScore": 2,
-      "awayScore": 2
+      "kickoff": "2025-10-18T18:30:00+02:00",
+      "start": "2025-10-18T18:30:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Atlético de Madrid",
       "away": "CA Osasuna",
-      "kickoff": "2025-10-18T19:00:00+00:00",
-      "location": "Riyadh Air Metropolitano",
-      "round": 9,
-      "homeScore": 1,
-      "awayScore": 0
+      "kickoff": "2025-10-18T21:00:00+02:00",
+      "start": "2025-10-18T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Elche CF",
       "away": "Athletic Club",
-      "kickoff": "2025-10-19T12:00:00+00:00",
-      "location": "Estadio Martínez Valero",
-      "round": 9,
-      "homeScore": 0,
-      "awayScore": 0
+      "kickoff": "2025-10-19T14:00:00+02:00",
+      "start": "2025-10-19T14:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Celta",
       "away": "Real Sociedad",
-      "kickoff": "2025-10-19T14:15:00+00:00",
-      "location": "Estadio ABANCA Balaídos",
-      "round": 9,
-      "homeScore": 1,
-      "awayScore": 1
+      "kickoff": "2025-10-19T16:15:00+02:00",
+      "start": "2025-10-19T16:15:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Levante UD",
       "away": "Rayo Vallecano",
-      "kickoff": "2025-10-19T16:30:00+00:00",
-      "location": "Estadio Ciutat de València",
-      "round": 9,
-      "homeScore": 0,
-      "awayScore": 3
+      "kickoff": "2025-10-19T18:30:00+02:00",
+      "start": "2025-10-19T18:30:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Getafe CF",
       "away": "Real Madrid",
-      "kickoff": "2025-10-19T19:00:00+00:00",
-      "location": "Coliseum",
-      "round": 9,
-      "homeScore": 0,
-      "awayScore": 1
+      "kickoff": "2025-10-19T21:00:00+02:00",
+      "start": "2025-10-19T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Deportivo Alavés",
       "away": "Valencia CF",
-      "kickoff": "2025-10-20T19:00:00+00:00",
-      "location": "Mendizorroza",
-      "round": 9,
-      "homeScore": 0,
-      "awayScore": 0
+      "kickoff": "2025-10-20T21:00:00+02:00",
+      "start": "2025-10-20T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Sociedad",
       "away": "Sevilla FC",
-      "kickoff": "2025-10-24T19:00:00+00:00",
-      "location": "Anoeta",
-      "round": 10,
-      "homeScore": 2,
-      "awayScore": 1
+      "kickoff": "2025-10-24T21:00:00+02:00",
+      "start": "2025-10-24T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Girona FC",
       "away": "Real Oviedo",
-      "kickoff": "2025-10-25T12:00:00+00:00",
-      "location": "Estadio Municipal de Montilivi",
-      "round": 10,
-      "homeScore": 3,
-      "awayScore": 3
+      "kickoff": "2025-10-25T14:00:00+02:00",
+      "start": "2025-10-25T14:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "RCD Espanyol de Barcelona",
       "away": "Elche CF",
-      "kickoff": "2025-10-25T14:15:00+00:00",
-      "location": "RCDE Stadium",
-      "round": 10,
-      "homeScore": 1,
-      "awayScore": 0
+      "kickoff": "2025-10-25T16:15:00+02:00",
+      "start": "2025-10-25T16:15:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Athletic Club",
       "away": "Getafe CF",
-      "kickoff": "2025-10-25T16:30:00+00:00",
-      "location": "Estadio San Mamés",
-      "round": 10,
-      "homeScore": 0,
-      "awayScore": 1
+      "kickoff": "2025-10-25T18:30:00+02:00",
+      "start": "2025-10-25T18:30:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Valencia CF",
       "away": "Villarreal CF",
-      "kickoff": "2025-10-25T19:00:00+00:00",
-      "location": "Camp de Mestalla",
-      "round": 10,
-      "homeScore": 0,
-      "awayScore": 2
+      "kickoff": "2025-10-25T21:00:00+02:00",
+      "start": "2025-10-25T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "RCD Mallorca",
       "away": "Levante UD",
-      "kickoff": "2025-10-26T13:00:00+00:00",
-      "location": "Estadi Mallorca Son Moix",
-      "round": 10,
-      "homeScore": 1,
-      "awayScore": 1
+      "kickoff": "2025-10-26T14:00:00+01:00",
+      "start": "2025-10-26T14:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Madrid",
       "away": "FC Barcelona",
-      "kickoff": "2025-10-26T15:15:00+00:00",
-      "location": "Estadio Santiago Bernabéu",
-      "round": 10,
-      "homeScore": 2,
-      "awayScore": 1
+      "kickoff": "2025-10-26T16:15:00+01:00",
+      "start": "2025-10-26T16:15:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "CA Osasuna",
       "away": "Celta",
-      "kickoff": "2025-10-26T17:30:00+00:00",
-      "location": "Estadio El Sadar",
-      "round": 10,
-      "homeScore": 2,
-      "awayScore": 3
+      "kickoff": "2025-10-26T18:30:00+01:00",
+      "start": "2025-10-26T18:30:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Rayo Vallecano",
       "away": "Deportivo Alavés",
-      "kickoff": "2025-10-26T20:00:00+00:00",
-      "location": "Estadio de Vallecas",
-      "round": 10,
-      "homeScore": 1,
-      "awayScore": 0
+      "kickoff": "2025-10-26T21:00:00+01:00",
+      "start": "2025-10-26T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Betis",
       "away": "Atlético de Madrid",
-      "kickoff": "2025-10-27T20:00:00+00:00",
-      "location": "Estadio Olímpico de La Cartuja",
-      "round": 10,
-      "homeScore": 0,
-      "awayScore": 2
+      "kickoff": "2025-10-27T21:00:00+01:00",
+      "start": "2025-10-27T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Getafe CF",
       "away": "Girona FC",
-      "kickoff": "2025-10-31T20:00:00+00:00",
-      "location": "Coliseum",
-      "round": 11,
-      "homeScore": 2,
-      "awayScore": 1
+      "kickoff": "2025-10-31T21:00:00+01:00",
+      "start": "2025-10-31T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Villarreal CF",
       "away": "Rayo Vallecano",
-      "kickoff": "2025-11-01T13:00:00+00:00",
-      "location": "Estadio de la Cerámica",
-      "round": 11,
-      "homeScore": 4,
-      "awayScore": 0
+      "kickoff": "2025-11-01T14:00:00+01:00",
+      "start": "2025-11-01T14:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Atlético de Madrid",
       "away": "Sevilla FC",
-      "kickoff": "2025-11-01T15:15:00+00:00",
-      "location": "Riyadh Air Metropolitano",
-      "round": 11,
-      "homeScore": 3,
-      "awayScore": 0
+      "kickoff": "2025-11-01T16:15:00+01:00",
+      "start": "2025-11-01T16:15:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Sociedad",
       "away": "Athletic Club",
-      "kickoff": "2025-11-01T17:30:00+00:00",
-      "location": "Anoeta",
-      "round": 11,
-      "homeScore": 3,
-      "awayScore": 2
+      "kickoff": "2025-11-01T18:30:00+01:00",
+      "start": "2025-11-01T18:30:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Madrid",
       "away": "Valencia CF",
-      "kickoff": "2025-11-01T20:00:00+00:00",
-      "location": "Estadio Santiago Bernabéu",
-      "round": 11,
-      "homeScore": 4,
-      "awayScore": 0
+      "kickoff": "2025-11-01T21:00:00+01:00",
+      "start": "2025-11-01T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Levante UD",
       "away": "Celta",
-      "kickoff": "2025-11-02T13:00:00+00:00",
-      "location": "Estadio Ciutat de València",
-      "round": 11,
-      "homeScore": 1,
-      "awayScore": 2
+      "kickoff": "2025-11-02T14:00:00+01:00",
+      "start": "2025-11-02T14:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Deportivo Alavés",
       "away": "RCD Espanyol de Barcelona",
-      "kickoff": "2025-11-02T15:15:00+00:00",
-      "location": "Mendizorroza",
-      "round": 11,
-      "homeScore": 2,
-      "awayScore": 1
+      "kickoff": "2025-11-02T16:15:00+01:00",
+      "start": "2025-11-02T16:15:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "FC Barcelona",
       "away": "Elche CF",
-      "kickoff": "2025-11-02T17:30:00+00:00",
-      "location": "Estadi Olímpic Lluís Companys",
-      "round": 11,
-      "homeScore": 3,
-      "awayScore": 1
+      "kickoff": "2025-11-02T18:30:00+01:00",
+      "start": "2025-11-02T18:30:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Betis",
       "away": "RCD Mallorca",
-      "kickoff": "2025-11-02T20:00:00+00:00",
-      "location": "Estadio Olímpico de La Cartuja",
-      "round": 11,
-      "homeScore": 3,
-      "awayScore": 0
+      "kickoff": "2025-11-02T21:00:00+01:00",
+      "start": "2025-11-02T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Oviedo",
       "away": "CA Osasuna",
-      "kickoff": "2025-11-03T20:00:00+00:00",
-      "location": "Estadio Carlos Tartiere",
-      "round": 11,
-      "homeScore": 0,
-      "awayScore": 0
+      "kickoff": "2025-11-03T21:00:00+01:00",
+      "start": "2025-11-03T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Elche CF",
       "away": "Real Sociedad",
-      "kickoff": "2025-11-07T20:00:00+00:00",
-      "location": "Estadio Martínez Valero",
-      "round": 12,
-      "homeScore": 1,
-      "awayScore": 1
+      "kickoff": "2025-11-07T21:00:00+01:00",
+      "start": "2025-11-07T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Girona FC",
       "away": "Deportivo Alavés",
-      "kickoff": "2025-11-08T13:00:00+00:00",
-      "location": "Estadio Municipal de Montilivi",
-      "round": 12,
-      "homeScore": 1,
-      "awayScore": 0
+      "kickoff": "2025-11-08T14:00:00+01:00",
+      "start": "2025-11-08T14:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Sevilla FC",
       "away": "CA Osasuna",
-      "kickoff": "2025-11-08T15:15:00+00:00",
-      "location": "Ramón Sánchez-Pizjuán",
-      "round": 12,
-      "homeScore": 1,
-      "awayScore": 0
+      "kickoff": "2025-11-08T16:15:00+01:00",
+      "start": "2025-11-08T16:15:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Atlético de Madrid",
       "away": "Levante UD",
-      "kickoff": "2025-11-08T17:30:00+00:00",
-      "location": "Riyadh Air Metropolitano",
-      "round": 12,
-      "homeScore": 3,
-      "awayScore": 1
+      "kickoff": "2025-11-08T18:30:00+01:00",
+      "start": "2025-11-08T18:30:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "RCD Espanyol de Barcelona",
       "away": "Villarreal CF",
-      "kickoff": "2025-11-08T20:00:00+00:00",
-      "location": "RCDE Stadium",
-      "round": 12,
-      "homeScore": 0,
-      "awayScore": 2
+      "kickoff": "2025-11-08T21:00:00+01:00",
+      "start": "2025-11-08T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Athletic Club",
       "away": "Real Oviedo",
-      "kickoff": "2025-11-09T13:00:00+00:00",
-      "location": "Estadio San Mamés",
-      "round": 12,
-      "homeScore": 1,
-      "awayScore": 0
+      "kickoff": "2025-11-09T14:00:00+01:00",
+      "start": "2025-11-09T14:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Rayo Vallecano",
       "away": "Real Madrid",
-      "kickoff": "2025-11-09T15:15:00+00:00",
-      "location": "Estadio de Vallecas",
-      "round": 12,
-      "homeScore": 0,
-      "awayScore": 0
+      "kickoff": "2025-11-09T16:15:00+01:00",
+      "start": "2025-11-09T16:15:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Valencia CF",
       "away": "Real Betis",
-      "kickoff": "2025-11-09T17:30:00+00:00",
-      "location": "Camp de Mestalla",
-      "round": 12,
-      "homeScore": 1,
-      "awayScore": 0
+      "kickoff": "2025-11-09T18:30:00+01:00",
+      "start": "2025-11-09T18:30:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "RCD Mallorca",
       "away": "Getafe CF",
-      "kickoff": "2025-11-09T17:30:00+00:00",
-      "location": "Estadi Mallorca Son Moix",
-      "round": 12,
-      "homeScore": 1,
-      "awayScore": 1
+      "kickoff": "2025-11-09T18:30:00+01:00",
+      "start": "2025-11-09T18:30:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Celta",
       "away": "FC Barcelona",
-      "kickoff": "2025-11-09T20:00:00+00:00",
-      "location": "Estadio ABANCA Balaídos",
-      "round": 12,
-      "homeScore": 2,
-      "awayScore": 4
+      "kickoff": "2025-11-09T21:00:00+01:00",
+      "start": "2025-11-09T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Valencia CF",
       "away": "Levante UD",
-      "kickoff": "2025-11-21T20:00:00+00:00",
-      "location": "Camp de Mestalla",
-      "round": 13,
-      "homeScore": 1,
-      "awayScore": 0
+      "kickoff": "2025-11-21T21:00:00+01:00",
+      "start": "2025-11-21T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Deportivo Alavés",
       "away": "Celta",
-      "kickoff": "2025-11-22T13:00:00+00:00",
-      "location": "Mendizorroza",
-      "round": 13,
-      "homeScore": 0,
-      "awayScore": 1
+      "kickoff": "2025-11-22T14:00:00+01:00",
+      "start": "2025-11-22T14:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "FC Barcelona",
       "away": "Athletic Club",
-      "kickoff": "2025-11-22T15:15:00+00:00",
-      "location": "Spotify Camp Nou",
-      "round": 13,
-      "homeScore": 4,
-      "awayScore": 0
+      "kickoff": "2025-11-22T16:15:00+01:00",
+      "start": "2025-11-22T16:15:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "CA Osasuna",
       "away": "Real Sociedad",
-      "kickoff": "2025-11-22T17:30:00+00:00",
-      "location": "Estadio El Sadar",
-      "round": 13,
-      "homeScore": 1,
-      "awayScore": 3
+      "kickoff": "2025-11-22T18:30:00+01:00",
+      "start": "2025-11-22T18:30:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Villarreal CF",
       "away": "RCD Mallorca",
-      "kickoff": "2025-11-22T20:00:00+00:00",
-      "location": "Estadio de la Cerámica",
-      "round": 13,
-      "homeScore": 2,
-      "awayScore": 1
+      "kickoff": "2025-11-22T21:00:00+01:00",
+      "start": "2025-11-22T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Oviedo",
       "away": "Rayo Vallecano",
-      "kickoff": "2025-11-23T13:00:00+00:00",
-      "location": "Estadio Carlos Tartiere",
-      "round": 13,
-      "homeScore": 0,
-      "awayScore": 0
+      "kickoff": "2025-11-23T14:00:00+01:00",
+      "start": "2025-11-23T14:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Betis",
       "away": "Girona FC",
-      "kickoff": "2025-11-23T15:15:00+00:00",
-      "location": "Estadio Olímpico de La Cartuja",
-      "round": 13,
-      "homeScore": 1,
-      "awayScore": 1
+      "kickoff": "2025-11-23T16:15:00+01:00",
+      "start": "2025-11-23T16:15:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Getafe CF",
       "away": "Atlético de Madrid",
-      "kickoff": "2025-11-23T17:30:00+00:00",
-      "location": "Coliseum",
-      "round": 13,
-      "homeScore": 0,
-      "awayScore": 1
+      "kickoff": "2025-11-23T18:30:00+01:00",
+      "start": "2025-11-23T18:30:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Elche CF",
       "away": "Real Madrid",
-      "kickoff": "2025-11-23T20:00:00+00:00",
-      "location": "Estadio Martínez Valero",
-      "round": 13,
-      "homeScore": 2,
-      "awayScore": 2
+      "kickoff": "2025-11-23T21:00:00+01:00",
+      "start": "2025-11-23T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "RCD Espanyol de Barcelona",
       "away": "Sevilla FC",
-      "kickoff": "2025-11-24T20:00:00+00:00",
-      "location": "RCDE Stadium",
-      "round": 13,
-      "homeScore": 2,
-      "awayScore": 1
+      "kickoff": "2025-11-24T21:00:00+01:00",
+      "start": "2025-11-24T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Getafe CF",
       "away": "Elche CF",
-      "kickoff": "2025-11-28T20:00:00+00:00",
-      "location": "Coliseum",
-      "round": 14,
-      "homeScore": 1,
-      "awayScore": 0
+      "kickoff": "2025-11-28T21:00:00+01:00",
+      "start": "2025-11-28T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "RCD Mallorca",
       "away": "CA Osasuna",
-      "kickoff": "2025-11-29T13:00:00+00:00",
-      "location": "Estadi Mallorca Son Moix",
-      "round": 14,
-      "homeScore": 2,
-      "awayScore": 2
+      "kickoff": "2025-11-29T14:00:00+01:00",
+      "start": "2025-11-29T14:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "FC Barcelona",
       "away": "Deportivo Alavés",
-      "kickoff": "2025-11-29T15:15:00+00:00",
-      "location": "Spotify Camp Nou",
-      "round": 14,
-      "homeScore": 3,
-      "awayScore": 1
+      "kickoff": "2025-11-29T16:15:00+01:00",
+      "start": "2025-11-29T16:15:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Levante UD",
       "away": "Athletic Club",
-      "kickoff": "2025-11-29T17:30:00+00:00",
-      "location": "Estadio Ciutat de València",
-      "round": 14,
-      "homeScore": 0,
-      "awayScore": 2
+      "kickoff": "2025-11-29T18:30:00+01:00",
+      "start": "2025-11-29T18:30:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Atlético de Madrid",
       "away": "Real Oviedo",
-      "kickoff": "2025-11-29T20:00:00+00:00",
-      "location": "Riyadh Air Metropolitano",
-      "round": 14,
-      "homeScore": 2,
-      "awayScore": 0
+      "kickoff": "2025-11-29T21:00:00+01:00",
+      "start": "2025-11-29T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Sociedad",
       "away": "Villarreal CF",
-      "kickoff": "2025-11-30T13:00:00+00:00",
-      "location": "Anoeta",
-      "round": 14,
-      "homeScore": 2,
-      "awayScore": 3
+      "kickoff": "2025-11-30T14:00:00+01:00",
+      "start": "2025-11-30T14:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Sevilla FC",
       "away": "Real Betis",
-      "kickoff": "2025-11-30T15:15:00+00:00",
-      "location": "Ramón Sánchez-Pizjuán",
-      "round": 14,
-      "homeScore": 0,
-      "awayScore": 2
+      "kickoff": "2025-11-30T16:15:00+01:00",
+      "start": "2025-11-30T16:15:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Celta",
       "away": "RCD Espanyol de Barcelona",
-      "kickoff": "2025-11-30T17:30:00+00:00",
-      "location": "Estadio ABANCA Balaídos",
-      "round": 14,
-      "homeScore": 0,
-      "awayScore": 1
+      "kickoff": "2025-11-30T18:30:00+01:00",
+      "start": "2025-11-30T18:30:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Girona FC",
       "away": "Real Madrid",
-      "kickoff": "2025-11-30T20:00:00+00:00",
-      "location": "Estadio Municipal de Montilivi",
-      "round": 14,
-      "homeScore": 1,
-      "awayScore": 1
+      "kickoff": "2025-11-30T21:00:00+01:00",
+      "start": "2025-11-30T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Rayo Vallecano",
       "away": "Valencia CF",
-      "kickoff": "2025-12-01T20:00:00+00:00",
-      "location": "Estadio de Vallecas",
-      "round": 14,
-      "homeScore": 1,
-      "awayScore": 1
+      "kickoff": "2025-12-01T21:00:00+01:00",
+      "start": "2025-12-01T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "FC Barcelona",
       "away": "Atlético de Madrid",
-      "kickoff": "2025-12-02T20:00:00+00:00",
-      "location": "Spotify Camp Nou",
-      "round": 19,
-      "homeScore": 3,
-      "awayScore": 1
+      "kickoff": "2025-12-02T21:00:00+01:00",
+      "start": "2025-12-02T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Athletic Club",
       "away": "Real Madrid",
-      "kickoff": "2025-12-03T18:00:00+00:00",
-      "location": "Estadio San Mamés",
-      "round": 19,
-      "homeScore": 0,
-      "awayScore": 3
+      "kickoff": "2025-12-03T19:00:00+01:00",
+      "start": "2025-12-03T19:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Oviedo",
       "away": "RCD Mallorca",
-      "kickoff": "2025-12-05T20:00:00+00:00",
-      "location": "Estadio Carlos Tartiere",
-      "round": 15,
-      "homeScore": 0,
-      "awayScore": 0
+      "kickoff": "2025-12-05T21:00:00+01:00",
+      "start": "2025-12-05T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Villarreal CF",
       "away": "Getafe CF",
-      "kickoff": "2025-12-06T13:00:00+00:00",
-      "location": "Estadio de la Cerámica",
-      "round": 15,
-      "homeScore": 2,
-      "awayScore": 0
+      "kickoff": "2025-12-06T14:00:00+01:00",
+      "start": "2025-12-06T14:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Deportivo Alavés",
       "away": "Real Sociedad",
-      "kickoff": "2025-12-06T15:15:00+00:00",
-      "location": "Mendizorroza",
-      "round": 15,
-      "homeScore": 1,
-      "awayScore": 0
+      "kickoff": "2025-12-06T16:15:00+01:00",
+      "start": "2025-12-06T16:15:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Betis",
       "away": "FC Barcelona",
-      "kickoff": "2025-12-06T17:30:00+00:00",
-      "location": "Estadio Olímpico de La Cartuja",
-      "round": 15,
-      "homeScore": 3,
-      "awayScore": 5
+      "kickoff": "2025-12-06T18:30:00+01:00",
+      "start": "2025-12-06T18:30:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Athletic Club",
       "away": "Atlético de Madrid",
-      "kickoff": "2025-12-06T20:00:00+00:00",
-      "location": "Estadio San Mamés",
-      "round": 15,
-      "homeScore": 1,
-      "awayScore": 0
+      "kickoff": "2025-12-06T21:00:00+01:00",
+      "start": "2025-12-06T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Elche CF",
       "away": "Girona FC",
-      "kickoff": "2025-12-07T13:00:00+00:00",
-      "location": "Estadio Martínez Valero",
-      "round": 15,
-      "homeScore": 3,
-      "awayScore": 0
+      "kickoff": "2025-12-07T14:00:00+01:00",
+      "start": "2025-12-07T14:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Valencia CF",
       "away": "Sevilla FC",
-      "kickoff": "2025-12-07T15:15:00+00:00",
-      "location": "Camp de Mestalla",
-      "round": 15,
-      "homeScore": 1,
-      "awayScore": 1
+      "kickoff": "2025-12-07T16:15:00+01:00",
+      "start": "2025-12-07T16:15:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "RCD Espanyol de Barcelona",
       "away": "Rayo Vallecano",
-      "kickoff": "2025-12-07T17:30:00+00:00",
-      "location": "RCDE Stadium",
-      "round": 15,
-      "homeScore": 1,
-      "awayScore": 0
+      "kickoff": "2025-12-07T18:30:00+01:00",
+      "start": "2025-12-07T18:30:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Madrid",
       "away": "Celta",
-      "kickoff": "2025-12-07T20:00:00+00:00",
-      "location": "Estadio Santiago Bernabéu",
-      "round": 15,
-      "homeScore": 0,
-      "awayScore": 2
+      "kickoff": "2025-12-07T21:00:00+01:00",
+      "start": "2025-12-07T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "CA Osasuna",
       "away": "Levante UD",
-      "kickoff": "2025-12-08T20:00:00+00:00",
-      "location": "Estadio El Sadar",
-      "round": 15,
-      "homeScore": 2,
-      "awayScore": 0
+      "kickoff": "2025-12-08T21:00:00+01:00",
+      "start": "2025-12-08T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Sociedad",
       "away": "Girona FC",
-      "kickoff": "2025-12-12T20:00:00+00:00",
-      "location": "Anoeta",
-      "round": 16,
-      "homeScore": 1,
-      "awayScore": 2
+      "kickoff": "2025-12-12T21:00:00+01:00",
+      "start": "2025-12-12T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Atlético de Madrid",
       "away": "Valencia CF",
-      "kickoff": "2025-12-13T13:00:00+00:00",
-      "location": "Riyadh Air Metropolitano",
-      "round": 16,
-      "homeScore": 2,
-      "awayScore": 1
+      "kickoff": "2025-12-13T14:00:00+01:00",
+      "start": "2025-12-13T14:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "RCD Mallorca",
       "away": "Elche CF",
-      "kickoff": "2025-12-13T15:15:00+00:00",
-      "location": "Estadi Mallorca Son Moix",
-      "round": 16,
-      "homeScore": 3,
-      "awayScore": 1
+      "kickoff": "2025-12-13T16:15:00+01:00",
+      "start": "2025-12-13T16:15:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "FC Barcelona",
       "away": "CA Osasuna",
-      "kickoff": "2025-12-13T17:30:00+00:00",
-      "location": "Spotify Camp Nou",
-      "round": 16,
-      "homeScore": 2,
-      "awayScore": 0
+      "kickoff": "2025-12-13T18:30:00+01:00",
+      "start": "2025-12-13T18:30:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Getafe CF",
       "away": "RCD Espanyol de Barcelona",
-      "kickoff": "2025-12-13T20:00:00+00:00",
-      "location": "Coliseum",
-      "round": 16,
-      "homeScore": 0,
-      "awayScore": 1
+      "kickoff": "2025-12-13T21:00:00+01:00",
+      "start": "2025-12-13T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Sevilla FC",
       "away": "Real Oviedo",
-      "kickoff": "2025-12-14T13:00:00+00:00",
-      "location": "Ramón Sánchez-Pizjuán",
-      "round": 16,
-      "homeScore": 4,
-      "awayScore": 0
+      "kickoff": "2025-12-14T14:00:00+01:00",
+      "start": "2025-12-14T14:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Celta",
       "away": "Athletic Club",
-      "kickoff": "2025-12-14T15:15:00+00:00",
-      "location": "Estadio ABANCA Balaídos",
-      "round": 16,
-      "homeScore": 2,
-      "awayScore": 0
+      "kickoff": "2025-12-14T16:15:00+01:00",
+      "start": "2025-12-14T16:15:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Deportivo Alavés",
       "away": "Real Madrid",
-      "kickoff": "2025-12-14T20:00:00+00:00",
-      "location": "Mendizorroza",
-      "round": 16,
-      "homeScore": 1,
-      "awayScore": 2
+      "kickoff": "2025-12-14T21:00:00+01:00",
+      "start": "2025-12-14T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Rayo Vallecano",
       "away": "Real Betis",
-      "kickoff": "2025-12-15T20:00:00+00:00",
-      "location": "Estadio de Vallecas",
-      "round": 16,
-      "homeScore": 0,
-      "awayScore": 0
+      "kickoff": "2025-12-15T21:00:00+01:00",
+      "start": "2025-12-15T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Valencia CF",
       "away": "RCD Mallorca",
-      "kickoff": "2025-12-19T20:00:00+00:00",
-      "location": "Camp de Mestalla",
-      "round": 17,
-      "homeScore": 1,
-      "awayScore": 1
+      "kickoff": "2025-12-19T21:00:00+01:00",
+      "start": "2025-12-19T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Oviedo",
       "away": "Celta",
-      "kickoff": "2025-12-20T13:00:00+00:00",
-      "location": "Estadio Carlos Tartiere",
-      "round": 17,
-      "homeScore": 0,
-      "awayScore": 0
+      "kickoff": "2025-12-20T14:00:00+01:00",
+      "start": "2025-12-20T14:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Levante UD",
       "away": "Real Sociedad",
-      "kickoff": "2025-12-20T15:15:00+00:00",
-      "location": "Estadio Ciutat de València",
-      "round": 17,
-      "homeScore": 1,
-      "awayScore": 1
+      "kickoff": "2025-12-20T16:15:00+01:00",
+      "start": "2025-12-20T16:15:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "CA Osasuna",
       "away": "Deportivo Alavés",
-      "kickoff": "2025-12-20T17:30:00+00:00",
-      "location": "Estadio El Sadar",
-      "round": 17,
-      "homeScore": 3,
-      "awayScore": 0
+      "kickoff": "2025-12-20T18:30:00+01:00",
+      "start": "2025-12-20T18:30:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Madrid",
       "away": "Sevilla FC",
-      "kickoff": "2025-12-20T20:00:00+00:00",
-      "location": "Estadio Santiago Bernabéu",
-      "round": 17,
-      "homeScore": 2,
-      "awayScore": 0
+      "kickoff": "2025-12-20T21:00:00+01:00",
+      "start": "2025-12-20T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Girona FC",
       "away": "Atlético de Madrid",
-      "kickoff": "2025-12-21T13:00:00+00:00",
-      "location": "Estadio Municipal de Montilivi",
-      "round": 17,
-      "homeScore": 0,
-      "awayScore": 3
+      "kickoff": "2025-12-21T14:00:00+01:00",
+      "start": "2025-12-21T14:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Villarreal CF",
       "away": "FC Barcelona",
-      "kickoff": "2025-12-21T15:15:00+00:00",
-      "location": "Estadio de la Cerámica",
-      "round": 17,
-      "homeScore": 0,
-      "awayScore": 2
+      "kickoff": "2025-12-21T16:15:00+01:00",
+      "start": "2025-12-21T16:15:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Elche CF",
       "away": "Rayo Vallecano",
-      "kickoff": "2025-12-21T17:30:00+00:00",
-      "location": "Estadio Martínez Valero",
-      "round": 17,
-      "homeScore": 4,
-      "awayScore": 0
+      "kickoff": "2025-12-21T18:30:00+01:00",
+      "start": "2025-12-21T18:30:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Betis",
       "away": "Getafe CF",
-      "kickoff": "2025-12-21T20:00:00+00:00",
-      "location": "Estadio Olímpico de La Cartuja",
-      "round": 17,
-      "homeScore": 4,
-      "awayScore": 0
+      "kickoff": "2025-12-21T21:00:00+01:00",
+      "start": "2025-12-21T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Athletic Club",
       "away": "RCD Espanyol de Barcelona",
-      "kickoff": "2025-12-22T20:00:00+00:00",
-      "location": "Estadio San Mamés",
-      "round": 17,
-      "homeScore": 1,
-      "awayScore": 2
+      "kickoff": "2025-12-22T21:00:00+01:00",
+      "start": "2025-12-22T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Rayo Vallecano",
       "away": "Getafe CF",
-      "kickoff": "2026-01-02T20:00:00+00:00",
-      "location": "Estadio de Vallecas",
-      "round": 18,
-      "homeScore": 1,
-      "awayScore": 1
+      "kickoff": "2026-01-02T21:00:00+01:00",
+      "start": "2026-01-02T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Celta",
       "away": "Valencia CF",
-      "kickoff": "2026-01-03T13:00:00+00:00",
-      "location": "Estadio ABANCA Balaídos",
-      "round": 18,
-      "homeScore": 4,
-      "awayScore": 1
+      "kickoff": "2026-01-03T14:00:00+01:00",
+      "start": "2026-01-03T14:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "CA Osasuna",
       "away": "Athletic Club",
-      "kickoff": "2026-01-03T15:15:00+00:00",
-      "location": "Estadio El Sadar",
-      "round": 18,
-      "homeScore": 1,
-      "awayScore": 1
+      "kickoff": "2026-01-03T16:15:00+01:00",
+      "start": "2026-01-03T16:15:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Elche CF",
       "away": "Villarreal CF",
-      "kickoff": "2026-01-03T17:30:00+00:00",
-      "location": "Estadio Martínez Valero",
-      "round": 18,
-      "homeScore": 1,
-      "awayScore": 3
+      "kickoff": "2026-01-03T18:30:00+01:00",
+      "start": "2026-01-03T18:30:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "RCD Espanyol de Barcelona",
       "away": "FC Barcelona",
-      "kickoff": "2026-01-03T20:00:00+00:00",
-      "location": "RCDE Stadium",
-      "round": 18,
-      "homeScore": 0,
-      "awayScore": 2
+      "kickoff": "2026-01-03T21:00:00+01:00",
+      "start": "2026-01-03T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Sevilla FC",
       "away": "Levante UD",
-      "kickoff": "2026-01-04T13:00:00+00:00",
-      "location": "Ramón Sánchez-Pizjuán",
-      "round": 18,
-      "homeScore": 0,
-      "awayScore": 3
+      "kickoff": "2026-01-04T14:00:00+01:00",
+      "start": "2026-01-04T14:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Madrid",
       "away": "Real Betis",
-      "kickoff": "2026-01-04T15:15:00+00:00",
-      "location": "Estadio Santiago Bernabéu",
-      "round": 18,
-      "homeScore": 5,
-      "awayScore": 1
+      "kickoff": "2026-01-04T16:15:00+01:00",
+      "start": "2026-01-04T16:15:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Deportivo Alavés",
       "away": "Real Oviedo",
-      "kickoff": "2026-01-04T17:30:00+00:00",
-      "location": "Mendizorroza",
-      "round": 18,
-      "homeScore": 1,
-      "awayScore": 1
+      "kickoff": "2026-01-04T18:30:00+01:00",
+      "start": "2026-01-04T18:30:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "RCD Mallorca",
       "away": "Girona FC",
-      "kickoff": "2026-01-04T17:30:00+00:00",
-      "location": "Estadi Mallorca Son Moix",
-      "round": 18,
-      "homeScore": 1,
-      "awayScore": 2
+      "kickoff": "2026-01-04T18:30:00+01:00",
+      "start": "2026-01-04T18:30:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Sociedad",
       "away": "Atlético de Madrid",
-      "kickoff": "2026-01-04T20:00:00+00:00",
-      "location": "Anoeta",
-      "round": 18,
-      "homeScore": 1,
-      "awayScore": 1
+      "kickoff": "2026-01-04T21:00:00+01:00",
+      "start": "2026-01-04T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Getafe CF",
       "away": "Real Sociedad",
-      "kickoff": "2026-01-09T20:00:00+00:00",
-      "location": "Coliseum",
-      "round": 19,
-      "homeScore": 1,
-      "awayScore": 2
+      "kickoff": "2026-01-09T21:00:00+01:00",
+      "start": "2026-01-09T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Oviedo",
       "away": "Real Betis",
-      "kickoff": "2026-01-10T13:00:00+00:00",
-      "location": "Estadio Carlos Tartiere",
-      "round": 19,
-      "homeScore": 1,
-      "awayScore": 1
+      "kickoff": "2026-01-10T14:00:00+01:00",
+      "start": "2026-01-10T14:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Villarreal CF",
       "away": "Deportivo Alavés",
-      "kickoff": "2026-01-10T15:15:00+00:00",
-      "location": "Estadio de la Cerámica",
-      "round": 19,
-      "homeScore": 3,
-      "awayScore": 1
+      "kickoff": "2026-01-10T16:15:00+01:00",
+      "start": "2026-01-10T16:15:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Girona FC",
       "away": "CA Osasuna",
-      "kickoff": "2026-01-10T17:30:00+00:00",
-      "location": "Estadio Municipal de Montilivi",
-      "round": 19,
-      "homeScore": 1,
-      "awayScore": 0
+      "kickoff": "2026-01-10T18:30:00+01:00",
+      "start": "2026-01-10T18:30:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Valencia CF",
       "away": "Elche CF",
-      "kickoff": "2026-01-10T20:00:00+00:00",
-      "location": "Camp de Mestalla",
-      "round": 19,
-      "homeScore": 1,
-      "awayScore": 1
+      "kickoff": "2026-01-10T21:00:00+01:00",
+      "start": "2026-01-10T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Rayo Vallecano",
       "away": "RCD Mallorca",
-      "kickoff": "2026-01-11T13:00:00+00:00",
-      "location": "Estadio de Vallecas",
-      "round": 19,
-      "homeScore": 2,
-      "awayScore": 1
+      "kickoff": "2026-01-11T14:00:00+01:00",
+      "start": "2026-01-11T14:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Levante UD",
       "away": "RCD Espanyol de Barcelona",
-      "kickoff": "2026-01-11T15:15:00+00:00",
-      "location": "Estadio Ciutat de València",
-      "round": 19,
-      "homeScore": 1,
-      "awayScore": 1
+      "kickoff": "2026-01-11T16:15:00+01:00",
+      "start": "2026-01-11T16:15:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Sevilla FC",
       "away": "Celta",
-      "kickoff": "2026-01-12T20:00:00+00:00",
-      "location": "Ramón Sánchez-Pizjuán",
-      "round": 19,
-      "homeScore": 0,
-      "awayScore": 1
+      "kickoff": "2026-01-12T21:00:00+01:00",
+      "start": "2026-01-12T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "RCD Espanyol de Barcelona",
       "away": "Girona FC",
-      "kickoff": "2026-01-16T20:00:00+00:00",
-      "location": "RCDE Stadium",
-      "round": 20,
-      "homeScore": 0,
-      "awayScore": 2
+      "kickoff": "2026-01-16T21:00:00+01:00",
+      "start": "2026-01-16T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Madrid",
       "away": "Levante UD",
-      "kickoff": "2026-01-17T13:00:00+00:00",
-      "location": "Estadio Santiago Bernabéu",
-      "round": 20,
-      "homeScore": 2,
-      "awayScore": 0
+      "kickoff": "2026-01-17T14:00:00+01:00",
+      "start": "2026-01-17T14:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "RCD Mallorca",
       "away": "Athletic Club",
-      "kickoff": "2026-01-17T15:15:00+00:00",
-      "location": "Estadi Mallorca Son Moix",
-      "round": 20,
-      "homeScore": 3,
-      "awayScore": 2
+      "kickoff": "2026-01-17T16:15:00+01:00",
+      "start": "2026-01-17T16:15:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "CA Osasuna",
       "away": "Real Oviedo",
-      "kickoff": "2026-01-17T17:30:00+00:00",
-      "location": "Estadio El Sadar",
-      "round": 20,
-      "homeScore": 3,
-      "awayScore": 2
+      "kickoff": "2026-01-17T18:30:00+01:00",
+      "start": "2026-01-17T18:30:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Betis",
       "away": "Villarreal CF",
-      "kickoff": "2026-01-17T20:00:00+00:00",
-      "location": "Estadio Olímpico de La Cartuja",
-      "round": 20,
-      "homeScore": 2,
-      "awayScore": 0
+      "kickoff": "2026-01-17T21:00:00+01:00",
+      "start": "2026-01-17T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Getafe CF",
       "away": "Valencia CF",
-      "kickoff": "2026-01-18T13:00:00+00:00",
-      "location": "Coliseum",
-      "round": 20,
-      "homeScore": 0,
-      "awayScore": 1
+      "kickoff": "2026-01-18T14:00:00+01:00",
+      "start": "2026-01-18T14:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Atlético de Madrid",
       "away": "Deportivo Alavés",
-      "kickoff": "2026-01-18T15:15:00+00:00",
-      "location": "Riyadh Air Metropolitano",
-      "round": 20,
-      "homeScore": 1,
-      "awayScore": 0
+      "kickoff": "2026-01-18T16:15:00+01:00",
+      "start": "2026-01-18T16:15:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Celta",
       "away": "Rayo Vallecano",
-      "kickoff": "2026-01-18T17:30:00+00:00",
-      "location": "Estadio ABANCA Balaídos",
-      "round": 20,
-      "homeScore": 3,
-      "awayScore": 0
+      "kickoff": "2026-01-18T18:30:00+01:00",
+      "start": "2026-01-18T18:30:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Sociedad",
       "away": "FC Barcelona",
-      "kickoff": "2026-01-18T20:00:00+00:00",
-      "location": "Anoeta",
-      "round": 20,
-      "homeScore": 2,
-      "awayScore": 1
+      "kickoff": "2026-01-18T21:00:00+01:00",
+      "start": "2026-01-18T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Elche CF",
       "away": "Sevilla FC",
-      "kickoff": "2026-01-19T20:00:00+00:00",
-      "location": "Estadio Martínez Valero",
-      "round": 20,
-      "homeScore": 2,
-      "awayScore": 2
+      "kickoff": "2026-01-19T21:00:00+01:00",
+      "start": "2026-01-19T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Levante UD",
       "away": "Elche CF",
-      "kickoff": "2026-01-23T20:00:00+00:00",
-      "location": "Estadio Ciutat de València",
-      "round": 21,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-01-23T21:00:00+01:00",
+      "start": "2026-01-23T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Rayo Vallecano",
       "away": "CA Osasuna",
-      "kickoff": "2026-01-24T13:00:00+00:00",
-      "location": "Estadio de Vallecas",
-      "round": 21,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-01-24T14:00:00+01:00",
+      "start": "2026-01-24T14:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Valencia CF",
       "away": "RCD Espanyol de Barcelona",
-      "kickoff": "2026-01-24T15:15:00+00:00",
-      "location": "Camp de Mestalla",
-      "round": 21,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-01-24T16:15:00+01:00",
+      "start": "2026-01-24T16:15:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Sevilla FC",
       "away": "Athletic Club",
-      "kickoff": "2026-01-24T17:30:00+00:00",
-      "location": "Ramón Sánchez-Pizjuán",
-      "round": 21,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-01-24T18:30:00+01:00",
+      "start": "2026-01-24T18:30:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Villarreal CF",
       "away": "Real Madrid",
-      "kickoff": "2026-01-24T20:00:00+00:00",
-      "location": "Estadio de la Cerámica",
-      "round": 21,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-01-24T21:00:00+01:00",
+      "start": "2026-01-24T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Atlético de Madrid",
       "away": "RCD Mallorca",
-      "kickoff": "2026-01-25T13:00:00+00:00",
-      "location": "Riyadh Air Metropolitano",
-      "round": 21,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-01-25T14:00:00+01:00",
+      "start": "2026-01-25T14:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "FC Barcelona",
       "away": "Real Oviedo",
-      "kickoff": "2026-01-25T15:15:00+00:00",
-      "location": "Spotify Camp Nou",
-      "round": 21,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-01-25T16:15:00+01:00",
+      "start": "2026-01-25T16:15:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Sociedad",
       "away": "Celta",
-      "kickoff": "2026-01-25T17:30:00+00:00",
-      "location": "Anoeta",
-      "round": 21,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-01-25T18:30:00+01:00",
+      "start": "2026-01-25T18:30:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Deportivo Alavés",
       "away": "Real Betis",
-      "kickoff": "2026-01-25T20:00:00+00:00",
-      "location": "Mendizorroza",
-      "round": 21,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-01-25T21:00:00+01:00",
+      "start": "2026-01-25T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Girona FC",
       "away": "Getafe CF",
-      "kickoff": "2026-01-26T20:00:00+00:00",
-      "location": "Estadio Municipal de Montilivi",
-      "round": 21,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-01-26T21:00:00+01:00",
+      "start": "2026-01-26T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "RCD Espanyol de Barcelona",
       "away": "Deportivo Alavés",
-      "kickoff": "2026-01-30T20:00:00+00:00",
-      "location": "RCDE Stadium",
-      "round": 22,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-01-30T21:00:00+01:00",
+      "start": "2026-01-30T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Oviedo",
       "away": "Girona FC",
-      "kickoff": "2026-01-31T13:00:00+00:00",
-      "location": "Estadio Carlos Tartiere",
-      "round": 22,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-01-31T14:00:00+01:00",
+      "start": "2026-01-31T14:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "CA Osasuna",
       "away": "Villarreal CF",
-      "kickoff": "2026-01-31T15:15:00+00:00",
-      "location": "Estadio El Sadar",
-      "round": 22,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-01-31T16:15:00+01:00",
+      "start": "2026-01-31T16:15:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Levante UD",
       "away": "Atlético de Madrid",
-      "kickoff": "2026-01-31T17:30:00+00:00",
-      "location": "Estadio Ciutat de València",
-      "round": 22,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-01-31T18:30:00+01:00",
+      "start": "2026-01-31T18:30:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Elche CF",
       "away": "FC Barcelona",
-      "kickoff": "2026-01-31T17:30:00+00:00",
-      "location": "Estadio Martínez Valero",
-      "round": 22,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-01-31T18:30:00+01:00",
+      "start": "2026-01-31T18:30:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Madrid",
       "away": "Rayo Vallecano",
-      "kickoff": "2026-02-01T13:00:00+00:00",
-      "location": "Estadio Santiago Bernabéu",
-      "round": 22,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-02-01T14:00:00+01:00",
+      "start": "2026-02-01T14:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Betis",
       "away": "Valencia CF",
-      "kickoff": "2026-02-01T15:15:00+00:00",
-      "location": "Estadio Olímpico de La Cartuja",
-      "round": 22,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-02-01T16:15:00+01:00",
+      "start": "2026-02-01T16:15:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Getafe CF",
       "away": "Celta",
-      "kickoff": "2026-02-01T17:30:00+00:00",
-      "location": "Coliseum",
-      "round": 22,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-02-01T18:30:00+01:00",
+      "start": "2026-02-01T18:30:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Athletic Club",
       "away": "Real Sociedad",
-      "kickoff": "2026-02-01T20:00:00+00:00",
-      "location": "Estadio San Mamés",
-      "round": 22,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-02-01T21:00:00+01:00",
+      "start": "2026-02-01T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "RCD Mallorca",
       "away": "Sevilla FC",
-      "kickoff": "2026-02-02T20:00:00+00:00",
-      "location": "Estadi Mallorca Son Moix",
-      "round": 22,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-02-02T21:00:00+01:00",
+      "start": "2026-02-02T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Deportivo Alavés",
       "away": "Getafe CF",
-      "kickoff": "2026-02-08T20:00:00+00:00",
-      "location": "Mendizorroza",
-      "round": 23,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-02-08T21:00:00+01:00",
+      "start": "2026-02-08T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Athletic Club",
       "away": "Levante UD",
-      "kickoff": "2026-02-08T20:00:00+00:00",
-      "location": "Estadio San Mamés",
-      "round": 23,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-02-08T21:00:00+01:00",
+      "start": "2026-02-08T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Atlético de Madrid",
       "away": "Real Betis",
-      "kickoff": "2026-02-08T20:00:00+00:00",
-      "location": "Riyadh Air Metropolitano",
-      "round": 23,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-02-08T21:00:00+01:00",
+      "start": "2026-02-08T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "FC Barcelona",
       "away": "RCD Mallorca",
-      "kickoff": "2026-02-08T20:00:00+00:00",
-      "location": "Spotify Camp Nou",
-      "round": 23,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-02-08T21:00:00+01:00",
+      "start": "2026-02-08T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Celta",
       "away": "CA Osasuna",
-      "kickoff": "2026-02-08T20:00:00+00:00",
-      "location": "Estadio ABANCA Balaídos",
-      "round": 23,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-02-08T21:00:00+01:00",
+      "start": "2026-02-08T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Sociedad",
       "away": "Elche CF",
-      "kickoff": "2026-02-08T20:00:00+00:00",
-      "location": "Anoeta",
-      "round": 23,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-02-08T21:00:00+01:00",
+      "start": "2026-02-08T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Villarreal CF",
       "away": "RCD Espanyol de Barcelona",
-      "kickoff": "2026-02-08T20:00:00+00:00",
-      "location": "Estadio de la Cerámica",
-      "round": 23,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-02-08T21:00:00+01:00",
+      "start": "2026-02-08T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Sevilla FC",
       "away": "Girona FC",
-      "kickoff": "2026-02-08T20:00:00+00:00",
-      "location": "Ramón Sánchez-Pizjuán",
-      "round": 23,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-02-08T21:00:00+01:00",
+      "start": "2026-02-08T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Valencia CF",
       "away": "Real Madrid",
-      "kickoff": "2026-02-08T20:00:00+00:00",
-      "location": "Camp de Mestalla",
-      "round": 23,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-02-08T21:00:00+01:00",
+      "start": "2026-02-08T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Rayo Vallecano",
       "away": "Real Oviedo",
-      "kickoff": "2026-02-08T20:00:00+00:00",
-      "location": "Estadio de Vallecas",
-      "round": 23,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-02-08T21:00:00+01:00",
+      "start": "2026-02-08T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Elche CF",
       "away": "CA Osasuna",
-      "kickoff": "2026-02-15T20:00:00+00:00",
-      "location": "Estadio Martínez Valero",
-      "round": 24,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-02-15T21:00:00+01:00",
+      "start": "2026-02-15T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Getafe CF",
       "away": "Villarreal CF",
-      "kickoff": "2026-02-15T20:00:00+00:00",
-      "location": "Coliseum",
-      "round": 24,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-02-15T21:00:00+01:00",
+      "start": "2026-02-15T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Levante UD",
       "away": "Valencia CF",
-      "kickoff": "2026-02-15T20:00:00+00:00",
-      "location": "Estadio Ciutat de València",
-      "round": 24,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-02-15T21:00:00+01:00",
+      "start": "2026-02-15T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Madrid",
       "away": "Real Sociedad",
-      "kickoff": "2026-02-15T20:00:00+00:00",
-      "location": "Estadio Santiago Bernabéu",
-      "round": 24,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-02-15T21:00:00+01:00",
+      "start": "2026-02-15T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Sevilla FC",
       "away": "Deportivo Alavés",
-      "kickoff": "2026-02-15T20:00:00+00:00",
-      "location": "Ramón Sánchez-Pizjuán",
-      "round": 24,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-02-15T21:00:00+01:00",
+      "start": "2026-02-15T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Oviedo",
       "away": "Athletic Club",
-      "kickoff": "2026-02-15T20:00:00+00:00",
-      "location": "Estadio Carlos Tartiere",
-      "round": 24,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-02-15T21:00:00+01:00",
+      "start": "2026-02-15T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Rayo Vallecano",
       "away": "Atlético de Madrid",
-      "kickoff": "2026-02-15T20:00:00+00:00",
-      "location": "Estadio de Vallecas",
-      "round": 24,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-02-15T21:00:00+01:00",
+      "start": "2026-02-15T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Girona FC",
       "away": "FC Barcelona",
-      "kickoff": "2026-02-15T20:00:00+00:00",
-      "location": "Estadio Municipal de Montilivi",
-      "round": 24,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-02-15T21:00:00+01:00",
+      "start": "2026-02-15T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "RCD Mallorca",
       "away": "Real Betis",
-      "kickoff": "2026-02-15T20:00:00+00:00",
-      "location": "Estadi Mallorca Son Moix",
-      "round": 24,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-02-15T21:00:00+01:00",
+      "start": "2026-02-15T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "RCD Espanyol de Barcelona",
       "away": "Celta",
-      "kickoff": "2026-02-15T20:00:00+00:00",
-      "location": "RCDE Stadium",
-      "round": 24,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-02-15T21:00:00+01:00",
+      "start": "2026-02-15T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Levante UD",
       "away": "Villarreal CF",
-      "kickoff": "2026-02-18T19:00:00+00:00",
-      "location": "Estadio Ciutat de València",
-      "round": 16,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-02-18T20:00:00+01:00",
+      "start": "2026-02-18T20:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Deportivo Alavés",
       "away": "Girona FC",
-      "kickoff": "2026-02-22T20:00:00+00:00",
-      "location": "Mendizorroza",
-      "round": 25,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-02-22T21:00:00+01:00",
+      "start": "2026-02-22T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Athletic Club",
       "away": "Elche CF",
-      "kickoff": "2026-02-22T20:00:00+00:00",
-      "location": "Estadio San Mamés",
-      "round": 25,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-02-22T21:00:00+01:00",
+      "start": "2026-02-22T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Atlético de Madrid",
       "away": "RCD Espanyol de Barcelona",
-      "kickoff": "2026-02-22T20:00:00+00:00",
-      "location": "Riyadh Air Metropolitano",
-      "round": 25,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-02-22T21:00:00+01:00",
+      "start": "2026-02-22T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "FC Barcelona",
       "away": "Levante UD",
-      "kickoff": "2026-02-22T20:00:00+00:00",
-      "location": "Spotify Camp Nou",
-      "round": 25,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-02-22T21:00:00+01:00",
+      "start": "2026-02-22T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Betis",
       "away": "Rayo Vallecano",
-      "kickoff": "2026-02-22T20:00:00+00:00",
-      "location": "Estadio Olímpico de La Cartuja",
-      "round": 25,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-02-22T21:00:00+01:00",
+      "start": "2026-02-22T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Celta",
       "away": "RCD Mallorca",
-      "kickoff": "2026-02-22T20:00:00+00:00",
-      "location": "Estadio ABANCA Balaídos",
-      "round": 25,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-02-22T21:00:00+01:00",
+      "start": "2026-02-22T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Getafe CF",
       "away": "Sevilla FC",
-      "kickoff": "2026-02-22T20:00:00+00:00",
-      "location": "Coliseum",
-      "round": 25,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-02-22T21:00:00+01:00",
+      "start": "2026-02-22T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "CA Osasuna",
       "away": "Real Madrid",
-      "kickoff": "2026-02-22T20:00:00+00:00",
-      "location": "Estadio El Sadar",
-      "round": 25,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-02-22T21:00:00+01:00",
+      "start": "2026-02-22T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Villarreal CF",
       "away": "Valencia CF",
-      "kickoff": "2026-02-22T20:00:00+00:00",
-      "location": "Estadio de la Cerámica",
-      "round": 25,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-02-22T21:00:00+01:00",
+      "start": "2026-02-22T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Sociedad",
       "away": "Real Oviedo",
-      "kickoff": "2026-02-22T20:00:00+00:00",
-      "location": "Anoeta",
-      "round": 25,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-02-22T21:00:00+01:00",
+      "start": "2026-02-22T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "FC Barcelona",
       "away": "Villarreal CF",
-      "kickoff": "2026-03-01T20:00:00+00:00",
-      "location": "Spotify Camp Nou",
-      "round": 26,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-03-01T21:00:00+01:00",
+      "start": "2026-03-01T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Betis",
       "away": "Sevilla FC",
-      "kickoff": "2026-03-01T20:00:00+00:00",
-      "location": "Estadio Olímpico de La Cartuja",
-      "round": 26,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-03-01T21:00:00+01:00",
+      "start": "2026-03-01T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Elche CF",
       "away": "RCD Espanyol de Barcelona",
-      "kickoff": "2026-03-01T20:00:00+00:00",
-      "location": "Estadio Martínez Valero",
-      "round": 26,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-03-01T21:00:00+01:00",
+      "start": "2026-03-01T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "RCD Mallorca",
       "away": "Real Sociedad",
-      "kickoff": "2026-03-01T20:00:00+00:00",
-      "location": "Estadi Mallorca Son Moix",
-      "round": 26,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-03-01T21:00:00+01:00",
+      "start": "2026-03-01T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Levante UD",
       "away": "Deportivo Alavés",
-      "kickoff": "2026-03-01T20:00:00+00:00",
-      "location": "Estadio Ciutat de València",
-      "round": 26,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-03-01T21:00:00+01:00",
+      "start": "2026-03-01T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Rayo Vallecano",
       "away": "Athletic Club",
-      "kickoff": "2026-03-01T20:00:00+00:00",
-      "location": "Estadio de Vallecas",
-      "round": 26,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-03-01T21:00:00+01:00",
+      "start": "2026-03-01T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Oviedo",
       "away": "Atlético de Madrid",
-      "kickoff": "2026-03-01T20:00:00+00:00",
-      "location": "Estadio Carlos Tartiere",
-      "round": 26,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-03-01T21:00:00+01:00",
+      "start": "2026-03-01T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Girona FC",
       "away": "Celta",
-      "kickoff": "2026-03-01T20:00:00+00:00",
-      "location": "Estadio Municipal de Montilivi",
-      "round": 26,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-03-01T21:00:00+01:00",
+      "start": "2026-03-01T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Madrid",
       "away": "Getafe CF",
-      "kickoff": "2026-03-01T20:00:00+00:00",
-      "location": "Estadio Santiago Bernabéu",
-      "round": 26,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-03-01T21:00:00+01:00",
+      "start": "2026-03-01T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Valencia CF",
       "away": "CA Osasuna",
-      "kickoff": "2026-03-01T20:00:00+00:00",
-      "location": "Camp de Mestalla",
-      "round": 26,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-03-01T21:00:00+01:00",
+      "start": "2026-03-01T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Athletic Club",
       "away": "FC Barcelona",
-      "kickoff": "2026-03-08T20:00:00+00:00",
-      "location": "Estadio San Mamés",
-      "round": 27,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-03-08T21:00:00+01:00",
+      "start": "2026-03-08T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Atlético de Madrid",
       "away": "Real Sociedad",
-      "kickoff": "2026-03-08T20:00:00+00:00",
-      "location": "Riyadh Air Metropolitano",
-      "round": 27,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-03-08T21:00:00+01:00",
+      "start": "2026-03-08T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Celta",
       "away": "Real Madrid",
-      "kickoff": "2026-03-08T20:00:00+00:00",
-      "location": "Estadio ABANCA Balaídos",
-      "round": 27,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-03-08T21:00:00+01:00",
+      "start": "2026-03-08T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "RCD Espanyol de Barcelona",
       "away": "Real Oviedo",
-      "kickoff": "2026-03-08T20:00:00+00:00",
-      "location": "RCDE Stadium",
-      "round": 27,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-03-08T21:00:00+01:00",
+      "start": "2026-03-08T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Valencia CF",
       "away": "Deportivo Alavés",
-      "kickoff": "2026-03-08T20:00:00+00:00",
-      "location": "Camp de Mestalla",
-      "round": 27,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-03-08T21:00:00+01:00",
+      "start": "2026-03-08T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Getafe CF",
       "away": "Real Betis",
-      "kickoff": "2026-03-08T20:00:00+00:00",
-      "location": "Coliseum",
-      "round": 27,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-03-08T21:00:00+01:00",
+      "start": "2026-03-08T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Villarreal CF",
       "away": "Elche CF",
-      "kickoff": "2026-03-08T20:00:00+00:00",
-      "location": "Estadio de la Cerámica",
-      "round": 27,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-03-08T21:00:00+01:00",
+      "start": "2026-03-08T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Levante UD",
       "away": "Girona FC",
-      "kickoff": "2026-03-08T20:00:00+00:00",
-      "location": "Estadio Ciutat de València",
-      "round": 27,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-03-08T21:00:00+01:00",
+      "start": "2026-03-08T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "CA Osasuna",
       "away": "RCD Mallorca",
-      "kickoff": "2026-03-08T20:00:00+00:00",
-      "location": "Estadio El Sadar",
-      "round": 27,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-03-08T21:00:00+01:00",
+      "start": "2026-03-08T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Sevilla FC",
       "away": "Rayo Vallecano",
-      "kickoff": "2026-03-08T20:00:00+00:00",
-      "location": "Ramón Sánchez-Pizjuán",
-      "round": 27,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-03-08T21:00:00+01:00",
+      "start": "2026-03-08T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Deportivo Alavés",
       "away": "Villarreal CF",
-      "kickoff": "2026-03-15T20:00:00+00:00",
-      "location": "Mendizorroza",
-      "round": 28,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-03-15T21:00:00+01:00",
+      "start": "2026-03-15T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Atlético de Madrid",
       "away": "Getafe CF",
-      "kickoff": "2026-03-15T20:00:00+00:00",
-      "location": "Riyadh Air Metropolitano",
-      "round": 28,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-03-15T21:00:00+01:00",
+      "start": "2026-03-15T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "FC Barcelona",
       "away": "Sevilla FC",
-      "kickoff": "2026-03-15T20:00:00+00:00",
-      "location": "Spotify Camp Nou",
-      "round": 28,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-03-15T21:00:00+01:00",
+      "start": "2026-03-15T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Betis",
       "away": "Celta",
-      "kickoff": "2026-03-15T20:00:00+00:00",
-      "location": "Estadio Olímpico de La Cartuja",
-      "round": 28,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-03-15T21:00:00+01:00",
+      "start": "2026-03-15T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Oviedo",
       "away": "Valencia CF",
-      "kickoff": "2026-03-15T20:00:00+00:00",
-      "location": "Estadio Carlos Tartiere",
-      "round": 28,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-03-15T21:00:00+01:00",
+      "start": "2026-03-15T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Girona FC",
       "away": "Athletic Club",
-      "kickoff": "2026-03-15T20:00:00+00:00",
-      "location": "Estadio Municipal de Montilivi",
-      "round": 28,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-03-15T21:00:00+01:00",
+      "start": "2026-03-15T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Madrid",
       "away": "Elche CF",
-      "kickoff": "2026-03-15T20:00:00+00:00",
-      "location": "Estadio Santiago Bernabéu",
-      "round": 28,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-03-15T21:00:00+01:00",
+      "start": "2026-03-15T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "RCD Mallorca",
       "away": "RCD Espanyol de Barcelona",
-      "kickoff": "2026-03-15T20:00:00+00:00",
-      "location": "Estadi Mallorca Son Moix",
-      "round": 28,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-03-15T21:00:00+01:00",
+      "start": "2026-03-15T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Rayo Vallecano",
       "away": "Levante UD",
-      "kickoff": "2026-03-15T20:00:00+00:00",
-      "location": "Estadio de Vallecas",
-      "round": 28,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-03-15T21:00:00+01:00",
+      "start": "2026-03-15T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Sociedad",
       "away": "CA Osasuna",
-      "kickoff": "2026-03-15T20:00:00+00:00",
-      "location": "Anoeta",
-      "round": 28,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-03-15T21:00:00+01:00",
+      "start": "2026-03-15T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Athletic Club",
       "away": "Real Betis",
-      "kickoff": "2026-03-22T20:00:00+00:00",
-      "location": "Estadio San Mamés",
-      "round": 29,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-03-22T21:00:00+01:00",
+      "start": "2026-03-22T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "FC Barcelona",
       "away": "Rayo Vallecano",
-      "kickoff": "2026-03-22T20:00:00+00:00",
-      "location": "Spotify Camp Nou",
-      "round": 29,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-03-22T21:00:00+01:00",
+      "start": "2026-03-22T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Elche CF",
       "away": "RCD Mallorca",
-      "kickoff": "2026-03-22T20:00:00+00:00",
-      "location": "Estadio Martínez Valero",
-      "round": 29,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-03-22T21:00:00+01:00",
+      "start": "2026-03-22T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "RCD Espanyol de Barcelona",
       "away": "Getafe CF",
-      "kickoff": "2026-03-22T20:00:00+00:00",
-      "location": "RCDE Stadium",
-      "round": 29,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-03-22T21:00:00+01:00",
+      "start": "2026-03-22T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Levante UD",
       "away": "Real Oviedo",
-      "kickoff": "2026-03-22T20:00:00+00:00",
-      "location": "Estadio Ciutat de València",
-      "round": 29,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-03-22T21:00:00+01:00",
+      "start": "2026-03-22T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Sevilla FC",
       "away": "Valencia CF",
-      "kickoff": "2026-03-22T20:00:00+00:00",
-      "location": "Ramón Sánchez-Pizjuán",
-      "round": 29,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-03-22T21:00:00+01:00",
+      "start": "2026-03-22T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Celta",
       "away": "Deportivo Alavés",
-      "kickoff": "2026-03-22T20:00:00+00:00",
-      "location": "Estadio ABANCA Balaídos",
-      "round": 29,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-03-22T21:00:00+01:00",
+      "start": "2026-03-22T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Madrid",
       "away": "Atlético de Madrid",
-      "kickoff": "2026-03-22T20:00:00+00:00",
-      "location": "Estadio Santiago Bernabéu",
-      "round": 29,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-03-22T21:00:00+01:00",
+      "start": "2026-03-22T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "CA Osasuna",
       "away": "Girona FC",
-      "kickoff": "2026-03-22T20:00:00+00:00",
-      "location": "Estadio El Sadar",
-      "round": 29,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-03-22T21:00:00+01:00",
+      "start": "2026-03-22T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Villarreal CF",
       "away": "Real Sociedad",
-      "kickoff": "2026-03-22T20:00:00+00:00",
-      "location": "Estadio de la Cerámica",
-      "round": 29,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-03-22T21:00:00+01:00",
+      "start": "2026-03-22T21:00:00+01:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Deportivo Alavés",
       "away": "CA Osasuna",
-      "kickoff": "2026-04-05T19:00:00+00:00",
-      "location": "Mendizorroza",
-      "round": 30,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-04-05T21:00:00+02:00",
+      "start": "2026-04-05T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Atlético de Madrid",
       "away": "FC Barcelona",
-      "kickoff": "2026-04-05T19:00:00+00:00",
-      "location": "Riyadh Air Metropolitano",
-      "round": 30,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-04-05T21:00:00+02:00",
+      "start": "2026-04-05T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Betis",
       "away": "RCD Espanyol de Barcelona",
-      "kickoff": "2026-04-05T19:00:00+00:00",
-      "location": "Estadio Olímpico de La Cartuja",
-      "round": 30,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-04-05T21:00:00+02:00",
+      "start": "2026-04-05T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Girona FC",
       "away": "Villarreal CF",
-      "kickoff": "2026-04-05T19:00:00+00:00",
-      "location": "Estadio Municipal de Montilivi",
-      "round": 30,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-04-05T21:00:00+02:00",
+      "start": "2026-04-05T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "RCD Mallorca",
       "away": "Real Madrid",
-      "kickoff": "2026-04-05T19:00:00+00:00",
-      "location": "Estadi Mallorca Son Moix",
-      "round": 30,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-04-05T21:00:00+02:00",
+      "start": "2026-04-05T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Oviedo",
       "away": "Sevilla FC",
-      "kickoff": "2026-04-05T19:00:00+00:00",
-      "location": "Estadio Carlos Tartiere",
-      "round": 30,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-04-05T21:00:00+02:00",
+      "start": "2026-04-05T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Getafe CF",
       "away": "Athletic Club",
-      "kickoff": "2026-04-05T19:00:00+00:00",
-      "location": "Coliseum",
-      "round": 30,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-04-05T21:00:00+02:00",
+      "start": "2026-04-05T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Valencia CF",
       "away": "Celta",
-      "kickoff": "2026-04-05T19:00:00+00:00",
-      "location": "Camp de Mestalla",
-      "round": 30,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-04-05T21:00:00+02:00",
+      "start": "2026-04-05T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Rayo Vallecano",
       "away": "Elche CF",
-      "kickoff": "2026-04-05T19:00:00+00:00",
-      "location": "Estadio de Vallecas",
-      "round": 30,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-04-05T21:00:00+02:00",
+      "start": "2026-04-05T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Sociedad",
       "away": "Levante UD",
-      "kickoff": "2026-04-05T19:00:00+00:00",
-      "location": "Anoeta",
-      "round": 30,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-04-05T21:00:00+02:00",
+      "start": "2026-04-05T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Athletic Club",
       "away": "Villarreal CF",
-      "kickoff": "2026-04-12T19:00:00+00:00",
-      "location": "Estadio San Mamés",
-      "round": 31,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-04-12T21:00:00+02:00",
+      "start": "2026-04-12T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "FC Barcelona",
       "away": "RCD Espanyol de Barcelona",
-      "kickoff": "2026-04-12T19:00:00+00:00",
-      "location": "Spotify Camp Nou",
-      "round": 31,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-04-12T21:00:00+02:00",
+      "start": "2026-04-12T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Celta",
       "away": "Real Oviedo",
-      "kickoff": "2026-04-12T19:00:00+00:00",
-      "location": "Estadio ABANCA Balaídos",
-      "round": 31,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-04-12T21:00:00+02:00",
+      "start": "2026-04-12T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Elche CF",
       "away": "Valencia CF",
-      "kickoff": "2026-04-12T19:00:00+00:00",
-      "location": "Estadio Martínez Valero",
-      "round": 31,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-04-12T21:00:00+02:00",
+      "start": "2026-04-12T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "RCD Mallorca",
       "away": "Rayo Vallecano",
-      "kickoff": "2026-04-12T19:00:00+00:00",
-      "location": "Estadi Mallorca Son Moix",
-      "round": 31,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-04-12T21:00:00+02:00",
+      "start": "2026-04-12T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Sociedad",
       "away": "Deportivo Alavés",
-      "kickoff": "2026-04-12T19:00:00+00:00",
-      "location": "Anoeta",
-      "round": 31,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-04-12T21:00:00+02:00",
+      "start": "2026-04-12T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Sevilla FC",
       "away": "Atlético de Madrid",
-      "kickoff": "2026-04-12T19:00:00+00:00",
-      "location": "Ramón Sánchez-Pizjuán",
-      "round": 31,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-04-12T21:00:00+02:00",
+      "start": "2026-04-12T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "CA Osasuna",
       "away": "Real Betis",
-      "kickoff": "2026-04-12T19:00:00+00:00",
-      "location": "Estadio El Sadar",
-      "round": 31,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-04-12T21:00:00+02:00",
+      "start": "2026-04-12T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Levante UD",
       "away": "Getafe CF",
-      "kickoff": "2026-04-12T19:00:00+00:00",
-      "location": "Estadio Ciutat de València",
-      "round": 31,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-04-12T21:00:00+02:00",
+      "start": "2026-04-12T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Madrid",
       "away": "Girona FC",
-      "kickoff": "2026-04-12T19:00:00+00:00",
-      "location": "Estadio Santiago Bernabéu",
-      "round": 31,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-04-12T21:00:00+02:00",
+      "start": "2026-04-12T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Deportivo Alavés",
       "away": "RCD Mallorca",
-      "kickoff": "2026-04-19T19:00:00+00:00",
-      "location": "Mendizorroza",
-      "round": 32,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-04-19T21:00:00+02:00",
+      "start": "2026-04-19T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Betis",
       "away": "Real Madrid",
-      "kickoff": "2026-04-19T19:00:00+00:00",
-      "location": "Estadio Olímpico de La Cartuja",
-      "round": 32,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-04-19T21:00:00+02:00",
+      "start": "2026-04-19T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "RCD Espanyol de Barcelona",
       "away": "Levante UD",
-      "kickoff": "2026-04-19T19:00:00+00:00",
-      "location": "RCDE Stadium",
-      "round": 32,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-04-19T21:00:00+02:00",
+      "start": "2026-04-19T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "CA Osasuna",
       "away": "Sevilla FC",
-      "kickoff": "2026-04-19T19:00:00+00:00",
-      "location": "Estadio El Sadar",
-      "round": 32,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-04-19T21:00:00+02:00",
+      "start": "2026-04-19T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Rayo Vallecano",
       "away": "Real Sociedad",
-      "kickoff": "2026-04-19T19:00:00+00:00",
-      "location": "Estadio de Vallecas",
-      "round": 32,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-04-19T21:00:00+02:00",
+      "start": "2026-04-19T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Atlético de Madrid",
       "away": "Athletic Club",
-      "kickoff": "2026-04-19T19:00:00+00:00",
-      "location": "Riyadh Air Metropolitano",
-      "round": 32,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-04-19T21:00:00+02:00",
+      "start": "2026-04-19T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Getafe CF",
       "away": "FC Barcelona",
-      "kickoff": "2026-04-19T19:00:00+00:00",
-      "location": "Coliseum",
-      "round": 32,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-04-19T21:00:00+02:00",
+      "start": "2026-04-19T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Villarreal CF",
       "away": "Celta",
-      "kickoff": "2026-04-19T19:00:00+00:00",
-      "location": "Estadio de la Cerámica",
-      "round": 32,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-04-19T21:00:00+02:00",
+      "start": "2026-04-19T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Oviedo",
       "away": "Elche CF",
-      "kickoff": "2026-04-19T19:00:00+00:00",
-      "location": "Estadio Carlos Tartiere",
-      "round": 32,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-04-19T21:00:00+02:00",
+      "start": "2026-04-19T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Valencia CF",
       "away": "Girona FC",
-      "kickoff": "2026-04-19T19:00:00+00:00",
-      "location": "Camp de Mestalla",
-      "round": 32,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-04-19T21:00:00+02:00",
+      "start": "2026-04-19T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Athletic Club",
       "away": "CA Osasuna",
-      "kickoff": "2026-04-22T19:00:00+00:00",
-      "location": "Estadio San Mamés",
-      "round": 33,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-04-22T21:00:00+02:00",
+      "start": "2026-04-22T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "FC Barcelona",
       "away": "Celta",
-      "kickoff": "2026-04-22T19:00:00+00:00",
-      "location": "Spotify Camp Nou",
-      "round": 33,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-04-22T21:00:00+02:00",
+      "start": "2026-04-22T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Levante UD",
       "away": "Sevilla FC",
-      "kickoff": "2026-04-22T19:00:00+00:00",
-      "location": "Estadio Ciutat de València",
-      "round": 33,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-04-22T21:00:00+02:00",
+      "start": "2026-04-22T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "RCD Mallorca",
       "away": "Valencia CF",
-      "kickoff": "2026-04-22T19:00:00+00:00",
-      "location": "Estadi Mallorca Son Moix",
-      "round": 33,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-04-22T21:00:00+02:00",
+      "start": "2026-04-22T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Oviedo",
       "away": "Villarreal CF",
-      "kickoff": "2026-04-22T19:00:00+00:00",
-      "location": "Estadio Carlos Tartiere",
-      "round": 33,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-04-22T21:00:00+02:00",
+      "start": "2026-04-22T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Madrid",
       "away": "Deportivo Alavés",
-      "kickoff": "2026-04-22T19:00:00+00:00",
-      "location": "Estadio Santiago Bernabéu",
-      "round": 33,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-04-22T21:00:00+02:00",
+      "start": "2026-04-22T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Elche CF",
       "away": "Atlético de Madrid",
-      "kickoff": "2026-04-22T19:00:00+00:00",
-      "location": "Estadio Martínez Valero",
-      "round": 33,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-04-22T21:00:00+02:00",
+      "start": "2026-04-22T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Girona FC",
       "away": "Real Betis",
-      "kickoff": "2026-04-22T19:00:00+00:00",
-      "location": "Estadio Municipal de Montilivi",
-      "round": 33,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-04-22T21:00:00+02:00",
+      "start": "2026-04-22T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Rayo Vallecano",
       "away": "RCD Espanyol de Barcelona",
-      "kickoff": "2026-04-22T19:00:00+00:00",
-      "location": "Estadio de Vallecas",
-      "round": 33,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-04-22T21:00:00+02:00",
+      "start": "2026-04-22T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Sociedad",
       "away": "Getafe CF",
-      "kickoff": "2026-04-22T19:00:00+00:00",
-      "location": "Anoeta",
-      "round": 33,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-04-22T21:00:00+02:00",
+      "start": "2026-04-22T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Deportivo Alavés",
       "away": "Athletic Club",
-      "kickoff": "2026-05-03T19:00:00+00:00",
-      "location": "Mendizorroza",
-      "round": 34,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-05-03T21:00:00+02:00",
+      "start": "2026-05-03T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Betis",
       "away": "Real Oviedo",
-      "kickoff": "2026-05-03T19:00:00+00:00",
-      "location": "Estadio Olímpico de La Cartuja",
-      "round": 34,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-05-03T21:00:00+02:00",
+      "start": "2026-05-03T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Celta",
       "away": "Elche CF",
-      "kickoff": "2026-05-03T19:00:00+00:00",
-      "location": "Estadio ABANCA Balaídos",
-      "round": 34,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-05-03T21:00:00+02:00",
+      "start": "2026-05-03T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "RCD Espanyol de Barcelona",
       "away": "Real Madrid",
-      "kickoff": "2026-05-03T19:00:00+00:00",
-      "location": "RCDE Stadium",
-      "round": 34,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-05-03T21:00:00+02:00",
+      "start": "2026-05-03T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Getafe CF",
       "away": "Rayo Vallecano",
-      "kickoff": "2026-05-03T19:00:00+00:00",
-      "location": "Coliseum",
-      "round": 34,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-05-03T21:00:00+02:00",
+      "start": "2026-05-03T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Girona FC",
       "away": "RCD Mallorca",
-      "kickoff": "2026-05-03T19:00:00+00:00",
-      "location": "Estadio Municipal de Montilivi",
-      "round": 34,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-05-03T21:00:00+02:00",
+      "start": "2026-05-03T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Valencia CF",
       "away": "Atlético de Madrid",
-      "kickoff": "2026-05-03T19:00:00+00:00",
-      "location": "Camp de Mestalla",
-      "round": 34,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-05-03T21:00:00+02:00",
+      "start": "2026-05-03T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "CA Osasuna",
       "away": "FC Barcelona",
-      "kickoff": "2026-05-03T19:00:00+00:00",
-      "location": "Estadio El Sadar",
-      "round": 34,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-05-03T21:00:00+02:00",
+      "start": "2026-05-03T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Villarreal CF",
       "away": "Levante UD",
-      "kickoff": "2026-05-03T19:00:00+00:00",
-      "location": "Estadio de la Cerámica",
-      "round": 34,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-05-03T21:00:00+02:00",
+      "start": "2026-05-03T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Sevilla FC",
       "away": "Real Sociedad",
-      "kickoff": "2026-05-03T19:00:00+00:00",
-      "location": "Ramón Sánchez-Pizjuán",
-      "round": 34,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-05-03T21:00:00+02:00",
+      "start": "2026-05-03T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Athletic Club",
       "away": "Valencia CF",
-      "kickoff": "2026-05-10T19:00:00+00:00",
-      "location": "Estadio San Mamés",
-      "round": 35,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-05-10T21:00:00+02:00",
+      "start": "2026-05-10T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Atlético de Madrid",
       "away": "Celta",
-      "kickoff": "2026-05-10T19:00:00+00:00",
-      "location": "Riyadh Air Metropolitano",
-      "round": 35,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-05-10T21:00:00+02:00",
+      "start": "2026-05-10T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "FC Barcelona",
       "away": "Real Madrid",
-      "kickoff": "2026-05-10T19:00:00+00:00",
-      "location": "Spotify Camp Nou",
-      "round": 35,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-05-10T21:00:00+02:00",
+      "start": "2026-05-10T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Levante UD",
       "away": "CA Osasuna",
-      "kickoff": "2026-05-10T19:00:00+00:00",
-      "location": "Estadio Ciutat de València",
-      "round": 35,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-05-10T21:00:00+02:00",
+      "start": "2026-05-10T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "RCD Mallorca",
       "away": "Villarreal CF",
-      "kickoff": "2026-05-10T19:00:00+00:00",
-      "location": "Estadi Mallorca Son Moix",
-      "round": 35,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-05-10T21:00:00+02:00",
+      "start": "2026-05-10T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Elche CF",
       "away": "Deportivo Alavés",
-      "kickoff": "2026-05-10T19:00:00+00:00",
-      "location": "Estadio Martínez Valero",
-      "round": 35,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-05-10T21:00:00+02:00",
+      "start": "2026-05-10T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Sociedad",
       "away": "Real Betis",
-      "kickoff": "2026-05-10T19:00:00+00:00",
-      "location": "Anoeta",
-      "round": 35,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-05-10T21:00:00+02:00",
+      "start": "2026-05-10T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Sevilla FC",
       "away": "RCD Espanyol de Barcelona",
-      "kickoff": "2026-05-10T19:00:00+00:00",
-      "location": "Ramón Sánchez-Pizjuán",
-      "round": 35,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-05-10T21:00:00+02:00",
+      "start": "2026-05-10T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Oviedo",
       "away": "Getafe CF",
-      "kickoff": "2026-05-10T19:00:00+00:00",
-      "location": "Estadio Carlos Tartiere",
-      "round": 35,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-05-10T21:00:00+02:00",
+      "start": "2026-05-10T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Rayo Vallecano",
       "away": "Girona FC",
-      "kickoff": "2026-05-10T19:00:00+00:00",
-      "location": "Estadio de Vallecas",
-      "round": 35,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-05-10T21:00:00+02:00",
+      "start": "2026-05-10T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Deportivo Alavés",
       "away": "FC Barcelona",
-      "kickoff": "2026-05-13T19:00:00+00:00",
-      "location": "Mendizorroza",
-      "round": 36,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-05-13T21:00:00+02:00",
+      "start": "2026-05-13T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Betis",
       "away": "Elche CF",
-      "kickoff": "2026-05-13T19:00:00+00:00",
-      "location": "Estadio Olímpico de La Cartuja",
-      "round": 36,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-05-13T21:00:00+02:00",
+      "start": "2026-05-13T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Celta",
       "away": "Levante UD",
-      "kickoff": "2026-05-13T19:00:00+00:00",
-      "location": "Estadio ABANCA Balaídos",
-      "round": 36,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-05-13T21:00:00+02:00",
+      "start": "2026-05-13T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Getafe CF",
       "away": "RCD Mallorca",
-      "kickoff": "2026-05-13T19:00:00+00:00",
-      "location": "Coliseum",
-      "round": 36,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-05-13T21:00:00+02:00",
+      "start": "2026-05-13T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Girona FC",
       "away": "Real Sociedad",
-      "kickoff": "2026-05-13T19:00:00+00:00",
-      "location": "Estadio Municipal de Montilivi",
-      "round": 36,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-05-13T21:00:00+02:00",
+      "start": "2026-05-13T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "RCD Espanyol de Barcelona",
       "away": "Athletic Club",
-      "kickoff": "2026-05-13T19:00:00+00:00",
-      "location": "RCDE Stadium",
-      "round": 36,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-05-13T21:00:00+02:00",
+      "start": "2026-05-13T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "CA Osasuna",
       "away": "Atlético de Madrid",
-      "kickoff": "2026-05-13T19:00:00+00:00",
-      "location": "Estadio El Sadar",
-      "round": 36,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-05-13T21:00:00+02:00",
+      "start": "2026-05-13T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Valencia CF",
       "away": "Rayo Vallecano",
-      "kickoff": "2026-05-13T19:00:00+00:00",
-      "location": "Camp de Mestalla",
-      "round": 36,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-05-13T21:00:00+02:00",
+      "start": "2026-05-13T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Villarreal CF",
       "away": "Sevilla FC",
-      "kickoff": "2026-05-13T19:00:00+00:00",
-      "location": "Estadio de la Cerámica",
-      "round": 36,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-05-13T21:00:00+02:00",
+      "start": "2026-05-13T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Madrid",
       "away": "Real Oviedo",
-      "kickoff": "2026-05-13T19:00:00+00:00",
-      "location": "Estadio Santiago Bernabéu",
-      "round": 36,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-05-13T21:00:00+02:00",
+      "start": "2026-05-13T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Athletic Club",
       "away": "Celta",
-      "kickoff": "2026-05-17T19:00:00+00:00",
-      "location": "Estadio San Mamés",
-      "round": 37,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-05-17T21:00:00+02:00",
+      "start": "2026-05-17T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Atlético de Madrid",
       "away": "Girona FC",
-      "kickoff": "2026-05-17T19:00:00+00:00",
-      "location": "Riyadh Air Metropolitano",
-      "round": 37,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-05-17T21:00:00+02:00",
+      "start": "2026-05-17T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "FC Barcelona",
       "away": "Real Betis",
-      "kickoff": "2026-05-17T19:00:00+00:00",
-      "location": "Spotify Camp Nou",
-      "round": 37,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-05-17T21:00:00+02:00",
+      "start": "2026-05-17T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Elche CF",
       "away": "Getafe CF",
-      "kickoff": "2026-05-17T19:00:00+00:00",
-      "location": "Estadio Martínez Valero",
-      "round": 37,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-05-17T21:00:00+02:00",
+      "start": "2026-05-17T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Levante UD",
       "away": "RCD Mallorca",
-      "kickoff": "2026-05-17T19:00:00+00:00",
-      "location": "Estadio Ciutat de València",
-      "round": 37,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-05-17T21:00:00+02:00",
+      "start": "2026-05-17T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Rayo Vallecano",
       "away": "Villarreal CF",
-      "kickoff": "2026-05-17T19:00:00+00:00",
-      "location": "Estadio de Vallecas",
-      "round": 37,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-05-17T21:00:00+02:00",
+      "start": "2026-05-17T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Sociedad",
       "away": "Valencia CF",
-      "kickoff": "2026-05-17T19:00:00+00:00",
-      "location": "Anoeta",
-      "round": 37,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-05-17T21:00:00+02:00",
+      "start": "2026-05-17T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Oviedo",
       "away": "Deportivo Alavés",
-      "kickoff": "2026-05-17T19:00:00+00:00",
-      "location": "Estadio Carlos Tartiere",
-      "round": 37,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-05-17T21:00:00+02:00",
+      "start": "2026-05-17T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "CA Osasuna",
       "away": "RCD Espanyol de Barcelona",
-      "kickoff": "2026-05-17T19:00:00+00:00",
-      "location": "Estadio El Sadar",
-      "round": 37,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-05-17T21:00:00+02:00",
+      "start": "2026-05-17T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Sevilla FC",
       "away": "Real Madrid",
-      "kickoff": "2026-05-17T19:00:00+00:00",
-      "location": "Ramón Sánchez-Pizjuán",
-      "round": 37,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-05-17T21:00:00+02:00",
+      "start": "2026-05-17T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Deportivo Alavés",
       "away": "Rayo Vallecano",
-      "kickoff": "2026-05-24T19:00:00+00:00",
-      "location": "Mendizorroza",
-      "round": 38,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-05-24T21:00:00+02:00",
+      "start": "2026-05-24T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Betis",
       "away": "Levante UD",
-      "kickoff": "2026-05-24T19:00:00+00:00",
-      "location": "Estadio Olímpico de La Cartuja",
-      "round": 38,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-05-24T21:00:00+02:00",
+      "start": "2026-05-24T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Celta",
       "away": "Sevilla FC",
-      "kickoff": "2026-05-24T19:00:00+00:00",
-      "location": "Estadio ABANCA Balaídos",
-      "round": 38,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-05-24T21:00:00+02:00",
+      "start": "2026-05-24T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "RCD Espanyol de Barcelona",
       "away": "Real Sociedad",
-      "kickoff": "2026-05-24T19:00:00+00:00",
-      "location": "RCDE Stadium",
-      "round": 38,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-05-24T21:00:00+02:00",
+      "start": "2026-05-24T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Getafe CF",
       "away": "CA Osasuna",
-      "kickoff": "2026-05-24T19:00:00+00:00",
-      "location": "Coliseum",
-      "round": 38,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-05-24T21:00:00+02:00",
+      "start": "2026-05-24T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "RCD Mallorca",
       "away": "Real Oviedo",
-      "kickoff": "2026-05-24T19:00:00+00:00",
-      "location": "Estadi Mallorca Son Moix",
-      "round": 38,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-05-24T21:00:00+02:00",
+      "start": "2026-05-24T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Real Madrid",
       "away": "Athletic Club",
-      "kickoff": "2026-05-24T19:00:00+00:00",
-      "location": "Estadio Santiago Bernabéu",
-      "round": 38,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-05-24T21:00:00+02:00",
+      "start": "2026-05-24T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Villarreal CF",
       "away": "Atlético de Madrid",
-      "kickoff": "2026-05-24T19:00:00+00:00",
-      "location": "Estadio de la Cerámica",
-      "round": 38,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-05-24T21:00:00+02:00",
+      "start": "2026-05-24T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Valencia CF",
       "away": "FC Barcelona",
-      "kickoff": "2026-05-24T19:00:00+00:00",
-      "location": "Camp de Mestalla",
-      "round": 38,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-05-24T21:00:00+02:00",
+      "start": "2026-05-24T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     },
     {
       "league": "La Liga",
       "home": "Girona FC",
       "away": "Elche CF",
-      "kickoff": "2026-05-24T19:00:00+00:00",
-      "location": "Estadio Municipal de Montilivi",
-      "round": 38,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-05-24T21:00:00+02:00",
+      "start": "2026-05-24T21:00:00+02:00",
+      "tv": "TV 2 / TV 2 Play",
+      "channel": "TV 2 / TV 2 Play"
     }
   ]
 }

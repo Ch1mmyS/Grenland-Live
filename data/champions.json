@@ -1,1444 +1,1310 @@
 {
+  "generated_at": "2026-01-23T18:25:10+01:00",
+  "timezone": "Europe/Oslo",
+  "league": "Champions League",
+  "default_tv": "TV 2 Play Premium / TV 2 Sport 1",
+  "source": {
+    "key": "champions_league",
+    "name": "Champions League",
+    "type": "fixturedownload_json",
+    "url": "https://fixturedownload.com/feed/json/champions-league-2025"
+  },
   "games": [
     {
       "league": "Champions League",
       "home": "PSV",
       "away": "Union SG",
-      "kickoff": "2025-09-16T16:45:00+00:00",
-      "location": "PSV Stadion",
-      "round": 1,
-      "homeScore": 1,
-      "awayScore": 3
+      "kickoff": "2025-09-16T18:45:00+02:00",
+      "start": "2025-09-16T18:45:00+02:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Athletic Club",
       "away": "Arsenal",
-      "kickoff": "2025-09-16T16:45:00+00:00",
-      "location": "Estadio de San Mamés",
-      "round": 1,
-      "homeScore": 0,
-      "awayScore": 2
+      "kickoff": "2025-09-16T18:45:00+02:00",
+      "start": "2025-09-16T18:45:00+02:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Real Madrid",
       "away": "Marseille",
-      "kickoff": "2025-09-16T19:00:00+00:00",
-      "location": "Estadio Santiago Bernabéu",
-      "round": 1,
-      "homeScore": 2,
-      "awayScore": 1
+      "kickoff": "2025-09-16T21:00:00+02:00",
+      "start": "2025-09-16T21:00:00+02:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Benfica",
       "away": "Qarabag",
-      "kickoff": "2025-09-16T19:00:00+00:00",
-      "location": "Estádio do SL Benfica",
-      "round": 1,
-      "homeScore": 2,
-      "awayScore": 3
+      "kickoff": "2025-09-16T21:00:00+02:00",
+      "start": "2025-09-16T21:00:00+02:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Juventus",
       "away": "B. Dortmund",
-      "kickoff": "2025-09-16T19:00:00+00:00",
-      "location": "Juventus Stadium",
-      "round": 1,
-      "homeScore": 4,
-      "awayScore": 4
+      "kickoff": "2025-09-16T21:00:00+02:00",
+      "start": "2025-09-16T21:00:00+02:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Tottenham",
       "away": "Villarreal",
-      "kickoff": "2025-09-16T19:00:00+00:00",
-      "location": "Tottenham Hotspur Stadium",
-      "round": 1,
-      "homeScore": 1,
-      "awayScore": 0
+      "kickoff": "2025-09-16T21:00:00+02:00",
+      "start": "2025-09-16T21:00:00+02:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Olympiacos",
       "away": "Pafos",
-      "kickoff": "2025-09-17T16:45:00+00:00",
-      "location": "Stadio Georgios Karaiskakis",
-      "round": 1,
-      "homeScore": 0,
-      "awayScore": 0
+      "kickoff": "2025-09-17T18:45:00+02:00",
+      "start": "2025-09-17T18:45:00+02:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Slavia Praha",
       "away": "Bodø/Glimt",
-      "kickoff": "2025-09-17T16:45:00+00:00",
-      "location": "Eden Arena",
-      "round": 1,
-      "homeScore": 2,
-      "awayScore": 2
+      "kickoff": "2025-09-17T18:45:00+02:00",
+      "start": "2025-09-17T18:45:00+02:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Paris",
       "away": "Atalanta",
-      "kickoff": "2025-09-17T19:00:00+00:00",
-      "location": "Parc des Princes",
-      "round": 1,
-      "homeScore": 4,
-      "awayScore": 0
+      "kickoff": "2025-09-17T21:00:00+02:00",
+      "start": "2025-09-17T21:00:00+02:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Bayern München",
       "away": "Chelsea",
-      "kickoff": "2025-09-17T19:00:00+00:00",
-      "location": "Fußball Arena München",
-      "round": 1,
-      "homeScore": 3,
-      "awayScore": 1
+      "kickoff": "2025-09-17T21:00:00+02:00",
+      "start": "2025-09-17T21:00:00+02:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Liverpool",
       "away": "Atleti",
-      "kickoff": "2025-09-17T19:00:00+00:00",
-      "location": "Anfield",
-      "round": 1,
-      "homeScore": 3,
-      "awayScore": 2
+      "kickoff": "2025-09-17T21:00:00+02:00",
+      "start": "2025-09-17T21:00:00+02:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Ajax",
       "away": "Inter",
-      "kickoff": "2025-09-17T19:00:00+00:00",
-      "location": "Johan Cruijff ArenA",
-      "round": 1,
-      "homeScore": 0,
-      "awayScore": 2
+      "kickoff": "2025-09-17T21:00:00+02:00",
+      "start": "2025-09-17T21:00:00+02:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Club Brugge",
       "away": "Monaco",
-      "kickoff": "2025-09-18T16:45:00+00:00",
-      "location": "Jan Breydelstadion",
-      "round": 1,
-      "homeScore": 4,
-      "awayScore": 1
+      "kickoff": "2025-09-18T18:45:00+02:00",
+      "start": "2025-09-18T18:45:00+02:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Copenhagen",
       "away": "Leverkusen",
-      "kickoff": "2025-09-18T16:45:00+00:00",
-      "location": "Parken",
-      "round": 1,
-      "homeScore": 2,
-      "awayScore": 2
+      "kickoff": "2025-09-18T18:45:00+02:00",
+      "start": "2025-09-18T18:45:00+02:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Man City",
       "away": "Napoli",
-      "kickoff": "2025-09-18T19:00:00+00:00",
-      "location": "City of Manchester Stadium",
-      "round": 1,
-      "homeScore": 2,
-      "awayScore": 0
+      "kickoff": "2025-09-18T21:00:00+02:00",
+      "start": "2025-09-18T21:00:00+02:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Frankfurt",
       "away": "Galatasaray",
-      "kickoff": "2025-09-18T19:00:00+00:00",
-      "location": "Frankfurt Stadion",
-      "round": 1,
-      "homeScore": 5,
-      "awayScore": 1
+      "kickoff": "2025-09-18T21:00:00+02:00",
+      "start": "2025-09-18T21:00:00+02:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Sporting CP",
       "away": "Kairat Almaty",
-      "kickoff": "2025-09-18T19:00:00+00:00",
-      "location": "Estádio José Alvalade",
-      "round": 1,
-      "homeScore": 4,
-      "awayScore": 1
+      "kickoff": "2025-09-18T21:00:00+02:00",
+      "start": "2025-09-18T21:00:00+02:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Newcastle",
       "away": "Barcelona",
-      "kickoff": "2025-09-18T19:00:00+00:00",
-      "location": "St James' Park",
-      "round": 1,
-      "homeScore": 1,
-      "awayScore": 2
+      "kickoff": "2025-09-18T21:00:00+02:00",
+      "start": "2025-09-18T21:00:00+02:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Atalanta",
       "away": "Club Brugge",
-      "kickoff": "2025-09-30T16:45:00+00:00",
-      "location": "Stadio di Bergamo",
-      "round": 2,
-      "homeScore": 2,
-      "awayScore": 1
+      "kickoff": "2025-09-30T18:45:00+02:00",
+      "start": "2025-09-30T18:45:00+02:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Kairat Almaty",
       "away": "Real Madrid",
-      "kickoff": "2025-09-30T16:45:00+00:00",
-      "location": "Almaty Ortalyk Stadion",
-      "round": 2,
-      "homeScore": 0,
-      "awayScore": 5
+      "kickoff": "2025-09-30T18:45:00+02:00",
+      "start": "2025-09-30T18:45:00+02:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Inter",
       "away": "Slavia Praha",
-      "kickoff": "2025-09-30T19:00:00+00:00",
-      "location": "Stadio San Siro",
-      "round": 2,
-      "homeScore": 3,
-      "awayScore": 0
+      "kickoff": "2025-09-30T21:00:00+02:00",
+      "start": "2025-09-30T21:00:00+02:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Chelsea",
       "away": "Benfica",
-      "kickoff": "2025-09-30T19:00:00+00:00",
-      "location": "Stamford Bridge",
-      "round": 2,
-      "homeScore": 1,
-      "awayScore": 0
+      "kickoff": "2025-09-30T21:00:00+02:00",
+      "start": "2025-09-30T21:00:00+02:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Atleti",
       "away": "Frankfurt",
-      "kickoff": "2025-09-30T19:00:00+00:00",
-      "location": "Estadio Metropolitano",
-      "round": 2,
-      "homeScore": 5,
-      "awayScore": 1
+      "kickoff": "2025-09-30T21:00:00+02:00",
+      "start": "2025-09-30T21:00:00+02:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Bodø/Glimt",
       "away": "Tottenham",
-      "kickoff": "2025-09-30T19:00:00+00:00",
-      "location": "Aspmyra",
-      "round": 2,
-      "homeScore": 2,
-      "awayScore": 2
+      "kickoff": "2025-09-30T21:00:00+02:00",
+      "start": "2025-09-30T21:00:00+02:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Marseille",
       "away": "Ajax",
-      "kickoff": "2025-09-30T19:00:00+00:00",
-      "location": "Stade de Marseille",
-      "round": 2,
-      "homeScore": 4,
-      "awayScore": 0
+      "kickoff": "2025-09-30T21:00:00+02:00",
+      "start": "2025-09-30T21:00:00+02:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Galatasaray",
       "away": "Liverpool",
-      "kickoff": "2025-09-30T19:00:00+00:00",
-      "location": "Ali Sami Yen Spor Kompleksi",
-      "round": 2,
-      "homeScore": 1,
-      "awayScore": 0
+      "kickoff": "2025-09-30T21:00:00+02:00",
+      "start": "2025-09-30T21:00:00+02:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Pafos",
       "away": "Bayern München",
-      "kickoff": "2025-09-30T19:00:00+00:00",
-      "location": "Limassol Stadium",
-      "round": 2,
-      "homeScore": 1,
-      "awayScore": 5
+      "kickoff": "2025-09-30T21:00:00+02:00",
+      "start": "2025-09-30T21:00:00+02:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Union SG",
       "away": "Newcastle",
-      "kickoff": "2025-10-01T16:45:00+00:00",
-      "location": "RSC Anderlecht Stadium",
-      "round": 2,
-      "homeScore": 0,
-      "awayScore": 4
+      "kickoff": "2025-10-01T18:45:00+02:00",
+      "start": "2025-10-01T18:45:00+02:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Qarabag",
       "away": "Copenhagen",
-      "kickoff": "2025-10-01T16:45:00+00:00",
-      "location": "Tofiq Bahramov Republican Stadium",
-      "round": 2,
-      "homeScore": 2,
-      "awayScore": 0
+      "kickoff": "2025-10-01T18:45:00+02:00",
+      "start": "2025-10-01T18:45:00+02:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Arsenal",
       "away": "Olympiacos",
-      "kickoff": "2025-10-01T19:00:00+00:00",
-      "location": "Arsenal Stadium",
-      "round": 2,
-      "homeScore": 2,
-      "awayScore": 0
+      "kickoff": "2025-10-01T21:00:00+02:00",
+      "start": "2025-10-01T21:00:00+02:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Leverkusen",
       "away": "PSV",
-      "kickoff": "2025-10-01T19:00:00+00:00",
-      "location": "BayArena",
-      "round": 2,
-      "homeScore": 1,
-      "awayScore": 1
+      "kickoff": "2025-10-01T21:00:00+02:00",
+      "start": "2025-10-01T21:00:00+02:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Villarreal",
       "away": "Juventus",
-      "kickoff": "2025-10-01T19:00:00+00:00",
-      "location": "Estadio de la Cerámica",
-      "round": 2,
-      "homeScore": 2,
-      "awayScore": 2
+      "kickoff": "2025-10-01T21:00:00+02:00",
+      "start": "2025-10-01T21:00:00+02:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Napoli",
       "away": "Sporting CP",
-      "kickoff": "2025-10-01T19:00:00+00:00",
-      "location": "Stadio Diego Armando Maradona",
-      "round": 2,
-      "homeScore": 2,
-      "awayScore": 1
+      "kickoff": "2025-10-01T21:00:00+02:00",
+      "start": "2025-10-01T21:00:00+02:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Monaco",
       "away": "Man City",
-      "kickoff": "2025-10-01T19:00:00+00:00",
-      "location": "Stade Louis II",
-      "round": 2,
-      "homeScore": 2,
-      "awayScore": 2
+      "kickoff": "2025-10-01T21:00:00+02:00",
+      "start": "2025-10-01T21:00:00+02:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "B. Dortmund",
       "away": "Athletic Club",
-      "kickoff": "2025-10-01T19:00:00+00:00",
-      "location": "BVB Stadion Dortmund",
-      "round": 2,
-      "homeScore": 4,
-      "awayScore": 1
+      "kickoff": "2025-10-01T21:00:00+02:00",
+      "start": "2025-10-01T21:00:00+02:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Barcelona",
       "away": "Paris",
-      "kickoff": "2025-10-01T19:00:00+00:00",
-      "location": "Estadi Olímpic Lluís Companys",
-      "round": 2,
-      "homeScore": 1,
-      "awayScore": 2
+      "kickoff": "2025-10-01T21:00:00+02:00",
+      "start": "2025-10-01T21:00:00+02:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Barcelona",
       "away": "Olympiacos",
-      "kickoff": "2025-10-21T16:45:00+00:00",
-      "location": "Estadi Olímpic Lluís Companys",
-      "round": 3,
-      "homeScore": 6,
-      "awayScore": 1
+      "kickoff": "2025-10-21T18:45:00+02:00",
+      "start": "2025-10-21T18:45:00+02:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Kairat Almaty",
       "away": "Pafos",
-      "kickoff": "2025-10-21T16:45:00+00:00",
-      "location": "Almaty Ortalyk Stadion",
-      "round": 3,
-      "homeScore": 0,
-      "awayScore": 0
+      "kickoff": "2025-10-21T18:45:00+02:00",
+      "start": "2025-10-21T18:45:00+02:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Arsenal",
       "away": "Atleti",
-      "kickoff": "2025-10-21T19:00:00+00:00",
-      "location": "Arsenal Stadium",
-      "round": 3,
-      "homeScore": 4,
-      "awayScore": 0
+      "kickoff": "2025-10-21T21:00:00+02:00",
+      "start": "2025-10-21T21:00:00+02:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Leverkusen",
       "away": "Paris",
-      "kickoff": "2025-10-21T19:00:00+00:00",
-      "location": "BayArena",
-      "round": 3,
-      "homeScore": 2,
-      "awayScore": 7
+      "kickoff": "2025-10-21T21:00:00+02:00",
+      "start": "2025-10-21T21:00:00+02:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Villarreal",
       "away": "Man City",
-      "kickoff": "2025-10-21T19:00:00+00:00",
-      "location": "Estadio de la Cerámica",
-      "round": 3,
-      "homeScore": 0,
-      "awayScore": 2
+      "kickoff": "2025-10-21T21:00:00+02:00",
+      "start": "2025-10-21T21:00:00+02:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "PSV",
       "away": "Napoli",
-      "kickoff": "2025-10-21T19:00:00+00:00",
-      "location": "PSV Stadion",
-      "round": 3,
-      "homeScore": 6,
-      "awayScore": 2
+      "kickoff": "2025-10-21T21:00:00+02:00",
+      "start": "2025-10-21T21:00:00+02:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Copenhagen",
       "away": "B. Dortmund",
-      "kickoff": "2025-10-21T19:00:00+00:00",
-      "location": "Parken",
-      "round": 3,
-      "homeScore": 2,
-      "awayScore": 4
+      "kickoff": "2025-10-21T21:00:00+02:00",
+      "start": "2025-10-21T21:00:00+02:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Union SG",
       "away": "Inter",
-      "kickoff": "2025-10-21T19:00:00+00:00",
-      "location": "RSC Anderlecht Stadium",
-      "round": 3,
-      "homeScore": 0,
-      "awayScore": 4
+      "kickoff": "2025-10-21T21:00:00+02:00",
+      "start": "2025-10-21T21:00:00+02:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Newcastle",
       "away": "Benfica",
-      "kickoff": "2025-10-21T19:00:00+00:00",
-      "location": "St James' Park",
-      "round": 3,
-      "homeScore": 3,
-      "awayScore": 0
+      "kickoff": "2025-10-21T21:00:00+02:00",
+      "start": "2025-10-21T21:00:00+02:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Galatasaray",
       "away": "Bodø/Glimt",
-      "kickoff": "2025-10-22T16:45:00+00:00",
-      "location": "Ali Sami Yen Spor Kompleksi",
-      "round": 3,
-      "homeScore": 3,
-      "awayScore": 1
+      "kickoff": "2025-10-22T18:45:00+02:00",
+      "start": "2025-10-22T18:45:00+02:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Athletic Club",
       "away": "Qarabag",
-      "kickoff": "2025-10-22T16:45:00+00:00",
-      "location": "Estadio de San Mamés",
-      "round": 3,
-      "homeScore": 3,
-      "awayScore": 1
+      "kickoff": "2025-10-22T18:45:00+02:00",
+      "start": "2025-10-22T18:45:00+02:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Chelsea",
       "away": "Ajax",
-      "kickoff": "2025-10-22T19:00:00+00:00",
-      "location": "Stamford Bridge",
-      "round": 3,
-      "homeScore": 5,
-      "awayScore": 1
+      "kickoff": "2025-10-22T21:00:00+02:00",
+      "start": "2025-10-22T21:00:00+02:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Atalanta",
       "away": "Slavia Praha",
-      "kickoff": "2025-10-22T19:00:00+00:00",
-      "location": "Stadio di Bergamo",
-      "round": 3,
-      "homeScore": 0,
-      "awayScore": 0
+      "kickoff": "2025-10-22T21:00:00+02:00",
+      "start": "2025-10-22T21:00:00+02:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Frankfurt",
       "away": "Liverpool",
-      "kickoff": "2025-10-22T19:00:00+00:00",
-      "location": "Frankfurt Stadion",
-      "round": 3,
-      "homeScore": 1,
-      "awayScore": 5
+      "kickoff": "2025-10-22T21:00:00+02:00",
+      "start": "2025-10-22T21:00:00+02:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Sporting CP",
       "away": "Marseille",
-      "kickoff": "2025-10-22T19:00:00+00:00",
-      "location": "Estádio José Alvalade",
-      "round": 3,
-      "homeScore": 2,
-      "awayScore": 1
+      "kickoff": "2025-10-22T21:00:00+02:00",
+      "start": "2025-10-22T21:00:00+02:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Monaco",
       "away": "Tottenham",
-      "kickoff": "2025-10-22T19:00:00+00:00",
-      "location": "Stade Louis II",
-      "round": 3,
-      "homeScore": 0,
-      "awayScore": 0
+      "kickoff": "2025-10-22T21:00:00+02:00",
+      "start": "2025-10-22T21:00:00+02:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Real Madrid",
       "away": "Juventus",
-      "kickoff": "2025-10-22T19:00:00+00:00",
-      "location": "Estadio Santiago Bernabéu",
-      "round": 3,
-      "homeScore": 1,
-      "awayScore": 0
+      "kickoff": "2025-10-22T21:00:00+02:00",
+      "start": "2025-10-22T21:00:00+02:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Bayern München",
       "away": "Club Brugge",
-      "kickoff": "2025-10-22T19:00:00+00:00",
-      "location": "Fußball Arena München",
-      "round": 3,
-      "homeScore": 4,
-      "awayScore": 0
+      "kickoff": "2025-10-22T21:00:00+02:00",
+      "start": "2025-10-22T21:00:00+02:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Napoli",
       "away": "Frankfurt",
-      "kickoff": "2025-11-04T17:45:00+00:00",
-      "location": "Stadio Diego Armando Maradona",
-      "round": 4,
-      "homeScore": 0,
-      "awayScore": 0
+      "kickoff": "2025-11-04T18:45:00+01:00",
+      "start": "2025-11-04T18:45:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Slavia Praha",
       "away": "Arsenal",
-      "kickoff": "2025-11-04T17:45:00+00:00",
-      "location": "Eden Arena",
-      "round": 4,
-      "homeScore": 0,
-      "awayScore": 3
+      "kickoff": "2025-11-04T18:45:00+01:00",
+      "start": "2025-11-04T18:45:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Paris",
       "away": "Bayern München",
-      "kickoff": "2025-11-04T20:00:00+00:00",
-      "location": "Parc des Princes",
-      "round": 4,
-      "homeScore": 1,
-      "awayScore": 2
+      "kickoff": "2025-11-04T21:00:00+01:00",
+      "start": "2025-11-04T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Liverpool",
       "away": "Real Madrid",
-      "kickoff": "2025-11-04T20:00:00+00:00",
-      "location": "Anfield",
-      "round": 4,
-      "homeScore": 1,
-      "awayScore": 0
+      "kickoff": "2025-11-04T21:00:00+01:00",
+      "start": "2025-11-04T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Atleti",
       "away": "Union SG",
-      "kickoff": "2025-11-04T20:00:00+00:00",
-      "location": "Estadio Metropolitano",
-      "round": 4,
-      "homeScore": 3,
-      "awayScore": 1
+      "kickoff": "2025-11-04T21:00:00+01:00",
+      "start": "2025-11-04T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Juventus",
       "away": "Sporting CP",
-      "kickoff": "2025-11-04T20:00:00+00:00",
-      "location": "Juventus Stadium",
-      "round": 4,
-      "homeScore": 1,
-      "awayScore": 1
+      "kickoff": "2025-11-04T21:00:00+01:00",
+      "start": "2025-11-04T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Tottenham",
       "away": "Copenhagen",
-      "kickoff": "2025-11-04T20:00:00+00:00",
-      "location": "Tottenham Hotspur Stadium",
-      "round": 4,
-      "homeScore": 4,
-      "awayScore": 0
+      "kickoff": "2025-11-04T21:00:00+01:00",
+      "start": "2025-11-04T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Olympiacos",
       "away": "PSV",
-      "kickoff": "2025-11-04T20:00:00+00:00",
-      "location": "Stadio Georgios Karaiskakis",
-      "round": 4,
-      "homeScore": 1,
-      "awayScore": 1
+      "kickoff": "2025-11-04T21:00:00+01:00",
+      "start": "2025-11-04T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Bodø/Glimt",
       "away": "Monaco",
-      "kickoff": "2025-11-04T20:00:00+00:00",
-      "location": "Aspmyra",
-      "round": 4,
-      "homeScore": 0,
-      "awayScore": 1
+      "kickoff": "2025-11-04T21:00:00+01:00",
+      "start": "2025-11-04T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Qarabag",
       "away": "Chelsea",
-      "kickoff": "2025-11-05T17:45:00+00:00",
-      "location": "Tofiq Bahramov Republican Stadium",
-      "round": 4,
-      "homeScore": 2,
-      "awayScore": 2
+      "kickoff": "2025-11-05T18:45:00+01:00",
+      "start": "2025-11-05T18:45:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Pafos",
       "away": "Villarreal",
-      "kickoff": "2025-11-05T17:45:00+00:00",
-      "location": "Limassol Stadium",
-      "round": 4,
-      "homeScore": 1,
-      "awayScore": 0
+      "kickoff": "2025-11-05T18:45:00+01:00",
+      "start": "2025-11-05T18:45:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Man City",
       "away": "B. Dortmund",
-      "kickoff": "2025-11-05T20:00:00+00:00",
-      "location": "City of Manchester Stadium",
-      "round": 4,
-      "homeScore": 4,
-      "awayScore": 1
+      "kickoff": "2025-11-05T21:00:00+01:00",
+      "start": "2025-11-05T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Inter",
       "away": "Kairat Almaty",
-      "kickoff": "2025-11-05T20:00:00+00:00",
-      "location": "Stadio San Siro",
-      "round": 4,
-      "homeScore": 2,
-      "awayScore": 1
+      "kickoff": "2025-11-05T21:00:00+01:00",
+      "start": "2025-11-05T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Benfica",
       "away": "Leverkusen",
-      "kickoff": "2025-11-05T20:00:00+00:00",
-      "location": "Estádio do SL Benfica",
-      "round": 4,
-      "homeScore": 0,
-      "awayScore": 1
+      "kickoff": "2025-11-05T21:00:00+01:00",
+      "start": "2025-11-05T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Club Brugge",
       "away": "Barcelona",
-      "kickoff": "2025-11-05T20:00:00+00:00",
-      "location": "Jan Breydelstadion",
-      "round": 4,
-      "homeScore": 3,
-      "awayScore": 3
+      "kickoff": "2025-11-05T21:00:00+01:00",
+      "start": "2025-11-05T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Ajax",
       "away": "Galatasaray",
-      "kickoff": "2025-11-05T20:00:00+00:00",
-      "location": "Johan Cruijff ArenA",
-      "round": 4,
-      "homeScore": 0,
-      "awayScore": 3
+      "kickoff": "2025-11-05T21:00:00+01:00",
+      "start": "2025-11-05T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Marseille",
       "away": "Atalanta",
-      "kickoff": "2025-11-05T20:00:00+00:00",
-      "location": "Stade de Marseille",
-      "round": 4,
-      "homeScore": 0,
-      "awayScore": 1
+      "kickoff": "2025-11-05T21:00:00+01:00",
+      "start": "2025-11-05T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Newcastle",
       "away": "Athletic Club",
-      "kickoff": "2025-11-05T20:00:00+00:00",
-      "location": "St James' Park",
-      "round": 4,
-      "homeScore": 2,
-      "awayScore": 0
+      "kickoff": "2025-11-05T21:00:00+01:00",
+      "start": "2025-11-05T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Ajax",
       "away": "Benfica",
-      "kickoff": "2025-11-25T17:45:00+00:00",
-      "location": "Johan Cruijff ArenA",
-      "round": 5,
-      "homeScore": 0,
-      "awayScore": 2
+      "kickoff": "2025-11-25T18:45:00+01:00",
+      "start": "2025-11-25T18:45:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Galatasaray",
       "away": "Union SG",
-      "kickoff": "2025-11-25T17:45:00+00:00",
-      "location": "Ali Sami Yen Spor Kompleksi",
-      "round": 5,
-      "homeScore": 0,
-      "awayScore": 1
+      "kickoff": "2025-11-25T18:45:00+01:00",
+      "start": "2025-11-25T18:45:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Man City",
       "away": "Leverkusen",
-      "kickoff": "2025-11-25T20:00:00+00:00",
-      "location": "City of Manchester Stadium",
-      "round": 5,
-      "homeScore": 0,
-      "awayScore": 2
+      "kickoff": "2025-11-25T21:00:00+01:00",
+      "start": "2025-11-25T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Chelsea",
       "away": "Barcelona",
-      "kickoff": "2025-11-25T20:00:00+00:00",
-      "location": "Stamford Bridge",
-      "round": 5,
-      "homeScore": 3,
-      "awayScore": 0
+      "kickoff": "2025-11-25T21:00:00+01:00",
+      "start": "2025-11-25T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "B. Dortmund",
       "away": "Villarreal",
-      "kickoff": "2025-11-25T20:00:00+00:00",
-      "location": "BVB Stadion Dortmund",
-      "round": 5,
-      "homeScore": 4,
-      "awayScore": 0
+      "kickoff": "2025-11-25T21:00:00+01:00",
+      "start": "2025-11-25T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Napoli",
       "away": "Qarabag",
-      "kickoff": "2025-11-25T20:00:00+00:00",
-      "location": "Stadio Diego Armando Maradona",
-      "round": 5,
-      "homeScore": 2,
-      "awayScore": 0
+      "kickoff": "2025-11-25T21:00:00+01:00",
+      "start": "2025-11-25T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Slavia Praha",
       "away": "Athletic Club",
-      "kickoff": "2025-11-25T20:00:00+00:00",
-      "location": "Eden Arena",
-      "round": 5,
-      "homeScore": 0,
-      "awayScore": 0
+      "kickoff": "2025-11-25T21:00:00+01:00",
+      "start": "2025-11-25T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Bodø/Glimt",
       "away": "Juventus",
-      "kickoff": "2025-11-25T20:00:00+00:00",
-      "location": "Aspmyra",
-      "round": 5,
-      "homeScore": 2,
-      "awayScore": 3
+      "kickoff": "2025-11-25T21:00:00+01:00",
+      "start": "2025-11-25T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Marseille",
       "away": "Newcastle",
-      "kickoff": "2025-11-25T20:00:00+00:00",
-      "location": "Stade de Marseille",
-      "round": 5,
-      "homeScore": 2,
-      "awayScore": 1
+      "kickoff": "2025-11-25T21:00:00+01:00",
+      "start": "2025-11-25T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Copenhagen",
       "away": "Kairat Almaty",
-      "kickoff": "2025-11-26T17:45:00+00:00",
-      "location": "Parken",
-      "round": 5,
-      "homeScore": 3,
-      "awayScore": 2
+      "kickoff": "2025-11-26T18:45:00+01:00",
+      "start": "2025-11-26T18:45:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Pafos",
       "away": "Monaco",
-      "kickoff": "2025-11-26T17:45:00+00:00",
-      "location": "Limassol Stadium",
-      "round": 5,
-      "homeScore": 2,
-      "awayScore": 2
+      "kickoff": "2025-11-26T18:45:00+01:00",
+      "start": "2025-11-26T18:45:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Paris",
       "away": "Tottenham",
-      "kickoff": "2025-11-26T20:00:00+00:00",
-      "location": "Parc des Princes",
-      "round": 5,
-      "homeScore": 5,
-      "awayScore": 3
+      "kickoff": "2025-11-26T21:00:00+01:00",
+      "start": "2025-11-26T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Liverpool",
       "away": "PSV",
-      "kickoff": "2025-11-26T20:00:00+00:00",
-      "location": "Anfield",
-      "round": 5,
-      "homeScore": 1,
-      "awayScore": 4
+      "kickoff": "2025-11-26T21:00:00+01:00",
+      "start": "2025-11-26T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Arsenal",
       "away": "Bayern München",
-      "kickoff": "2025-11-26T20:00:00+00:00",
-      "location": "Arsenal Stadium",
-      "round": 5,
-      "homeScore": 3,
-      "awayScore": 1
+      "kickoff": "2025-11-26T21:00:00+01:00",
+      "start": "2025-11-26T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Atleti",
       "away": "Inter",
-      "kickoff": "2025-11-26T20:00:00+00:00",
-      "location": "Estadio Metropolitano",
-      "round": 5,
-      "homeScore": 2,
-      "awayScore": 1
+      "kickoff": "2025-11-26T21:00:00+01:00",
+      "start": "2025-11-26T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Frankfurt",
       "away": "Atalanta",
-      "kickoff": "2025-11-26T20:00:00+00:00",
-      "location": "Frankfurt Stadion",
-      "round": 5,
-      "homeScore": 0,
-      "awayScore": 3
+      "kickoff": "2025-11-26T21:00:00+01:00",
+      "start": "2025-11-26T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Sporting CP",
       "away": "Club Brugge",
-      "kickoff": "2025-11-26T20:00:00+00:00",
-      "location": "Estádio José Alvalade",
-      "round": 5,
-      "homeScore": 3,
-      "awayScore": 0
+      "kickoff": "2025-11-26T21:00:00+01:00",
+      "start": "2025-11-26T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Olympiacos",
       "away": "Real Madrid",
-      "kickoff": "2025-11-26T20:00:00+00:00",
-      "location": "Stadio Georgios Karaiskakis",
-      "round": 5,
-      "homeScore": 3,
-      "awayScore": 4
+      "kickoff": "2025-11-26T21:00:00+01:00",
+      "start": "2025-11-26T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Kairat Almaty",
       "away": "Olympiacos",
-      "kickoff": "2025-12-09T15:30:00+00:00",
-      "location": "Astana Arena",
-      "round": 6,
-      "homeScore": 0,
-      "awayScore": 1
+      "kickoff": "2025-12-09T16:30:00+01:00",
+      "start": "2025-12-09T16:30:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Bayern München",
       "away": "Sporting CP",
-      "kickoff": "2025-12-09T17:45:00+00:00",
-      "location": "Fußball Arena München",
-      "round": 6,
-      "homeScore": 3,
-      "awayScore": 1
+      "kickoff": "2025-12-09T18:45:00+01:00",
+      "start": "2025-12-09T18:45:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Inter",
       "away": "Liverpool",
-      "kickoff": "2025-12-09T20:00:00+00:00",
-      "location": "Stadio San Siro",
-      "round": 6,
-      "homeScore": 0,
-      "awayScore": 1
+      "kickoff": "2025-12-09T21:00:00+01:00",
+      "start": "2025-12-09T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Barcelona",
       "away": "Frankfurt",
-      "kickoff": "2025-12-09T20:00:00+00:00",
-      "location": "Camp Nou",
-      "round": 6,
-      "homeScore": 2,
-      "awayScore": 1
+      "kickoff": "2025-12-09T21:00:00+01:00",
+      "start": "2025-12-09T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Atalanta",
       "away": "Chelsea",
-      "kickoff": "2025-12-09T20:00:00+00:00",
-      "location": "Stadio di Bergamo",
-      "round": 6,
-      "homeScore": 2,
-      "awayScore": 1
+      "kickoff": "2025-12-09T21:00:00+01:00",
+      "start": "2025-12-09T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Tottenham",
       "away": "Slavia Praha",
-      "kickoff": "2025-12-09T20:00:00+00:00",
-      "location": "Tottenham Hotspur Stadium",
-      "round": 6,
-      "homeScore": 3,
-      "awayScore": 0
+      "kickoff": "2025-12-09T21:00:00+01:00",
+      "start": "2025-12-09T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "PSV",
       "away": "Atleti",
-      "kickoff": "2025-12-09T20:00:00+00:00",
-      "location": "PSV Stadion",
-      "round": 6,
-      "homeScore": 2,
-      "awayScore": 3
+      "kickoff": "2025-12-09T21:00:00+01:00",
+      "start": "2025-12-09T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Monaco",
       "away": "Galatasaray",
-      "kickoff": "2025-12-09T20:00:00+00:00",
-      "location": "Stade Louis II",
-      "round": 6,
-      "homeScore": 1,
-      "awayScore": 0
+      "kickoff": "2025-12-09T21:00:00+01:00",
+      "start": "2025-12-09T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Union SG",
       "away": "Marseille",
-      "kickoff": "2025-12-09T20:00:00+00:00",
-      "location": "RSC Anderlecht Stadium",
-      "round": 6,
-      "homeScore": 2,
-      "awayScore": 3
+      "kickoff": "2025-12-09T21:00:00+01:00",
+      "start": "2025-12-09T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Villarreal",
       "away": "Copenhagen",
-      "kickoff": "2025-12-10T17:45:00+00:00",
-      "location": "Estadio de la Cerámica",
-      "round": 6,
-      "homeScore": 2,
-      "awayScore": 3
+      "kickoff": "2025-12-10T18:45:00+01:00",
+      "start": "2025-12-10T18:45:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Qarabag",
       "away": "Ajax",
-      "kickoff": "2025-12-10T17:45:00+00:00",
-      "location": "Tofiq Bahramov Republican Stadium",
-      "round": 6,
-      "homeScore": 2,
-      "awayScore": 4
+      "kickoff": "2025-12-10T18:45:00+01:00",
+      "start": "2025-12-10T18:45:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "B. Dortmund",
       "away": "Bodø/Glimt",
-      "kickoff": "2025-12-10T20:00:00+00:00",
-      "location": "BVB Stadion Dortmund",
-      "round": 6,
-      "homeScore": 2,
-      "awayScore": 2
+      "kickoff": "2025-12-10T21:00:00+01:00",
+      "start": "2025-12-10T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Leverkusen",
       "away": "Newcastle",
-      "kickoff": "2025-12-10T20:00:00+00:00",
-      "location": "BayArena",
-      "round": 6,
-      "homeScore": 2,
-      "awayScore": 2
+      "kickoff": "2025-12-10T21:00:00+01:00",
+      "start": "2025-12-10T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Benfica",
       "away": "Napoli",
-      "kickoff": "2025-12-10T20:00:00+00:00",
-      "location": "Estádio do SL Benfica",
-      "round": 6,
-      "homeScore": 2,
-      "awayScore": 0
+      "kickoff": "2025-12-10T21:00:00+01:00",
+      "start": "2025-12-10T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Juventus",
       "away": "Pafos",
-      "kickoff": "2025-12-10T20:00:00+00:00",
-      "location": "Juventus Stadium",
-      "round": 6,
-      "homeScore": 2,
-      "awayScore": 0
+      "kickoff": "2025-12-10T21:00:00+01:00",
+      "start": "2025-12-10T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Club Brugge",
       "away": "Arsenal",
-      "kickoff": "2025-12-10T20:00:00+00:00",
-      "location": "Jan Breydelstadion",
-      "round": 6,
-      "homeScore": 0,
-      "awayScore": 3
+      "kickoff": "2025-12-10T21:00:00+01:00",
+      "start": "2025-12-10T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Athletic Club",
       "away": "Paris",
-      "kickoff": "2025-12-10T20:00:00+00:00",
-      "location": "Estadio de San Mamés",
-      "round": 6,
-      "homeScore": 0,
-      "awayScore": 0
+      "kickoff": "2025-12-10T21:00:00+01:00",
+      "start": "2025-12-10T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Real Madrid",
       "away": "Man City",
-      "kickoff": "2025-12-10T20:00:00+00:00",
-      "location": "Estadio Santiago Bernabéu",
-      "round": 6,
-      "homeScore": 1,
-      "awayScore": 2
+      "kickoff": "2025-12-10T21:00:00+01:00",
+      "start": "2025-12-10T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Kairat Almaty",
       "away": "Club Brugge",
-      "kickoff": "2026-01-20T15:30:00+00:00",
-      "location": "Astana Arena",
-      "round": 7,
-      "homeScore": 1,
-      "awayScore": 4
+      "kickoff": "2026-01-20T16:30:00+01:00",
+      "start": "2026-01-20T16:30:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Bodø/Glimt",
       "away": "Man City",
-      "kickoff": "2026-01-20T17:45:00+00:00",
-      "location": "Aspmyra",
-      "round": 7,
-      "homeScore": 3,
-      "awayScore": 1
+      "kickoff": "2026-01-20T18:45:00+01:00",
+      "start": "2026-01-20T18:45:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Real Madrid",
       "away": "Monaco",
-      "kickoff": "2026-01-20T20:00:00+00:00",
-      "location": "Estadio Santiago Bernabéu",
-      "round": 7,
-      "homeScore": 6,
-      "awayScore": 1
+      "kickoff": "2026-01-20T21:00:00+01:00",
+      "start": "2026-01-20T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Inter",
       "away": "Arsenal",
-      "kickoff": "2026-01-20T20:00:00+00:00",
-      "location": "Stadio San Siro",
-      "round": 7,
-      "homeScore": 1,
-      "awayScore": 3
+      "kickoff": "2026-01-20T21:00:00+01:00",
+      "start": "2026-01-20T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Villarreal",
       "away": "Ajax",
-      "kickoff": "2026-01-20T20:00:00+00:00",
-      "location": "Estadio de la Cerámica",
-      "round": 7,
-      "homeScore": 1,
-      "awayScore": 2
+      "kickoff": "2026-01-20T21:00:00+01:00",
+      "start": "2026-01-20T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Tottenham",
       "away": "B. Dortmund",
-      "kickoff": "2026-01-20T20:00:00+00:00",
-      "location": "Tottenham Hotspur Stadium",
-      "round": 7,
-      "homeScore": 2,
-      "awayScore": 0
+      "kickoff": "2026-01-20T21:00:00+01:00",
+      "start": "2026-01-20T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Sporting CP",
       "away": "Paris",
-      "kickoff": "2026-01-20T20:00:00+00:00",
-      "location": "Estádio José Alvalade",
-      "round": 7,
-      "homeScore": 2,
-      "awayScore": 1
+      "kickoff": "2026-01-20T21:00:00+01:00",
+      "start": "2026-01-20T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Olympiacos",
       "away": "Leverkusen",
-      "kickoff": "2026-01-20T20:00:00+00:00",
-      "location": "Stadio Georgios Karaiskakis",
-      "round": 7,
-      "homeScore": 2,
-      "awayScore": 0
+      "kickoff": "2026-01-20T21:00:00+01:00",
+      "start": "2026-01-20T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Copenhagen",
       "away": "Napoli",
-      "kickoff": "2026-01-20T20:00:00+00:00",
-      "location": "Parken",
-      "round": 7,
-      "homeScore": 1,
-      "awayScore": 1
+      "kickoff": "2026-01-20T21:00:00+01:00",
+      "start": "2026-01-20T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Galatasaray",
       "away": "Atleti",
-      "kickoff": "2026-01-21T17:45:00+00:00",
-      "location": "Ali Sami Yen Spor Kompleksi",
-      "round": 7,
-      "homeScore": 1,
-      "awayScore": 1
+      "kickoff": "2026-01-21T18:45:00+01:00",
+      "start": "2026-01-21T18:45:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Qarabag",
       "away": "Frankfurt",
-      "kickoff": "2026-01-21T17:45:00+00:00",
-      "location": "Tofiq Bahramov Republican Stadium",
-      "round": 7,
-      "homeScore": 3,
-      "awayScore": 2
+      "kickoff": "2026-01-21T18:45:00+01:00",
+      "start": "2026-01-21T18:45:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Chelsea",
       "away": "Pafos",
-      "kickoff": "2026-01-21T20:00:00+00:00",
-      "location": "Stamford Bridge",
-      "round": 7,
-      "homeScore": 1,
-      "awayScore": 0
+      "kickoff": "2026-01-21T21:00:00+01:00",
+      "start": "2026-01-21T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Atalanta",
       "away": "Athletic Club",
-      "kickoff": "2026-01-21T20:00:00+00:00",
-      "location": "Stadio di Bergamo",
-      "round": 7,
-      "homeScore": 2,
-      "awayScore": 3
+      "kickoff": "2026-01-21T21:00:00+01:00",
+      "start": "2026-01-21T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Juventus",
       "away": "Benfica",
-      "kickoff": "2026-01-21T20:00:00+00:00",
-      "location": "Juventus Stadium",
-      "round": 7,
-      "homeScore": 2,
-      "awayScore": 0
+      "kickoff": "2026-01-21T21:00:00+01:00",
+      "start": "2026-01-21T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Slavia Praha",
       "away": "Barcelona",
-      "kickoff": "2026-01-21T20:00:00+00:00",
-      "location": "Eden Arena",
-      "round": 7,
-      "homeScore": 2,
-      "awayScore": 4
+      "kickoff": "2026-01-21T21:00:00+01:00",
+      "start": "2026-01-21T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Marseille",
       "away": "Liverpool",
-      "kickoff": "2026-01-21T20:00:00+00:00",
-      "location": "Stade de Marseille",
-      "round": 7,
-      "homeScore": 0,
-      "awayScore": 3
+      "kickoff": "2026-01-21T21:00:00+01:00",
+      "start": "2026-01-21T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Newcastle",
       "away": "PSV",
-      "kickoff": "2026-01-21T20:00:00+00:00",
-      "location": "St James' Park",
-      "round": 7,
-      "homeScore": 3,
-      "awayScore": 0
+      "kickoff": "2026-01-21T21:00:00+01:00",
+      "start": "2026-01-21T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Bayern München",
       "away": "Union SG",
-      "kickoff": "2026-01-21T20:00:00+00:00",
-      "location": "Fußball Arena München",
-      "round": 7,
-      "homeScore": 2,
-      "awayScore": 0
+      "kickoff": "2026-01-21T21:00:00+01:00",
+      "start": "2026-01-21T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Paris",
       "away": "Newcastle",
-      "kickoff": "2026-01-28T20:00:00+00:00",
-      "location": "Parc des Princes",
-      "round": 8,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-01-28T21:00:00+01:00",
+      "start": "2026-01-28T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Man City",
       "away": "Galatasaray",
-      "kickoff": "2026-01-28T20:00:00+00:00",
-      "location": "City of Manchester Stadium",
-      "round": 8,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-01-28T21:00:00+01:00",
+      "start": "2026-01-28T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Liverpool",
       "away": "Qarabag",
-      "kickoff": "2026-01-28T20:00:00+00:00",
-      "location": "Anfield",
-      "round": 8,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-01-28T21:00:00+01:00",
+      "start": "2026-01-28T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "B. Dortmund",
       "away": "Inter",
-      "kickoff": "2026-01-28T20:00:00+00:00",
-      "location": "BVB Stadion Dortmund",
-      "round": 8,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-01-28T21:00:00+01:00",
+      "start": "2026-01-28T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Barcelona",
       "away": "Copenhagen",
-      "kickoff": "2026-01-28T20:00:00+00:00",
-      "location": "Camp Nou",
-      "round": 8,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-01-28T21:00:00+01:00",
+      "start": "2026-01-28T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Arsenal",
       "away": "Kairat Almaty",
-      "kickoff": "2026-01-28T20:00:00+00:00",
-      "location": "Arsenal Stadium",
-      "round": 8,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-01-28T21:00:00+01:00",
+      "start": "2026-01-28T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Leverkusen",
       "away": "Villarreal",
-      "kickoff": "2026-01-28T20:00:00+00:00",
-      "location": "BayArena",
-      "round": 8,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-01-28T21:00:00+01:00",
+      "start": "2026-01-28T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Atleti",
       "away": "Bodø/Glimt",
-      "kickoff": "2026-01-28T20:00:00+00:00",
-      "location": "Estadio Metropolitano",
-      "round": 8,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-01-28T21:00:00+01:00",
+      "start": "2026-01-28T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Benfica",
       "away": "Real Madrid",
-      "kickoff": "2026-01-28T20:00:00+00:00",
-      "location": "Estádio do SL Benfica",
-      "round": 8,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-01-28T21:00:00+01:00",
+      "start": "2026-01-28T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Frankfurt",
       "away": "Tottenham",
-      "kickoff": "2026-01-28T20:00:00+00:00",
-      "location": "Frankfurt Stadion",
-      "round": 8,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-01-28T21:00:00+01:00",
+      "start": "2026-01-28T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Club Brugge",
       "away": "Marseille",
-      "kickoff": "2026-01-28T20:00:00+00:00",
-      "location": "Jan Breydelstadion",
-      "round": 8,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-01-28T21:00:00+01:00",
+      "start": "2026-01-28T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "PSV",
       "away": "Bayern München",
-      "kickoff": "2026-01-28T20:00:00+00:00",
-      "location": "PSV Stadion",
-      "round": 8,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-01-28T21:00:00+01:00",
+      "start": "2026-01-28T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Ajax",
       "away": "Olympiacos",
-      "kickoff": "2026-01-28T20:00:00+00:00",
-      "location": "Johan Cruijff ArenA",
-      "round": 8,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-01-28T21:00:00+01:00",
+      "start": "2026-01-28T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Napoli",
       "away": "Chelsea",
-      "kickoff": "2026-01-28T20:00:00+00:00",
-      "location": "Stadio Diego Armando Maradona",
-      "round": 8,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-01-28T21:00:00+01:00",
+      "start": "2026-01-28T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Monaco",
       "away": "Juventus",
-      "kickoff": "2026-01-28T20:00:00+00:00",
-      "location": "Stade Louis II",
-      "round": 8,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-01-28T21:00:00+01:00",
+      "start": "2026-01-28T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Union SG",
       "away": "Atalanta",
-      "kickoff": "2026-01-28T20:00:00+00:00",
-      "location": "RSC Anderlecht Stadium",
-      "round": 8,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-01-28T21:00:00+01:00",
+      "start": "2026-01-28T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Athletic Club",
       "away": "Sporting CP",
-      "kickoff": "2026-01-28T20:00:00+00:00",
-      "location": "Estadio de San Mamés",
-      "round": 8,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-01-28T21:00:00+01:00",
+      "start": "2026-01-28T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     },
     {
       "league": "Champions League",
       "home": "Pafos",
       "away": "Slavia Praha",
-      "kickoff": "2026-01-28T20:00:00+00:00",
-      "location": "Limassol Stadium",
-      "round": 8,
-      "homeScore": null,
-      "awayScore": null
+      "kickoff": "2026-01-28T21:00:00+01:00",
+      "start": "2026-01-28T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
     }
   ]
 }
