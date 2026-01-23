@@ -1,33 +1,42 @@
-{
-  "timezone": "Europe/Oslo",
-  "leagues": [
-    {
-      "key": "eliteserien",
-      "name": "Eliteserien",
-      "ics_url": "https://www.fotball.no/api/icalendar/competition/1",
-      "out_path": "data/eliteserien.json",
-      "default_tv": "TV 2 / TV 2 Play"
-    },
-    {
-      "key": "obos",
-      "name": "OBOS-ligaen",
-      "ics_url": "https://www.fotball.no/api/icalendar/competition/2",
-      "out_path": "data/obos.json",
-      "default_tv": "TV 2 Play"
-    },
-    {
-      "key": "premier_league",
-      "name": "Premier League",
-      "ics_url": "https://fixturedownload.com/download/epl-2025-UTC.ics",
-      "out_path": "data/premier_league.json",
-      "default_tv": "Viaplay / V Sport"
-    },
-    {
-      "key": "laliga",
-      "name": "La Liga",
-      "ics_url": "https://fixturedownload.com/download/laliga-2025-UTC.ics",
-      "out_path": "data/laliga.json",
-      "default_tv": "TV 2 / TV 2 Play"
-    }
-  ]
-}
+[
+  {
+    "key": "eliteserien",
+    "name": "Eliteserien",
+    "type": "nff_ics",
+    "url": "https://www.fotball.no/footballapi/Calendar/GetCalendar?tournamentId=206092",
+    "out_file": "data/eliteserien.json",
+    "default_channel": "TV 2 / TV 2 Play / NRK"
+  },
+  {
+    "key": "obos",
+    "name": "OBOS-ligaen",
+    "type": "nff_ics",
+    "url": "https://www.fotball.no/footballapi/Calendar/GetCalendar?tournamentId=206093",
+    "out_file": "data/obos.json",
+    "default_channel": "TV 2 / TV 2 Play / NRK"
+  },
+  {
+    "key": "premier_league",
+    "name": "Premier League",
+    "type": "fixturedownload_json",
+    "url": "https://fixturedownload.com/feed/json/epl-2025",
+    "out_file": "data/premier_league.json",
+    "default_channel": "Viaplay / V Sport"
+  },
+  {
+    "key": "champions_league",
+    "name": "Champions League",
+    "type": "fixturedownload_json",
+    "url": "https://fixturedownload.com/feed/json/champions-league-2025",
+    "out_file": "data/champions.json",
+    "default_channel": "TV 2 Play Premium / TV 2 Sport 1"
+  },
+  {
+    "key": "laliga",
+    "name": "La Liga",
+    "type": "fixturedownload_json",
+    "url": "https://fixturedownload.com/feed/json/la-liga-2025",
+    "out_file": "data/laliga.json",
+    "default_channel": "TV 2 / TV 2 Play"
+  }
+]
