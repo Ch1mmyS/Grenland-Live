@@ -1,8 +1,5 @@
 // Grenland Live – One-page app (forside + 4 visninger)
-// SPORT:
-//  - Leser ALL fotball fra data/football.json og lager liga-knapper automatisk (via feltet "league")
-//  - Leser håndball menn/damer + vintersport menn/kvinner som egne liga-knapper
-//  - Sorterer etter dato, robust parsing + fikser feil tegnkoding (TromsÃ¸ -> Tromsø)
+// SPORT: faste liga-knapper (hver fil = egen liga) + sortering + encoding-fix
 // Fungerer på GitHub Pages project repo: /Grenland-Live/
 
 const REPO_NAME = "Grenland-Live";
@@ -27,16 +24,20 @@ const tabButtons = {
 };
 
 // ===== KILDER =====
-// Sport bruker football.json som hovedkilde for fotball-ligaer
+// Hver source under blir en EGEN knapp i Sport.
 const SOURCES = {
   sport: [
-    { id:"football_all", name:"Fotball", file:"data/football.json", mode:"group_by_league" },
+    { id:"eliteserien", name:"Eliteserien", file:"data/eliteserien.json" },
+    { id:"obos",        name:"OBOS-ligaen", file:"data/obos.json" },
+    { id:"premier",     name:"Premier League", file:"data/premier_league.json" },
+    { id:"cl",          name:"Champions League", file:"data/champions.json" },
+    { id:"laliga",      name:"La Liga", file:"data/laliga.json" },
 
-    { id:"hb_m", name:"Håndball VM 2026 – Menn", file:"data/handball_vm_2026_menn.json", mode:"single_league" },
-    { id:"hb_k", name:"Håndball VM 2026 – Damer", file:"data/handball_vm_2026_damer.json", mode:"single_league" },
+    { id:"hb_m",        name:"Håndball VM 2026 – Menn", file:"data/handball_vm_2026_menn.json" },
+    { id:"hb_k",        name:"Håndball VM 2026 – Damer", file:"data/handball_vm_2026_damer.json" },
 
-    { id:"ws_m", name:"Vintersport – Menn", file:"data/vintersport_menn.json", mode:"single_league" },
-    { id:"ws_k", name:"Vintersport – Kvinner", file:"data/vintersport_kvinner.json", mode:"single_league" },
+    { id:"ws_m",        name:"Vintersport – Menn", file:"data/vintersport_menn.json" },
+    { id:"ws_k",        name:"Vintersport – Kvinner", file:"data/vintersport_kvinner.json" }
   ],
   puber: [
     { id:"pubs", name:"Puber", file:"data/pubs.json" }
@@ -54,6 +55,7 @@ async function fetchJSON(path){
   const full = url(path) + `?v=${Date.now()}`;
   const r = await fetch(full, { cache: "no-store" });
   if (!r.ok) throw new Error(`${path}: ${r.status}`);
+
   const txt = await r.text();
   if (txt.trim().startsWith("<")) throw new Error(`${path}: returned HTML (wrong path / 404 page)`);
   return JSON.parse(txt);
@@ -91,6 +93,7 @@ function parseISO(iso){
   const d = new Date(iso);
   return isNaN(d.getTime()) ? null : d;
 }
+
 function fmtOslo(iso){
   const d = parseISO(iso);
   if (!d) return "Ukjent tid";
@@ -104,9 +107,11 @@ function fmtOslo(iso){
     minute:"2-digit"
   });
 }
+
 function getWhen(obj){
   return obj.kickoff || obj.start || obj.datetime || obj.date || obj.time || obj.utcDate || null;
 }
+
 function scoreSort(a,b){
   const ta = parseISO(getWhen(a))?.getTime() ?? 0;
   const tb = parseISO(getWhen(b))?.getTime() ?? 0;
@@ -119,7 +124,7 @@ function looksLikeEventObj(o){
   const hasTime = !!getWhen(o);
   const hasTeams = !!(o.home && o.away) || !!(o.homeTeam && o.awayTeam);
   const hasTitle = !!(o.title || o.name || o.event);
-  return (hasTime && (hasTeams || hasTitle));
+  return hasTime && (hasTeams || hasTitle);
 }
 
 function normalizeItem(o){
@@ -134,7 +139,7 @@ function normalizeItem(o){
   }
   if (!o.kickoff && o.utcDate) o = { ...o, kickoff: o.utcDate };
 
-  // fiks tekstfelt (ikke destruktivt)
+  // fix alle string-felt
   const copy = { ...o };
   for (const k of Object.keys(copy)){
     if (typeof copy[k] === "string") copy[k] = fixText(copy[k]);
@@ -203,48 +208,25 @@ async function loadTab(tab){
   const status = [];
 
   if (tab === "sport"){
-    const leaguesById = new Map(); // id -> {id,name,items}
+    const leagues = [];
 
     for (const src of conf){
       try{
         const json = await fetchJSON(src.file);
         const items = extractItems(json).slice().sort(scoreSort);
-
-        if (src.mode === "group_by_league"){
-          // Gruppér fotball på item.league
-          for (const it of items){
-            const leagueName = fixText(it.league || it.competition || it.tournament || "Ukjent liga");
-            const id = "fb_" + leagueName.toLowerCase().replaceAll(" ", "_").replaceAll("/", "_").replaceAll(".", "");
-            if (!leaguesById.has(id)) leaguesById.set(id, { id, name: leagueName, items: [] });
-            leaguesById.get(id).items.push(it);
-          }
-        } else {
-          // Én knapp per kilde (håndball/vintersport)
-          const id = src.id;
-          leaguesById.set(id, { id, name: src.name, items });
-        }
-
+        leagues.push({ id: src.id, name: src.name, items });
         status.push({ ...src, ok:true, count: items.length });
       }catch(e){
         console.warn("load failed:", src.file, e);
-        // tom liga-knapp likevel (så du ser den)
-        leaguesById.set(src.id, { id: src.id, name: src.name, items: [] });
+        leagues.push({ id: src.id, name: src.name, items: [] });
         status.push({ ...src, ok:false, error:String(e) });
       }
     }
-
-    // sortér items i hver liga
-    for (const l of leaguesById.values()) l.items.sort(scoreSort);
-
-    // lag liste i en stabil rekkefølge: fotball-ligaer alfabetisk + resten
-    const leagues = Array.from(leaguesById.values());
-    leagues.sort((a,b) => a.name.localeCompare(b.name, "no"));
 
     CACHE.sport = { loaded:true, leagues, status };
     return;
   }
 
-  // andre tabs = flat liste
   const allItems = [];
   for (const src of conf){
     try{
@@ -324,12 +306,15 @@ function renderSport(){
   metaEl.textContent = `Kilder: ${okCount}/${status.length} • BASE: ${BASE}`;
 
   const total = leagues.reduce((a,l)=>a+(l.items?.length||0),0);
-  const btns = [{ id:"ALL", name:"Alle", count: total }, ...leagues.map(l => ({ id:l.id, name:l.name, count:l.items.length }))];
+  const btns = [
+    { id:"ALL", name:"Alle", count: total },
+    ...leagues.map(l => ({ id:l.id, name:l.name, count:l.items.length }))
+  ];
 
   let html = "";
   html += renderMissingWarning(status);
 
-  // knapper
+  // liga-knapper med teller
   html += `
     <div class="item" style="border:none;padding:0;background:transparent">
       <div class="tagRow" style="gap:10px">
@@ -353,6 +338,7 @@ function renderSport(){
     const found = leagues.find(l => l.id === CURRENT_LEAGUE);
     selected = found ? found.items.slice() : [];
   }
+
   selected.sort(scoreSort);
 
   if (q){
@@ -367,7 +353,6 @@ function renderSport(){
 
   listEl.innerHTML = html;
 
-  // wire knapper
   listEl.querySelectorAll("[data-league]").forEach(btn => {
     btn.addEventListener("click", () => {
       CURRENT_LEAGUE = btn.getAttribute("data-league");
