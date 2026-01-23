@@ -65,7 +65,7 @@
       border-radius:16px;
       padding:12px;
       box-shadow:0 6px 16px rgba(0,0,0,.05);
-      min-width:0; /* ✅ viktig for grid overflow */
+      min-width:0;
     }
 
     .weekdays{
@@ -87,7 +87,7 @@
       background:#fff;
       border-radius:14px;
       padding:10px;
-      min-height:86px;
+      min-height:72px;
       display:flex;
       flex-direction:column;
       gap:8px;
@@ -98,34 +98,50 @@
     .day.muted{opacity:.55;background:rgba(255,255,255,.7)}
     .day.selected{outline:2px solid rgba(37,99,235,.45);border-color:rgba(37,99,235,.45)}
 
-    .dnum{font-weight:900;font-size:13px;display:flex;justify-content:space-between;align-items:center}
-    .badge{font-size:11px;font-weight:900;padding:3px 8px;border-radius:999px;border:1px solid var(--line);background:rgba(37,99,235,.08)}
-
-    /* ✅ Mobil: vi viser bare 1 “mini-linje” per dag for å spare plass */
-    .mini{display:flex;flex-direction:column;gap:6px}
-    .miniLine{
-      border:1px solid rgba(11,18,32,.10);
-      border-radius:10px;
-      padding:5px 6px;
-      font-size:11px;
-      font-weight:800;
-      color:rgba(11,18,32,.92);
+    .dnum{
+      font-weight:900;
+      font-size:13px;
       display:flex;
       justify-content:space-between;
-      gap:8px;
-      background:rgba(11,18,32,.03);
-      overflow:hidden;
-      white-space:nowrap;
-      text-overflow:ellipsis;
+      align-items:center
     }
-    .miniLeft{overflow:hidden;text-overflow:ellipsis}
-    .miniRight{color:rgba(11,18,32,.60);font-weight:900;flex-shrink:0}
+    .badge{
+      font-size:11px;
+      font-weight:900;
+      padding:3px 8px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(37,99,235,.08)
+    }
 
-    /* ✅ Desktop: vis 2 linjer i hver dag */
-    @media(min-width:720px){
-      .day{min-height:98px}
-      .miniLine{font-size:11px}
+    /* ✅ PRIKKER (i stedet for tekst i cellene) */
+    .dots{
+      display:flex;
+      gap:6px;
+      flex-wrap:wrap;
+      margin-top:2px;
     }
+    .dot{
+      width:10px;
+      height:10px;
+      border-radius:50%;
+      border:1px solid rgba(0,0,0,.12);
+    }
+    .dot.football{background:#facc15;}     /* 🟡 gul */
+    .dot.handball{background:#3b82f6;}     /* 🔵 blå */
+    .dot.wintersport{background:#22c55e;}  /* 🟢 grønn */
+    .dot.vm{background:#a855f7;}           /* 🟣 lilla (valgfritt) */
+
+    /* Legende */
+    .legend{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      font-size:13px;
+      color:var(--muted);
+      margin-top:10px;
+    }
+    .legendItem{display:inline-flex;align-items:center;gap:8px}
 
     .list h2{margin:0 0 6px;font-size:16px}
     .list small{color:var(--muted)}
@@ -139,7 +155,13 @@
       flex-direction:column;
       gap:6px;
     }
-    .event .row{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center}
+    .event .row{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center
+    }
     .event .when{font-weight:900}
     .event .meta{color:var(--muted);font-size:13px}
     .tag{
@@ -159,7 +181,7 @@
     <div class="topbar">
       <div class="title">
         <h1>📅 Grenland Live – Kalender</h1>
-        <small>Samlevisning: fotball + håndball + vintersport + VM 2026 • tid + kanal i kalenderen</small>
+        <small>Samlevisning: fotball + håndball + vintersport + VM 2026 • klikk dag for detaljer</small>
       </div>
       <div class="controls">
         <a class="btnLink" href="index.html">← Tilbake</a>
@@ -177,7 +199,16 @@
         <div class="weekdays">
           <div>Man</div><div>Tir</div><div>Ons</div><div>Tor</div><div>Fre</div><div>Lør</div><div>Søn</div>
         </div>
+
         <div class="cal" id="calGrid"></div>
+
+        <div class="legend">
+          <span class="legendItem"><span class="dot football"></span> Fotball</span>
+          <span class="legendItem"><span class="dot handball"></span> Håndball</span>
+          <span class="legendItem"><span class="dot wintersport"></span> Vintersport</span>
+          <span class="legendItem"><span class="dot vm"></span> VM/2026</span>
+        </div>
+
         <div class="foot" id="dataStatus">Laster data…</div>
       </div>
 
@@ -240,7 +271,7 @@
     function monthGridDates(monthStart){
       const first = new Date(monthStart.getFullYear(), monthStart.getMonth(), 1);
       const firstDow = first.getDay();
-      const offset = (firstDow === 0 ? 6 : firstDow - 1); // monday
+      const offset = (firstDow === 0 ? 6 : firstDow - 1);
       const gridStart = new Date(first);
       gridStart.setDate(first.getDate() - offset);
 
@@ -299,20 +330,9 @@
       return { cls:"tag", text:"VM/2026" };
     }
 
-    function shortChannel(ch){
-      const s = (ch || "").toLowerCase();
-      if(!s) return "";
-      if(s.includes("viaplay")) return "Viaplay";
-      if(s.includes("tv 2")) return "TV2";
-      if(s.includes("nrk")) return "NRK";
-      if(s.includes("v sport")) return "V Sport";
-      return ch.length > 10 ? ch.slice(0,10) + "…" : ch;
-    }
-
     async function loadAll(){
       const results = [];
       const errors = [];
-      let totalRaw = 0;
 
       for(const s of SOURCES){
         try{
@@ -322,8 +342,6 @@
           const data = await r.json();
 
           const arr = Array.isArray(data.events) ? data.events : (Array.isArray(data.games) ? data.games : []);
-          totalRaw += arr.length;
-
           for(const raw of arr){
             const ev = normalizeEntry(raw, s);
             if(ev) results.push(ev);
@@ -345,9 +363,6 @@
       const map = eventsByDayMap(allEvents);
       calGrid.innerHTML = "";
       const selectedKey = selectedDate ? ymd(selectedDate) : null;
-
-      // Mobil: 1 mini-linje / Desktop: 2 mini-linjer
-      const maxMini = window.matchMedia("(min-width: 720px)").matches ? 2 : 1;
 
       for(const d of dates){
         const key = ymd(d);
@@ -375,27 +390,20 @@
         top.appendChild(left);
         top.appendChild(right);
 
-        const mini = document.createElement("div");
-        mini.className = "mini";
-        for(const ev of dayEvents.slice(0, maxMini)){
-          const line = document.createElement("div");
-          line.className = "miniLine";
-
-          const l = document.createElement("div");
-          l.className = "miniLeft";
-          l.textContent = `${fmtTime(ev.start)} ${ev.title}`.trim();
-
-          const r = document.createElement("div");
-          r.className = "miniRight";
-          r.textContent = shortChannel(ev.channel);
-
-          line.appendChild(l);
-          line.appendChild(r);
-          mini.appendChild(line);
+        // ✅ Prikker: maks 1 prikk per type (football/handball/wintersport/vm)
+        const dots = document.createElement("div");
+        dots.className = "dots";
+        const used = new Set();
+        for(const ev of dayEvents){
+          if(used.has(ev.kind)) continue;
+          used.add(ev.kind);
+          const dot = document.createElement("span");
+          dot.className = "dot " + ev.kind;
+          dots.appendChild(dot);
         }
 
         el.appendChild(top);
-        el.appendChild(mini);
+        el.appendChild(dots);
 
         el.addEventListener("click", () => {
           selectedDate = d;
@@ -474,7 +482,6 @@
     (async function init(){
       await loadAll();
       render();
-      window.addEventListener("resize", () => render());
     })();
   </script>
 </body>
