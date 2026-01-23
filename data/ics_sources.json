@@ -1,14 +1,33 @@
 {
-  "sources": [
+  "timezone": "Europe/Oslo",
+  "leagues": [
+    {
+      "key": "premier_league",
+      "name": "Premier League",
+      "ics_url": "PUTT_INN_ICS_URL_FOR_PREMIER_LEAGUE_HER",
+      "out_path": "data/premier_league.json",
+      "default_tv": "Viaplay / V Sport"
+    },
     {
       "key": "eliteserien",
-      "league": "Eliteserien",
-      "url": "LIM_INN_ICS_LENKE_HER"
+      "name": "Eliteserien",
+      "ics_url": "PUTT_INN_ICS_URL_FOR_ELITESERIEN_HER",
+      "out_path": "data/eliteserien.json",
+      "default_tv": "TV 2 / TV 2 Play"
     },
     {
       "key": "obos",
-      "league": "OBOS-ligaen",
-      "url": "LIM_INN_ICS_LENKE_HER"
+      "name": "OBOS-ligaen",
+      "ics_url": "PUTT_INN_ICS_URL_FOR_OBOS_HER",
+      "out_path": "data/obos.json",
+      "default_tv": "TV 2 Play"
+    },
+    {
+      "key": "laliga",
+      "name": "La Liga",
+      "ics_url": "PUTT_INN_ICS_URL_FOR_LALIGA_HER",
+      "out_path": "data/laliga.json",
+      "default_tv": "TV 2 / TV 2 Play"
     }
   ]
 }
