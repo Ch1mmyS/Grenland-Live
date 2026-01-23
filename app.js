@@ -1,5 +1,6 @@
 // Grenland Live – One-page app (forside + 4 visninger)
-// Sport: viser egne knapper for hver liga + kamper sortert i riktig liga
+// Sport: egne knapper for hver liga + kamper sortert i riktig liga
+// Robust JSON-parser (matches/fixtures/games/events/response/data + rekursiv fallback)
 // Fungerer på GitHub Pages project repo: /Grenland-Live/
 
 const REPO_NAME = "Grenland-Live";
@@ -33,11 +34,9 @@ const SOURCES = {
     { id:"cl",          name:"Champions League", file:"data/champions.json" },
     { id:"laliga",      name:"La Liga", file:"data/laliga.json" },
 
-    // Håndball
     { id:"hb_m",        name:"Håndball VM 2026 – Menn", file:"data/handball_vm_2026_menn.json" },
     { id:"hb_k",        name:"Håndball VM 2026 – Damer", file:"data/handball_vm_2026_damer.json" },
 
-    // Vintersport (slik du skrev: herrer + damer)
     { id:"ws_m",        name:"Vintersport – Menn", file:"data/vintersport_menn.json" },
     { id:"ws_k",        name:"Vintersport – Kvinner", file:"data/vintersport_kvinner.json" }
   ],
@@ -59,42 +58,16 @@ async function fetchJSON(path){
   if (!r.ok) throw new Error(`${path}: ${r.status}`);
 
   const txt = await r.text();
-
-  // Beskytter mot GitHub Pages som returnerer HTML (typisk 404-side)
   if (txt.trim().startsWith("<")) {
     throw new Error(`${path}: returned HTML (wrong path / 404 page)`);
   }
-
   return JSON.parse(txt);
 }
 
-// -------- Normalisering av ulike JSON-formater --------
-// Støtter:
-// 1) { "games": [...] }
-// 2) { "events": [...] }
-// 3) { "items": [...] }
-// 4) [...]
-function extractItems(obj){
-  if (!obj) return [];
-  if (Array.isArray(obj)) return obj;
-  if (Array.isArray(obj.games)) return obj.games;
-  if (Array.isArray(obj.events)) return obj.events;
-  if (Array.isArray(obj.items)) return obj.items;
-
-  for (const k of Object.keys(obj)){
-    if (Array.isArray(obj[k])) return obj[k];
-  }
-  return [];
-}
-
-// -------- Tegnkoding / “mojibake” fix (global) --------
-// Fikser typiske UTF-8->Latin1 feil: TromsÃ¸ -> Tromsø, etc.
+// -------- Encoding / mojibake fix --------
 function fixText(value){
   if (value == null) return "";
-
   let s = String(value);
-
-  // Rask exit hvis ingen typiske feil-sekvenser
   if (!s.includes("Ã") && !s.includes("Â")) return s;
 
   const map = [
@@ -104,15 +77,10 @@ function fixText(value){
     ["Ã±","ñ"],["ÃŸ","ß"],
     ["Â "," "],["Â·","·"],["Â–","–"],["Â—","—"],["Â«","«"],["Â»","»"]
   ];
-
-  for (const [bad, good] of map){
-    s = s.split(bad).join(good);
-  }
-
+  for (const [bad, good] of map) s = s.split(bad).join(good);
   return s;
 }
 
-// -------- HTML escape (bruker fixText først) --------
 function escapeHTML(s){
   s = fixText(s);
   return String(s ?? "")
@@ -144,7 +112,8 @@ function fmtOslo(iso){
 }
 
 function getWhen(obj){
-  return obj.kickoff || obj.start || obj.datetime || obj.date || obj.time || null;
+  return obj.kickoff || obj.start || obj.datetime || obj.date || obj.time ||
+         obj.utcDate || obj.utc_date || obj.matchDate || obj.match_date || null;
 }
 
 function scoreSort(a,b){
@@ -153,13 +122,116 @@ function scoreSort(a,b){
   return ta - tb;
 }
 
-// -------- Sport: league state --------
-let CURRENT = "sport";
-let CURRENT_LEAGUE = "ALL"; // id fra sport sources, eller "ALL"
+// -------- Robust extractor --------
+// 1) Vanlige keys: games/matches/fixtures/events/items/response/data
+// 2) Hvis ikke: rekursivt let etter "arrays av objects" som ser ut som kamper/events
+function looksLikeEventObj(o){
+  if (!o || typeof o !== "object") return false;
 
-// -------- Data cache --------
+  // har en tid?
+  const hasTime = !!getWhen(o);
+
+  // har hjem/borte eller title/name?
+  const hasTeams = !!(o.home && o.away) || !!(o.homeTeam && o.awayTeam);
+  const hasTitle = !!(o.title || o.name || o.event);
+
+  // hvis den har time + (teams eller title) => sannsynlig relevant
+  if (hasTime && (hasTeams || hasTitle)) return true;
+
+  // hvis fotball-data format: homeTeam/awayTeam/utcDate
+  if ((o.homeTeam && o.awayTeam) && (o.utcDate || o.date)) return true;
+
+  return false;
+}
+
+function normalizeItem(o){
+  // gjør om noen vanlige formater til {home,away,kickoff,...} uten å ødelegge originalen
+  if (!o || typeof o !== "object") return o;
+
+  // football-data.org style: {utcDate, homeTeam:{name}, awayTeam:{name}}
+  if (!o.home && o.homeTeam && typeof o.homeTeam === "object") {
+    o = { ...o, home: o.homeTeam.name ?? o.homeTeam.shortName ?? o.homeTeam.tla ?? o.homeTeam };
+  }
+  if (!o.away && o.awayTeam && typeof o.awayTeam === "object") {
+    o = { ...o, away: o.awayTeam.name ?? o.awayTeam.shortName ?? o.awayTeam.tla ?? o.awayTeam };
+  }
+  if (!o.kickoff && o.utcDate) {
+    o = { ...o, kickoff: o.utcDate };
+  }
+  return o;
+}
+
+function extractItems(obj){
+  if (!obj) return [];
+
+  // direkte array
+  if (Array.isArray(obj)) return obj.map(normalizeItem);
+
+  // vanligste nøkkel-navn
+  const keys = ["games","matches","fixtures","events","items","data","response","results"];
+  for (const k of keys){
+    if (Array.isArray(obj[k])) return obj[k].map(normalizeItem);
+  }
+
+  // fotball-api: { response: [...] } eller { data: { matches: [...] } } osv.
+  for (const k of Object.keys(obj)){
+    const v = obj[k];
+    if (v && typeof v === "object") {
+      for (const kk of keys){
+        if (Array.isArray(v[kk])) return v[kk].map(normalizeItem);
+      }
+    }
+  }
+
+  // rekursiv fallback: finn arrays av objects som ligner events
+  const out = [];
+  const seen = new Set();
+
+  function walk(node, depth=0){
+    if (!node || depth > 6) return;
+
+    if (Array.isArray(node)){
+      // candidate array
+      const arr = node;
+      if (arr.length && arr.every(x => x && typeof x === "object")) {
+        // hvis mange ser ut som kamper/events → ta den
+        const sample = arr.slice(0, Math.min(40, arr.length));
+        const score = sample.filter(looksLikeEventObj).length / sample.length;
+        if (score >= 0.35) {
+          for (const it of arr) {
+            const norm = normalizeItem(it);
+            const key = JSON.stringify(norm).slice(0, 500);
+            if (!seen.has(key)){
+              seen.add(key);
+              out.push(norm);
+            }
+          }
+          return;
+        }
+      }
+      // ellers gå dypere
+      for (const it of arr) walk(it, depth+1);
+      return;
+    }
+
+    if (typeof node === "object"){
+      for (const k of Object.keys(node)){
+        walk(node[k], depth+1);
+      }
+    }
+  }
+
+  walk(obj, 0);
+  return out.map(normalizeItem);
+}
+
+// -------- UI state --------
+let CURRENT = "sport";
+let CURRENT_LEAGUE = "ALL";
+
+// -------- Cache --------
 const CACHE = {
-  sport: { loaded:false, leagues:[], status:[] }, // leagues = [{id,name,items}]
+  sport: { loaded:false, leagues:[], status:[] },
   puber: { loaded:false, items:[], status:[] },
   events: { loaded:false, items:[], status:[] },
   vm2026: { loaded:false, items:[], status:[] }
@@ -175,7 +247,7 @@ async function loadTab(tab){
     for (const src of conf){
       try{
         const json = await fetchJSON(src.file);
-        const items = extractItems(json).slice().sort(scoreSort);
+        const items = extractItems(json).map(normalizeItem).slice().sort(scoreSort);
         leagues.push({ id: src.id, name: src.name, items });
         status.push({ ...src, ok:true, count: items.length });
       }catch(e){
@@ -189,12 +261,11 @@ async function loadTab(tab){
     return;
   }
 
-  // andre tabs: vanlig flat liste
   const allItems = [];
   for (const src of conf){
     try{
       const json = await fetchJSON(src.file);
-      const items = extractItems(json);
+      const items = extractItems(json).map(normalizeItem);
       allItems.push(...items);
       status.push({ ...src, ok:true, count: items.length });
     }catch(e){
@@ -213,11 +284,9 @@ function setActiveTabUI(tab){
   }
 }
 
-// ===== Render helpers =====
 function renderMissingWarning(status){
   const missing = status.filter(s => !s.ok);
   if (!missing.length) return "";
-
   return `
     <div class="item">
       <div class="itemTitle">Noen JSON-filer ble ikke funnet:</div>
@@ -235,11 +304,14 @@ function buildItemView(x){
   const whenIso = getWhen(x);
   const when = whenIso ? fmtOslo(whenIso) : "";
 
+  const home = x.home ?? (x.homeTeam?.name ?? x.homeTeam);
+  const away = x.away ?? (x.awayTeam?.name ?? x.awayTeam);
+
   const title =
-    (x.home && x.away) ? `${fixText(x.home)} – ${fixText(x.away)}` :
+    (home && away) ? `${fixText(home)} – ${fixText(away)}` :
     fixText(x.title || x.name || x.event || "Ukjent");
 
-  const league = fixText(x.league || x.competition || x.tournament || "");
+  const league = fixText(x.league || x.competition || x.tournament || x.season || "");
   const channel = fixText(x.channel || x.tv || x.broadcast || "");
   const where =
     Array.isArray(x.where) ? x.where.map(fixText).join(", ") :
@@ -261,21 +333,18 @@ function buildItemView(x){
   `;
 }
 
-// ===== SPORT RENDER =====
 function renderSport(){
   const q = fixText((qEl.value || "")).trim().toLowerCase();
   const { leagues, status } = CACHE.sport;
 
+  h2El.textContent = "Sport";
   const okCount = status.filter(s => s.ok).length;
   metaEl.textContent = `Kilder: ${okCount}/${status.length} • BASE: ${BASE}`;
 
-  // Header
-  h2El.textContent = "Sport";
-
-  // liga-knapper
+  // Liga-knapper med teller
   const btns = [
-    { id:"ALL", name:"Alle" },
-    ...leagues.map(l => ({ id:l.id, name:l.name }))
+    { id:"ALL", name:"Alle", count: leagues.reduce((a,l)=>a+(l.items?.length||0),0) },
+    ...leagues.map(l => ({ id:l.id, name:l.name, count: l.items?.length || 0 }))
   ];
 
   const leagueButtonsHTML = `
@@ -287,42 +356,37 @@ function renderSport(){
             type="button"
             data-league="${escapeHTML(b.id)}"
             style="border:3px solid #0b1220"
-          >${escapeHTML(b.name)}</button>
+          >${escapeHTML(b.name)} (${b.count})</button>
         `).join("")}
       </div>
     </div>
   `;
 
-  // velg items basert på liga
   let selectedItems = [];
   if (CURRENT_LEAGUE === "ALL"){
-    for (const l of leagues) selectedItems.push(...l.items);
+    for (const l of leagues) selectedItems.push(...(l.items || []));
   } else {
     const found = leagues.find(l => l.id === CURRENT_LEAGUE);
-    selectedItems = found ? found.items.slice() : [];
+    selectedItems = found ? (found.items || []).slice() : [];
   }
-
   selectedItems.sort(scoreSort);
 
-  // søk
   if (q){
     selectedItems = selectedItems.filter(x => fixText(JSON.stringify(x)).toLowerCase().includes(q));
   }
 
-  // bygg liste
   let html = "";
   html += renderMissingWarning(status);
   html += leagueButtonsHTML;
 
   if (!selectedItems.length){
-    html += `<div class="item">Ingen treff.</div>`;
+    html += `<div class="item">Ingen data i denne ligaen ennå. (Sjekk at JSON-fila inneholder kamper og at vi finner riktig array.)</div>`;
   } else {
     html += selectedItems.map(buildItemView).join("");
   }
 
   listEl.innerHTML = html;
 
-  // wire liga-knapper (etter render)
   listEl.querySelectorAll("[data-league]").forEach(btn => {
     btn.addEventListener("click", () => {
       CURRENT_LEAGUE = btn.getAttribute("data-league");
@@ -331,7 +395,6 @@ function renderSport(){
   });
 }
 
-// ===== GENERIC RENDER (puber/events/vm2026) =====
 function renderGeneric(tab){
   const q = fixText((qEl.value || "")).trim().toLowerCase();
   const { items, status } = CACHE[tab];
@@ -377,10 +440,7 @@ async function show(tab){
 
   setActiveTabUI(tab);
 
-  // reset league når du går inn i sport
-  if (tab === "sport" && CURRENT_LEAGUE !== "ALL" && !CACHE.sport.loaded){
-    CURRENT_LEAGUE = "ALL";
-  }
+  if (tab === "sport") CURRENT_LEAGUE = "ALL";
 
   if (!CACHE[tab]?.loaded){
     h2El.textContent = "Laster…";
@@ -399,22 +459,17 @@ function backHome(){
   CURRENT_LEAGUE = "ALL";
 }
 
-// ---- Wiring ----
 function boot(){
-  // Forsideknapper
   document.querySelectorAll("[data-go]").forEach(btn => {
     btn.addEventListener("click", () => show(btn.dataset.go));
   });
 
-  // Tabs
   document.querySelectorAll("[data-tab]").forEach(btn => {
     btn.addEventListener("click", () => show(btn.dataset.tab));
   });
 
-  // Søk
   qEl.addEventListener("input", () => render(CURRENT));
 
-  // Back buttons
   $("backHome")?.addEventListener("click", backHome);
   $("backHome2")?.addEventListener("click", backHome);
 }
