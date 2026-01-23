@@ -2,95 +2,80 @@
 <html lang="no">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Grenland Live</title>
 
-  <!-- IMPORTANT: Ikke bruk / foran på GitHub Pages project repo -->
-  <link rel="manifest" href="manifest.json" />
-  <link rel="icon" href="favicon.ico" />
-
-  <style>
-    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;margin:0;background:#0b1220;color:#eef2ff}
-    header{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-bottom:1px solid rgba(255,255,255,.12);position:sticky;top:0;background:rgba(11,18,32,.9);backdrop-filter: blur(8px)}
-    .wrap{max-width:1100px;margin:16px auto;padding:0 14px}
-    .card{border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.06);border-radius:16px;padding:14px}
-    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-    select,input,button{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:#eef2ff;border-radius:12px;padding:10px 12px}
-    button{cursor:pointer}
-    .grid{display:grid;grid-template-columns:320px 1fr;gap:14px;margin-top:14px}
-    @media(max-width:900px){.grid{grid-template-columns:1fr}}
-    .pill{font-size:12px;padding:7px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.12)}
-    .pill.online{border-color:rgba(34,197,94,.4)}
-    .pill.offline{border-color:rgba(239,68,68,.4)}
-    .sources{display:flex;flex-direction:column;gap:8px}
-    .source{display:flex;justify-content:space-between;gap:10px;padding:10px;border-radius:12px;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.05);font-size:13px}
-    .badge{font-size:12px;padding:3px 8px;border-radius:999px;border:1px solid rgba(255,255,255,.12)}
-    .badge.ok{border-color:rgba(34,197,94,.4)}
-    .badge.missing{border-color:rgba(239,68,68,.4)}
-    .list{display:flex;flex-direction:column;gap:10px}
-    .item{padding:12px;border-radius:14px;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.05)}
-    .item .top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
-    .meta{opacity:.75;font-size:12px;margin-top:6px;display:flex;flex-wrap:wrap;gap:10px}
-    footer{opacity:.7;font-size:12px;text-align:center;padding:18px}
-  </style>
+  <link rel="icon" href="./favicon.ico">
+  <link rel="stylesheet" href="./styles.css" />
 </head>
 
 <body>
-  <header>
-    <div>
-      <div style="font-weight:800">Grenland Live</div>
-      <div style="opacity:.75;font-size:12px">Sportsmeny (leser fra /data/*.json)</div>
+  <header class="topbar">
+    <div class="brand">
+      <div class="title">Grenland Live</div>
+      <div class="subtitle">Sportsmeny (leser fra /data/*.json)</div>
     </div>
-    <div class="row" style="justify-content:flex-end">
-      <div id="netStatus" class="pill">…</div>
-      <button id="refreshBtn">Oppdater</button>
+
+    <div class="topbar-right">
+      <span id="netStatus" class="pill offline">🔴 Offline</span>
+      <button id="btnRefresh" class="btn">Oppdater</button>
     </div>
   </header>
 
   <main class="wrap">
-    <section class="card">
+    <section class="controls card">
       <div class="row">
-        <label style="opacity:.75;font-size:12px">Vis:</label>
-        <select id="viewSelect">
-          <option value="football">Fotball</option>
-          <option value="handball">Håndball</option>
-          <option value="wintersport">Vintersport</option>
-          <option value="vm2026">VM 2026</option>
-          <option value="events">Events</option>
-        </select>
+        <label class="field">
+          <span>Vis:</span>
+          <select id="selCategory">
+            <option value="football">Fotball</option>
+            <option value="handball">Håndball</option>
+            <option value="wintersport">Vintersport</option>
+            <option value="vm">VM 2026</option>
+            <option value="events">Events</option>
+            <option value="all">Alle</option>
+          </select>
+        </label>
 
-        <label style="opacity:.75;font-size:12px">Dager:</label>
-        <select id="daysSelect">
-          <option value="7">7</option>
-          <option value="14">14</option>
-          <option value="30" selected>30</option>
-          <option value="60">60</option>
-        </select>
+        <label class="field">
+          <span>Dager:</span>
+          <select id="selDays">
+            <option value="7">7</option>
+            <option value="14">14</option>
+            <option value="30" selected>30</option>
+            <option value="60">60</option>
+            <option value="180">180</option>
+            <option value="365">365</option>
+          </select>
+        </label>
 
-        <input id="q" style="flex:1;min-width:220px" placeholder="Søk (lag, by, arena, kanal…)" />
+        <label class="field grow">
+          <span class="sr">Søk</span>
+          <input id="inpSearch" type="search" placeholder="Søk (lag, by, arena, kanal...)" />
+        </label>
       </div>
     </section>
 
     <section class="grid">
-      <aside class="card">
-        <h3 style="margin:0 0 10px 0">Kilder</h3>
-        <div id="sources" class="sources"></div>
-        <div style="opacity:.75;font-size:12px;margin-top:10px;line-height:1.35">
-          Hvis noe står som “MANGLER”, så er filnavn/sted feil i <code>/data/</code>, eller ikke pushet til GitHub.
+      <aside class="card sources">
+        <div class="card-h">
+          <h2>Kilder</h2>
+        </div>
+        <div id="sourcesList" class="sources-list"></div>
+        <div class="hint">
+          Hvis noe står som <b>MANGLER</b>, er filnavn/sted feil i <code>/data/</code> eller ikke pushet til GitHub.
         </div>
       </aside>
 
-      <section class="card">
-        <h3 id="sectionTitle" style="margin:0 0 10px 0">Laster…</h3>
-        <div id="list" class="list"></div>
+      <section class="card content">
+        <div class="card-h">
+          <h2 id="panelTitle">Fotball</h2>
+        </div>
+        <div id="results" class="results"></div>
       </section>
     </section>
   </main>
 
-  <footer>
-    <span id="buildInfo"></span>
-  </footer>
-
-  <script src="app.js"></script>
+  <script src="./app.js"></script>
 </body>
 </html>
