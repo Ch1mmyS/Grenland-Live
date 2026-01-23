@@ -2,80 +2,125 @@
 <html lang="no">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Grenland Live</title>
 
-  <link rel="icon" href="./favicon.ico">
-  <link rel="stylesheet" href="./styles.css" />
+  <!-- Logo fungerer som favicon (som du fikk til) -->
+  <link rel="icon" type="image/svg+xml" href="logo.svg">
+
+  <style>
+    :root{
+      --bg:#ffffff;
+      --text:#0b1220;
+      --muted:rgba(11,18,32,.70);
+      --line:#0b1220;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      background: var(--bg);
+      color: var(--text);
+    }
+    .wrap{
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 28px 16px 48px;
+    }
+    .brand{
+      text-align:center;
+      margin-top: 10px;
+      margin-bottom: 18px;
+    }
+    h1{
+      margin: 0 0 10px 0;
+      font-size: 56px;
+      letter-spacing: .5px;
+    }
+    .sub{
+      margin:0;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    .menuRow{
+      display:flex;
+      justify-content: space-between;
+      gap: 24px;
+      margin-top: 36px;
+      flex-wrap: wrap;
+    }
+
+    .menuBtn{
+      flex: 1;
+      min-width: 200px;
+      text-decoration:none;
+      color: var(--text);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: 18px 14px;
+      border: 4px solid var(--line);
+      border-radius: 18px;
+      background: #fff;
+      font-weight: 700;
+      transition: transform .08s ease;
+      text-align:center;
+    }
+    .menuBtn:hover{ transform: translateY(-2px); }
+    .menuBtn:active{ transform: translateY(0px); }
+
+    .hintRow{
+      display:flex;
+      justify-content: space-between;
+      gap: 24px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+    .hint{
+      flex:1;
+      min-width: 200px;
+      text-align:center;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .footer{
+      text-align:center;
+      margin-top: 40px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+  </style>
 </head>
 
 <body>
-  <header class="topbar">
-    <div class="brand">
-      <div class="title">Grenland Live</div>
-      <div class="subtitle">Sportsmeny (leser fra /data/*.json)</div>
-    </div>
-
-    <div class="topbar-right">
-      <span id="netStatus" class="pill offline">🔴 Offline</span>
-      <button id="btnRefresh" class="btn">Oppdater</button>
-    </div>
-  </header>
-
   <main class="wrap">
-    <section class="controls card">
-      <div class="row">
-        <label class="field">
-          <span>Vis:</span>
-          <select id="selCategory">
-            <option value="football">Fotball</option>
-            <option value="handball">Håndball</option>
-            <option value="wintersport">Vintersport</option>
-            <option value="vm">VM 2026</option>
-            <option value="events">Events</option>
-            <option value="all">Alle</option>
-          </select>
-        </label>
-
-        <label class="field">
-          <span>Dager:</span>
-          <select id="selDays">
-            <option value="7">7</option>
-            <option value="14">14</option>
-            <option value="30" selected>30</option>
-            <option value="60">60</option>
-            <option value="180">180</option>
-            <option value="365">365</option>
-          </select>
-        </label>
-
-        <label class="field grow">
-          <span class="sr">Søk</span>
-          <input id="inpSearch" type="search" placeholder="Søk (lag, by, arena, kanal...)" />
-        </label>
-      </div>
+    <section class="brand">
+      <h1>Grenland Live</h1>
+      <p class="sub">Se kampene. Finn puben og opplev stemningen i Grenland.</p>
+      <p class="sub">Grenland Live – der Grenland møtes.</p>
     </section>
 
-    <section class="grid">
-      <aside class="card sources">
-        <div class="card-h">
-          <h2>Kilder</h2>
-        </div>
-        <div id="sourcesList" class="sources-list"></div>
-        <div class="hint">
-          Hvis noe står som <b>MANGLER</b>, er filnavn/sted feil i <code>/data/</code> eller ikke pushet til GitHub.
-        </div>
-      </aside>
-
-      <section class="card content">
-        <div class="card-h">
-          <h2 id="panelTitle">Fotball</h2>
-        </div>
-        <div id="results" class="results"></div>
-      </section>
+    <!-- 4 store knapper (som i skissen) -->
+    <section class="menuRow">
+      <a class="menuBtn" href="sport.html">Sport</a>
+      <a class="menuBtn" href="puber.html">Puber</a>
+      <a class="menuBtn" href="events.html">Kommende eventer</a>
+      <a class="menuBtn" href="vm2026.html">VM kalender 2026</a>
     </section>
+
+    <!-- små tekster under (valgfritt, men matcher skissen litt) -->
+    <section class="hintRow">
+      <div class="hint">Ny meny (side)</div>
+      <div class="hint">Nedtrekksmeny + kart</div>
+      <div class="hint">Ny meny (side)</div>
+      <div class="hint">VM oversikt</div>
+    </section>
+
+    <div class="footer">
+      © Grenland Live
+    </div>
   </main>
-
-  <script src="./app.js"></script>
 </body>
 </html>
