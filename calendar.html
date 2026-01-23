@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="no">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Kalender – Grenland Live</title>
+  <style>
+    :root{
+      --bg:#f6f8ff;
+      --panel:#ffffff;
+      --text:#0b1220;
+      --muted:rgba(11,18,32,.62);
+      --line:rgba(11,18,32,.12);
+      --accent:#2563eb;
+      --accent2:#10b981;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;
+      background:var(--bg);
+      color:var(--text);
+    }
+    header{
+      padding:16px 16px 8px;
+      max-width:1100px;
+      margin:0 auto;
+    }
+    .wrap{max-width:1100px;margin:0 auto;padding:0 16px 24px;}
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:12px;
+      box-shadow:0 6px 16px rgba(0,0,0,.05);
+    }
+    .title{display:flex;flex-direction:column;gap:2px;}
+    .title h1{margin:0;font-size:18px}
+    .title small{color:var(--muted)}
+    .controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+    button{
+      border:1px solid var(--line);
+      background:#fff;
+      padding:10px 12px;
+      border-radius:12px;
+      cursor:pointer;
+      font-weight:600;
+    }
+    button:hover{border-color:rgba(37,99,235,.35)}
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:#fff;
+      font-weight:800;
+      min-width:210px;
+      justify-content:center;
+      text-transform:capitalize;
+    }
+    .grid{
+      margin-top:12px;
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:12px;
+    }
+    @media(min-width:980px){
+      .grid{grid-template-columns: 1.2fr .8fr;}
+    }
+    .card{
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:12px;
+      box-shadow:0 6px 16px rgba(0,0,0,.05);
+    }
+    .weekdays{
+      display:grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap:8px;
+      margin-bottom:8px;
+      color:var(--muted);
+      font-weight:800;
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:.04em;
+    }
+    .cal{display:grid;grid-template-columns: repeat(7, 1fr);gap:8px;}
+    .day{
+      border:1px solid var(--line);
+      background:#fff;
+      border-radius:14px;
+      padding:10px;
+      min-height:84px;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      cursor:pointer;
+    }
+    .day:hover{border-color:rgba(37,99,235,.35)}
+    .day.muted{opacity:.55;background:rgba(255,255,255,.7);}
+    .day.selected{outline:2px solid rgba(37,99,235,.45);border-color:rgba(37,99,235,.45);}
+    .dnum{font-weight:900;font-size:13px;display:flex;justify-content:space-between;align-items:center;}
+    .badge{
+      font-size:11px;font-weight:900;padding:3px 8px;border-radius:999px;
+      border:1px solid var(--line);background:rgba(37,99,235,.08);
+    }
+    .dots{display:flex;gap:6px;flex-wrap:wrap;}
+    .dot{width:8px;height:8px;border-radius:99px;background:rgba(37,99,235,.75);}
+    .dot.w{background:rgba(16,185,129,.85)}
+    .legend{display:flex;gap:10px;flex-wrap:wrap;align-items:center;color:var(--muted);font-size:13px;margin-top:10px;}
+    .legend span{display:inline-flex;align-items:center;gap:8px;}
+    .list h2{margin:0 0 6px;font-size:16px}
+    .list small{color:var(--muted)}
+    .event{
+      margin-top:10px;border:1px solid var(--line);border-radius:14px;padding:10px;background:#fff;
+      display:flex;flex-direction:column;gap:6px;
+    }
+    .event .row{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center;}
+    .event .when{font-weight:900}
+    .event .meta{color:var(--muted);font-size:13px}
+    .tag{
+      display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;
+      border:1px solid var(--line);font-weight:900;font-size:12px;background:rgba(16,185,129,.08);
+    }
+    .tag.hb{background:rgba(37,99,235,.08)}
+    .empty{color:var(--muted);padding:10px 0}
+    .foot{margin-top:10px;color:var(--muted);font-size:12px;}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="topbar">
+      <div class="title">
+        <h1>📅 Kalender (VM 2026 / Håndball / Vintersport)</h1>
+        <small>Blad måned for måned • Klikk en dag for detaljer (tid + kanal)</small>
+      </div>
+
+      <div class="controls">
+        <button id="prevBtn">◀ Forrige</button>
+        <div class="pill" id="monthLabel">–</div>
+        <button id="nextBtn">Neste ▶</button>
+        <button id="todayBtn">I dag</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <div class="grid">
+      <div class="card">
+        <div class="weekdays">
+          <div>Man</div><div>Tir</div><div>Ons</div><div>Tor</div><div>Fre</div><div>Lør</div><div>Søn</div>
+        </div>
+        <div class="cal" id="calGrid"></div>
+
+        <div class="legend">
+          <span><span class="dot"></span> Håndball</span>
+          <span><span class="dot w"></span> Vintersport</span>
+        </div>
+        <div class="foot" id="dataStatus">Laster data…</div>
+      </div>
+
+      <div class="card list">
+        <h2 id="dayTitle">Velg en dag</h2>
+        <small id="daySub">–</small>
+        <div id="eventList" class="empty">Klikk en dag i kalenderen for å se kamper/øvelser og kanal.</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 🔥 Viktig: disse filnavnene matcher dine eksisterende JSON-filer i /data/
+    const SOURCES = [
+      { key:"hb_menn",   name:"Håndball VM 2026 – Menn",  url:"data/handball_vm_2026_menn.json",  category:"handball" },
+      { key:"hb_damer",  name:"Håndball VM 2026 – Damer", url:"data/handball_vm_2026_damer.json", category:"handball" },
+      { key:"ws_menn",   name:"Vintersport – Menn",       url:"data/vintersport_menn.json",       category:"wintersport" },
+      { key:"ws_kvinner",name:"Vintersport – Kvinner",    url:"data/vintersport_kvinner.json",    category:"wintersport" },
+      { key:"vm2026",    name:"VM 2026",                  url:"data/vm2026.json",                 category:"vm" }
+    ];
+
+    const TZ = "Europe/Oslo";
+
+    let allEvents = [];
+    let current = startOfMonth(new Date());
+    let selectedDate = null;
+
+    const calGrid = document.getElementById("calGrid");
+    const monthLabel = document.getElementById("monthLabel");
+    const dataStatus = document.getElementById("dataStatus");
+    const dayTitle = document.getElementById("dayTitle");
+    const daySub = document.getElementById("daySub");
+    const eventList = document.getElementById("eventList");
+
+    document.getElementById("prevBtn").addEventListener("click", () => { current = addMonths(current, -1); selectedDate = null; render(); });
+    document.getElementById("nextBtn").addEventListener("click", () => { current = addMonths(current, 1);  selectedDate = null; render(); });
+    document.getElementById("todayBtn").addEventListener("click", () => { current = startOfMonth(new Date()); selectedDate = new Date(); render(); renderDay(selectedDate); });
+
+    function pad2(n){ return String(n).padStart(2,"0"); }
+    function startOfMonth(d){ return new Date(d.getFullYear(), d.getMonth(), 1); }
+    function addMonths(d, n){ return new Date(d.getFullYear(), d.getMonth()+n, 1); }
+    function isoToDate(iso){ try { return new Date(iso); } catch(e){ return null; } }
+
+    function fmtMonth(d){ return d.toLocaleString("no-NO", { timeZone: TZ, month:"long", year:"numeric" }); }
+    function fmtDay(d){ return d.toLocaleString("no-NO", { timeZone: TZ, weekday:"long", day:"2-digit", month:"long", year:"numeric" }); }
+    function fmtTime(iso){
+      const d = isoToDate(iso); if(!d) return "";
+      return d.toLocaleString("no-NO", { timeZone: TZ, hour:"2-digit", minute:"2-digit" });
+    }
+
+    function ymd(d){
+      const dd = new Date(d.toLocaleString("en-US", { timeZone: TZ }));
+      return `${dd.getFullYear()}-${pad2(dd.getMonth()+1)}-${pad2(dd.getDate())}`;
+    }
+
+    function monthGridDates(monthStart){
+      const first = new Date(monthStart.getFullYear(), monthStart.getMonth(), 1);
+      const last = new Date(monthStart.getFullYear(), monthStart.getMonth()+1, 0);
+      const firstDow = first.getDay();
+      const offset = (firstDow === 0 ? 6 : firstDow - 1);
+      const gridStart = new Date(first);
+      gridStart.setDate(first.getDate() - offset);
+
+      const dates = [];
+      for(let i=0;i<42;i++){
+        const d = new Date(gridStart);
+        d.setDate(gridStart.getDate() + i);
+        dates.push(d);
+      }
+      return { dates, first, last };
+    }
+
+    function eventsByDayMap(events){
+      const map = new Map();
+      for(const ev of events){
+        const iso = ev.start || ev.kickoff || ev.datetime;
+        if(!iso) continue;
+        const d = isoToDate(iso);
+        if(!d) continue;
+        const key = ymd(d);
+        if(!map.has(key)) map.set(key, []);
+        map.get(key).push(ev);
+      }
+      for(const [k, arr] of map.entries()){
+        arr.sort((a,b)=> new Date(a.start||a.kickoff||a.datetime) - new Date(b.start||b.kickoff||b.datetime));
+      }
+      return map;
+    }
+
+    function eventTypeDot(ev){
+      const cat = (ev.category || "").toLowerCase();
+      if(cat === "wintersport") return "dot w";
+      return "dot"; // handball + vm
+    }
+
+    function eventTag(ev){
+      const cat = (ev.category || "").toLowerCase();
+      if(cat === "wintersport") return { cls:"tag", text:"Vintersport" };
+      if(cat === "handball") return { cls:"tag hb", text:"Håndball" };
+      return { cls:"tag", text:"VM/2026" };
+    }
+
+    async function loadAll(){
+      const results = [];
+      const errors = [];
+
+      for(const s of SOURCES){
+        try{
+          const r = await fetch(s.url, { cache:"no-store" });
+          if(!r.ok) throw new Error(`${r.status} ${r.statusText}`);
+          const data = await r.json();
+
+          // støtter både "events" og "games"
+          const arr = Array.isArray(data.events) ? data.events : (Array.isArray(data.games) ? data.games : []);
+
+          for(const e of arr){
+            const start = e.start || e.kickoff || e.datetime || e.dateTime;
+            const title = e.title || (e.home && e.away ? `${e.home} – ${e.away}` : e.match || e.name || "Event");
+            const channel = e.channel || e.tv || e.broadcast || "";
+
+            results.push({
+              id: e.id || `${s.key}-${start}-${title}`.replace(/\s+/g,"-"),
+              start,
+              title,
+              channel,
+              category: e.category || s.category,
+              gender: e.gender || "",
+              league: e.league || s.name
+            });
+          }
+        }catch(err){
+          errors.push(`${s.name}: ${err.message}`);
+        }
+      }
+
+      allEvents = results.filter(e => !!e.start).sort((a,b)=> new Date(a.start)-new Date(b.start));
+
+      if(errors.length){
+        dataStatus.textContent = `⚠️ Noen kilder kunne ikke lastes: ${errors.join(" • ")}`;
+      }else{
+        dataStatus.textContent = `✅ Data lastet: ${allEvents.length} events`;
+      }
+    }
+
+    function render(){
+      monthLabel.textContent = fmtMonth(current);
+
+      const { dates, first } = monthGridDates(current);
+      const firstMonth = first.getMonth();
+      const map = eventsByDayMap(allEvents);
+
+      calGrid.innerHTML = "";
+
+      const todayKey = ymd(new Date());
+      const selectedKey = selectedDate ? ymd(selectedDate) : null;
+
+      for(const d of dates){
+        const key = ymd(d);
+        const isMuted = d.getMonth() !== firstMonth;
+
+        const dayEvents = map.get(key) || [];
+
+        const dotWrap = document.createElement("div");
+        dotWrap.className = "dots";
+        for(const ev of dayEvents.slice(0,6)){
+          const dot = document.createElement("span");
+          dot.className = eventTypeDot(ev);
+          dotWrap.appendChild(dot);
+        }
+
+        const el = document.createElement("div");
+        el.className = "day" + (isMuted ? " muted" : "");
+        if(key === selectedKey) el.classList.add("selected");
+
+        const top = document.createElement("div");
+        top.className = "dnum";
+
+        const left = document.createElement("span");
+        left.textContent = String(new Date(d.toLocaleString("en-US", { timeZone: TZ })).getDate());
+
+        const right = document.createElement("span");
+        if(dayEvents.length){
+          right.className = "badge";
+          right.textContent = `${dayEvents.length}`;
+        }else if(key === todayKey){
+          right.className = "badge";
+          right.textContent = "i dag";
+        }else{
+          right.textContent = "";
+        }
+
+        top.appendChild(left);
+        top.appendChild(right);
+
+        el.appendChild(top);
+        el.appendChild(dotWrap);
+
+        el.addEventListener("click", () => {
+          selectedDate = d;
+          render();
+          renderDay(d);
+        });
+
+        calGrid.appendChild(el);
+      }
+
+      if(!selectedDate){
+        const monthEvents = allEvents.filter(e => {
+          const dt = new Date(e.start);
+          const oslo = new Date(dt.toLocaleString("en-US", { timeZone: TZ }));
+          return oslo.getFullYear() === current.getFullYear() && oslo.getMonth() === current.getMonth();
+        });
+        if(monthEvents.length){
+          const d0 = new Date(monthEvents[0].start);
+          selectedDate = d0;
+          render();
+          renderDay(d0);
+        }else{
+          dayTitle.textContent = "Velg en dag";
+          daySub.textContent = "–";
+          eventList.className = "empty";
+          eventList.textContent = "Ingen events i denne måneden (ennå).";
+        }
+      }
+    }
+
+    function renderDay(d){
+      const key = ymd(d);
+      const map = eventsByDayMap(allEvents);
+      const dayEvents = map.get(key) || [];
+
+      dayTitle.textContent = fmtDay(d);
+      daySub.textContent = dayEvents.length ? `${dayEvents.length} event(s)` : "Ingen events";
+
+      if(!dayEvents.length){
+        eventList.className = "empty";
+        eventList.textContent = "Ingen events denne dagen.";
+        return;
+      }
+
+      eventList.className = "";
+      eventList.innerHTML = "";
+
+      for(const ev of dayEvents){
+        const card = document.createElement("div");
+        card.className = "event";
+
+        const row1 = document.createElement("div");
+        row1.className = "row";
+
+        const when = document.createElement("div");
+        when.className = "when";
+        when.textContent = `🕒 ${fmtTime(ev.start)}  •  ${ev.title}`;
+
+        const tag = eventTag(ev);
+        const t = document.createElement("div");
+        t.className = tag.cls;
+        t.textContent = tag.text;
+
+        row1.appendChild(when);
+        row1.appendChild(t);
+
+        const meta = document.createElement("div");
+        meta.className = "meta";
+        meta.textContent = ev.channel ? `📺 ${ev.channel}` : "📺 Kanal: ikke oppgitt";
+
+        card.appendChild(row1);
+        card.appendChild(meta);
+        eventList.appendChild(card);
+      }
+    }
+
+    (async function init(){
+      await loadAll();
+      render();
+    })();
+  </script>
+</body>
+</html>
