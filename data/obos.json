@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-23T20:07:25+01:00",
+  "generated_at": "2026-01-23T20:11:57+01:00",
   "timezone": "Europe/Oslo",
   "league": "OBOS-ligaen",
   "default_tv": "TV 2 Play / NRK",
@@ -16,6 +16,33 @@
       "away": "StabÃ¦k Menn Senior A",
       "kickoff": "2026-04-05T16:00:00+02:00",
       "start": "2026-04-05T16:00:00+02:00",
+      "tv": "TV 2 Play / NRK",
+      "channel": "TV 2 Play / NRK"
+    },
+    {
+      "league": "OBOS-ligaen",
+      "home": "Egersund Menn Senior A",
+      "away": "Raufoss Menn A",
+      "kickoff": "2026-04-06T14:30:00+02:00",
+      "start": "2026-04-06T14:30:00+02:00",
+      "tv": "TV 2 Play / NRK",
+      "channel": "TV 2 Play / NRK"
+    },
+    {
+      "league": "OBOS-ligaen",
+      "home": "Ranheim TF Menn",
+      "away": "StrÃ¸mmen Menn Senior 1",
+      "kickoff": "2026-04-06T14:30:00+02:00",
+      "start": "2026-04-06T14:30:00+02:00",
+      "tv": "TV 2 Play / NRK",
+      "channel": "TV 2 Play / NRK"
+    },
+    {
+      "league": "OBOS-ligaen",
+      "home": "Odd Menn Senior A",
+      "away": "Sogndal Menn Senior A",
+      "kickoff": "2026-04-06T14:30:00+02:00",
+      "start": "2026-04-06T14:30:00+02:00",
       "tv": "TV 2 Play / NRK",
       "channel": "TV 2 Play / NRK"
     },
@@ -48,46 +75,10 @@
     },
     {
       "league": "OBOS-ligaen",
-      "home": "Odd Menn Senior A",
-      "away": "Sogndal Menn Senior A",
-      "kickoff": "2026-04-06T14:30:00+02:00",
-      "start": "2026-04-06T14:30:00+02:00",
-      "tv": "TV 2 Play / NRK",
-      "channel": "TV 2 Play / NRK"
-    },
-    {
-      "league": "OBOS-ligaen",
-      "home": "Egersund Menn Senior A",
-      "away": "Raufoss Menn A",
-      "kickoff": "2026-04-06T14:30:00+02:00",
-      "start": "2026-04-06T14:30:00+02:00",
-      "tv": "TV 2 Play / NRK",
-      "channel": "TV 2 Play / NRK"
-    },
-    {
-      "league": "OBOS-ligaen",
-      "home": "Ranheim TF Menn",
-      "away": "StrÃ¸mmen Menn Senior 1",
-      "kickoff": "2026-04-06T14:30:00+02:00",
-      "start": "2026-04-06T14:30:00+02:00",
-      "tv": "TV 2 Play / NRK",
-      "channel": "TV 2 Play / NRK"
-    },
-    {
-      "league": "OBOS-ligaen",
       "home": "HÃ¸dd Menn Senior A",
       "away": "Sandnes Ulf Toppfotball",
       "kickoff": "2026-04-07T19:00:00+02:00",
       "start": "2026-04-07T19:00:00+02:00",
-      "tv": "TV 2 Play / NRK",
-      "channel": "TV 2 Play / NRK"
-    },
-    {
-      "league": "OBOS-ligaen",
-      "home": "Sogndal Menn Senior A",
-      "away": "Lyn 1896",
-      "kickoff": "2026-04-11T14:00:00+02:00",
-      "start": "2026-04-11T14:00:00+02:00",
       "tv": "TV 2 Play / NRK",
       "channel": "TV 2 Play / NRK"
     },
@@ -120,6 +111,24 @@
     },
     {
       "league": "OBOS-ligaen",
+      "home": "Sogndal Menn Senior A",
+      "away": "Lyn 1896",
+      "kickoff": "2026-04-11T14:00:00+02:00",
+      "start": "2026-04-11T14:00:00+02:00",
+      "tv": "TV 2 Play / NRK",
+      "channel": "TV 2 Play / NRK"
+    },
+    {
+      "league": "OBOS-ligaen",
+      "home": "Bryne Menn Senior A",
+      "away": "Ranheim TF Menn",
+      "kickoff": "2026-04-12T17:00:00+02:00",
+      "start": "2026-04-12T17:00:00+02:00",
+      "tv": "TV 2 Play / NRK",
+      "channel": "TV 2 Play / NRK"
+    },
+    {
+      "league": "OBOS-ligaen",
       "home": "Moss Menn Senior A",
       "away": "HÃ¸dd Menn Senior A",
       "kickoff": "2026-04-12T17:00:00+02:00",
@@ -131,15 +140,6 @@
       "league": "OBOS-ligaen",
       "home": "StabÃ¦k Menn Senior A",
       "away": "Ã sane Fotball Menn Senior A",
-      "kickoff": "2026-04-12T17:00:00+02:00",
-      "start": "2026-04-12T17:00:00+02:00",
-      "tv": "TV 2 Play / NRK",
-      "channel": "TV 2 Play / NRK"
-    },
-    {
-      "league": "OBOS-ligaen",
-      "home": "Bryne Menn Senior A",
-      "away": "Ranheim TF Menn",
       "kickoff": "2026-04-12T17:00:00+02:00",
       "start": "2026-04-12T17:00:00+02:00",
       "tv": "TV 2 Play / NRK",
@@ -165,15 +165,6 @@
     },
     {
       "league": "OBOS-ligaen",
-      "home": "Kongsvinger Menn Senior A",
-      "away": "Moss Menn Senior A",
-      "kickoff": "2026-04-18T14:00:00+02:00",
-      "start": "2026-04-18T14:00:00+02:00",
-      "tv": "TV 2 Play / NRK",
-      "channel": "TV 2 Play / NRK"
-    },
-    {
-      "league": "OBOS-ligaen",
       "home": "HÃ¸dd Menn Senior A",
       "away": "Haugesund Menn Senior A",
       "kickoff": "2026-04-18T14:00:00+02:00",
@@ -192,6 +183,24 @@
     },
     {
       "league": "OBOS-ligaen",
+      "home": "Kongsvinger Menn Senior A",
+      "away": "Moss Menn Senior A",
+      "kickoff": "2026-04-18T14:00:00+02:00",
+      "start": "2026-04-18T14:00:00+02:00",
+      "tv": "TV 2 Play / NRK",
+      "channel": "TV 2 Play / NRK"
+    },
+    {
+      "league": "OBOS-ligaen",
+      "home": "Egersund Menn Senior A",
+      "away": "Bryne Menn Senior A",
+      "kickoff": "2026-04-19T17:00:00+02:00",
+      "start": "2026-04-19T17:00:00+02:00",
+      "tv": "TV 2 Play / NRK",
+      "channel": "TV 2 Play / NRK"
+    },
+    {
+      "league": "OBOS-ligaen",
       "home": "Odd Menn Senior A",
       "away": "StabÃ¦k Menn Senior A",
       "kickoff": "2026-04-19T17:00:00+02:00",
@@ -203,15 +212,6 @@
       "league": "OBOS-ligaen",
       "home": "Ã sane Fotball Menn Senior A",
       "away": "StrÃ¸mmen Menn Senior 1",
-      "kickoff": "2026-04-19T17:00:00+02:00",
-      "start": "2026-04-19T17:00:00+02:00",
-      "tv": "TV 2 Play / NRK",
-      "channel": "TV 2 Play / NRK"
-    },
-    {
-      "league": "OBOS-ligaen",
-      "home": "Egersund Menn Senior A",
-      "away": "Bryne Menn Senior A",
       "kickoff": "2026-04-19T17:00:00+02:00",
       "start": "2026-04-19T17:00:00+02:00",
       "tv": "TV 2 Play / NRK",
@@ -255,6 +255,15 @@
     },
     {
       "league": "OBOS-ligaen",
+      "home": "Sandnes Ulf Toppfotball",
+      "away": "StrÃ¸msgodset Menn Senior A",
+      "kickoff": "2026-04-26T17:00:00+02:00",
+      "start": "2026-04-26T17:00:00+02:00",
+      "tv": "TV 2 Play / NRK",
+      "channel": "TV 2 Play / NRK"
+    },
+    {
+      "league": "OBOS-ligaen",
       "home": "Moss Menn Senior A",
       "away": "Lyn 1896",
       "kickoff": "2026-04-26T17:00:00+02:00",
@@ -282,19 +291,19 @@
     },
     {
       "league": "OBOS-ligaen",
-      "home": "Sandnes Ulf Toppfotball",
-      "away": "StrÃ¸msgodset Menn Senior A",
-      "kickoff": "2026-04-26T17:00:00+02:00",
-      "start": "2026-04-26T17:00:00+02:00",
+      "home": "Egersund Menn Senior A",
+      "away": "Ranheim TF Menn",
+      "kickoff": "2026-04-27T19:00:00+02:00",
+      "start": "2026-04-27T19:00:00+02:00",
       "tv": "TV 2 Play / NRK",
       "channel": "TV 2 Play / NRK"
     },
     {
       "league": "OBOS-ligaen",
-      "home": "Egersund Menn Senior A",
-      "away": "Ranheim TF Menn",
-      "kickoff": "2026-04-27T19:00:00+02:00",
-      "start": "2026-04-27T19:00:00+02:00",
+      "home": "Lyn 1896",
+      "away": "StabÃ¦k Menn Senior A",
+      "kickoff": "2026-05-01T16:00:00+02:00",
+      "start": "2026-05-01T16:00:00+02:00",
       "tv": "TV 2 Play / NRK",
       "channel": "TV 2 Play / NRK"
     },
@@ -347,15 +356,6 @@
       "league": "OBOS-ligaen",
       "home": "StrÃ¸msgodset Menn Senior A",
       "away": "StrÃ¸mmen Menn Senior 1",
-      "kickoff": "2026-05-01T16:00:00+02:00",
-      "start": "2026-05-01T16:00:00+02:00",
-      "tv": "TV 2 Play / NRK",
-      "channel": "TV 2 Play / NRK"
-    },
-    {
-      "league": "OBOS-ligaen",
-      "home": "Lyn 1896",
-      "away": "StabÃ¦k Menn Senior A",
       "kickoff": "2026-05-01T16:00:00+02:00",
       "start": "2026-05-01T16:00:00+02:00",
       "tv": "TV 2 Play / NRK",
@@ -381,6 +381,24 @@
     },
     {
       "league": "OBOS-ligaen",
+      "home": "Moss Menn Senior A",
+      "away": "Bryne Menn Senior A",
+      "kickoff": "2026-05-10T17:00:00+02:00",
+      "start": "2026-05-10T17:00:00+02:00",
+      "tv": "TV 2 Play / NRK",
+      "channel": "TV 2 Play / NRK"
+    },
+    {
+      "league": "OBOS-ligaen",
+      "home": "Ã sane Fotball Menn Senior A",
+      "away": "StrÃ¸msgodset Menn Senior A",
+      "kickoff": "2026-05-10T17:00:00+02:00",
+      "start": "2026-05-10T17:00:00+02:00",
+      "tv": "TV 2 Play / NRK",
+      "channel": "TV 2 Play / NRK"
+    },
+    {
+      "league": "OBOS-ligaen",
       "home": "Raufoss Menn A",
       "away": "Lyn 1896",
       "kickoff": "2026-05-10T17:00:00+02:00",
@@ -410,24 +428,6 @@
       "league": "OBOS-ligaen",
       "home": "StrÃ¸mmen Menn Senior 1",
       "away": "HÃ¸dd Menn Senior A",
-      "kickoff": "2026-05-10T17:00:00+02:00",
-      "start": "2026-05-10T17:00:00+02:00",
-      "tv": "TV 2 Play / NRK",
-      "channel": "TV 2 Play / NRK"
-    },
-    {
-      "league": "OBOS-ligaen",
-      "home": "Moss Menn Senior A",
-      "away": "Bryne Menn Senior A",
-      "kickoff": "2026-05-10T17:00:00+02:00",
-      "start": "2026-05-10T17:00:00+02:00",
-      "tv": "TV 2 Play / NRK",
-      "channel": "TV 2 Play / NRK"
-    },
-    {
-      "league": "OBOS-ligaen",
-      "home": "Ã sane Fotball Menn Senior A",
-      "away": "StrÃ¸msgodset Menn Senior A",
       "kickoff": "2026-05-10T17:00:00+02:00",
       "start": "2026-05-10T17:00:00+02:00",
       "tv": "TV 2 Play / NRK",
@@ -453,42 +453,6 @@
     },
     {
       "league": "OBOS-ligaen",
-      "home": "Haugesund Menn Senior A",
-      "away": "Ã sane Fotball Menn Senior A",
-      "kickoff": "2026-05-16T16:00:00+02:00",
-      "start": "2026-05-16T16:00:00+02:00",
-      "tv": "TV 2 Play / NRK",
-      "channel": "TV 2 Play / NRK"
-    },
-    {
-      "league": "OBOS-ligaen",
-      "home": "HÃ¸dd Menn Senior A",
-      "away": "Sogndal Menn Senior A",
-      "kickoff": "2026-05-16T16:00:00+02:00",
-      "start": "2026-05-16T16:00:00+02:00",
-      "tv": "TV 2 Play / NRK",
-      "channel": "TV 2 Play / NRK"
-    },
-    {
-      "league": "OBOS-ligaen",
-      "home": "Bryne Menn Senior A",
-      "away": "StrÃ¸mmen Menn Senior 1",
-      "kickoff": "2026-05-16T16:00:00+02:00",
-      "start": "2026-05-16T16:00:00+02:00",
-      "tv": "TV 2 Play / NRK",
-      "channel": "TV 2 Play / NRK"
-    },
-    {
-      "league": "OBOS-ligaen",
-      "home": "StabÃ¦k Menn Senior A",
-      "away": "Raufoss Menn A",
-      "kickoff": "2026-05-16T16:00:00+02:00",
-      "start": "2026-05-16T16:00:00+02:00",
-      "tv": "TV 2 Play / NRK",
-      "channel": "TV 2 Play / NRK"
-    },
-    {
-      "league": "OBOS-ligaen",
       "home": "Lyn 1896",
       "away": "Kongsvinger Menn Senior A",
       "kickoff": "2026-05-16T16:00:00+02:00",
@@ -516,8 +480,44 @@
     },
     {
       "league": "OBOS-ligaen",
-      "home": "Egersund Menn Senior A",
-      "away": "Lyn 1896",
+      "home": "Bryne Menn Senior A",
+      "away": "StrÃ¸mmen Menn Senior 1",
+      "kickoff": "2026-05-16T16:00:00+02:00",
+      "start": "2026-05-16T16:00:00+02:00",
+      "tv": "TV 2 Play / NRK",
+      "channel": "TV 2 Play / NRK"
+    },
+    {
+      "league": "OBOS-ligaen",
+      "home": "StabÃ¦k Menn Senior A",
+      "away": "Raufoss Menn A",
+      "kickoff": "2026-05-16T16:00:00+02:00",
+      "start": "2026-05-16T16:00:00+02:00",
+      "tv": "TV 2 Play / NRK",
+      "channel": "TV 2 Play / NRK"
+    },
+    {
+      "league": "OBOS-ligaen",
+      "home": "Haugesund Menn Senior A",
+      "away": "Ã sane Fotball Menn Senior A",
+      "kickoff": "2026-05-16T16:00:00+02:00",
+      "start": "2026-05-16T16:00:00+02:00",
+      "tv": "TV 2 Play / NRK",
+      "channel": "TV 2 Play / NRK"
+    },
+    {
+      "league": "OBOS-ligaen",
+      "home": "HÃ¸dd Menn Senior A",
+      "away": "Sogndal Menn Senior A",
+      "kickoff": "2026-05-16T16:00:00+02:00",
+      "start": "2026-05-16T16:00:00+02:00",
+      "tv": "TV 2 Play / NRK",
+      "channel": "TV 2 Play / NRK"
+    },
+    {
+      "league": "OBOS-ligaen",
+      "home": "Kongsvinger Menn Senior A",
+      "away": "Odd Menn Senior A",
       "kickoff": "2026-05-20T19:00:00+02:00",
       "start": "2026-05-20T19:00:00+02:00",
       "tv": "TV 2 Play / NRK",
@@ -525,17 +525,8 @@
     },
     {
       "league": "OBOS-ligaen",
-      "home": "Ranheim TF Menn",
-      "away": "HÃ¸dd Menn Senior A",
-      "kickoff": "2026-05-20T19:00:00+02:00",
-      "start": "2026-05-20T19:00:00+02:00",
-      "tv": "TV 2 Play / NRK",
-      "channel": "TV 2 Play / NRK"
-    },
-    {
-      "league": "OBOS-ligaen",
-      "home": "Sogndal Menn Senior A",
-      "away": "StabÃ¦k Menn Senior A",
+      "home": "StrÃ¸mmen Menn Senior 1",
+      "away": "Haugesund Menn Senior A",
       "kickoff": "2026-05-20T19:00:00+02:00",
       "start": "2026-05-20T19:00:00+02:00",
       "tv": "TV 2 Play / NRK",
@@ -570,8 +561,8 @@
     },
     {
       "league": "OBOS-ligaen",
-      "home": "Kongsvinger Menn Senior A",
-      "away": "Odd Menn Senior A",
+      "home": "Egersund Menn Senior A",
+      "away": "Lyn 1896",
       "kickoff": "2026-05-20T19:00:00+02:00",
       "start": "2026-05-20T19:00:00+02:00",
       "tv": "TV 2 Play / NRK",
@@ -579,8 +570,8 @@
     },
     {
       "league": "OBOS-ligaen",
-      "home": "StrÃ¸mmen Menn Senior 1",
-      "away": "Haugesund Menn Senior A",
+      "home": "Ranheim TF Menn",
+      "away": "HÃ¸dd Menn Senior A",
       "kickoff": "2026-05-20T19:00:00+02:00",
       "start": "2026-05-20T19:00:00+02:00",
       "tv": "TV 2 Play / NRK",
@@ -588,28 +579,10 @@
     },
     {
       "league": "OBOS-ligaen",
-      "home": "Odd Menn Senior A",
-      "away": "Ranheim TF Menn",
-      "kickoff": "2026-05-25T19:00:00+02:00",
-      "start": "2026-05-25T19:00:00+02:00",
-      "tv": "TV 2 Play / NRK",
-      "channel": "TV 2 Play / NRK"
-    },
-    {
-      "league": "OBOS-ligaen",
-      "home": "Sandnes Ulf Toppfotball",
-      "away": "Sogndal Menn Senior A",
-      "kickoff": "2026-05-25T19:00:00+02:00",
-      "start": "2026-05-25T19:00:00+02:00",
-      "tv": "TV 2 Play / NRK",
-      "channel": "TV 2 Play / NRK"
-    },
-    {
-      "league": "OBOS-ligaen",
-      "home": "Ã sane Fotball Menn Senior A",
-      "away": "Raufoss Menn A",
-      "kickoff": "2026-05-25T19:00:00+02:00",
-      "start": "2026-05-25T19:00:00+02:00",
+      "home": "Sogndal Menn Senior A",
+      "away": "StabÃ¦k Menn Senior A",
+      "kickoff": "2026-05-20T19:00:00+02:00",
+      "start": "2026-05-20T19:00:00+02:00",
       "tv": "TV 2 Play / NRK",
       "channel": "TV 2 Play / NRK"
     },
@@ -660,17 +633,35 @@
     },
     {
       "league": "OBOS-ligaen",
-      "home": "Egersund Menn Senior A",
-      "away": "StrÃ¸msgodset Menn Senior A",
-      "kickoff": "2026-05-31T17:00:00+02:00",
-      "start": "2026-05-31T17:00:00+02:00",
+      "home": "Odd Menn Senior A",
+      "away": "Ranheim TF Menn",
+      "kickoff": "2026-05-25T19:00:00+02:00",
+      "start": "2026-05-25T19:00:00+02:00",
       "tv": "TV 2 Play / NRK",
       "channel": "TV 2 Play / NRK"
     },
     {
       "league": "OBOS-ligaen",
-      "home": "Raufoss Menn A",
-      "away": "Haugesund Menn Senior A",
+      "home": "Sandnes Ulf Toppfotball",
+      "away": "Sogndal Menn Senior A",
+      "kickoff": "2026-05-25T19:00:00+02:00",
+      "start": "2026-05-25T19:00:00+02:00",
+      "tv": "TV 2 Play / NRK",
+      "channel": "TV 2 Play / NRK"
+    },
+    {
+      "league": "OBOS-ligaen",
+      "home": "Ã sane Fotball Menn Senior A",
+      "away": "Raufoss Menn A",
+      "kickoff": "2026-05-25T19:00:00+02:00",
+      "start": "2026-05-25T19:00:00+02:00",
+      "tv": "TV 2 Play / NRK",
+      "channel": "TV 2 Play / NRK"
+    },
+    {
+      "league": "OBOS-ligaen",
+      "home": "Bryne Menn Senior A",
+      "away": "HÃ¸dd Menn Senior A",
       "kickoff": "2026-05-31T17:00:00+02:00",
       "start": "2026-05-31T17:00:00+02:00",
       "tv": "TV 2 Play / NRK",
@@ -723,8 +714,8 @@
     },
     {
       "league": "OBOS-ligaen",
-      "home": "Bryne Menn Senior A",
-      "away": "HÃ¸dd Menn Senior A",
+      "home": "Egersund Menn Senior A",
+      "away": "StrÃ¸msgodset Menn Senior A",
       "kickoff": "2026-05-31T17:00:00+02:00",
       "start": "2026-05-31T17:00:00+02:00",
       "tv": "TV 2 Play / NRK",
@@ -732,8 +723,17 @@
     },
     {
       "league": "OBOS-ligaen",
-      "home": "Sogndal Menn Senior A",
-      "away": "Moss Menn Senior A",
+      "home": "Raufoss Menn A",
+      "away": "Haugesund Menn Senior A",
+      "kickoff": "2026-05-31T17:00:00+02:00",
+      "start": "2026-05-31T17:00:00+02:00",
+      "tv": "TV 2 Play / NRK",
+      "channel": "TV 2 Play / NRK"
+    },
+    {
+      "league": "OBOS-ligaen",
+      "home": "HÃ¸dd Menn Senior A",
+      "away": "Kongsvinger Menn Senior A",
       "kickoff": "2026-06-14T17:00:00+02:00",
       "start": "2026-06-14T17:00:00+02:00",
       "tv": "TV 2 Play / NRK",
@@ -741,8 +741,17 @@
     },
     {
       "league": "OBOS-ligaen",
-      "home": "StabÃ¦k Menn Senior A",
-      "away": "Egersund Menn Senior A",
+      "home": "Lyn 1896",
+      "away": "Bryne Menn Senior A",
+      "kickoff": "2026-06-14T17:00:00+02:00",
+      "start": "2026-06-14T17:00:00+02:00",
+      "tv": "TV 2 Play / NRK",
+      "channel": "TV 2 Play / NRK"
+    },
+    {
+      "league": "OBOS-ligaen",
+      "home": "Ã sane Fotball Menn Senior A",
+      "away": "Odd Menn Senior A",
       "kickoff": "2026-06-14T17:00:00+02:00",
       "start": "2026-06-14T17:00:00+02:00",
       "tv": "TV 2 Play / NRK",
@@ -777,8 +786,8 @@
     },
     {
       "league": "OBOS-ligaen",
-      "home": "HÃ¸dd Menn Senior A",
-      "away": "Kongsvinger Menn Senior A",
+      "home": "Sogndal Menn Senior A",
+      "away": "Moss Menn Senior A",
       "kickoff": "2026-06-14T17:00:00+02:00",
       "start": "2026-06-14T17:00:00+02:00",
       "tv": "TV 2 Play / NRK",
@@ -786,8 +795,8 @@
     },
     {
       "league": "OBOS-ligaen",
-      "home": "Lyn 1896",
-      "away": "Bryne Menn Senior A",
+      "home": "StabÃ¦k Menn Senior A",
+      "away": "Egersund Menn Senior A",
       "kickoff": "2026-06-14T17:00:00+02:00",
       "start": "2026-06-14T17:00:00+02:00",
       "tv": "TV 2 Play / NRK",
@@ -795,17 +804,8 @@
     },
     {
       "league": "OBOS-ligaen",
-      "home": "Ã sane Fotball Menn Senior A",
-      "away": "Odd Menn Senior A",
-      "kickoff": "2026-06-14T17:00:00+02:00",
-      "start": "2026-06-14T17:00:00+02:00",
-      "tv": "TV 2 Play / NRK",
-      "channel": "TV 2 Play / NRK"
-    },
-    {
-      "league": "OBOS-ligaen",
-      "home": "Kongsvinger Menn Senior A",
-      "away": "StrÃ¸msgodset Menn Senior A",
+      "home": "Bryne Menn Senior A",
+      "away": "Ã sane Fotball Menn Senior A",
       "kickoff": "2026-06-21T17:00:00+02:00",
       "start": "2026-06-21T17:00:00+02:00",
       "tv": "TV 2 Play / NRK",
@@ -813,17 +813,8 @@
     },
     {
       "league": "OBOS-ligaen",
-      "home": "Moss Menn Senior A",
-      "away": "Sandnes Ulf Toppfotball",
-      "kickoff": "2026-06-21T17:00:00+02:00",
-      "start": "2026-06-21T17:00:00+02:00",
-      "tv": "TV 2 Play / NRK",
-      "channel": "TV 2 Play / NRK"
-    },
-    {
-      "league": "OBOS-ligaen",
-      "home": "Ranheim TF Menn",
-      "away": "Lyn 1896",
+      "home": "Odd Menn Senior A",
+      "away": "HÃ¸dd Menn Senior A",
       "kickoff": "2026-06-21T17:00:00+02:00",
       "start": "2026-06-21T17:00:00+02:00",
       "tv": "TV 2 Play / NRK",
@@ -858,8 +849,8 @@
     },
     {
       "league": "OBOS-ligaen",
-      "home": "Bryne Menn Senior A",
-      "away": "Ã sane Fotball Menn Senior A",
+      "home": "Kongsvinger Menn Senior A",
+      "away": "StrÃ¸msgodset Menn Senior A",
       "kickoff": "2026-06-21T17:00:00+02:00",
       "start": "2026-06-21T17:00:00+02:00",
       "tv": "TV 2 Play / NRK",
@@ -867,8 +858,8 @@
     },
     {
       "league": "OBOS-ligaen",
-      "home": "Odd Menn Senior A",
-      "away": "HÃ¸dd Menn Senior A",
+      "home": "Moss Menn Senior A",
+      "away": "Sandnes Ulf Toppfotball",
       "kickoff": "2026-06-21T17:00:00+02:00",
       "start": "2026-06-21T17:00:00+02:00",
       "tv": "TV 2 Play / NRK",
@@ -876,19 +867,10 @@
     },
     {
       "league": "OBOS-ligaen",
-      "home": "StrÃ¸msgodset Menn Senior A",
-      "away": "Odd Menn Senior A",
-      "kickoff": "2026-06-28T17:00:00+02:00",
-      "start": "2026-06-28T17:00:00+02:00",
-      "tv": "TV 2 Play / NRK",
-      "channel": "TV 2 Play / NRK"
-    },
-    {
-      "league": "OBOS-ligaen",
-      "home": "Lyn 1896",
-      "away": "HÃ¸dd Menn Senior A",
-      "kickoff": "2026-06-28T17:00:00+02:00",
-      "start": "2026-06-28T17:00:00+02:00",
+      "home": "Ranheim TF Menn",
+      "away": "Lyn 1896",
+      "kickoff": "2026-06-21T17:00:00+02:00",
+      "start": "2026-06-21T17:00:00+02:00",
       "tv": "TV 2 Play / NRK",
       "channel": "TV 2 Play / NRK"
     },
@@ -948,8 +930,26 @@
     },
     {
       "league": "OBOS-ligaen",
-      "home": "Bryne Menn Senior A",
-      "away": "Sandnes Ulf Toppfotball",
+      "home": "Lyn 1896",
+      "away": "HÃ¸dd Menn Senior A",
+      "kickoff": "2026-06-28T17:00:00+02:00",
+      "start": "2026-06-28T17:00:00+02:00",
+      "tv": "TV 2 Play / NRK",
+      "channel": "TV 2 Play / NRK"
+    },
+    {
+      "league": "OBOS-ligaen",
+      "home": "StrÃ¸msgodset Menn Senior A",
+      "away": "Odd Menn Senior A",
+      "kickoff": "2026-06-28T17:00:00+02:00",
+      "start": "2026-06-28T17:00:00+02:00",
+      "tv": "TV 2 Play / NRK",
+      "channel": "TV 2 Play / NRK"
+    },
+    {
+      "league": "OBOS-ligaen",
+      "home": "HÃ¸dd Menn Senior A",
+      "away": "StrÃ¸msgodset Menn Senior A",
       "kickoff": "2026-07-03T19:00:00+02:00",
       "start": "2026-07-03T19:00:00+02:00",
       "tv": "TV 2 Play / NRK",
@@ -957,8 +957,8 @@
     },
     {
       "league": "OBOS-ligaen",
-      "home": "Egersund Menn Senior A",
-      "away": "Moss Menn Senior A",
+      "home": "Kongsvinger Menn Senior A",
+      "away": "Sogndal Menn Senior A",
       "kickoff": "2026-07-03T19:00:00+02:00",
       "start": "2026-07-03T19:00:00+02:00",
       "tv": "TV 2 Play / NRK",
@@ -966,8 +966,8 @@
     },
     {
       "league": "OBOS-ligaen",
-      "home": "Ranheim TF Menn",
-      "away": "StabÃ¦k Menn Senior A",
+      "home": "Lyn 1896",
+      "away": "Ã sane Fotball Menn Senior A",
       "kickoff": "2026-07-03T19:00:00+02:00",
       "start": "2026-07-03T19:00:00+02:00",
       "tv": "TV 2 Play / NRK",
@@ -993,8 +993,8 @@
     },
     {
       "league": "OBOS-ligaen",
-      "home": "HÃ¸dd Menn Senior A",
-      "away": "StrÃ¸msgodset Menn Senior A",
+      "home": "Bryne Menn Senior A",
+      "away": "Sandnes Ulf Toppfotball",
       "kickoff": "2026-07-03T19:00:00+02:00",
       "start": "2026-07-03T19:00:00+02:00",
       "tv": "TV 2 Play / NRK",
@@ -1002,8 +1002,8 @@
     },
     {
       "league": "OBOS-ligaen",
-      "home": "Kongsvinger Menn Senior A",
-      "away": "Sogndal Menn Senior A",
+      "home": "Egersund Menn Senior A",
+      "away": "Moss Menn Senior A",
       "kickoff": "2026-07-03T19:00:00+02:00",
       "start": "2026-07-03T19:00:00+02:00",
       "tv": "TV 2 Play / NRK",
@@ -1011,10 +1011,46 @@
     },
     {
       "league": "OBOS-ligaen",
-      "home": "Lyn 1896",
-      "away": "Ã sane Fotball Menn Senior A",
+      "home": "Ranheim TF Menn",
+      "away": "StabÃ¦k Menn Senior A",
       "kickoff": "2026-07-03T19:00:00+02:00",
       "start": "2026-07-03T19:00:00+02:00",
+      "tv": "TV 2 Play / NRK",
+      "channel": "TV 2 Play / NRK"
+    },
+    {
+      "league": "OBOS-ligaen",
+      "home": "Sandnes Ulf Toppfotball",
+      "away": "Kongsvinger Menn Senior A",
+      "kickoff": "2026-07-26T17:00:00+02:00",
+      "start": "2026-07-26T17:00:00+02:00",
+      "tv": "TV 2 Play / NRK",
+      "channel": "TV 2 Play / NRK"
+    },
+    {
+      "league": "OBOS-ligaen",
+      "home": "Sogndal Menn Senior A",
+      "away": "Ranheim TF Menn",
+      "kickoff": "2026-07-26T17:00:00+02:00",
+      "start": "2026-07-26T17:00:00+02:00",
+      "tv": "TV 2 Play / NRK",
+      "channel": "TV 2 Play / NRK"
+    },
+    {
+      "league": "OBOS-ligaen",
+      "home": "Moss Menn Senior A",
+      "away": "Raufoss Menn A",
+      "kickoff": "2026-07-26T17:00:00+02:00",
+      "start": "2026-07-26T17:00:00+02:00",
+      "tv": "TV 2 Play / NRK",
+      "channel": "TV 2 Play / NRK"
+    },
+    {
+      "league": "OBOS-ligaen",
+      "home": "StabÃ¦k Menn Senior A",
+      "away": "HÃ¸dd Menn Senior A",
+      "kickoff": "2026-07-26T17:00:00+02:00",
+      "start": "2026-07-26T17:00:00+02:00",
       "tv": "TV 2 Play / NRK",
       "channel": "TV 2 Play / NRK"
     },
@@ -1056,44 +1092,8 @@
     },
     {
       "league": "OBOS-ligaen",
-      "home": "Moss Menn Senior A",
-      "away": "Raufoss Menn A",
-      "kickoff": "2026-07-26T17:00:00+02:00",
-      "start": "2026-07-26T17:00:00+02:00",
-      "tv": "TV 2 Play / NRK",
-      "channel": "TV 2 Play / NRK"
-    },
-    {
-      "league": "OBOS-ligaen",
-      "home": "StabÃ¦k Menn Senior A",
-      "away": "HÃ¸dd Menn Senior A",
-      "kickoff": "2026-07-26T17:00:00+02:00",
-      "start": "2026-07-26T17:00:00+02:00",
-      "tv": "TV 2 Play / NRK",
-      "channel": "TV 2 Play / NRK"
-    },
-    {
-      "league": "OBOS-ligaen",
-      "home": "Sandnes Ulf Toppfotball",
-      "away": "Kongsvinger Menn Senior A",
-      "kickoff": "2026-07-26T17:00:00+02:00",
-      "start": "2026-07-26T17:00:00+02:00",
-      "tv": "TV 2 Play / NRK",
-      "channel": "TV 2 Play / NRK"
-    },
-    {
-      "league": "OBOS-ligaen",
-      "home": "Sogndal Menn Senior A",
-      "away": "Ranheim TF Menn",
-      "kickoff": "2026-07-26T17:00:00+02:00",
-      "start": "2026-07-26T17:00:00+02:00",
-      "tv": "TV 2 Play / NRK",
-      "channel": "TV 2 Play / NRK"
-    },
-    {
-      "league": "OBOS-ligaen",
-      "home": "Ranheim TF Menn",
-      "away": "Haugesund Menn Senior A",
+      "home": "Bryne Menn Senior A",
+      "away": "StrÃ¸msgodset Menn Senior A",
       "kickoff": "2026-08-02T17:00:00+02:00",
       "start": "2026-08-02T17:00:00+02:00",
       "tv": "TV 2 Play / NRK",
@@ -1101,8 +1101,8 @@
     },
     {
       "league": "OBOS-ligaen",
-      "home": "Raufoss Menn A",
-      "away": "StabÃ¦k Menn Senior A",
+      "home": "Egersund Menn Senior A",
+      "away": "Sandnes Ulf Toppfotball",
       "kickoff": "2026-08-02T17:00:00+02:00",
       "start": "2026-08-02T17:00:00+02:00",
       "tv": "TV 2 Play / NRK",
@@ -1146,8 +1146,8 @@
     },
     {
       "league": "OBOS-ligaen",
-      "home": "Bryne Menn Senior A",
-      "away": "StrÃ¸msgodset Menn Senior A",
+      "home": "Ranheim TF Menn",
+      "away": "Haugesund Menn Senior A",
       "kickoff": "2026-08-02T17:00:00+02:00",
       "start": "2026-08-02T17:00:00+02:00",
       "tv": "TV 2 Play / NRK",
@@ -1155,46 +1155,10 @@
     },
     {
       "league": "OBOS-ligaen",
-      "home": "Egersund Menn Senior A",
-      "away": "Sandnes Ulf Toppfotball",
+      "home": "Raufoss Menn A",
+      "away": "StabÃ¦k Menn Senior A",
       "kickoff": "2026-08-02T17:00:00+02:00",
       "start": "2026-08-02T17:00:00+02:00",
-      "tv": "TV 2 Play / NRK",
-      "channel": "TV 2 Play / NRK"
-    },
-    {
-      "league": "OBOS-ligaen",
-      "home": "Haugesund Menn Senior A",
-      "away": "Raufoss Menn A",
-      "kickoff": "2026-08-09T17:00:00+02:00",
-      "start": "2026-08-09T17:00:00+02:00",
-      "tv": "TV 2 Play / NRK",
-      "channel": "TV 2 Play / NRK"
-    },
-    {
-      "league": "OBOS-ligaen",
-      "home": "StabÃ¦k Menn Senior A",
-      "away": "Lyn 1896",
-      "kickoff": "2026-08-09T17:00:00+02:00",
-      "start": "2026-08-09T17:00:00+02:00",
-      "tv": "TV 2 Play / NRK",
-      "channel": "TV 2 Play / NRK"
-    },
-    {
-      "league": "OBOS-ligaen",
-      "home": "Sogndal Menn Senior A",
-      "away": "Bryne Menn Senior A",
-      "kickoff": "2026-08-09T17:00:00+02:00",
-      "start": "2026-08-09T17:00:00+02:00",
-      "tv": "TV 2 Play / NRK",
-      "channel": "TV 2 Play / NRK"
-    },
-    {
-      "league": "OBOS-ligaen",
-      "home": "Ã sane Fotball Menn Senior A",
-      "away": "Kongsvinger Menn Senior A",
-      "kickoff": "2026-08-09T17:00:00+02:00",
-      "start": "2026-08-09T17:00:00+02:00",
       "tv": "TV 2 Play / NRK",
       "channel": "TV 2 Play / NRK"
     },
@@ -1236,37 +1200,37 @@
     },
     {
       "league": "OBOS-ligaen",
-      "home": "Bryne Menn Senior A",
-      "away": "Moss Menn Senior A",
-      "kickoff": "2026-08-16T17:00:00+02:00",
-      "start": "2026-08-16T17:00:00+02:00",
+      "home": "Sogndal Menn Senior A",
+      "away": "Bryne Menn Senior A",
+      "kickoff": "2026-08-09T17:00:00+02:00",
+      "start": "2026-08-09T17:00:00+02:00",
       "tv": "TV 2 Play / NRK",
       "channel": "TV 2 Play / NRK"
     },
     {
       "league": "OBOS-ligaen",
-      "home": "Egersund Menn Senior A",
-      "away": "StabÃ¦k Menn Senior A",
-      "kickoff": "2026-08-16T17:00:00+02:00",
-      "start": "2026-08-16T17:00:00+02:00",
+      "home": "Ã sane Fotball Menn Senior A",
+      "away": "Kongsvinger Menn Senior A",
+      "kickoff": "2026-08-09T17:00:00+02:00",
+      "start": "2026-08-09T17:00:00+02:00",
       "tv": "TV 2 Play / NRK",
       "channel": "TV 2 Play / NRK"
     },
     {
       "league": "OBOS-ligaen",
-      "home": "Kongsvinger Menn Senior A",
-      "away": "Haugesund Menn Senior A",
-      "kickoff": "2026-08-16T17:00:00+02:00",
-      "start": "2026-08-16T17:00:00+02:00",
+      "home": "Haugesund Menn Senior A",
+      "away": "Raufoss Menn A",
+      "kickoff": "2026-08-09T17:00:00+02:00",
+      "start": "2026-08-09T17:00:00+02:00",
       "tv": "TV 2 Play / NRK",
       "channel": "TV 2 Play / NRK"
     },
     {
       "league": "OBOS-ligaen",
-      "home": "Lyn 1896",
-      "away": "Odd Menn Senior A",
-      "kickoff": "2026-08-16T17:00:00+02:00",
-      "start": "2026-08-16T17:00:00+02:00",
+      "home": "StabÃ¦k Menn Senior A",
+      "away": "Lyn 1896",
+      "kickoff": "2026-08-09T17:00:00+02:00",
+      "start": "2026-08-09T17:00:00+02:00",
       "tv": "TV 2 Play / NRK",
       "channel": "TV 2 Play / NRK"
     },
@@ -1308,17 +1272,44 @@
     },
     {
       "league": "OBOS-ligaen",
-      "home": "StrÃ¸mmen Menn Senior 1",
-      "away": "Raufoss Menn A",
-      "kickoff": "2026-08-26T19:00:00+02:00",
-      "start": "2026-08-26T19:00:00+02:00",
+      "home": "Kongsvinger Menn Senior A",
+      "away": "Haugesund Menn Senior A",
+      "kickoff": "2026-08-16T17:00:00+02:00",
+      "start": "2026-08-16T17:00:00+02:00",
       "tv": "TV 2 Play / NRK",
       "channel": "TV 2 Play / NRK"
     },
     {
       "league": "OBOS-ligaen",
-      "home": "StabÃ¦k Menn Senior A",
-      "away": "Ranheim TF Menn",
+      "home": "Lyn 1896",
+      "away": "Odd Menn Senior A",
+      "kickoff": "2026-08-16T17:00:00+02:00",
+      "start": "2026-08-16T17:00:00+02:00",
+      "tv": "TV 2 Play / NRK",
+      "channel": "TV 2 Play / NRK"
+    },
+    {
+      "league": "OBOS-ligaen",
+      "home": "Bryne Menn Senior A",
+      "away": "Moss Menn Senior A",
+      "kickoff": "2026-08-16T17:00:00+02:00",
+      "start": "2026-08-16T17:00:00+02:00",
+      "tv": "TV 2 Play / NRK",
+      "channel": "TV 2 Play / NRK"
+    },
+    {
+      "league": "OBOS-ligaen",
+      "home": "Egersund Menn Senior A",
+      "away": "StabÃ¦k Menn Senior A",
+      "kickoff": "2026-08-16T17:00:00+02:00",
+      "start": "2026-08-16T17:00:00+02:00",
+      "tv": "TV 2 Play / NRK",
+      "channel": "TV 2 Play / NRK"
+    },
+    {
+      "league": "OBOS-ligaen",
+      "home": "Ã sane Fotball Menn Senior A",
+      "away": "Lyn 1896",
       "kickoff": "2026-08-26T19:00:00+02:00",
       "start": "2026-08-26T19:00:00+02:00",
       "tv": "TV 2 Play / NRK",
@@ -1371,8 +1362,8 @@
     },
     {
       "league": "OBOS-ligaen",
-      "home": "Ã sane Fotball Menn Senior A",
-      "away": "Lyn 1896",
+      "home": "StrÃ¸mmen Menn Senior 1",
+      "away": "Raufoss Menn A",
       "kickoff": "2026-08-26T19:00:00+02:00",
       "start": "2026-08-26T19:00:00+02:00",
       "tv": "TV 2 Play / NRK",
@@ -1380,37 +1371,10 @@
     },
     {
       "league": "OBOS-ligaen",
-      "home": "Kongsvinger Menn Senior A",
-      "away": "Lyn 1896",
-      "kickoff": "2026-08-30T17:00:00+02:00",
-      "start": "2026-08-30T17:00:00+02:00",
-      "tv": "TV 2 Play / NRK",
-      "channel": "TV 2 Play / NRK"
-    },
-    {
-      "league": "OBOS-ligaen",
-      "home": "Moss Menn Senior A",
-      "away": "StrÃ¸mmen Menn Senior 1",
-      "kickoff": "2026-08-30T17:00:00+02:00",
-      "start": "2026-08-30T17:00:00+02:00",
-      "tv": "TV 2 Play / NRK",
-      "channel": "TV 2 Play / NRK"
-    },
-    {
-      "league": "OBOS-ligaen",
-      "home": "Egersund Menn Senior A",
-      "away": "Ã sane Fotball Menn Senior A",
-      "kickoff": "2026-08-30T17:00:00+02:00",
-      "start": "2026-08-30T17:00:00+02:00",
-      "tv": "TV 2 Play / NRK",
-      "channel": "TV 2 Play / NRK"
-    },
-    {
-      "league": "OBOS-ligaen",
-      "home": "HÃ¸dd Menn Senior A",
-      "away": "StabÃ¦k Menn Senior A",
-      "kickoff": "2026-08-30T17:00:00+02:00",
-      "start": "2026-08-30T17:00:00+02:00",
+      "home": "StabÃ¦k Menn Senior A",
+      "away": "Ranheim TF Menn",
+      "kickoff": "2026-08-26T19:00:00+02:00",
+      "start": "2026-08-26T19:00:00+02:00",
       "tv": "TV 2 Play / NRK",
       "channel": "TV 2 Play / NRK"
     },
@@ -1447,6 +1411,69 @@
       "away": "StrÃ¸msgodset Menn Senior A",
       "kickoff": "2026-08-30T17:00:00+02:00",
       "start": "2026-08-30T17:00:00+02:00",
+      "tv": "TV 2 Play / NRK",
+      "channel": "TV 2 Play / NRK"
+    },
+    {
+      "league": "OBOS-ligaen",
+      "home": "Egersund Menn Senior A",
+      "away": "Ã sane Fotball Menn Senior A",
+      "kickoff": "2026-08-30T17:00:00+02:00",
+      "start": "2026-08-30T17:00:00+02:00",
+      "tv": "TV 2 Play / NRK",
+      "channel": "TV 2 Play / NRK"
+    },
+    {
+      "league": "OBOS-ligaen",
+      "home": "HÃ¸dd Menn Senior A",
+      "away": "StabÃ¦k Menn Senior A",
+      "kickoff": "2026-08-30T17:00:00+02:00",
+      "start": "2026-08-30T17:00:00+02:00",
+      "tv": "TV 2 Play / NRK",
+      "channel": "TV 2 Play / NRK"
+    },
+    {
+      "league": "OBOS-ligaen",
+      "home": "Kongsvinger Menn Senior A",
+      "away": "Lyn 1896",
+      "kickoff": "2026-08-30T17:00:00+02:00",
+      "start": "2026-08-30T17:00:00+02:00",
+      "tv": "TV 2 Play / NRK",
+      "channel": "TV 2 Play / NRK"
+    },
+    {
+      "league": "OBOS-ligaen",
+      "home": "Moss Menn Senior A",
+      "away": "StrÃ¸mmen Menn Senior 1",
+      "kickoff": "2026-08-30T17:00:00+02:00",
+      "start": "2026-08-30T17:00:00+02:00",
+      "tv": "TV 2 Play / NRK",
+      "channel": "TV 2 Play / NRK"
+    },
+    {
+      "league": "OBOS-ligaen",
+      "home": "Lyn 1896",
+      "away": "Egersund Menn Senior A",
+      "kickoff": "2026-09-06T17:00:00+02:00",
+      "start": "2026-09-06T17:00:00+02:00",
+      "tv": "TV 2 Play / NRK",
+      "channel": "TV 2 Play / NRK"
+    },
+    {
+      "league": "OBOS-ligaen",
+      "home": "Ã sane Fotball Menn Senior A",
+      "away": "HÃ¸dd Menn Senior A",
+      "kickoff": "2026-09-06T17:00:00+02:00",
+      "start": "2026-09-06T17:00:00+02:00",
+      "tv": "TV 2 Play / NRK",
+      "channel": "TV 2 Play / NRK"
+    },
+    {
+      "league": "OBOS-ligaen",
+      "home": "Haugesund Menn Senior A",
+      "away": "Sogndal Menn Senior A",
+      "kickoff": "2026-09-06T17:00:00+02:00",
+      "start": "2026-09-06T17:00:00+02:00",
       "tv": "TV 2 Play / NRK",
       "channel": "TV 2 Play / NRK"
     },
@@ -1497,28 +1524,37 @@
     },
     {
       "league": "OBOS-ligaen",
-      "home": "Haugesund Menn Senior A",
-      "away": "Sogndal Menn Senior A",
-      "kickoff": "2026-09-06T17:00:00+02:00",
-      "start": "2026-09-06T17:00:00+02:00",
+      "home": "Bryne Menn Senior A",
+      "away": "StabÃ¦k Menn Senior A",
+      "kickoff": "2026-09-13T17:00:00+02:00",
+      "start": "2026-09-13T17:00:00+02:00",
       "tv": "TV 2 Play / NRK",
       "channel": "TV 2 Play / NRK"
     },
     {
       "league": "OBOS-ligaen",
-      "home": "Lyn 1896",
-      "away": "Egersund Menn Senior A",
-      "kickoff": "2026-09-06T17:00:00+02:00",
-      "start": "2026-09-06T17:00:00+02:00",
+      "home": "HÃ¸dd Menn Senior A",
+      "away": "Lyn 1896",
+      "kickoff": "2026-09-13T17:00:00+02:00",
+      "start": "2026-09-13T17:00:00+02:00",
       "tv": "TV 2 Play / NRK",
       "channel": "TV 2 Play / NRK"
     },
     {
       "league": "OBOS-ligaen",
-      "home": "Ã sane Fotball Menn Senior A",
-      "away": "HÃ¸dd Menn Senior A",
-      "kickoff": "2026-09-06T17:00:00+02:00",
-      "start": "2026-09-06T17:00:00+02:00",
+      "home": "Moss Menn Senior A",
+      "away": "Haugesund Menn Senior A",
+      "kickoff": "2026-09-13T17:00:00+02:00",
+      "start": "2026-09-13T17:00:00+02:00",
+      "tv": "TV 2 Play / NRK",
+      "channel": "TV 2 Play / NRK"
+    },
+    {
+      "league": "OBOS-ligaen",
+      "home": "StrÃ¸msgodset Menn Senior A",
+      "away": "Sandnes Ulf Toppfotball",
+      "kickoff": "2026-09-13T17:00:00+02:00",
+      "start": "2026-09-13T17:00:00+02:00",
       "tv": "TV 2 Play / NRK",
       "channel": "TV 2 Play / NRK"
     },
@@ -1560,37 +1596,37 @@
     },
     {
       "league": "OBOS-ligaen",
-      "home": "Bryne Menn Senior A",
-      "away": "StabÃ¦k Menn Senior A",
-      "kickoff": "2026-09-13T17:00:00+02:00",
-      "start": "2026-09-13T17:00:00+02:00",
+      "home": "Kongsvinger Menn Senior A",
+      "away": "HÃ¸dd Menn Senior A",
+      "kickoff": "2026-09-20T17:00:00+02:00",
+      "start": "2026-09-20T17:00:00+02:00",
       "tv": "TV 2 Play / NRK",
       "channel": "TV 2 Play / NRK"
     },
     {
       "league": "OBOS-ligaen",
-      "home": "HÃ¸dd Menn Senior A",
-      "away": "Lyn 1896",
-      "kickoff": "2026-09-13T17:00:00+02:00",
-      "start": "2026-09-13T17:00:00+02:00",
+      "home": "Lyn 1896",
+      "away": "Ranheim TF Menn",
+      "kickoff": "2026-09-20T17:00:00+02:00",
+      "start": "2026-09-20T17:00:00+02:00",
       "tv": "TV 2 Play / NRK",
       "channel": "TV 2 Play / NRK"
     },
     {
       "league": "OBOS-ligaen",
-      "home": "Moss Menn Senior A",
-      "away": "Haugesund Menn Senior A",
-      "kickoff": "2026-09-13T17:00:00+02:00",
-      "start": "2026-09-13T17:00:00+02:00",
+      "home": "Ã sane Fotball Menn Senior A",
+      "away": "Bryne Menn Senior A",
+      "kickoff": "2026-09-20T17:00:00+02:00",
+      "start": "2026-09-20T17:00:00+02:00",
       "tv": "TV 2 Play / NRK",
       "channel": "TV 2 Play / NRK"
     },
     {
       "league": "OBOS-ligaen",
-      "home": "StrÃ¸msgodset Menn Senior A",
-      "away": "Sandnes Ulf Toppfotball",
-      "kickoff": "2026-09-13T17:00:00+02:00",
-      "start": "2026-09-13T17:00:00+02:00",
+      "home": "Haugesund Menn Senior A",
+      "away": "StrÃ¸mmen Menn Senior 1",
+      "kickoff": "2026-09-20T17:00:00+02:00",
+      "start": "2026-09-20T17:00:00+02:00",
       "tv": "TV 2 Play / NRK",
       "channel": "TV 2 Play / NRK"
     },
@@ -1633,43 +1669,7 @@
     {
       "league": "OBOS-ligaen",
       "home": "Haugesund Menn Senior A",
-      "away": "StrÃ¸mmen Menn Senior 1",
-      "kickoff": "2026-09-20T17:00:00+02:00",
-      "start": "2026-09-20T17:00:00+02:00",
-      "tv": "TV 2 Play / NRK",
-      "channel": "TV 2 Play / NRK"
-    },
-    {
-      "league": "OBOS-ligaen",
-      "home": "Kongsvinger Menn Senior A",
-      "away": "HÃ¸dd Menn Senior A",
-      "kickoff": "2026-09-20T17:00:00+02:00",
-      "start": "2026-09-20T17:00:00+02:00",
-      "tv": "TV 2 Play / NRK",
-      "channel": "TV 2 Play / NRK"
-    },
-    {
-      "league": "OBOS-ligaen",
-      "home": "Lyn 1896",
-      "away": "Ranheim TF Menn",
-      "kickoff": "2026-09-20T17:00:00+02:00",
-      "start": "2026-09-20T17:00:00+02:00",
-      "tv": "TV 2 Play / NRK",
-      "channel": "TV 2 Play / NRK"
-    },
-    {
-      "league": "OBOS-ligaen",
-      "home": "Ã sane Fotball Menn Senior A",
-      "away": "Bryne Menn Senior A",
-      "kickoff": "2026-09-20T17:00:00+02:00",
-      "start": "2026-09-20T17:00:00+02:00",
-      "tv": "TV 2 Play / NRK",
-      "channel": "TV 2 Play / NRK"
-    },
-    {
-      "league": "OBOS-ligaen",
-      "home": "StrÃ¸msgodset Menn Senior A",
-      "away": "Ã sane Fotball Menn Senior A",
+      "away": "StabÃ¦k Menn Senior A",
       "kickoff": "2026-10-04T17:00:00+02:00",
       "start": "2026-10-04T17:00:00+02:00",
       "tv": "TV 2 Play / NRK",
@@ -1731,8 +1731,8 @@
     },
     {
       "league": "OBOS-ligaen",
-      "home": "Haugesund Menn Senior A",
-      "away": "StabÃ¦k Menn Senior A",
+      "home": "StrÃ¸msgodset Menn Senior A",
+      "away": "Ã sane Fotball Menn Senior A",
       "kickoff": "2026-10-04T17:00:00+02:00",
       "start": "2026-10-04T17:00:00+02:00",
       "tv": "TV 2 Play / NRK",
@@ -1740,6 +1740,51 @@
     },
     {
       "league": "OBOS-ligaen",
+      "home": "Kongsvinger Menn Senior A",
+      "away": "Ranheim TF Menn",
+      "kickoff": "2026-10-11T17:00:00+02:00",
+      "start": "2026-10-11T17:00:00+02:00",
+      "tv": "TV 2 Play / NRK",
+      "channel": "TV 2 Play / NRK"
+    },
+    {
+      "league": "OBOS-ligaen",
+      "home": "Raufoss Menn A",
+      "away": "Moss Menn Senior A",
+      "kickoff": "2026-10-11T17:00:00+02:00",
+      "start": "2026-10-11T17:00:00+02:00",
+      "tv": "TV 2 Play / NRK",
+      "channel": "TV 2 Play / NRK"
+    },
+    {
+      "league": "OBOS-ligaen",
+      "home": "StabÃ¦k Menn Senior A",
+      "away": "StrÃ¸mmen Menn Senior 1",
+      "kickoff": "2026-10-11T17:00:00+02:00",
+      "start": "2026-10-11T17:00:00+02:00",
+      "tv": "TV 2 Play / NRK",
+      "channel": "TV 2 Play / NRK"
+    },
+    {
+      "league": "OBOS-ligaen",
+      "home": "Odd Menn Senior A",
+      "away": "Bryne Menn Senior A",
+      "kickoff": "2026-10-11T17:00:00+02:00",
+      "start": "2026-10-11T17:00:00+02:00",
+      "tv": "TV 2 Play / NRK",
+      "channel": "TV 2 Play / NRK"
+    },
+    {
+      "league": "OBOS-ligaen",
+      "home": "Sandnes Ulf Toppfotball",
+      "away": "Haugesund Menn Senior A",
+      "kickoff": "2026-10-11T17:00:00+02:00",
+      "start": "2026-10-11T17:00:00+02:00",
+      "tv": "TV 2 Play / NRK",
+      "channel": "TV 2 Play / NRK"
+    },
+    {
+      "league": "OBOS-ligaen",
       "home": "Egersund Menn Senior A",
       "away": "HÃ¸dd Menn Senior A",
       "kickoff": "2026-10-11T17:00:00+02:00",
@@ -1767,46 +1812,37 @@
     },
     {
       "league": "OBOS-ligaen",
-      "home": "Odd Menn Senior A",
-      "away": "Bryne Menn Senior A",
-      "kickoff": "2026-10-11T17:00:00+02:00",
-      "start": "2026-10-11T17:00:00+02:00",
-      "tv": "TV 2 Play / NRK",
-      "channel": "TV 2 Play / NRK"
-    },
-    {
-      "league": "OBOS-ligaen",
-      "home": "Sandnes Ulf Toppfotball",
-      "away": "Haugesund Menn Senior A",
-      "kickoff": "2026-10-11T17:00:00+02:00",
-      "start": "2026-10-11T17:00:00+02:00",
-      "tv": "TV 2 Play / NRK",
-      "channel": "TV 2 Play / NRK"
-    },
-    {
-      "league": "OBOS-ligaen",
-      "home": "Kongsvinger Menn Senior A",
-      "away": "Ranheim TF Menn",
-      "kickoff": "2026-10-11T17:00:00+02:00",
-      "start": "2026-10-11T17:00:00+02:00",
-      "tv": "TV 2 Play / NRK",
-      "channel": "TV 2 Play / NRK"
-    },
-    {
-      "league": "OBOS-ligaen",
-      "home": "Raufoss Menn A",
-      "away": "Moss Menn Senior A",
-      "kickoff": "2026-10-11T17:00:00+02:00",
-      "start": "2026-10-11T17:00:00+02:00",
-      "tv": "TV 2 Play / NRK",
-      "channel": "TV 2 Play / NRK"
-    },
-    {
-      "league": "OBOS-ligaen",
       "home": "StabÃ¦k Menn Senior A",
-      "away": "StrÃ¸mmen Menn Senior 1",
-      "kickoff": "2026-10-11T17:00:00+02:00",
-      "start": "2026-10-11T17:00:00+02:00",
+      "away": "Sandnes Ulf Toppfotball",
+      "kickoff": "2026-10-14T19:00:00+02:00",
+      "start": "2026-10-14T19:00:00+02:00",
+      "tv": "TV 2 Play / NRK",
+      "channel": "TV 2 Play / NRK"
+    },
+    {
+      "league": "OBOS-ligaen",
+      "home": "HÃ¸dd Menn Senior A",
+      "away": "Ranheim TF Menn",
+      "kickoff": "2026-10-14T19:00:00+02:00",
+      "start": "2026-10-14T19:00:00+02:00",
+      "tv": "TV 2 Play / NRK",
+      "channel": "TV 2 Play / NRK"
+    },
+    {
+      "league": "OBOS-ligaen",
+      "home": "Moss Menn Senior A",
+      "away": "Egersund Menn Senior A",
+      "kickoff": "2026-10-14T19:00:00+02:00",
+      "start": "2026-10-14T19:00:00+02:00",
+      "tv": "TV 2 Play / NRK",
+      "channel": "TV 2 Play / NRK"
+    },
+    {
+      "league": "OBOS-ligaen",
+      "home": "StrÃ¸mmen Menn Senior 1",
+      "away": "Ã sane Fotball Menn Senior A",
+      "kickoff": "2026-10-14T19:00:00+02:00",
+      "start": "2026-10-14T19:00:00+02:00",
       "tv": "TV 2 Play / NRK",
       "channel": "TV 2 Play / NRK"
     },
@@ -1848,78 +1884,6 @@
     },
     {
       "league": "OBOS-ligaen",
-      "home": "HÃ¸dd Menn Senior A",
-      "away": "Ranheim TF Menn",
-      "kickoff": "2026-10-14T19:00:00+02:00",
-      "start": "2026-10-14T19:00:00+02:00",
-      "tv": "TV 2 Play / NRK",
-      "channel": "TV 2 Play / NRK"
-    },
-    {
-      "league": "OBOS-ligaen",
-      "home": "Moss Menn Senior A",
-      "away": "Egersund Menn Senior A",
-      "kickoff": "2026-10-14T19:00:00+02:00",
-      "start": "2026-10-14T19:00:00+02:00",
-      "tv": "TV 2 Play / NRK",
-      "channel": "TV 2 Play / NRK"
-    },
-    {
-      "league": "OBOS-ligaen",
-      "home": "StrÃ¸mmen Menn Senior 1",
-      "away": "Ã sane Fotball Menn Senior A",
-      "kickoff": "2026-10-14T19:00:00+02:00",
-      "start": "2026-10-14T19:00:00+02:00",
-      "tv": "TV 2 Play / NRK",
-      "channel": "TV 2 Play / NRK"
-    },
-    {
-      "league": "OBOS-ligaen",
-      "home": "StabÃ¦k Menn Senior A",
-      "away": "Sandnes Ulf Toppfotball",
-      "kickoff": "2026-10-14T19:00:00+02:00",
-      "start": "2026-10-14T19:00:00+02:00",
-      "tv": "TV 2 Play / NRK",
-      "channel": "TV 2 Play / NRK"
-    },
-    {
-      "league": "OBOS-ligaen",
-      "home": "HÃ¸dd Menn Senior A",
-      "away": "Raufoss Menn A",
-      "kickoff": "2026-10-18T17:00:00+02:00",
-      "start": "2026-10-18T17:00:00+02:00",
-      "tv": "TV 2 Play / NRK",
-      "channel": "TV 2 Play / NRK"
-    },
-    {
-      "league": "OBOS-ligaen",
-      "home": "Lyn 1896",
-      "away": "Moss Menn Senior A",
-      "kickoff": "2026-10-18T17:00:00+02:00",
-      "start": "2026-10-18T17:00:00+02:00",
-      "tv": "TV 2 Play / NRK",
-      "channel": "TV 2 Play / NRK"
-    },
-    {
-      "league": "OBOS-ligaen",
-      "home": "Ã sane Fotball Menn Senior A",
-      "away": "StabÃ¦k Menn Senior A",
-      "kickoff": "2026-10-18T17:00:00+02:00",
-      "start": "2026-10-18T17:00:00+02:00",
-      "tv": "TV 2 Play / NRK",
-      "channel": "TV 2 Play / NRK"
-    },
-    {
-      "league": "OBOS-ligaen",
-      "home": "Kongsvinger Menn Senior A",
-      "away": "Sandnes Ulf Toppfotball",
-      "kickoff": "2026-10-18T17:00:00+02:00",
-      "start": "2026-10-18T17:00:00+02:00",
-      "tv": "TV 2 Play / NRK",
-      "channel": "TV 2 Play / NRK"
-    },
-    {
-      "league": "OBOS-ligaen",
       "home": "Egersund Menn Senior A",
       "away": "Sogndal Menn Senior A",
       "kickoff": "2026-10-18T17:00:00+02:00",
@@ -1956,19 +1920,37 @@
     },
     {
       "league": "OBOS-ligaen",
-      "home": "Moss Menn Senior A",
-      "away": "Ã sane Fotball Menn Senior A",
-      "kickoff": "2026-10-25T17:00:00+01:00",
-      "start": "2026-10-25T17:00:00+01:00",
+      "home": "Kongsvinger Menn Senior A",
+      "away": "Sandnes Ulf Toppfotball",
+      "kickoff": "2026-10-18T17:00:00+02:00",
+      "start": "2026-10-18T17:00:00+02:00",
       "tv": "TV 2 Play / NRK",
       "channel": "TV 2 Play / NRK"
     },
     {
       "league": "OBOS-ligaen",
-      "home": "StrÃ¸mmen Menn Senior 1",
-      "away": "StrÃ¸msgodset Menn Senior A",
-      "kickoff": "2026-10-25T17:00:00+01:00",
-      "start": "2026-10-25T17:00:00+01:00",
+      "home": "HÃ¸dd Menn Senior A",
+      "away": "Raufoss Menn A",
+      "kickoff": "2026-10-18T17:00:00+02:00",
+      "start": "2026-10-18T17:00:00+02:00",
+      "tv": "TV 2 Play / NRK",
+      "channel": "TV 2 Play / NRK"
+    },
+    {
+      "league": "OBOS-ligaen",
+      "home": "Lyn 1896",
+      "away": "Moss Menn Senior A",
+      "kickoff": "2026-10-18T17:00:00+02:00",
+      "start": "2026-10-18T17:00:00+02:00",
+      "tv": "TV 2 Play / NRK",
+      "channel": "TV 2 Play / NRK"
+    },
+    {
+      "league": "OBOS-ligaen",
+      "home": "Ã sane Fotball Menn Senior A",
+      "away": "StabÃ¦k Menn Senior A",
+      "kickoff": "2026-10-18T17:00:00+02:00",
+      "start": "2026-10-18T17:00:00+02:00",
       "tv": "TV 2 Play / NRK",
       "channel": "TV 2 Play / NRK"
     },
@@ -2028,17 +2010,26 @@
     },
     {
       "league": "OBOS-ligaen",
-      "home": "Odd Menn Senior A",
-      "away": "Sandnes Ulf Toppfotball",
-      "kickoff": "2026-11-01T17:00:00+01:00",
-      "start": "2026-11-01T17:00:00+01:00",
+      "home": "Moss Menn Senior A",
+      "away": "Ã sane Fotball Menn Senior A",
+      "kickoff": "2026-10-25T17:00:00+01:00",
+      "start": "2026-10-25T17:00:00+01:00",
       "tv": "TV 2 Play / NRK",
       "channel": "TV 2 Play / NRK"
     },
     {
       "league": "OBOS-ligaen",
-      "home": "Ranheim TF Menn",
-      "away": "Sogndal Menn Senior A",
+      "home": "StrÃ¸mmen Menn Senior 1",
+      "away": "StrÃ¸msgodset Menn Senior A",
+      "kickoff": "2026-10-25T17:00:00+01:00",
+      "start": "2026-10-25T17:00:00+01:00",
+      "tv": "TV 2 Play / NRK",
+      "channel": "TV 2 Play / NRK"
+    },
+    {
+      "league": "OBOS-ligaen",
+      "home": "Lyn 1896",
+      "away": "Raufoss Menn A",
       "kickoff": "2026-11-01T17:00:00+01:00",
       "start": "2026-11-01T17:00:00+01:00",
       "tv": "TV 2 Play / NRK",
@@ -2091,8 +2082,8 @@
     },
     {
       "league": "OBOS-ligaen",
-      "home": "Lyn 1896",
-      "away": "Raufoss Menn A",
+      "home": "Odd Menn Senior A",
+      "away": "Sandnes Ulf Toppfotball",
       "kickoff": "2026-11-01T17:00:00+01:00",
       "start": "2026-11-01T17:00:00+01:00",
       "tv": "TV 2 Play / NRK",
@@ -2100,26 +2091,17 @@
     },
     {
       "league": "OBOS-ligaen",
-      "home": "Bryne Menn Senior A",
-      "away": "Kongsvinger Menn Senior A",
-      "kickoff": "2026-11-08T17:00:00+01:00",
-      "start": "2026-11-08T17:00:00+01:00",
+      "home": "Ranheim TF Menn",
+      "away": "Sogndal Menn Senior A",
+      "kickoff": "2026-11-01T17:00:00+01:00",
+      "start": "2026-11-01T17:00:00+01:00",
       "tv": "TV 2 Play / NRK",
       "channel": "TV 2 Play / NRK"
     },
     {
       "league": "OBOS-ligaen",
-      "home": "Raufoss Menn A",
-      "away": "Egersund Menn Senior A",
-      "kickoff": "2026-11-08T17:00:00+01:00",
-      "start": "2026-11-08T17:00:00+01:00",
-      "tv": "TV 2 Play / NRK",
-      "channel": "TV 2 Play / NRK"
-    },
-    {
-      "league": "OBOS-ligaen",
-      "home": "StrÃ¸mmen Menn Senior 1",
-      "away": "Lyn 1896",
+      "home": "Sogndal Menn Senior A",
+      "away": "HÃ¸dd Menn Senior A",
       "kickoff": "2026-11-08T17:00:00+01:00",
       "start": "2026-11-08T17:00:00+01:00",
       "tv": "TV 2 Play / NRK",
@@ -2163,8 +2145,26 @@
     },
     {
       "league": "OBOS-ligaen",
-      "home": "Sogndal Menn Senior A",
-      "away": "HÃ¸dd Menn Senior A",
+      "home": "Bryne Menn Senior A",
+      "away": "Kongsvinger Menn Senior A",
+      "kickoff": "2026-11-08T17:00:00+01:00",
+      "start": "2026-11-08T17:00:00+01:00",
+      "tv": "TV 2 Play / NRK",
+      "channel": "TV 2 Play / NRK"
+    },
+    {
+      "league": "OBOS-ligaen",
+      "home": "Raufoss Menn A",
+      "away": "Egersund Menn Senior A",
+      "kickoff": "2026-11-08T17:00:00+01:00",
+      "start": "2026-11-08T17:00:00+01:00",
+      "tv": "TV 2 Play / NRK",
+      "channel": "TV 2 Play / NRK"
+    },
+    {
+      "league": "OBOS-ligaen",
+      "home": "StrÃ¸mmen Menn Senior 1",
+      "away": "Lyn 1896",
       "kickoff": "2026-11-08T17:00:00+01:00",
       "start": "2026-11-08T17:00:00+01:00",
       "tv": "TV 2 Play / NRK",
