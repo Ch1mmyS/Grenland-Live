@@ -3,7 +3,7 @@ name: Update data (fixtures JSON)
 on:
   workflow_dispatch:
   schedule:
-    - cron: "15 06,18 * * *"   # 06:15 og 18:15 UTC (07/19 norsk tid, ca)
+    - cron: "15 06,18 * * *"
   push:
     paths:
       - "tools/**"
@@ -41,3 +41,16 @@ jobs:
       - name: Run fixtures pipeline
         run: |
           python tools/fetch_official.py
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          if git status --porcelain | grep -qE "^( M|A |\\?\\?)"; then
+            git add data/*.json
+            git commit -m "Auto update fixtures JSON"
+            git push
+          else
+            echo "No changes to commit."
+          fi
