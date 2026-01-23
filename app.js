@@ -53,9 +53,14 @@ async function fetchJSON(path){
   if (!r.ok) throw new Error(`${path}: ${r.status}`);
 
   const txt = await r.text();
+
+  // Beskytter mot GitHub Pages som returnerer HTML (typisk 404-side)
   if (txt.trim().startsWith("<")) {
     throw new Error(`${path}: returned HTML (wrong path / 404 page)`);
   }
+
+  // OBS: Hvis JSON-fila er lagret i feil encoding kan selve teksten inneholde mojibake,
+  // men JSON.parse vil fortsatt funke. Vi fikser visning i fixText()/escapeHTML().
   return JSON.parse(txt);
 }
 
@@ -78,7 +83,37 @@ function extractItems(obj){
   return [];
 }
 
+// -------- Tegnkoding / “mojibake” fix (global) --------
+// Fikser typiske UTF-8->Latin1 feil: TromsÃ¸ -> Tromsø, etc.
+function fixText(value){
+  if (value == null) return "";
+
+  // Ikke rør tall/boolean/objekter; stringify håndteres der det trengs
+  let s = String(value);
+
+  // Rask exit hvis ingen typiske feil-sekvenser
+  if (!s.includes("Ã") && !s.includes("Â")) return s;
+
+  // Vanlige feil: UTF-8 bytes tolket som Latin-1/Windows-1252
+  // Dette dekker norske bokstaver + noen vanlige tegn.
+  const map = [
+    ["Ã¸","ø"],["Ã˜","Ø"],["Ã¥","å"],["Ã…","Å"],["Ã¦","æ"],["Ã†","Æ"],
+    ["Ã©","é"],["Ã¨","è"],["Ãª","ê"],["Ã¡","á"],["Ã³","ó"],["Ãº","ú"],
+    ["Ã¤","ä"],["Ã¶","ö"],["Ã¼","ü"],["Ã„","Ä"],["Ã–","Ö"],["Ãœ","Ü"],
+    ["Ã±","ñ"],["ÃŸ","ß"],
+    ["Â "," "],["Â·","·"],["Â–","–"],["Â—","—"],["Â«","«"],["Â»","»"]
+  ];
+
+  for (const [bad, good] of map){
+    s = s.split(bad).join(good);
+  }
+
+  return s;
+}
+
+// -------- HTML escape (bruker fixText først) --------
 function escapeHTML(s){
+  s = fixText(s);
   return String(s ?? "")
     .replaceAll("&","&amp;")
     .replaceAll("<","&lt;")
@@ -125,7 +160,7 @@ const CACHE = {
 };
 
 async function loadTab(tab){
-  const conf = SOURCES[tab];
+  const conf = SOURCES[tab] || [];
   const status = [];
   const allItems = [];
 
@@ -152,8 +187,8 @@ function setActiveTabUI(tab){
 }
 
 function render(tab){
-  const q = (qEl.value || "").trim().toLowerCase();
-  const { items, status } = CACHE[tab];
+  const q = fixText((qEl.value || "")).trim().toLowerCase();
+  const { items, status } = CACHE[tab] || { items:[], status:[] };
 
   // Header
   const titleMap = {
@@ -162,16 +197,16 @@ function render(tab){
     events: "Kommende eventer",
     vm2026: "VM kalender 2026"
   };
-  h2El.textContent = titleMap[tab] || "Grenland Live";
+  h2El.textContent = fixText(titleMap[tab] || "Grenland Live");
 
   // Meta (viser hvilke filer som lastet / manglet)
   const okCount = status.filter(s => s.ok).length;
   metaEl.textContent = `Kilder: ${okCount}/${status.length} • BASE: ${BASE}`;
 
-  // Filter
+  // Filter (søk i hele objektet, men fixer tekst først)
   let filtered = items;
   if (q){
-    filtered = items.filter(x => JSON.stringify(x).toLowerCase().includes(q));
+    filtered = items.filter(x => fixText(JSON.stringify(x)).toLowerCase().includes(q));
   }
 
   // Render list
@@ -209,16 +244,17 @@ function render(tab){
     const whenIso = getWhen(x);
     const when = whenIso ? fmtOslo(whenIso) : "";
 
+    // Viktig: fixText gjennom escapeHTML, så "TromsÃ¸" blir "Tromsø"
     const title =
-      (x.home && x.away) ? `${x.home} – ${x.away}` :
-      x.title || x.name || x.event || "Ukjent";
+      (x.home && x.away) ? `${fixText(x.home)} – ${fixText(x.away)}` :
+      fixText(x.title || x.name || x.event || "Ukjent");
 
-    const league = x.league || x.competition || x.tournament || "";
-    const channel = x.channel || x.tv || x.broadcast || "";
+    const league = fixText(x.league || x.competition || x.tournament || "");
+    const channel = fixText(x.channel || x.tv || x.broadcast || "");
     const where =
-      Array.isArray(x.where) ? x.where.join(", ") :
-      Array.isArray(x.pubs) ? x.pubs.map(p => p.name || p).join(", ") :
-      (x.where || x.place || x.location || "");
+      Array.isArray(x.where) ? x.where.map(fixText).join(", ") :
+      Array.isArray(x.pubs) ? x.pubs.map(p => fixText(p?.name || p)).join(", ") :
+      fixText(x.where || x.place || x.location || "");
 
     const row = document.createElement("div");
     row.className = "item";
@@ -246,7 +282,7 @@ async function show(tab){
 
   setActiveTabUI(tab);
 
-  if (!CACHE[tab].loaded){
+  if (!CACHE[tab]?.loaded){
     h2El.textContent = "Laster…";
     metaEl.textContent = "";
     listEl.innerHTML = `<div class="item">Laster data…</div>`;
@@ -277,8 +313,8 @@ function boot(){
   qEl.addEventListener("input", () => render(CURRENT));
 
   // Back buttons
-  $("backHome").addEventListener("click", backHome);
-  $("backHome2").addEventListener("click", backHome);
+  $("backHome")?.addEventListener("click", backHome);
+  $("backHome2")?.addEventListener("click", backHome);
 }
 
 boot();
