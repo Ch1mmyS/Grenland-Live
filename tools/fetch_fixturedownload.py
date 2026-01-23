@@ -6,6 +6,9 @@ import requests
 
 DATA = Path("data")
 
+# NOTE:
+# FixtureDownload har season-spesifikke feed-URLs. Hvis disse endrer seg,
+# bytt kun URL-ene her – resten fungerer.
 FEEDS = [
     {
         "league": "Champions League",
@@ -21,13 +24,12 @@ FEEDS = [
 
 def to_iso_utc(date_utc_str: str) -> str | None:
     """
-    Input: '2025-09-16 16:45:00Z'
+    Input:  '2025-09-16 16:45:00Z'
     Output: '2025-09-16T16:45:00+00:00'
     """
     if not date_utc_str:
         return None
-    s = date_utc_str.strip()
-    # forventer ...Z
+    s = str(date_utc_str).strip()
     try:
         dt = datetime.strptime(s, "%Y-%m-%d %H:%M:%SZ").replace(tzinfo=timezone.utc)
         return dt.isoformat()
@@ -43,23 +45,25 @@ def write_games(filename: str, games: list[dict]):
 def main():
     for item in FEEDS:
         league = item["league"]
-        url = item["url"]
-        out = item["out"]
+        feed_url = item["url"]
+        out_file = item["out"]
 
-        print(f"Fetching {league} -> {url}")
-        r = requests.get(url, timeout=30)
+        print(f"Fetching {league} -> {feed_url}")
+        r = requests.get(feed_url, timeout=30)
         r.raise_for_status()
 
         rows = r.json()
-        games = []
+        games: list[dict] = []
 
         for row in rows:
-            # FixtureDownload schema
+            if not isinstance(row, dict):
+                continue
+
             kickoff = to_iso_utc(row.get("DateUtc"))
             home = row.get("HomeTeam")
             away = row.get("AwayTeam")
 
-            if not (kickoff and home and away):
+            if not kickoff or not home or not away:
                 continue
 
             games.append({
@@ -68,17 +72,14 @@ def main():
                 "away": away,
                 "kickoff": kickoff,
                 "location": row.get("Location") or "",
-                # hvis du vil ta med score når det finnes:
+                "round": row.get("RoundNumber"),
                 "homeScore": row.get("HomeTeamScore"),
                 "awayScore": row.get("AwayTeamScore"),
-                "round": row.get("RoundNumber"),
             })
 
-        # sorter etter kickoff
         games.sort(key=lambda g: g.get("kickoff") or "")
-
-        write_games(out, games)
-        print(f"WROTE {out}: {len(games)} games")
+        write_games(out_file, games)
+        print(f"WROTE {out_file}: {len(games)} games")
 
 if __name__ == "__main__":
     main()
