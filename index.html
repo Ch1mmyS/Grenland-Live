@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Grenland Live</title>
 
-  <!-- FAVICON (ICO – korrekt) -->
   <link rel="icon" href="favicon.ico">
 
   <style>
@@ -17,67 +16,35 @@
       --card:#ffffff;
     }
     *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
-      background:var(--bg);
-      color:var(--text)
-    }
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text)}
     .wrap{max-width:1100px;margin:0 auto;padding:28px 16px 48px}
 
     h1{margin:0 0 10px 0;text-align:center;font-size:56px;letter-spacing:.5px}
     .sub{text-align:center;margin:0;color:var(--muted);line-height:1.4}
 
-    /* FORSIDE */
-    .menuRow{
-      display:flex;
-      justify-content:space-between;
-      gap:24px;
-      margin-top:36px;
-      flex-wrap:wrap
-    }
+    .menuRow{display:flex;justify-content:space-between;gap:24px;margin-top:36px;flex-wrap:wrap}
     .menuBtn{
       flex:1;min-width:200px;
       display:flex;align-items:center;justify-content:center;text-align:center;
-      padding:18px 14px;
-      border:4px solid var(--line);
-      border-radius:18px;
-      background:#fff;
-      font-weight:800;
-      cursor:pointer;
+      padding:18px 14px;border:4px solid var(--line);border-radius:18px;background:#fff;font-weight:800;
+      cursor:pointer; user-select:none;
       transition:transform .08s ease;
     }
     .menuBtn:hover{transform:translateY(-2px)}
     .menuBtn:active{transform:translateY(0)}
 
-    .hintRow{
-      display:flex;
-      justify-content:space-between;
-      gap:24px;
-      margin-top:10px;
-      flex-wrap:wrap
-    }
-    .hint{
-      flex:1;min-width:200px;
-      text-align:center;
-      color:var(--muted);
-      font-size:12px
-    }
+    .hintRow{display:flex;justify-content:space-between;gap:24px;margin-top:10px;flex-wrap:wrap}
+    .hint{flex:1;min-width:200px;text-align:center;color:var(--muted);font-size:12px}
 
-    /* APP */
     .topbar{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
       border:4px solid var(--line);
       border-radius:18px;
-      padding:12px;
+      padding:12px 12px;
       margin-top:22px;
-      flex-wrap:wrap
+      flex-wrap:wrap;
     }
     .topLeft{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-
     .pill{
       border:3px solid var(--line);
       border-radius:999px;
@@ -91,8 +58,7 @@
     .pill:active{transform:translateY(1px)}
 
     .search{
-      min-width:220px;
-      flex:1;
+      min-width:220px;flex:1;
       border:2px solid var(--line);
       border-radius:999px;
       padding:10px 14px;
@@ -106,71 +72,85 @@
       padding:14px;
       background:var(--card);
     }
-    .panelTitle{
-      display:flex;
-      justify-content:space-between;
-      gap:10px;
-      align-items:flex-start;
-      flex-wrap:wrap
-    }
+    .panelTitle{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap}
     .panelTitle h2{margin:0;font-size:22px}
     .meta{color:var(--muted);font-size:12px}
 
-    .list{
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-      margin-top:12px
-    }
+    .list{display:flex;flex-direction:column;gap:10px;margin-top:12px}
     .item{
       border:2px solid rgba(11,18,32,.20);
       border-radius:16px;
       padding:12px;
       background:#fff;
     }
-    .itemTop{
-      display:flex;
-      justify-content:space-between;
-      gap:10px;
-      align-items:flex-start;
-      flex-wrap:wrap
-    }
+    .item.clickable{cursor:pointer}
+    .item.clickable:hover{border-color:rgba(11,18,32,.45)}
+    .itemTop{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap}
     .itemTitle{font-weight:900}
+    .tagRow{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+    .tag{border:2px solid rgba(11,18,32,.25);border-radius:999px;padding:6px 10px;font-size:12px;color:rgba(11,18,32,.85)}
 
-    .tagRow{
+    .backRow{display:flex;justify-content:center;margin-top:18px}
+    .backBtn{border:4px solid var(--line);border-radius:18px;padding:12px 18px;background:#fff;font-weight:900;cursor:pointer}
+
+    .hidden{display:none !important}
+    footer{margin-top:34px;text-align:center;color:var(--muted);font-size:12px}
+
+    /* ===== MODAL ===== */
+    .modalBack{
+      position:fixed; inset:0;
+      background:rgba(0,0,0,.55);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+      z-index:9999;
+    }
+    .modalBack.show{display:flex}
+    .modal{
+      width:min(860px, 100%);
+      background:#fff;
+      border-radius:18px;
+      border:4px solid var(--line);
+      padding:14px;
+    }
+    .modalHead{
+      display:flex;align-items:flex-start;justify-content:space-between;gap:10px;flex-wrap:wrap
+    }
+    .modalTitle{
+      font-weight:900;
+      font-size:20px;
+      margin:0;
+    }
+    .modalClose{
+      border:3px solid var(--line);
+      border-radius:999px;
+      padding:8px 12px;
+      background:#fff;
+      font-weight:900;
+      cursor:pointer;
+      white-space:nowrap;
+    }
+    .modalGrid{
+      margin-top:10px;
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:10px;
+    }
+    .modalSection{
+      border:2px solid rgba(11,18,32,.20);
+      border-radius:16px;
+      padding:12px;
+    }
+    .modalSection h3{
+      margin:0 0 8px 0;
+      font-size:14px;
+      color:rgba(11,18,32,.90);
+    }
+    .pubList{
       display:flex;
       flex-wrap:wrap;
       gap:8px;
-      margin-top:8px
-    }
-    .tag{
-      border:2px solid rgba(11,18,32,.25);
-      border-radius:999px;
-      padding:6px 10px;
-      font-size:12px;
-      color:rgba(11,18,32,.85)
-    }
-
-    .backRow{
-      display:flex;
-      justify-content:center;
-      margin-top:18px
-    }
-    .backBtn{
-      border:4px solid var(--line);
-      border-radius:18px;
-      padding:12px 18px;
-      background:#fff;
-      font-weight:900;
-      cursor:pointer
-    }
-
-    .hidden{display:none !important}
-    footer{
-      margin-top:34px;
-      text-align:center;
-      color:var(--muted);
-      font-size:12px
     }
   </style>
 </head>
@@ -199,7 +179,7 @@
       </div>
     </section>
 
-    <!-- APP (én side – bytter visning med JS) -->
+    <!-- APP -->
     <section id="app" class="hidden">
 
       <div class="topbar">
@@ -223,14 +203,39 @@
       </div>
 
       <div class="backRow">
-        <button id="backHome2" class="backBtn" type="button">
-          ← Tilbake til forsiden
-        </button>
+        <button id="backHome2" class="backBtn" type="button">← Tilbake til forsiden</button>
       </div>
     </section>
 
     <footer>© Grenland Live</footer>
   </main>
+
+  <!-- MODAL -->
+  <div id="modalBack" class="modalBack" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-label="Kampdetaljer">
+      <div class="modalHead">
+        <h3 id="modalTitle" class="modalTitle">Kamp</h3>
+        <button id="modalClose" class="modalClose" type="button">Lukk</button>
+      </div>
+
+      <div class="modalGrid">
+        <div class="modalSection">
+          <h3>Klokkeslett</h3>
+          <div id="modalTime"></div>
+        </div>
+
+        <div class="modalSection">
+          <h3>Kanal</h3>
+          <div id="modalChannel"></div>
+        </div>
+
+        <div class="modalSection">
+          <h3>Hvor vises den (puber)</h3>
+          <div id="modalPubs" class="pubList"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script src="app.js"></script>
 </body>
