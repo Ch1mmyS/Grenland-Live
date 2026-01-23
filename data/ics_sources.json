@@ -5,7 +5,7 @@
     "type": "nff_ics",
     "url": "https://www.fotball.no/footballapi/Calendar/GetCalendar?tournamentId=206092",
     "out_file": "data/eliteserien.json",
-    "default_channel": "TV 2 / TV 2 Play / NRK"
+    "default_tv": "TV 2 / TV 2 Play / NRK"
   },
   {
     "key": "obos",
@@ -13,7 +13,7 @@
     "type": "nff_ics",
     "url": "https://www.fotball.no/footballapi/Calendar/GetCalendar?tournamentId=206093",
     "out_file": "data/obos.json",
-    "default_channel": "TV 2 / TV 2 Play / NRK"
+    "default_tv": "TV 2 Play / NRK"
   },
   {
     "key": "premier_league",
@@ -21,7 +21,7 @@
     "type": "fixturedownload_json",
     "url": "https://fixturedownload.com/feed/json/epl-2025",
     "out_file": "data/premier_league.json",
-    "default_channel": "Viaplay / V Sport"
+    "default_tv": "Viaplay / V Sport"
   },
   {
     "key": "champions_league",
@@ -29,7 +29,7 @@
     "type": "fixturedownload_json",
     "url": "https://fixturedownload.com/feed/json/champions-league-2025",
     "out_file": "data/champions.json",
-    "default_channel": "TV 2 Play Premium / TV 2 Sport 1"
+    "default_tv": "TV 2 Play Premium / TV 2 Sport 1"
   },
   {
     "key": "laliga",
@@ -37,6 +37,6 @@
     "type": "fixturedownload_json",
     "url": "https://fixturedownload.com/feed/json/la-liga-2025",
     "out_file": "data/laliga.json",
-    "default_channel": "TV 2 / TV 2 Play"
+    "default_tv": "TV 2 / TV 2 Play"
   }
 ]
