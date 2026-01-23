@@ -10,7 +10,6 @@ TARGETS = {
     "champions_league": "champions.json",
 }
 
-# MER ROBUSTE MATCHER (tåler sponsor-/variant-navn)
 MATCH_RULES = {
     "laliga": [
         "laliga", "la liga", "spanish la liga", "primera", "primera division",
@@ -61,11 +60,9 @@ def norm(s):
     return str(s or "").strip().lower()
 
 def league_text(game: dict) -> str:
-    # mest sannsynlige felt
     for k in ["league", "competition", "tournament", "name"]:
         if isinstance(game.get(k), str) and game.get(k).strip():
             return game[k]
-    # noen ganger ligger det under competition.name
     comp = game.get("competition")
     if isinstance(comp, dict):
         for k in ["name", "code"]:
@@ -106,13 +103,11 @@ def main():
         print("WARN: data/football.json har ingen liste på keys (games/matches/fixtures/etc). Ingenting å splitte.")
         return
 
-    # LOGG: hvilke liga-navn finnes faktisk?
     print_league_summary([g for g in football_games if isinstance(g, dict)])
 
     for key, filename in TARGETS.items():
         outpath = DATA / filename
 
-        # fyll bare hvis tom
         if not is_empty_games_file(outpath):
             print(f"SKIP {filename}: har allerede data")
             continue
@@ -126,7 +121,6 @@ def main():
         save_json(outpath, {"games": selected})
         print(f"WROTE {filename}: {len(selected)} games")
 
-    # Disse trenger egne kilder (ikke i football.json)
     for fname in [
         "handball_vm_2026_menn.json",
         "handball_vm_2026_damer.json",
