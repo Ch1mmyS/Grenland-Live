@@ -1,203 +1,214 @@
-# tools/fetch_official.py
-# Grenland Live – Official fixtures updater (ICS)
-# - Reads ICS URLs from data/ics_sources.json
-# - Writes UTF-8 JSON to data/eliteserien.json and data/obos.json
-# - Never hard-fails in CI: keeps existing files if fetch/parse fails
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 import json
 import re
-from pathlib import Path
+from dataclasses import dataclass
 from datetime import datetime
-from zoneinfo import ZoneInfo
+from typing import Any, Dict, List, Optional, Tuple
 
+import pytz
 import requests
-from ics import Calendar
+from dateutil import parser as dtparser
+from icalendar import Calendar
 
-TZ = ZoneInfo("Europe/Oslo")
 
-BASE = Path(__file__).resolve().parents[1]
-DATA_DIR = BASE / "data"
-CFG_FILE = DATA_DIR / "ics_sources.json"
+TZ_OSLO = pytz.timezone("Europe/Oslo")
 
-OUT_FILES = {
-    "eliteserien": DATA_DIR / "eliteserien.json",
-    "obos": DATA_DIR / "obos.json",
-}
 
-def read_json(path: Path, default):
-    try:
-        if path.exists():
-            return json.loads(path.read_text(encoding="utf-8"))
-    except Exception:
-        pass
-    return default
+@dataclass
+class Source:
+    key: str
+    name: str
+    type: str
+    url: str
+    out_file: str
+    default_channel: str
 
-def write_json(path: Path, obj):
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(obj, ensure_ascii=False, indent=2), encoding="utf-8")
 
-def safe_get_text(url: str, timeout=30) -> str:
-    # Robust ICS download (force UTF-8 if server lies)
-    r = requests.get(url, timeout=timeout, headers={"User-Agent": "Grenland-Live-Bot/1.0"})
+def http_get_text(url: str, timeout: int = 30) -> str:
+    r = requests.get(url, timeout=timeout, headers={"User-Agent": "GrenlandLive/1.0"})
     r.raise_for_status()
+    return r.text
 
-    # Try to respect server encoding, but fallback to utf-8
-    if not r.encoding:
-        r.encoding = "utf-8"
 
-    text = r.text
+def http_get_json(url: str, timeout: int = 30) -> Any:
+    r = requests.get(url, timeout=timeout, headers={"User-Agent": "GrenlandLive/1.0"})
+    r.raise_for_status()
+    return r.json()
 
-    # Some ICS feeds may include BOM or oddities
-    text = text.lstrip("\ufeff")
-    return text
 
-def parse_match_from_summary(summary: str):
+def load_sources(path: str = "data/ics_sources.json") -> List[Source]:
+    with open(path, "r", encoding="utf-8") as f:
+        raw = json.load(f)
+
+    sources: List[Source] = []
+    for item in raw:
+        sources.append(
+            Source(
+                key=item["key"],
+                name=item["name"],
+                type=item["type"],
+                url=item["url"],
+                out_file=item["out_file"],
+                default_channel=item.get("default_channel", "").strip(),
+            )
+        )
+    return sources
+
+
+def to_oslo_iso(dt: datetime) -> str:
+    if dt.tzinfo is None:
+        dt = TZ_OSLO.localize(dt)
+    else:
+        dt = dt.astimezone(TZ_OSLO)
+    return dt.isoformat(timespec="seconds")
+
+
+def parse_match_teams(text: str) -> Optional[Tuple[str, str]]:
     """
-    Try to parse 'Home - Away' from ICS SUMMARY.
-    Returns (home, away) or ("", "") if unknown.
+    Prøver å hente "Hjem - Borte" fra typiske titler.
     """
-    if not summary:
-        return "", ""
-    s = summary.strip()
+    t = (text or "").strip()
 
-    # Common: "Team A - Team B"
-    if " - " in s:
-        parts = s.split(" - ", 1)
-        return parts[0].strip(), parts[1].strip()
+    # Fjern ekstra info i parentes o.l.
+    t = re.sub(r"\s*\(.*?\)\s*", " ", t).strip()
+    t = re.sub(r"\s+", " ", t)
 
-    # Common: "Team A – Team B" (en-dash)
-    if " – " in s:
-        parts = s.split(" – ", 1)
-        return parts[0].strip(), parts[1].strip()
+    # Vanlig fotballformat: "Team A - Team B"
+    if " - " in t:
+        parts = t.split(" - ", 1)
+        home = parts[0].strip()
+        away = parts[1].strip()
+        if home and away:
+            return home, away
 
-    return s, ""
+    return None
 
-def detect_channel(text: str) -> str:
-    """
-    Best-effort: pulls known broadcaster names if present in DESCRIPTION.
-    """
-    if not text:
-        return ""
 
-    t = text.lower()
+def fetch_nff_ics(source: Source) -> List[Dict[str, Any]]:
+    ics_text = http_get_text(source.url)
+    cal = Calendar.from_ical(ics_text)
 
-    # Simple keyword detection
-    candidates = [
-        "tv 2", "tv2", "tv 2 play", "viaplay", "v sport",
-        "nrk", "discovery", "eurosport", "max", "vg+",
-    ]
+    games: List[Dict[str, Any]] = []
+    for component in cal.walk():
+        if component.name != "VEVENT":
+            continue
 
-    found = []
-    for c in candidates:
-        if c in t:
-            found.append(c)
+        summary = str(component.get("SUMMARY", "")).strip()
+        dtstart = component.get("DTSTART")
+        if not dtstart:
+            continue
 
-    if not found:
-        return ""
+        # icalendar gir enten date eller datetime
+        dtval = dtstart.dt
+        if isinstance(dtval, datetime):
+            kickoff_dt = dtval
+        else:
+            # Hvis eventen er "all-day" (date), sett 12:00 Oslo (fallback)
+            kickoff_dt = TZ_OSLO.localize(datetime(dtval.year, dtval.month, dtval.day, 12, 0, 0))
 
-    # Pretty formatting
-    pretty_map = {
-        "tv2": "TV 2",
-        "tv 2": "TV 2",
-        "tv 2 play": "TV 2 Play",
-        "v sport": "V Sport",
-        "nrk": "NRK",
-        "eurosport": "Eurosport",
-        "viaplay": "Viaplay",
-        "max": "Max",
-        "discovery": "Discovery",
-        "vg+": "VG+",
-    }
+        teams = parse_match_teams(summary)
+        if not teams:
+            # Hvis NFF endrer summary-format, hopp heller enn å skrive tull
+            continue
 
-    # Keep order and unique
-    uniq = []
-    for f in found:
-        if f not in uniq:
-            uniq.append(f)
-
-    return " / ".join(pretty_map.get(x, x) for x in uniq)
-
-def ics_to_games(ics_text: str, league_label: str):
-    cal = Calendar(ics_text)
-
-    games = []
-    for ev in sorted(cal.events, key=lambda e: e.begin):
-        # Begin time
-        try:
-            dt = ev.begin.datetime
-            if dt.tzinfo is None:
-                dt = dt.replace(tzinfo=TZ)
-            else:
-                dt = dt.astimezone(TZ)
-        except Exception:
-            dt = None
-
-        kickoff = dt.isoformat() if dt else ""
-
-        home, away = parse_match_from_summary(getattr(ev, "name", "") or getattr(ev, "summary", "") or "")
-
-        # Description might contain channel or extra info
-        desc = getattr(ev, "description", "") or ""
-        channel = detect_channel(desc)
-
-        games.append({
-            "league": league_label,
-            "home": home,
-            "away": away,
-            "kickoff": kickoff,
-            "channel": channel,
-            "where": []  # pubs can be injected later
-        })
+        home, away = teams
+        games.append(
+            {
+                "league": source.name,
+                "home": home,
+                "away": away,
+                "kickoff": to_oslo_iso(kickoff_dt),
+                "channel": source.default_channel,
+            }
+        )
 
     return games
 
-def main():
-    print("Updating fixtures (ICS) ->", datetime.now(TZ).strftime("%d.%m.%Y %H:%M:%S"))
 
-    DATA_DIR.mkdir(parents=True, exist_ok=True)
+def parse_fixturedownload_dateutc(date_utc_str: str) -> datetime:
+    """
+    FixtureDownload: "YYYY-MM-DD HH:MM:SSZ"
+    """
+    # dateutil takler dette fint
+    dt = dtparser.parse(date_utc_str)
+    if dt.tzinfo is None:
+        dt = pytz.utc.localize(dt)
+    else:
+        dt = dt.astimezone(pytz.utc)
+    return dt
 
-    cfg = read_json(CFG_FILE, default={})
-    sources = cfg.get("sources", [])
 
-    # If no config, do NOT fail Actions. Keep existing files.
-    if not sources:
-        print(f"WARN: Missing or empty {CFG_FILE}. Keeping existing JSON files.")
-        for key, out_path in OUT_FILES.items():
-            if not out_path.exists():
-                # ensure file exists (empty)
-                write_json(out_path, {"games": []})
-                print("WROTE (empty)", out_path.name)
-        return
+def fetch_fixturedownload_json(source: Source) -> List[Dict[str, Any]]:
+    data = http_get_json(source.url)
 
-    # Map config sources by key
-    src_by_key = { (s.get("key") or "").strip(): s for s in sources if isinstance(s, dict) }
+    games: List[Dict[str, Any]] = []
+    if not isinstance(data, list):
+        return games
 
-    for key, out_path in OUT_FILES.items():
-        src = src_by_key.get(key)
-        if not src:
-            print(f"WARN: No source with key='{key}' in {CFG_FILE} – keeping {out_path.name}")
-            continue
-
-        url = (src.get("url") or "").strip()
-        league_label = (src.get("league") or key).strip()
-
-        if not url:
-            print(f"WARN: Missing url for key='{key}' – keeping {out_path.name}")
-            continue
-
+    for m in data:
         try:
-            ics_text = safe_get_text(url)
-            games = ics_to_games(ics_text, league_label)
-
-            if not games:
-                print(f"WARN {key}: 0 games parsed – keeping existing {out_path.name}")
+            home = str(m.get("HomeTeam", "")).strip()
+            away = str(m.get("AwayTeam", "")).strip()
+            date_utc = str(m.get("DateUtc", "")).strip()
+            if not (home and away and date_utc):
                 continue
 
-            write_json(out_path, {"games": games})
-            print(f"WROTE {out_path.name} ({len(games)} games)")
+            kickoff_utc = parse_fixturedownload_dateutc(date_utc)
+            games.append(
+                {
+                    "league": source.name,
+                    "home": home,
+                    "away": away,
+                    "kickoff": to_oslo_iso(kickoff_utc),
+                    "channel": source.default_channel,
+                }
+            )
+        except Exception:
+            continue
 
-        except Exception as e:
-            print(f"WARN {key}: {e} – keeping existing {out_path.name}")
+    return games
+
+
+def write_json(path: str, payload: Dict[str, Any]) -> None:
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(payload, f, ensure_ascii=False, indent=2)
+
+
+def run() -> None:
+    sources = load_sources("data/ics_sources.json")
+
+    for s in sources:
+        print(f"==> {s.name} ({s.type})")
+
+        if s.type == "nff_ics":
+            games = fetch_nff_ics(s)
+        elif s.type == "fixturedownload_json":
+            games = fetch_fixturedownload_json(s)
+        else:
+            raise ValueError(f"Ukjent source.type: {s.type} (key={s.key})")
+
+        games = sorted(games, key=lambda x: x.get("kickoff", ""))
+
+        if not games:
+            print(f"WARN: 0 kamper funnet for {s.key} - skriver likevel (tom liste)")
+        else:
+            print(f"OK: {len(games)} kamper")
+
+        write_json(
+            s.out_file,
+            {
+                "generated_at": to_oslo_iso(datetime.now(TZ_OSLO)),
+                "source": {"key": s.key, "name": s.name, "url": s.url, "type": s.type},
+                "default_channel": s.default_channel,
+                "games": games,
+            },
+        )
+        print(f"WROTE {s.out_file}")
+
+    print("DONE")
+
 
 if __name__ == "__main__":
-    main()
+    run()
