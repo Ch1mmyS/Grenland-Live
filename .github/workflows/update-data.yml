@@ -29,6 +29,10 @@ jobs:
         run: |
           python tools/fetch_official.py
 
+      - name: Fill empty league files from football.json
+        run: |
+          python tools/fill_empty_leagues.py
+
       - name: Update events JSON
         run: |
           python tools/fetch_events.py
@@ -37,6 +41,6 @@ jobs:
         run: |
           git config user.name "grenland-live-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add data/*.json
+          git add data/*.json tools/fill_empty_leagues.py
           git diff --cached --quiet || git commit -m "Auto update data (sports/events)"
           git push
