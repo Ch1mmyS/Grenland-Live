@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Grenland Live</title>
 
-  <!-- Logo fungerer som favicon (som du fikk til) -->
+  <!-- Du sa logoen funker -->
   <link rel="icon" type="image/svg+xml" href="logo.svg">
 
   <style>
@@ -14,113 +14,136 @@
       --text:#0b1220;
       --muted:rgba(11,18,32,.70);
       --line:#0b1220;
+      --card:#ffffff;
     }
     *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
-      background: var(--bg);
-      color: var(--text);
-    }
-    .wrap{
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 28px 16px 48px;
-    }
-    .brand{
-      text-align:center;
-      margin-top: 10px;
-      margin-bottom: 18px;
-    }
-    h1{
-      margin: 0 0 10px 0;
-      font-size: 56px;
-      letter-spacing: .5px;
-    }
-    .sub{
-      margin:0;
-      color: var(--muted);
-      line-height: 1.4;
-    }
-
-    .menuRow{
-      display:flex;
-      justify-content: space-between;
-      gap: 24px;
-      margin-top: 36px;
-      flex-wrap: wrap;
-    }
-
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text)}
+    .wrap{max-width:1100px;margin:0 auto;padding:28px 16px 48px}
+    h1{margin:0 0 10px 0;text-align:center;font-size:56px;letter-spacing:.5px}
+    .sub{text-align:center;margin:0;color:var(--muted);line-height:1.4}
+    .menuRow{display:flex;justify-content:space-between;gap:24px;margin-top:36px;flex-wrap:wrap}
     .menuBtn{
-      flex: 1;
-      min-width: 200px;
-      text-decoration:none;
-      color: var(--text);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding: 18px 14px;
-      border: 4px solid var(--line);
-      border-radius: 18px;
-      background: #fff;
-      font-weight: 700;
-      transition: transform .08s ease;
-      text-align:center;
+      flex:1;min-width:200px;text-decoration:none;color:var(--text);
+      display:flex;align-items:center;justify-content:center;text-align:center;
+      padding:18px 14px;border:4px solid var(--line);border-radius:18px;background:#fff;font-weight:800;
+      cursor:pointer; user-select:none;
+      transition:transform .08s ease;
     }
-    .menuBtn:hover{ transform: translateY(-2px); }
-    .menuBtn:active{ transform: translateY(0px); }
+    .menuBtn:hover{transform:translateY(-2px)}
+    .menuBtn:active{transform:translateY(0)}
+    .hintRow{display:flex;justify-content:space-between;gap:24px;margin-top:10px;flex-wrap:wrap}
+    .hint{flex:1;min-width:200px;text-align:center;color:var(--muted);font-size:12px}
 
-    .hintRow{
-      display:flex;
-      justify-content: space-between;
-      gap: 24px;
-      margin-top: 10px;
-      flex-wrap: wrap;
+    .topbar{
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+      border:4px solid var(--line);
+      border-radius:18px;
+      padding:12px 12px;
+      margin-top:22px;
     }
-    .hint{
-      flex:1;
-      min-width: 200px;
-      text-align:center;
-      color: var(--muted);
-      font-size: 12px;
+    .topLeft{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+    .pill{
+      border:3px solid var(--line);
+      border-radius:999px;
+      padding:8px 12px;
+      background:#fff;
+      font-weight:800;
+      cursor:pointer;
+    }
+    .pill.secondary{font-weight:700;border-width:2px}
+    .pill.active{background:#0b1220;color:#fff}
+    .pill:active{transform:translateY(1px)}
+    .search{
+      min-width:220px;flex:1;
+      border:2px solid var(--line);
+      border-radius:999px;
+      padding:10px 14px;
+      outline:none;
     }
 
-    .footer{
-      text-align:center;
-      margin-top: 40px;
-      color: var(--muted);
-      font-size: 12px;
+    .panel{
+      margin-top:16px;
+      border:4px solid var(--line);
+      border-radius:18px;
+      padding:14px;
+      background:var(--card);
     }
+    .panelTitle{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap}
+    .panelTitle h2{margin:0;font-size:22px}
+    .meta{color:var(--muted);font-size:12px}
+    .list{display:flex;flex-direction:column;gap:10px;margin-top:12px}
+    .item{
+      border:2px solid rgba(11,18,32,.20);
+      border-radius:16px;
+      padding:12px;
+      background:#fff;
+    }
+    .itemTop{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap}
+    .itemTitle{font-weight:900}
+    .tagRow{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+    .tag{border:2px solid rgba(11,18,32,.25);border-radius:999px;padding:6px 10px;font-size:12px;color:rgba(11,18,32,.85)}
+    .backRow{display:flex;justify-content:center;margin-top:18px}
+    .backBtn{border:4px solid var(--line);border-radius:18px;padding:12px 18px;background:#fff;font-weight:900;cursor:pointer}
+    .hidden{display:none !important}
+    footer{margin-top:34px;text-align:center;color:var(--muted);font-size:12px}
   </style>
 </head>
 
 <body>
   <main class="wrap">
-    <section class="brand">
+
+    <!-- FORSIDE -->
+    <section id="home">
       <h1>Grenland Live</h1>
       <p class="sub">Se kampene. Finn puben og opplev stemningen i Grenland.</p>
       <p class="sub">Grenland Live – der Grenland møtes.</p>
+
+      <div class="menuRow">
+        <button class="menuBtn" data-go="sport" type="button">Sport</button>
+        <button class="menuBtn" data-go="puber" type="button">Puber</button>
+        <button class="menuBtn" data-go="events" type="button">Kommende eventer</button>
+        <button class="menuBtn" data-go="vm2026" type="button">VM kalender 2026</button>
+      </div>
+
+      <div class="hintRow">
+        <div class="hint">Ligaer / kamper</div>
+        <div class="hint">Liste + kart</div>
+        <div class="hint">Arrangement i Grenland</div>
+        <div class="hint">VM-oversikt</div>
+      </div>
     </section>
 
-    <!-- 4 store knapper (som i skissen) -->
-    <section class="menuRow">
-      <a class="menuBtn" href="sport.html">Sport</a>
-      <a class="menuBtn" href="puber.html">Puber</a>
-      <a class="menuBtn" href="events.html">Kommende eventer</a>
-      <a class="menuBtn" href="vm2026.html">VM kalender 2026</a>
+    <!-- APP (én side, bytter visning) -->
+    <section id="app" class="hidden">
+
+      <div class="topbar">
+        <div class="topLeft">
+          <button class="pill" id="tabSport" type="button" data-tab="sport">Sport</button>
+          <button class="pill" id="tabPuber" type="button" data-tab="puber">Puber</button>
+          <button class="pill" id="tabEvents" type="button" data-tab="events">Eventer</button>
+          <button class="pill" id="tabVM" type="button" data-tab="vm2026">VM 2026</button>
+        </div>
+
+        <input id="q" class="search" placeholder="Søk…" />
+        <button id="backHome" class="pill secondary" type="button">Forside</button>
+      </div>
+
+      <div class="panel">
+        <div class="panelTitle">
+          <h2 id="panelH2">Laster…</h2>
+          <div class="meta" id="panelMeta"></div>
+        </div>
+        <div class="list" id="list"></div>
+      </div>
+
+      <div class="backRow">
+        <button id="backHome2" class="backBtn" type="button">← Tilbake til forsiden</button>
+      </div>
     </section>
 
-    <!-- små tekster under (valgfritt, men matcher skissen litt) -->
-    <section class="hintRow">
-      <div class="hint">Ny meny (side)</div>
-      <div class="hint">Nedtrekksmeny + kart</div>
-      <div class="hint">Ny meny (side)</div>
-      <div class="hint">VM oversikt</div>
-    </section>
-
-    <div class="footer">
-      © Grenland Live
-    </div>
+    <footer>© Grenland Live</footer>
   </main>
+
+  <script src="app.js"></script>
 </body>
 </html>
