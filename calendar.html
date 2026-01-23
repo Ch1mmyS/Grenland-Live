@@ -11,170 +11,81 @@
       --text:#0b1220;
       --muted:rgba(11,18,32,.62);
       --line:rgba(11,18,32,.12);
-      --accent:#2563eb;
-      --accent2:#10b981;
     }
     *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;
-      background:var(--bg);
-      color:var(--text);
-    }
-    header{
-      padding:16px 16px 8px;
-      max-width:1200px;
-      margin:0 auto;
-    }
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;background:var(--bg);color:var(--text)}
+    header{padding:16px 16px 8px;max-width:1200px;margin:0 auto}
     .wrap{max-width:1200px;margin:0 auto;padding:0 16px 24px;}
     .topbar{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      flex-wrap:wrap;
-      background:var(--panel);
-      border:1px solid var(--line);
-      border-radius:16px;
-      padding:12px;
+      display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+      background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:12px;
       box-shadow:0 6px 16px rgba(0,0,0,.05);
     }
     .title{display:flex;flex-direction:column;gap:2px}
     .title h1{margin:0;font-size:18px}
     .title small{color:var(--muted)}
-    .controls{
-      display:flex;gap:8px;align-items:center;flex-wrap:wrap;
+    .controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+    button,.btnLink{
+      border:1px solid var(--line);background:#fff;padding:10px 12px;border-radius:12px;
+      cursor:pointer;font-weight:800;text-decoration:none;color:inherit;display:inline-flex;align-items:center;justify-content:center;
     }
-    button, .btnLink{
-      border:1px solid var(--line);
-      background:#fff;
-      padding:10px 12px;
-      border-radius:12px;
-      cursor:pointer;
-      font-weight:700;
-      text-decoration:none;
-      color:inherit;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-    }
-    button:hover, .btnLink:hover{border-color:rgba(37,99,235,.35)}
+    button:hover,.btnLink:hover{border-color:rgba(37,99,235,.35)}
     .pill{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:10px 12px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      background:#fff;
-      font-weight:800;
-      min-width:200px;
-      justify-content:center;
-      text-transform:capitalize;
+      display:inline-flex;align-items:center;gap:8px;padding:10px 12px;border-radius:999px;
+      border:1px solid var(--line);background:#fff;font-weight:900;min-width:210px;justify-content:center;text-transform:capitalize;
     }
-    .grid{
-      margin-top:12px;
-      display:grid;
-      grid-template-columns: 1fr;
-      gap:12px;
-    }
-    @media(min-width:980px){
-      .grid{grid-template-columns: 1.2fr .8fr;}
-    }
-    .card{
-      background:var(--panel);
-      border:1px solid var(--line);
-      border-radius:16px;
-      padding:12px;
-      box-shadow:0 6px 16px rgba(0,0,0,.05);
-    }
+    .grid{margin-top:12px;display:grid;grid-template-columns:1fr;gap:12px}
+    @media(min-width:980px){.grid{grid-template-columns:1.2fr .8fr}}
+    .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:12px;box-shadow:0 6px 16px rgba(0,0,0,.05)}
     .weekdays{
-      display:grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap:8px;
-      margin-bottom:8px;
-      color:var(--muted);
-      font-weight:800;
-      font-size:12px;
-      text-transform:uppercase;
-      letter-spacing:.04em;
+      display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-bottom:8px;color:var(--muted);
+      font-weight:900;font-size:12px;text-transform:uppercase;letter-spacing:.04em;
     }
-    .cal{
-      display:grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap:8px;
-    }
+    .cal{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
     .day{
-      border:1px solid var(--line);
-      background:#fff;
-      border-radius:14px;
-      padding:10px;
-      min-height:86px;
-      display:flex;
-      flex-direction:column;
-      gap:8px;
-      cursor:pointer;
-      position:relative;
+      border:1px solid var(--line);background:#fff;border-radius:14px;padding:10px;min-height:98px;
+      display:flex;flex-direction:column;gap:8px;cursor:pointer;
     }
     .day:hover{border-color:rgba(37,99,235,.35)}
     .day.muted{opacity:.55;background:rgba(255,255,255,.7)}
     .day.selected{outline:2px solid rgba(37,99,235,.45);border-color:rgba(37,99,235,.45)}
-    .dnum{
-      font-weight:900;
-      font-size:13px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-    }
+    .dnum{font-weight:900;font-size:13px;display:flex;justify-content:space-between;align-items:center}
     .badge{
-      font-size:11px;
-      font-weight:900;
-      padding:3px 8px;
-      border-radius:999px;
-      border:1px solid var(--line);
+      font-size:11px;font-weight:900;padding:3px 8px;border-radius:999px;border:1px solid var(--line);
       background:rgba(37,99,235,.08);
     }
-    .dots{display:flex;gap:6px;flex-wrap:wrap}
-    .dot{width:8px;height:8px;border-radius:99px;background:rgba(37,99,235,.75)}
-    .dot.ws{background:rgba(16,185,129,.85)}
-    .dot.hb{background:rgba(37,99,235,.75)}
-    .dot.fb{background:rgba(245,158,11,.90)}
-    .legend{
-      display:flex;gap:10px;flex-wrap:wrap;align-items:center;
-      color:var(--muted);font-size:13px;margin-top:10px;
+    .mini{
+      display:flex;flex-direction:column;gap:6px;min-height:40px;
     }
-    .legend span{display:inline-flex;align-items:center;gap:8px;}
+    .miniLine{
+      border:1px solid rgba(11,18,32,.10);
+      border-radius:10px;
+      padding:5px 6px;
+      font-size:11px;
+      font-weight:800;
+      color:rgba(11,18,32,.92);
+      display:flex;
+      justify-content:space-between;
+      gap:8px;
+      background:rgba(11,18,32,.03);
+      overflow:hidden;
+      white-space:nowrap;
+      text-overflow:ellipsis;
+    }
+    .miniLeft{overflow:hidden;text-overflow:ellipsis}
+    .miniRight{color:rgba(11,18,32,.60);font-weight:900}
     .list h2{margin:0 0 6px;font-size:16px}
     .list small{color:var(--muted)}
     .event{
-      margin-top:10px;
-      border:1px solid var(--line);
-      border-radius:14px;
-      padding:10px;
-      background:#fff;
-      display:flex;
-      flex-direction:column;
-      gap:6px;
+      margin-top:10px;border:1px solid var(--line);border-radius:14px;padding:10px;background:#fff;
+      display:flex;flex-direction:column;gap:6px;
     }
-    .event .row{
-      display:flex;
-      justify-content:space-between;
-      gap:10px;
-      flex-wrap:wrap;
-      align-items:center;
-    }
+    .event .row{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center}
     .event .when{font-weight:900}
     .event .meta{color:var(--muted);font-size:13px}
     .tag{
-      display:inline-flex;
-      align-items:center;
-      gap:6px;
-      padding:4px 10px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      font-weight:900;
-      font-size:12px;
-      background:rgba(11,18,32,.06);
+      display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;border:1px solid var(--line);
+      font-weight:900;font-size:12px;background:rgba(11,18,32,.06);
     }
     .tag.fb{background:rgba(245,158,11,.12)}
     .tag.hb{background:rgba(37,99,235,.10)}
@@ -188,9 +99,8 @@
     <div class="topbar">
       <div class="title">
         <h1>📅 Grenland Live – Kalender</h1>
-        <small>Alt samlet: fotball + håndball + vintersport + VM 2026 • Klikk dag for tid + kanal</small>
+        <small>Samlevisning: fotball + håndball + vintersport + VM 2026 • tid + kanal i kalenderen</small>
       </div>
-
       <div class="controls">
         <a class="btnLink" href="index.html">← Tilbake</a>
         <button id="prevBtn" type="button">◀ Forrige</button>
@@ -208,13 +118,6 @@
           <div>Man</div><div>Tir</div><div>Ons</div><div>Tor</div><div>Fre</div><div>Lør</div><div>Søn</div>
         </div>
         <div class="cal" id="calGrid"></div>
-
-        <div class="legend">
-          <span><span class="dot fb"></span> Fotball</span>
-          <span><span class="dot hb"></span> Håndball</span>
-          <span><span class="dot ws"></span> Vintersport</span>
-        </div>
-
         <div class="foot" id="dataStatus">Laster data…</div>
       </div>
 
@@ -227,25 +130,28 @@
   </div>
 
   <script>
-    // ✅ Disse må matche filene dine i /data/
+    // ✅ Matcher filene du har i /data/
     const SOURCES = [
-      // Fotball (finnes hos deg allerede)
-      { key:"eliteserien", name:"Eliteserien",        url:"data/eliteserien.json",      kind:"football" },
-      { key:"obos",       name:"OBOS-ligaen",         url:"data/obos.json",             kind:"football" },
+      // Fotball
+      { key:"eliteserien", name:"Eliteserien",       url:"data/eliteserien.json",      kind:"football" },
+      { key:"obos",       name:"OBOS-ligaen",        url:"data/obos.json",             kind:"football" },
       { key:"premier",    name:"Premier League",     url:"data/premier_league.json",   kind:"football" },
-      { key:"cl",         name:"Champions League",   url:"data/champions.json",         kind:"football" },
-      { key:"laliga",     name:"La Liga",            url:"data/laliga.json",            kind:"football" },
+      { key:"cl",         name:"Champions League",   url:"data/champions.json",        kind:"football" },
+      { key:"laliga",     name:"La Liga",            url:"data/laliga.json",           kind:"football" },
 
-      // Håndball (du har disse, men de er tomme akkurat nå)
+      // Håndball
       { key:"hb_menn",    name:"Håndball VM 2026 – Menn",  url:"data/handball_vm_2026_menn.json",  kind:"handball" },
       { key:"hb_damer",   name:"Håndball VM 2026 – Damer", url:"data/handball_vm_2026_damer.json", kind:"handball" },
 
-      // Vintersport (du har disse, men de er tomme akkurat nå)
-      { key:"ws_menn",    name:"Vintersport – Menn",       url:"data/vintersport_menn.json",       kind:"wintersport" },
-      { key:"ws_kvinner", name:"Vintersport – Kvinner",    url:"data/vintersport_kvinner.json",    kind:"wintersport" },
+      // Vintersport
+      { key:"ws_menn",    name:"Vintersport – Menn",    url:"data/vintersport_menn.json",    kind:"wintersport" },
+      { key:"ws_kvinner", name:"Vintersport – Kvinner", url:"data/vintersport_kvinner.json", kind:"wintersport" },
 
-      // VM 2026 (egen miks/oversikt)
-      { key:"vm2026",     name:"VM kalender 2026",          url:"data/vm2026.json",                 kind:"vm" }
+      // VM 2026 (egen miks)
+      { key:"vm2026",     name:"VM kalender 2026",     url:"data/vm2026.json",           kind:"vm" }
+
+      // Hvis du har events.json også: legg til her:
+      // { key:"events",  name:"Eventer", url:"data/events.json", kind:"events" }
     ];
 
     const TZ = "Europe/Oslo";
@@ -261,40 +167,22 @@
     const daySub = document.getElementById("daySub");
     const eventList = document.getElementById("eventList");
 
-    document.getElementById("prevBtn").addEventListener("click", () => {
-      current = addMonths(current, -1);
-      selectedDate = null;
-      render();
-    });
-    document.getElementById("nextBtn").addEventListener("click", () => {
-      current = addMonths(current, 1);
-      selectedDate = null;
-      render();
-    });
-    document.getElementById("todayBtn").addEventListener("click", () => {
-      current = startOfMonth(new Date());
-      selectedDate = new Date();
-      render();
-      renderDay(selectedDate);
-    });
+    document.getElementById("prevBtn").addEventListener("click", () => { current = addMonths(current, -1); selectedDate = null; render(); });
+    document.getElementById("nextBtn").addEventListener("click", () => { current = addMonths(current, 1);  selectedDate = null; render(); });
+    document.getElementById("todayBtn").addEventListener("click", () => { current = startOfMonth(new Date()); selectedDate = new Date(); render(); renderDay(selectedDate); });
 
     function pad2(n){ return String(n).padStart(2,"0"); }
     function startOfMonth(d){ return new Date(d.getFullYear(), d.getMonth(), 1); }
     function addMonths(d, n){ return new Date(d.getFullYear(), d.getMonth()+n, 1); }
     function isoToDate(iso){ try { return new Date(iso); } catch(e){ return null; } }
 
-    function fmtMonth(d){
-      return d.toLocaleString("no-NO", { timeZone: TZ, month:"long", year:"numeric" });
-    }
-    function fmtDay(d){
-      return d.toLocaleString("no-NO", { timeZone: TZ, weekday:"long", day:"2-digit", month:"long", year:"numeric" });
-    }
+    function fmtMonth(d){ return d.toLocaleString("no-NO", { timeZone: TZ, month:"long", year:"numeric" }); }
+    function fmtDay(d){ return d.toLocaleString("no-NO", { timeZone: TZ, weekday:"long", day:"2-digit", month:"long", year:"numeric" }); }
     function fmtTime(iso){
       const d = isoToDate(iso);
       if(!d) return "";
       return d.toLocaleString("no-NO", { timeZone: TZ, hour:"2-digit", minute:"2-digit" });
     }
-
     function ymd(d){
       const dd = new Date(d.toLocaleString("en-US", { timeZone: TZ }));
       return `${dd.getFullYear()}-${pad2(dd.getMonth()+1)}-${pad2(dd.getDate())}`;
@@ -302,10 +190,8 @@
 
     function monthGridDates(monthStart){
       const first = new Date(monthStart.getFullYear(), monthStart.getMonth(), 1);
-      const last = new Date(monthStart.getFullYear(), monthStart.getMonth()+1, 0);
-
-      const firstDow = first.getDay(); // 0..6 (sun=0)
-      const offset = (firstDow === 0 ? 6 : firstDow - 1); // back to Monday
+      const firstDow = first.getDay(); // sun=0
+      const offset = (firstDow === 0 ? 6 : firstDow - 1); // monday-start
       const gridStart = new Date(first);
       gridStart.setDate(first.getDate() - offset);
 
@@ -315,11 +201,11 @@
         d.setDate(gridStart.getDate() + i);
         dates.push(d);
       }
-      return { dates, first, last };
+      return { dates, firstMonth:first.getMonth() };
     }
 
     function normalizeEntry(raw, source){
-      // Støtt både "events" og "games" format
+      // Støtter dine ulike felt:
       const start = raw.start || raw.kickoff || raw.datetime || raw.dateTime || raw.date;
       if(!start) return null;
 
@@ -338,7 +224,7 @@
         start,
         title,
         channel,
-        kind: source.kind,     // football/handball/wintersport/vm
+        kind: source.kind,
         league
       };
     }
@@ -358,17 +244,21 @@
       return map;
     }
 
-    function dotClass(ev){
-      if(ev.kind === "wintersport") return "dot ws";
-      if(ev.kind === "handball") return "dot hb";
-      return "dot fb"; // football + vm som default
-    }
-
     function tag(ev){
       if(ev.kind === "wintersport") return { cls:"tag ws", text:"Vintersport" };
       if(ev.kind === "handball") return { cls:"tag hb", text:"Håndball" };
       if(ev.kind === "football") return { cls:"tag fb", text:"Fotball" };
       return { cls:"tag", text:"VM/2026" };
+    }
+
+    function shortChannel(ch){
+      const s = (ch || "").toLowerCase();
+      if(!s) return "";
+      if(s.includes("viaplay")) return "Viaplay";
+      if(s.includes("tv 2")) return "TV2";
+      if(s.includes("nrk")) return "NRK";
+      if(s.includes("v sport")) return "V Sport";
+      return ch.length > 10 ? ch.slice(0,10) + "…" : ch;
     }
 
     async function loadAll(){
@@ -378,12 +268,12 @@
 
       for(const s of SOURCES){
         try{
-          // cache-buster for GitHub Pages caching
-          const url = `${s.url}?v=${Date.now()}`;
+          const url = `${s.url}?v=${Date.now()}`; // cache-buster
           const r = await fetch(url, { cache:"no-store" });
           if(!r.ok) throw new Error(`${r.status} ${r.statusText}`);
           const data = await r.json();
 
+          // støtter både "games" og "events"
           const arr = Array.isArray(data.events) ? data.events : (Array.isArray(data.games) ? data.games : []);
           totalRaw += arr.length;
 
@@ -408,28 +298,16 @@
     function render(){
       monthLabel.textContent = fmtMonth(current);
 
-      const { dates, first } = monthGridDates(current);
-      const firstMonth = first.getMonth();
+      const { dates, firstMonth } = monthGridDates(current);
       const map = eventsByDayMap(allEvents);
 
       calGrid.innerHTML = "";
-
-      const todayKey = ymd(new Date());
       const selectedKey = selectedDate ? ymd(selectedDate) : null;
 
       for(const d of dates){
         const key = ymd(d);
         const isMuted = d.getMonth() !== firstMonth;
-
         const dayEvents = map.get(key) || [];
-
-        const dotWrap = document.createElement("div");
-        dotWrap.className = "dots";
-        for(const ev of dayEvents.slice(0,7)){
-          const dot = document.createElement("span");
-          dot.className = dotClass(ev);
-          dotWrap.appendChild(dot);
-        }
 
         const el = document.createElement("div");
         el.className = "day" + (isMuted ? " muted" : "");
@@ -445,9 +323,6 @@
         if(dayEvents.length){
           right.className = "badge";
           right.textContent = `${dayEvents.length}`;
-        }else if(key === todayKey){
-          right.className = "badge";
-          right.textContent = "i dag";
         }else{
           right.textContent = "";
         }
@@ -455,8 +330,28 @@
         top.appendChild(left);
         top.appendChild(right);
 
+        // ✅ MINI-LISTE I CELLEN: tid + kanal (maks 2)
+        const mini = document.createElement("div");
+        mini.className = "mini";
+        for(const ev of dayEvents.slice(0,2)){
+          const line = document.createElement("div");
+          line.className = "miniLine";
+
+          const l = document.createElement("div");
+          l.className = "miniLeft";
+          l.textContent = `${fmtTime(ev.start)} ${ev.title}`.trim();
+
+          const r = document.createElement("div");
+          r.className = "miniRight";
+          r.textContent = shortChannel(ev.channel);
+
+          line.appendChild(l);
+          line.appendChild(r);
+          mini.appendChild(line);
+        }
+
         el.appendChild(top);
-        el.appendChild(dotWrap);
+        el.appendChild(mini);
 
         el.addEventListener("click", () => {
           selectedDate = d;
@@ -468,6 +363,7 @@
       }
 
       if(!selectedDate){
+        // auto-velg første dag i måneden som har event
         const monthEvents = allEvents.filter(e => {
           const dt = new Date(e.start);
           const oslo = new Date(dt.toLocaleString("en-US", { timeZone: TZ }));
@@ -524,9 +420,7 @@
 
         const meta = document.createElement("div");
         meta.className = "meta";
-        meta.textContent =
-          `${ev.league ? "🏷️ " + ev.league + "  •  " : ""}` +
-          (ev.channel ? `📺 ${ev.channel}` : "📺 Kanal: ikke oppgitt");
+        meta.textContent = `${ev.league ? "🏷️ " + ev.league + "  •  " : ""}` + (ev.channel ? `📺 ${ev.channel}` : "📺 Kanal: ikke oppgitt");
 
         card.appendChild(row1);
         card.appendChild(meta);
