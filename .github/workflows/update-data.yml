@@ -42,15 +42,24 @@ jobs:
         run: |
           python tools/fetch_official.py
 
-      - name: Commit and push changes
+      - name: Commit and push changes (safe rebase)
+        shell: bash
         run: |
+          set -e
+
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          if git status --porcelain | grep -qE "^( M|A |\\?\\?)"; then
+          # Hvis ingen endringer -> stopp pent
+          if git status --porcelain | grep -qE "^( M|M |A |\\?\\?)"; then
             git add data/*.json
-            git commit -m "Auto update fixtures JSON"
-            git push
+            git commit -m "Auto update fixtures JSON" || echo "Nothing to commit"
+
+            # 🔥 Viktig: hent siste remote før push (fikser non-fast-forward)
+            git fetch origin main
+            git rebase origin/main
+
+            git push origin HEAD:main
           else
             echo "No changes to commit."
           fi
