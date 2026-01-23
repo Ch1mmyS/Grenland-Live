@@ -1,4 +1,5 @@
 // Grenland Live – One-page app (forside + 4 visninger)
+// Sport: viser egne knapper for hver liga + kamper sortert i riktig liga
 // Fungerer på GitHub Pages project repo: /Grenland-Live/
 
 const REPO_NAME = "Grenland-Live";
@@ -22,27 +23,32 @@ const tabButtons = {
   vm2026: $("tabVM"),
 };
 
-// --- Velg hvilke JSON-filer du vil bruke ---
-// Tilpass disse om filnavnene dine er annerledes.
+// ===== KILDER (SPORT-KNAPPER = KILDENE UNDER) =====
+// Hver source under blir en EGEN knapp i Sport.
 const SOURCES = {
   sport: [
-    { name:"Eliteserien", file:"data/eliteserien.json" },
-    { name:"OBOS-ligaen", file:"data/obos.json" },
-    { name:"Premier League", file:"data/premier_league.json" },
-    { name:"Champions League", file:"data/champions.json" },
-    { name:"La Liga", file:"data/laliga.json" },
-    { name:"Håndball VM 2026 – Menn", file:"data/handball_vm_2026_menn.json" },
-    { name:"Håndball VM 2026 – Damer", file:"data/handball_vm_2026_damer.json" }
-    // legg til flere her hvis du vil
+    { id:"eliteserien", name:"Eliteserien", file:"data/eliteserien.json" },
+    { id:"obos",        name:"OBOS-ligaen", file:"data/obos.json" },
+    { id:"premier",     name:"Premier League", file:"data/premier_league.json" },
+    { id:"cl",          name:"Champions League", file:"data/champions.json" },
+    { id:"laliga",      name:"La Liga", file:"data/laliga.json" },
+
+    // Håndball
+    { id:"hb_m",        name:"Håndball VM 2026 – Menn", file:"data/handball_vm_2026_menn.json" },
+    { id:"hb_k",        name:"Håndball VM 2026 – Damer", file:"data/handball_vm_2026_damer.json" },
+
+    // Vintersport (slik du skrev: herrer + damer)
+    { id:"ws_m",        name:"Vintersport – Menn", file:"data/vintersport_menn.json" },
+    { id:"ws_k",        name:"Vintersport – Kvinner", file:"data/vintersport_kvinner.json" }
   ],
   puber: [
-    { name:"Puber", file:"data/pubs.json" } // lag denne hvis du ikke har den
+    { id:"pubs", name:"Puber", file:"data/pubs.json" }
   ],
   events: [
-    { name:"Events", file:"data/events.json" }
+    { id:"events", name:"Events", file:"data/events.json" }
   ],
   vm2026: [
-    { name:"VM 2026", file:"data/vm2026.json" }
+    { id:"vm2026", name:"VM 2026", file:"data/vm2026.json" }
   ]
 };
 
@@ -59,8 +65,6 @@ async function fetchJSON(path){
     throw new Error(`${path}: returned HTML (wrong path / 404 page)`);
   }
 
-  // OBS: Hvis JSON-fila er lagret i feil encoding kan selve teksten inneholde mojibake,
-  // men JSON.parse vil fortsatt funke. Vi fikser visning i fixText()/escapeHTML().
   return JSON.parse(txt);
 }
 
@@ -88,14 +92,11 @@ function extractItems(obj){
 function fixText(value){
   if (value == null) return "";
 
-  // Ikke rør tall/boolean/objekter; stringify håndteres der det trengs
   let s = String(value);
 
   // Rask exit hvis ingen typiske feil-sekvenser
   if (!s.includes("Ã") && !s.includes("Â")) return s;
 
-  // Vanlige feil: UTF-8 bytes tolket som Latin-1/Windows-1252
-  // Dette dekker norske bokstaver + noen vanlige tegn.
   const map = [
     ["Ã¸","ø"],["Ã˜","Ø"],["Ã¥","å"],["Ã…","Å"],["Ã¦","æ"],["Ã†","Æ"],
     ["Ã©","é"],["Ã¨","è"],["Ãª","ê"],["Ã¡","á"],["Ã³","ó"],["Ãº","ú"],
@@ -122,6 +123,7 @@ function escapeHTML(s){
     .replaceAll("'","&#039;");
 }
 
+// -------- Tid / sortering --------
 function parseISO(iso){
   const d = new Date(iso);
   return isNaN(d.getTime()) ? null : d;
@@ -151,9 +153,13 @@ function scoreSort(a,b){
   return ta - tb;
 }
 
+// -------- Sport: league state --------
+let CURRENT = "sport";
+let CURRENT_LEAGUE = "ALL"; // id fra sport sources, eller "ALL"
+
 // -------- Data cache --------
 const CACHE = {
-  sport: { loaded:false, items:[], status:[] },
+  sport: { loaded:false, leagues:[], status:[] }, // leagues = [{id,name,items}]
   puber: { loaded:false, items:[], status:[] },
   events: { loaded:false, items:[], status:[] },
   vm2026: { loaded:false, items:[], status:[] }
@@ -162,8 +168,29 @@ const CACHE = {
 async function loadTab(tab){
   const conf = SOURCES[tab] || [];
   const status = [];
-  const allItems = [];
 
+  if (tab === "sport"){
+    const leagues = [];
+
+    for (const src of conf){
+      try{
+        const json = await fetchJSON(src.file);
+        const items = extractItems(json).slice().sort(scoreSort);
+        leagues.push({ id: src.id, name: src.name, items });
+        status.push({ ...src, ok:true, count: items.length });
+      }catch(e){
+        console.warn("load failed:", src.file, e);
+        leagues.push({ id: src.id, name: src.name, items: [] });
+        status.push({ ...src, ok:false, error:String(e) });
+      }
+    }
+
+    CACHE.sport = { loaded:true, leagues, status };
+    return;
+  }
+
+  // andre tabs: vanlig flat liste
+  const allItems = [];
   for (const src of conf){
     try{
       const json = await fetchJSON(src.file);
@@ -186,43 +213,13 @@ function setActiveTabUI(tab){
   }
 }
 
-function render(tab){
-  const q = fixText((qEl.value || "")).trim().toLowerCase();
-  const { items, status } = CACHE[tab] || { items:[], status:[] };
-
-  // Header
-  const titleMap = {
-    sport: "Sport",
-    puber: "Puber",
-    events: "Kommende eventer",
-    vm2026: "VM kalender 2026"
-  };
-  h2El.textContent = fixText(titleMap[tab] || "Grenland Live");
-
-  // Meta (viser hvilke filer som lastet / manglet)
-  const okCount = status.filter(s => s.ok).length;
-  metaEl.textContent = `Kilder: ${okCount}/${status.length} • BASE: ${BASE}`;
-
-  // Filter (søk i hele objektet, men fixer tekst først)
-  let filtered = items;
-  if (q){
-    filtered = items.filter(x => fixText(JSON.stringify(x)).toLowerCase().includes(q));
-  }
-
-  // Render list
-  listEl.innerHTML = "";
-
-  if (!status.length){
-    listEl.innerHTML = `<div class="item">Ingen kilder konfigurert for ${escapeHTML(tab)}.</div>`;
-    return;
-  }
-
-  // Hvis noe mangler, vis toppvarsling
+// ===== Render helpers =====
+function renderMissingWarning(status){
   const missing = status.filter(s => !s.ok);
-  if (missing.length){
-    const warn = document.createElement("div");
-    warn.className = "item";
-    warn.innerHTML = `
+  if (!missing.length) return "";
+
+  return `
+    <div class="item">
       <div class="itemTitle">Noen JSON-filer ble ikke funnet:</div>
       <div class="tagRow">
         ${missing.map(m => `<span class="tag">${escapeHTML(m.file)} (${escapeHTML(m.error)})</span>`).join("")}
@@ -230,35 +227,27 @@ function render(tab){
       <div style="margin-top:8px;color:rgba(11,18,32,.75);font-size:12px">
         Sjekk at filene finnes i <code>/data/</code> og at navnet er helt likt (store/små bokstaver).
       </div>
-    `;
-    listEl.appendChild(warn);
-  }
+    </div>
+  `;
+}
 
-  if (!filtered.length){
-    listEl.innerHTML += `<div class="item">Ingen treff.</div>`;
-    return;
-  }
+function buildItemView(x){
+  const whenIso = getWhen(x);
+  const when = whenIso ? fmtOslo(whenIso) : "";
 
-  // Vis elementer
-  for (const x of filtered){
-    const whenIso = getWhen(x);
-    const when = whenIso ? fmtOslo(whenIso) : "";
+  const title =
+    (x.home && x.away) ? `${fixText(x.home)} – ${fixText(x.away)}` :
+    fixText(x.title || x.name || x.event || "Ukjent");
 
-    // Viktig: fixText gjennom escapeHTML, så "TromsÃ¸" blir "Tromsø"
-    const title =
-      (x.home && x.away) ? `${fixText(x.home)} – ${fixText(x.away)}` :
-      fixText(x.title || x.name || x.event || "Ukjent");
+  const league = fixText(x.league || x.competition || x.tournament || "");
+  const channel = fixText(x.channel || x.tv || x.broadcast || "");
+  const where =
+    Array.isArray(x.where) ? x.where.map(fixText).join(", ") :
+    Array.isArray(x.pubs) ? x.pubs.map(p => fixText(p?.name || p)).join(", ") :
+    fixText(x.where || x.place || x.location || "");
 
-    const league = fixText(x.league || x.competition || x.tournament || "");
-    const channel = fixText(x.channel || x.tv || x.broadcast || "");
-    const where =
-      Array.isArray(x.where) ? x.where.map(fixText).join(", ") :
-      Array.isArray(x.pubs) ? x.pubs.map(p => fixText(p?.name || p)).join(", ") :
-      fixText(x.where || x.place || x.location || "");
-
-    const row = document.createElement("div");
-    row.className = "item";
-    row.innerHTML = `
+  return `
+    <div class="item">
       <div class="itemTop">
         <div class="itemTitle">${escapeHTML(title)}</div>
         <div class="tag">${escapeHTML(when || "")}</div>
@@ -268,19 +257,130 @@ function render(tab){
         ${channel ? `<span class="tag">${escapeHTML(channel)}</span>` : ""}
         ${where ? `<span class="tag">${escapeHTML(where)}</span>` : ""}
       </div>
-    `;
-    listEl.appendChild(row);
-  }
+    </div>
+  `;
 }
 
-let CURRENT = "sport";
+// ===== SPORT RENDER =====
+function renderSport(){
+  const q = fixText((qEl.value || "")).trim().toLowerCase();
+  const { leagues, status } = CACHE.sport;
+
+  const okCount = status.filter(s => s.ok).length;
+  metaEl.textContent = `Kilder: ${okCount}/${status.length} • BASE: ${BASE}`;
+
+  // Header
+  h2El.textContent = "Sport";
+
+  // liga-knapper
+  const btns = [
+    { id:"ALL", name:"Alle" },
+    ...leagues.map(l => ({ id:l.id, name:l.name }))
+  ];
+
+  const leagueButtonsHTML = `
+    <div class="item" style="border:none;padding:0;background:transparent">
+      <div class="tagRow" style="gap:10px">
+        ${btns.map(b => `
+          <button
+            class="pill ${CURRENT_LEAGUE === b.id ? "active" : ""}"
+            type="button"
+            data-league="${escapeHTML(b.id)}"
+            style="border:3px solid #0b1220"
+          >${escapeHTML(b.name)}</button>
+        `).join("")}
+      </div>
+    </div>
+  `;
+
+  // velg items basert på liga
+  let selectedItems = [];
+  if (CURRENT_LEAGUE === "ALL"){
+    for (const l of leagues) selectedItems.push(...l.items);
+  } else {
+    const found = leagues.find(l => l.id === CURRENT_LEAGUE);
+    selectedItems = found ? found.items.slice() : [];
+  }
+
+  selectedItems.sort(scoreSort);
+
+  // søk
+  if (q){
+    selectedItems = selectedItems.filter(x => fixText(JSON.stringify(x)).toLowerCase().includes(q));
+  }
+
+  // bygg liste
+  let html = "";
+  html += renderMissingWarning(status);
+  html += leagueButtonsHTML;
+
+  if (!selectedItems.length){
+    html += `<div class="item">Ingen treff.</div>`;
+  } else {
+    html += selectedItems.map(buildItemView).join("");
+  }
+
+  listEl.innerHTML = html;
+
+  // wire liga-knapper (etter render)
+  listEl.querySelectorAll("[data-league]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      CURRENT_LEAGUE = btn.getAttribute("data-league");
+      renderSport();
+    });
+  });
+}
+
+// ===== GENERIC RENDER (puber/events/vm2026) =====
+function renderGeneric(tab){
+  const q = fixText((qEl.value || "")).trim().toLowerCase();
+  const { items, status } = CACHE[tab];
+
+  const titleMap = {
+    puber: "Puber",
+    events: "Kommende eventer",
+    vm2026: "VM kalender 2026"
+  };
+  h2El.textContent = fixText(titleMap[tab] || "Grenland Live");
+
+  const okCount = status.filter(s => s.ok).length;
+  metaEl.textContent = `Kilder: ${okCount}/${status.length} • BASE: ${BASE}`;
+
+  let filtered = items;
+  if (q){
+    filtered = items.filter(x => fixText(JSON.stringify(x)).toLowerCase().includes(q));
+  }
+  filtered.sort(scoreSort);
+
+  let html = "";
+  html += renderMissingWarning(status);
+
+  if (!filtered.length){
+    html += `<div class="item">Ingen treff.</div>`;
+  } else {
+    html += filtered.map(buildItemView).join("");
+  }
+
+  listEl.innerHTML = html;
+}
+
+function render(tab){
+  if (tab === "sport") return renderSport();
+  return renderGeneric(tab);
+}
 
 async function show(tab){
   CURRENT = tab;
+
   homeEl.classList.add("hidden");
   appEl.classList.remove("hidden");
 
   setActiveTabUI(tab);
+
+  // reset league når du går inn i sport
+  if (tab === "sport" && CURRENT_LEAGUE !== "ALL" && !CACHE.sport.loaded){
+    CURRENT_LEAGUE = "ALL";
+  }
 
   if (!CACHE[tab]?.loaded){
     h2El.textContent = "Laster…";
@@ -288,6 +388,7 @@ async function show(tab){
     listEl.innerHTML = `<div class="item">Laster data…</div>`;
     await loadTab(tab);
   }
+
   render(tab);
 }
 
@@ -295,6 +396,7 @@ function backHome(){
   appEl.classList.add("hidden");
   homeEl.classList.remove("hidden");
   qEl.value = "";
+  CURRENT_LEAGUE = "ALL";
 }
 
 // ---- Wiring ----
