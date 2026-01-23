@@ -1,6 +1,5 @@
-// Grenland Live – One-page app (forside + 4 visninger)
-// SPORT: faste liga-knapper (hver fil = egen liga) + sortering + encoding-fix
-// Fungerer på GitHub Pages project repo: /Grenland-Live/
+// Grenland Live – One-page app
+// Klikk på kamp -> modal med puber (Vikinghjørnet + Gimle først), klokkeslett og kanal
 
 const REPO_NAME = "Grenland-Live";
 const BASE = location.pathname.startsWith(`/${REPO_NAME}/`) ? `/${REPO_NAME}/` : "/";
@@ -16,6 +15,13 @@ const h2El   = $("panelH2");
 const metaEl = $("panelMeta");
 const qEl    = $("q");
 
+const modalBack   = $("modalBack");
+const modalTitle  = $("modalTitle");
+const modalTime   = $("modalTime");
+const modalChannel= $("modalChannel");
+const modalPubs   = $("modalPubs");
+const modalClose  = $("modalClose");
+
 const tabButtons = {
   sport: $("tabSport"),
   puber: $("tabPuber"),
@@ -23,8 +29,7 @@ const tabButtons = {
   vm2026: $("tabVM"),
 };
 
-// ===== KILDER =====
-// Hver source under blir en EGEN knapp i Sport.
+// ===== KILDER (Sport = faste liga-knapper) =====
 const SOURCES = {
   sport: [
     { id:"eliteserien", name:"Eliteserien", file:"data/eliteserien.json" },
@@ -55,13 +60,12 @@ async function fetchJSON(path){
   const full = url(path) + `?v=${Date.now()}`;
   const r = await fetch(full, { cache: "no-store" });
   if (!r.ok) throw new Error(`${path}: ${r.status}`);
-
   const txt = await r.text();
   if (txt.trim().startsWith("<")) throw new Error(`${path}: returned HTML (wrong path / 404 page)`);
   return JSON.parse(txt);
 }
 
-// -------- Encoding / mojibake fix (global) --------
+// -------- Encoding fix --------
 function fixText(value){
   if (value == null) return "";
   let s = String(value);
@@ -118,7 +122,7 @@ function scoreSort(a,b){
   return ta - tb;
 }
 
-// -------- Robust extractor (tåler mange JSON-varianter) --------
+// -------- Robust extractor --------
 function looksLikeEventObj(o){
   if (!o || typeof o !== "object") return false;
   const hasTime = !!getWhen(o);
@@ -130,7 +134,6 @@ function looksLikeEventObj(o){
 function normalizeItem(o){
   if (!o || typeof o !== "object") return o;
 
-  // football-data style
   if (!o.home && o.homeTeam && typeof o.homeTeam === "object") {
     o = { ...o, home: o.homeTeam.name ?? o.homeTeam.shortName ?? o.homeTeam.tla ?? o.homeTeam };
   }
@@ -139,7 +142,6 @@ function normalizeItem(o){
   }
   if (!o.kickoff && o.utcDate) o = { ...o, kickoff: o.utcDate };
 
-  // fix alle string-felt
   const copy = { ...o };
   for (const k of Object.keys(copy)){
     if (typeof copy[k] === "string") copy[k] = fixText(copy[k]);
@@ -156,7 +158,6 @@ function extractItems(obj){
     if (Array.isArray(obj[k])) return obj[k].map(normalizeItem);
   }
 
-  // nestet
   for (const k of Object.keys(obj)){
     const v = obj[k];
     if (v && typeof v === "object") {
@@ -166,7 +167,6 @@ function extractItems(obj){
     }
   }
 
-  // rekursiv fallback
   const out = [];
   function walk(node, depth=0){
     if (!node || depth > 6) return;
@@ -191,25 +191,24 @@ function extractItems(obj){
   return out;
 }
 
-// -------- UI state --------
+// -------- Cache --------
 let CURRENT = "sport";
 let CURRENT_LEAGUE = "ALL";
 
-// -------- Cache --------
 const CACHE = {
-  sport: { loaded:false, leagues:[], status:[] }, // leagues: [{id,name,items}]
-  puber: { loaded:false, items:[], status:[] },
-  events: { loaded:false, items:[], status:[] },
-  vm2026: { loaded:false, items:[], status:[] }
+  sport: { loaded:false, leagues:[], status:[] },   // leagues: [{id,name,items}]
+  puber: { loaded:false, items:[], status:[] },     // pubs list
+  events:{ loaded:false, items:[], status:[] },
+  vm2026:{ loaded:false, items:[], status:[] }
 };
 
+// -------- Load tabs --------
 async function loadTab(tab){
   const conf = SOURCES[tab] || [];
   const status = [];
 
   if (tab === "sport"){
     const leagues = [];
-
     for (const src of conf){
       try{
         const json = await fetchJSON(src.file);
@@ -222,7 +221,6 @@ async function loadTab(tab){
         status.push({ ...src, ok:false, error:String(e) });
       }
     }
-
     CACHE.sport = { loaded:true, leagues, status };
     return;
   }
@@ -239,7 +237,6 @@ async function loadTab(tab){
       status.push({ ...src, ok:false, error:String(e) });
     }
   }
-
   allItems.sort(scoreSort);
   CACHE[tab] = { loaded:true, items: allItems, status };
 }
@@ -266,37 +263,106 @@ function renderMissingWarning(status){
   `;
 }
 
-function buildItemView(x){
-  const whenIso = getWhen(x);
-  const when = whenIso ? fmtOslo(whenIso) : "";
+// ===== PUB-LISTE (alltid Vikinghjørnet + Gimle først) =====
+const PINNED_PUBS = ["Vikinghjørnet", "Gimle Pub"];
 
-  const title =
-    (x.home && x.away) ? `${fixText(x.home)} – ${fixText(x.away)}` :
-    fixText(x.title || x.name || x.event || "Ukjent");
-
-  const league = fixText(x.league || x.competition || x.tournament || "");
-  const channel = fixText(x.channel || x.tv || x.broadcast || "");
-  const where =
-    Array.isArray(x.where) ? x.where.map(fixText).join(", ") :
-    Array.isArray(x.pubs) ? x.pubs.map(p => fixText(p?.name || p)).join(", ") :
-    fixText(x.where || x.place || x.location || "");
-
-  return `
-    <div class="item">
-      <div class="itemTop">
-        <div class="itemTitle">${escapeHTML(title)}</div>
-        <div class="tag">${escapeHTML(when || "")}</div>
-      </div>
-      <div class="tagRow">
-        ${league ? `<span class="tag">${escapeHTML(league)}</span>` : ""}
-        ${channel ? `<span class="tag">${escapeHTML(channel)}</span>` : ""}
-        ${where ? `<span class="tag">${escapeHTML(where)}</span>` : ""}
-      </div>
-    </div>
-  `;
+function extractPubNamesFromPubsJSON(items){
+  // støtter både [{name:"..."}, ...] og ["...", ...] og nested
+  const out = [];
+  for (const it of (items || [])){
+    if (typeof it === "string") out.push(fixText(it));
+    else if (it && typeof it === "object"){
+      if (it.name) out.push(fixText(it.name));
+      else if (it.title) out.push(fixText(it.title));
+    }
+  }
+  // unike
+  return Array.from(new Set(out)).filter(Boolean);
 }
 
-// ===== SPORT RENDER =====
+async function ensurePubsLoaded(){
+  if (CACHE.puber.loaded) return;
+
+  // last pubs.json uten å bytte visning
+  const src = SOURCES.puber?.[0];
+  if (!src) {
+    CACHE.puber = { loaded:true, items:[], status:[] };
+    return;
+  }
+  try{
+    const json = await fetchJSON(src.file);
+    const items = extractItems(json);
+    CACHE.puber = { loaded:true, items, status:[{...src, ok:true, count: items.length}] };
+  }catch(e){
+    console.warn("pubs load failed:", e);
+    CACHE.puber = { loaded:true, items:[], status:[{...src, ok:false, error:String(e)}] };
+  }
+}
+
+function buildOrderedPubList(matchObj){
+  // 1) hvis matchobjektet har pubs/where, bruk de først
+  let fromMatch = [];
+  if (Array.isArray(matchObj?.where)) fromMatch = matchObj.where.map(fixText);
+  else if (Array.isArray(matchObj?.pubs)) fromMatch = matchObj.pubs.map(p => fixText(p?.name || p));
+  else if (typeof matchObj?.where === "string" && matchObj.where.trim()) fromMatch = matchObj.where.split(",").map(s => fixText(s.trim()));
+
+  fromMatch = fromMatch.filter(Boolean);
+
+  // 2) hent alle puber fra pubs.json
+  const allPubs = extractPubNamesFromPubsJSON(CACHE.puber.items);
+
+  // 3) kombiner og gjør unike
+  const combined = Array.from(new Set([...fromMatch, ...allPubs]));
+
+  // 4) pinned først (hvis de finnes i combined, ellers legg dem likevel)
+  const pinned = PINNED_PUBS.slice();
+  const rest = combined.filter(p => !pinned.some(x => x.toLowerCase() === p.toLowerCase()));
+
+  rest.sort((a,b) => a.localeCompare(b, "no"));
+
+  // Sørg for at pinned alltid er med
+  const finalList = [];
+  for (const p of pinned) finalList.push(p);
+  for (const r of rest) finalList.push(r);
+
+  // unike igjen
+  return Array.from(new Set(finalList));
+}
+
+// ===== MODAL =====
+function openMatchModal(matchObj, leagueName){
+  const whenIso = getWhen(matchObj);
+  const whenTxt = whenIso ? fmtOslo(whenIso) : "Ukjent tid";
+
+  const title =
+    (matchObj.home && matchObj.away) ? `${fixText(matchObj.home)} – ${fixText(matchObj.away)}` :
+    fixText(matchObj.title || matchObj.name || matchObj.event || "Kamp");
+
+  const channel = fixText(matchObj.channel || matchObj.tv || matchObj.broadcast || "Ukjent kanal");
+
+  modalTitle.textContent = leagueName ? `${leagueName}: ${title}` : title;
+  modalTime.textContent = whenTxt;
+  modalChannel.textContent = channel;
+
+  modalPubs.innerHTML = "";
+  const pubs = buildOrderedPubList(matchObj);
+  for (const p of pubs){
+    const span = document.createElement("span");
+    span.className = "tag";
+    span.textContent = p;
+    modalPubs.appendChild(span);
+  }
+
+  modalBack.classList.add("show");
+  modalBack.setAttribute("aria-hidden", "false");
+}
+
+function closeMatchModal(){
+  modalBack.classList.remove("show");
+  modalBack.setAttribute("aria-hidden", "true");
+}
+
+// ===== RENDER =====
 function renderSport(){
   const q = fixText((qEl.value || "")).trim().toLowerCase();
   const { leagues, status } = CACHE.sport;
@@ -314,7 +380,7 @@ function renderSport(){
   let html = "";
   html += renderMissingWarning(status);
 
-  // liga-knapper med teller
+  // liga-knapper
   html += `
     <div class="item" style="border:none;padding:0;background:transparent">
       <div class="tagRow" style="gap:10px">
@@ -330,13 +396,12 @@ function renderSport(){
     </div>
   `;
 
-  // velg items
   let selected = [];
   if (CURRENT_LEAGUE === "ALL"){
-    for (const l of leagues) selected.push(...l.items);
+    for (const l of leagues) selected.push(...l.items.map(it => ({...it, __leagueName: l.name})));
   } else {
     const found = leagues.find(l => l.id === CURRENT_LEAGUE);
-    selected = found ? found.items.slice() : [];
+    selected = found ? found.items.map(it => ({...it, __leagueName: found.name})) : [];
   }
 
   selected.sort(scoreSort);
@@ -347,12 +412,59 @@ function renderSport(){
 
   if (!selected.length){
     html += `<div class="item">Ingen data i denne ligaen.</div>`;
+    listEl.innerHTML = html;
   } else {
-    html += selected.map(buildItemView).join("");
+    // render clickable items
+    html += selected.map((x, idx) => {
+      const whenIso = getWhen(x);
+      const when = whenIso ? fmtOslo(whenIso) : "";
+
+      const title =
+        (x.home && x.away) ? `${fixText(x.home)} – ${fixText(x.away)}` :
+        fixText(x.title || x.name || x.event || "Ukjent");
+
+      const league = fixText(x.__leagueName || x.league || x.competition || x.tournament || "");
+      const channel = fixText(x.channel || x.tv || x.broadcast || "");
+
+      return `
+        <div class="item clickable" data-match-index="${idx}">
+          <div class="itemTop">
+            <div class="itemTitle">${escapeHTML(title)}</div>
+            <div class="tag">${escapeHTML(when || "")}</div>
+          </div>
+          <div class="tagRow">
+            ${league ? `<span class="tag">${escapeHTML(league)}</span>` : ""}
+            ${channel ? `<span class="tag">${escapeHTML(channel)}</span>` : ""}
+            <span class="tag">Trykk for pub/kanal</span>
+          </div>
+        </div>
+      `;
+    }).join("");
+
+    listEl.innerHTML = html;
+
+    // wiring liga-knapper
+    listEl.querySelectorAll("[data-league]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        CURRENT_LEAGUE = btn.getAttribute("data-league");
+        renderSport();
+      });
+    });
+
+    // wiring kamp-klikk
+    listEl.querySelectorAll("[data-match-index]").forEach(card => {
+      card.addEventListener("click", async () => {
+        const idx = Number(card.getAttribute("data-match-index"));
+        const obj = selected[idx];
+        await ensurePubsLoaded();
+        openMatchModal(obj, obj.__leagueName || "");
+      });
+    });
+
+    return;
   }
 
-  listEl.innerHTML = html;
-
+  // wiring liga-knapper (når tomt)
   listEl.querySelectorAll("[data-league]").forEach(btn => {
     btn.addEventListener("click", () => {
       CURRENT_LEAGUE = btn.getAttribute("data-league");
@@ -361,7 +473,6 @@ function renderSport(){
   });
 }
 
-// ===== GENERIC RENDER =====
 function renderGeneric(tab){
   const q = fixText((qEl.value || "")).trim().toLowerCase();
   const { items, status } = CACHE[tab];
@@ -382,7 +493,41 @@ function renderGeneric(tab){
 
   let html = "";
   html += renderMissingWarning(status);
-  html += filtered.length ? filtered.map(buildItemView).join("") : `<div class="item">Ingen treff.</div>`;
+
+  if (!filtered.length){
+    html += `<div class="item">Ingen treff.</div>`;
+  } else {
+    html += filtered.map(x => {
+      const whenIso = getWhen(x);
+      const when = whenIso ? fmtOslo(whenIso) : "";
+
+      const title =
+        (x.home && x.away) ? `${fixText(x.home)} – ${fixText(x.away)}` :
+        fixText(x.title || x.name || x.event || "Ukjent");
+
+      const league = fixText(x.league || x.competition || x.tournament || "");
+      const channel = fixText(x.channel || x.tv || x.broadcast || "");
+      const where =
+        Array.isArray(x.where) ? x.where.map(fixText).join(", ") :
+        Array.isArray(x.pubs) ? x.pubs.map(p => fixText(p?.name || p)).join(", ") :
+        fixText(x.where || x.place || x.location || "");
+
+      return `
+        <div class="item">
+          <div class="itemTop">
+            <div class="itemTitle">${escapeHTML(title)}</div>
+            <div class="tag">${escapeHTML(when || "")}</div>
+          </div>
+          <div class="tagRow">
+            ${league ? `<span class="tag">${escapeHTML(league)}</span>` : ""}
+            ${channel ? `<span class="tag">${escapeHTML(channel)}</span>` : ""}
+            ${where ? `<span class="tag">${escapeHTML(where)}</span>` : ""}
+          </div>
+        </div>
+      `;
+    }).join("");
+  }
+
   listEl.innerHTML = html;
 }
 
@@ -393,8 +538,10 @@ function render(tab){
 
 async function show(tab){
   CURRENT = tab;
+
   homeEl.classList.add("hidden");
   appEl.classList.remove("hidden");
+
   setActiveTabUI(tab);
 
   if (tab === "sport") CURRENT_LEAGUE = "ALL";
@@ -405,6 +552,7 @@ async function show(tab){
     listEl.innerHTML = `<div class="item">Laster data…</div>`;
     await loadTab(tab);
   }
+
   render(tab);
 }
 
@@ -413,14 +561,36 @@ function backHome(){
   homeEl.classList.remove("hidden");
   qEl.value = "";
   CURRENT_LEAGUE = "ALL";
+  closeMatchModal();
 }
 
+// ---- Boot ----
 function boot(){
-  document.querySelectorAll("[data-go]").forEach(btn => btn.addEventListener("click", () => show(btn.dataset.go)));
-  document.querySelectorAll("[data-tab]").forEach(btn => btn.addEventListener("click", () => show(btn.dataset.tab)));
+  // Forsideknapper
+  document.querySelectorAll("[data-go]").forEach(btn => {
+    btn.addEventListener("click", () => show(btn.dataset.go));
+  });
+
+  // Tabs
+  document.querySelectorAll("[data-tab]").forEach(btn => {
+    btn.addEventListener("click", () => show(btn.dataset.tab));
+  });
+
+  // Søk
   qEl.addEventListener("input", () => render(CURRENT));
+
+  // Back buttons
   $("backHome")?.addEventListener("click", backHome);
   $("backHome2")?.addEventListener("click", backHome);
+
+  // Modal close
+  modalClose?.addEventListener("click", closeMatchModal);
+  modalBack?.addEventListener("click", (e) => {
+    if (e.target === modalBack) closeMatchModal();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeMatchModal();
+  });
 }
 
 boot();
