@@ -29,6 +29,8 @@
       padding:18px 14px;border:4px solid var(--line);border-radius:18px;background:#fff;font-weight:800;
       cursor:pointer; user-select:none;
       transition:transform .08s ease;
+      text-decoration:none;      /* ✅ for <a> */
+      color:inherit;             /* ✅ for <a> */
     }
     .menuBtn:hover{transform:translateY(-2px)}
     .menuBtn:active{transform:translateY(0)}
@@ -52,6 +54,11 @@
       background:#fff;
       font-weight:800;
       cursor:pointer;
+      text-decoration:none;     /* ✅ for <a> */
+      color:inherit;            /* ✅ for <a> */
+      display:inline-flex;      /* ✅ for <a> */
+      align-items:center;       /* ✅ for <a> */
+      justify-content:center;   /* ✅ for <a> */
     }
     .pill.secondary{font-weight:700;border-width:2px}
     .pill.active{background:#0b1220;color:#fff}
@@ -168,7 +175,9 @@
         <button class="menuBtn" data-go="sport" type="button">Sport</button>
         <button class="menuBtn" data-go="puber" type="button">Puber</button>
         <button class="menuBtn" data-go="events" type="button">Kommende eventer</button>
-        <button class="menuBtn" data-go="vm2026" type="button">VM kalender 2026</button>
+
+        <!-- ✅ ENDRET: åpner calendar.html -->
+        <a class="menuBtn" href="calendar.html">VM kalender 2026</a>
       </div>
 
       <div class="hintRow">
@@ -187,7 +196,9 @@
           <button class="pill" id="tabSport" type="button" data-tab="sport">Sport</button>
           <button class="pill" id="tabPuber" type="button" data-tab="puber">Puber</button>
           <button class="pill" id="tabEvents" type="button" data-tab="events">Eventer</button>
-          <button class="pill" id="tabVM" type="button" data-tab="vm2026">VM 2026</button>
+
+          <!-- ✅ ENDRET: åpner calendar.html -->
+          <a class="pill" id="tabVM" href="calendar.html">VM 2026</a>
         </div>
 
         <input id="q" class="search" placeholder="Søk…" />
