@@ -1,21 +1,29 @@
 import json
 from pathlib import Path
+from collections import Counter
 
 DATA = Path("data")
 
-# Filene du sa er tomme
 TARGETS = {
     "laliga": "laliga.json",
     "premier_league": "premier_league.json",
     "champions_league": "champions.json",
 }
 
-# Hva vi matcher i football.json (ofte ligger liga-navnet i feltet "league")
-# Vi matcher "løst" så vi tåler små variasjoner/feilstavinger.
+# MER ROBUSTE MATCHER (tåler sponsor-/variant-navn)
 MATCH_RULES = {
-    "laliga": ["laliga", "la liga"],
-    "premier_league": ["premier league", "premier leauge", "premier leauge"],  # tåler feil
-    "champions_league": ["champions league", "champions leageu", "champions leage"],  # tåler feil
+    "laliga": [
+        "laliga", "la liga", "spanish la liga", "primera", "primera division",
+        "primera división", "liga espanola", "liga española", "liga santander",
+        "laliga ea", "ea sports laliga"
+    ],
+    "premier_league": [
+        "premier league", "premier leauge", "premier leageu", "epl", "england premier"
+    ],
+    "champions_league": [
+        "champions league", "uefa champions", "ucl", "champions-league",
+        "uefa cl", "uefa champions league", "champions league -"
+    ],
 }
 
 def load_json(p: Path):
@@ -25,84 +33,110 @@ def load_json(p: Path):
         return json.load(f)
 
 def save_json(p: Path, obj):
+    p.parent.mkdir(parents=True, exist_ok=True)
     with p.open("w", encoding="utf-8") as f:
         json.dump(obj, f, ensure_ascii=False, indent=2)
 
-def extract_games(obj):
+def extract_list(obj):
     if obj is None:
         return []
     if isinstance(obj, list):
         return obj
-    for key in ["games", "matches", "fixtures", "events", "items", "data", "response", "results"]:
-        v = obj.get(key)
+    if not isinstance(obj, dict):
+        return []
+    keys = ["games", "matches", "fixtures", "events", "items", "data", "response", "results"]
+    for k in keys:
+        v = obj.get(k)
         if isinstance(v, list):
             return v
-    # nested variants
-    for k, v in obj.items():
+    for v in obj.values():
         if isinstance(v, dict):
-            for key in ["games", "matches", "fixtures", "events", "items", "data", "response", "results"]:
-                vv = v.get(key)
+            for k in keys:
+                vv = v.get(k)
                 if isinstance(vv, list):
                     return vv
     return []
 
 def norm(s):
-    return (str(s or "")).strip().lower()
+    return str(s or "").strip().lower()
 
-def match_league(game, keywords):
-    # prøv vanlige felt som "league", "competition", "tournament"
-    fields = [
-        game.get("league"),
-        game.get("competition"),
-        game.get("tournament"),
-        game.get("name"),
-    ]
-    hay = " ".join(norm(x) for x in fields if x)
-    if not hay:
+def league_text(game: dict) -> str:
+    # mest sannsynlige felt
+    for k in ["league", "competition", "tournament", "name"]:
+        if isinstance(game.get(k), str) and game.get(k).strip():
+            return game[k]
+    # noen ganger ligger det under competition.name
+    comp = game.get("competition")
+    if isinstance(comp, dict):
+        for k in ["name", "code"]:
+            if isinstance(comp.get(k), str) and comp.get(k).strip():
+                return comp[k]
+    return ""
+
+def match_league(game: dict, keywords: list[str]) -> bool:
+    txt = norm(league_text(game))
+    if not txt:
         return False
-    return any(k in hay for k in keywords)
+    return any(k in txt for k in keywords)
 
-def is_empty_games_file(p: Path):
+def is_empty_games_file(p: Path) -> bool:
     obj = load_json(p)
-    games = extract_games(obj)
+    games = extract_list(obj)
     return len(games) == 0
+
+def print_league_summary(games: list[dict], top_n: int = 40):
+    c = Counter()
+    for g in games:
+        if isinstance(g, dict):
+            lt = league_text(g)
+            if lt:
+                c[lt.strip()] += 1
+    print("---- football.json league summary (top) ----")
+    for name, n in c.most_common(top_n):
+        print(f"{n:4d}  {name}")
+    if not c:
+        print("WARN: Fant ingen liga-navn i football.json (mangler felt league/competition/tournament/name).")
+    print("-------------------------------------------")
 
 def main():
     football = load_json(DATA / "football.json")
-    football_games = extract_games(football)
+    football_games = extract_list(football)
 
     if not football_games:
-        print("WARN: data/football.json har ingen games/matches/fixtures å splitte.")
+        print("WARN: data/football.json har ingen liste på keys (games/matches/fixtures/etc). Ingenting å splitte.")
         return
 
-    # Bygg liga-filer fra football.json
+    # LOGG: hvilke liga-navn finnes faktisk?
+    print_league_summary([g for g in football_games if isinstance(g, dict)])
+
     for key, filename in TARGETS.items():
         outpath = DATA / filename
 
-        # kun fyll hvis filen er tom (du sa de er tomme)
+        # fyll bare hvis tom
         if not is_empty_games_file(outpath):
             print(f"SKIP {filename}: har allerede data")
             continue
 
         keywords = [norm(k) for k in MATCH_RULES[key]]
-        selected = [g for g in football_games if isinstance(g, dict) and match_league(g, keywords)]
+        selected = [
+            g for g in football_games
+            if isinstance(g, dict) and match_league(g, keywords)
+        ]
 
         save_json(outpath, {"games": selected})
         print(f"WROTE {filename}: {len(selected)} games")
 
-    # Håndball/vintersport: vi lar de stå tomme hvis du ikke har en master-kilde som fyller dem
-    # (Dette blir neste steg: legge til ICS/kilder for å fylle dem.)
+    # Disse trenger egne kilder (ikke i football.json)
     for fname in [
         "handball_vm_2026_menn.json",
         "handball_vm_2026_damer.json",
         "vintersport_menn.json",
         "vintersport_kvinner.json",
+        "vm2026.json",
     ]:
         p = DATA / fname
-        if not p.exists():
-            continue
-        if is_empty_games_file(p):
-            print(f"INFO {fname}: fortsatt tom (ingen master-kilde definert)")
+        if p.exists() and is_empty_games_file(p):
+            print(f"INFO {fname}: fortsatt tom (mangler egen kilde/skript som fyller denne)")
 
 if __name__ == "__main__":
     main()
