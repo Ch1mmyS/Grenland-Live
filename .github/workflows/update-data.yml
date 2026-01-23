@@ -20,6 +20,7 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -37,21 +38,24 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r tools/requirements-tools.txt
 
-      - name: Run fixtures pipeline
+      - name: Run full pipeline (football + handball + wintersport + filter 2026)
         run: |
-          python tools/fetch_official.py
+          python tools/fetch_all.py
 
-      - name: Commit and push changes (safe pull --rebase)
+      - name: Commit and push changes (safe rebase)
+        shell: bash
         run: |
+          set -e
+
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          if git status --porcelain | grep -qE "^( M|A |\\?\\?)"; then
+          if git status --porcelain | grep -qE "^( M|M |A |\\?\\?)"; then
             git add data/*.json
-            git commit -m "Auto update fixtures JSON"
+            git commit -m "Auto update fixtures JSON" || echo "Nothing to commit"
 
-            # 👇 Fix non-fast-forward
-            git pull --rebase origin main
+            git fetch origin main
+            git rebase origin/main
 
             git push origin HEAD:main
           else
