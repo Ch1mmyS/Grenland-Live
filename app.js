@@ -1,26 +1,46 @@
-/* Grenland Live – Sportsmeny (GitHub Pages safe)
-   - Fikser base-path automatisk (project repo vs root)
-   - Leser JSON fra data/*.json
-*/
+// Grenland Live – robust JSON-leser (tåler kickoff/start/date/datetime)
+// VIKTIG: Fungerer på GitHub Pages + lokal server.
 
 const TZ = "Europe/Oslo";
-const $ = (id) => document.getElementById(id);
+const MS_DAY = 24 * 60 * 60 * 1000;
 
-// ---- Base path: viktig for GitHub Pages /<repo>/ ----
+// Kildeliste (slik du har i bildet)
+const SOURCES = [
+  { key:"obos",           name:"OBOS-ligaen",            category:"football",   path:"data/obos.json" },
+  { key:"premier",        name:"Premier League",         category:"football",   path:"data/premier_league.json" },
+  { key:"cl",             name:"Champions League",       category:"football",   path:"data/champions.json" },
+  { key:"laliga",         name:"La Liga",                category:"football",   path:"data/laliga.json" },
+
+  { key:"hb_menn",        name:"Håndball VM 2026 - Menn", category:"handball",  path:"data/handball_vm_2026_menn.json" },
+  { key:"hb_damer",       name:"Håndball VM 2026 - Damer",category:"handball",  path:"data/handball_vm_2026_damer.json" },
+
+  { key:"ws_menn",        name:"Vintersport - Menn",     category:"wintersport",path:"data/vintersport_menn.json" },
+  { key:"ws_kvinner",     name:"Vintersport - Kvinner",  category:"wintersport",path:"data/vintersport_kvinner.json" },
+
+  { key:"vm2026",         name:"VM 2026",                category:"vm",         path:"data/vm2026.json" },
+  { key:"events",         name:"Events",                 category:"events",     path:"data/events.json" },
+];
+
+function $(id){ return document.getElementById(id); }
+
+// Bygg riktig base-url (GitHub Pages repo-subpath)
 function basePath(){
-  // Eks: /Grenland-Live/  eller / (hvis user site)
-  const p = location.pathname;
-  // Hvis du noen gang endrer repo-navn, oppdater denne listen:
-  const known = ["Grenland-Live"];
-  for (const repo of known){
-    if (p.includes(`/${repo}/`)) return `/${repo}/`;
+  // /Grenland-Live/ når du er på Pages, ellers /
+  const parts = location.pathname.split("/").filter(Boolean);
+  // Hvis du kjører på github.io/<repo>/...
+  if (location.hostname.endsWith("github.io") && parts.length > 0) {
+    return `/${parts[0]}/`;
   }
+  // lokal server (eller root deploy)
   return "/";
 }
-const BASE = basePath();
-const url = (p) => (BASE === "/" ? p : BASE + p).replaceAll("//", "/");
 
-// ---- Network indicator ----
+function url(rel){
+  // rel: "data/obos.json"
+  return new URL(rel, location.origin + basePath()).toString();
+}
+
+// Nettstatus
 function setNetStatus(){
   const el = $("netStatus");
   if (!el) return;
@@ -29,16 +49,11 @@ function setNetStatus(){
   el.classList.toggle("online", online);
   el.classList.toggle("offline", !online);
 }
+window.addEventListener("online", setNetStatus);
+window.addEventListener("offline", setNetStatus);
 
-// ---- Date helpers ----
-function parseISO(iso){
-  const d = new Date(iso);
-  return isNaN(d.getTime()) ? null : d;
-}
-
-function fmtOslo(iso){
-  const d = parseISO(iso);
-  if (!d) return "Ukjent tid";
+// Datoformat
+function fmtOslo(d){
   return d.toLocaleString("no-NO", {
     timeZone: TZ,
     weekday:"short",
@@ -50,159 +65,239 @@ function fmtOslo(iso){
   });
 }
 
-function withinDays(iso, days){
-  const d = parseISO(iso);
+// Finn dato uansett felt
+function getGameDate(obj){
+  const raw =
+    obj.kickoff ||
+    obj.start ||
+    obj.date ||
+    obj.datetime ||
+    obj.time ||
+    obj.ts;
+
+  if (!raw) return null;
+
+  const d = new Date(raw);
+  if (Number.isNaN(d.getTime())) return null;
+  return d;
+}
+
+// Normaliser objekter til felles struktur
+function normalizeItem(source, item){
+  const d = getGameDate(item);
+
+  // Fotball-lignende
+  const home = item.home ?? item.hjemme ?? item.homeTeam ?? item.hjemmelag ?? "";
+  const away = item.away ?? item.borte ?? item.awayTeam ?? item.bortelag ?? "";
+
+  // Liga/turnering
+  const league =
+    item.league ||
+    item.tournament ||
+    item.competition ||
+    item.series ||
+    source.name;
+
+  // Kanal/TV
+  const channel = item.channel || item.tv || item.broadcast || item.kanal || "";
+
+  // Sted/arena
+  const venue = item.venue || item.arena || item.stadium || item.place || item.sted || "";
+
+  // Pub-liste
+  const where = item.where || item.pubs || item.visesHos || item.vises_hos || [];
+
+  // Event-lignende
+  const title =
+    item.title ||
+    item.name ||
+    item.event ||
+    (home && away ? `${home} – ${away}` : league);
+
+  const city = item.city || item.by || "";
+  const desc = item.description || item.desc || item.tekst || "";
+
+  return {
+    sourceKey: source.key,
+    sourceName: source.name,
+    category: source.category,
+    league: league,
+    title,
+    home, away,
+    datetime: d,              // Date | null
+    datetimeRaw: item.kickoff || item.start || item.date || item.datetime || "",
+    channel,
+    venue,
+    city,
+    desc,
+    where: Array.isArray(where) ? where : [],
+    raw: item
+  };
+}
+
+// Les JSON robust
+async function fetchJSON(relPath){
+  const full = url(relPath) + `?v=${Date.now()}`;
+  const r = await fetch(full, { cache: "no-store" });
+  if (!r.ok) throw new Error(`${relPath}: ${r.status}`);
+
+  // Noen ganger returneres tekst; parse sikkert
+  const txt = await r.text();
+  try {
+    return JSON.parse(txt);
+  } catch {
+    throw new Error(`${relPath}: kunne ikke parse JSON`);
+  }
+}
+
+// Render kilder
+function renderSourcesStatus(statuses){
+  const el = $("sourcesList");
+  el.innerHTML = "";
+
+  for (const s of SOURCES){
+    const st = statuses[s.key]; // { state, msg }
+    const item = document.createElement("div");
+    item.className = "source-item";
+
+    const left = document.createElement("div");
+    left.className = "source-meta";
+    left.innerHTML = `
+      <div class="source-name">${s.name}</div>
+      <div class="source-path">${s.path}</div>
+    `;
+
+    const right = document.createElement("div");
+    const badge = document.createElement("div");
+    badge.className = "badge";
+
+    if (!st){
+      badge.textContent = "…";
+    } else if (st.state === "ok"){
+      badge.textContent = "OK";
+      badge.classList.add("ok");
+    } else if (st.state === "missing"){
+      badge.textContent = "MANGLER";
+      badge.classList.add("miss");
+    } else {
+      badge.textContent = "FEIL";
+      badge.classList.add("err");
+      badge.title = st.msg || "";
+    }
+
+    right.appendChild(badge);
+    item.appendChild(left);
+    item.appendChild(right);
+    el.appendChild(item);
+  }
+}
+
+function setPanelTitle(cat){
+  const map = {
+    football:"Fotball",
+    handball:"Håndball",
+    wintersport:"Vintersport",
+    vm:"VM 2026",
+    events:"Events",
+    all:"Alle"
+  };
+  $("panelTitle").textContent = map[cat] || "Alle";
+}
+
+// Filtrer
+function matchSearch(it, q){
+  if (!q) return true;
+  q = q.toLowerCase();
+
+  const whereStr = Array.isArray(it.where)
+    ? it.where.map(x => (typeof x === "string" ? x : (x?.name || ""))).join(" ")
+    : "";
+
+  const hay = [
+    it.title, it.league, it.home, it.away,
+    it.channel, it.venue, it.city, it.desc,
+    it.sourceName,
+    whereStr
+  ].join(" ").toLowerCase();
+
+  return hay.includes(q);
+}
+
+function inNextDays(d, days){
   if (!d) return false;
   const now = new Date();
-  const max = new Date(now.getTime() + (days * 24 * 60 * 60 * 1000));
-  return d >= new Date(now.getTime() - (2 * 24*60*60*1000)) && d <= max;
+  const from = now.getTime();
+  const to = from + (Number(days) * MS_DAY);
+  const t = d.getTime();
+  return t >= from && t <= to;
 }
 
-// ---- Fetch JSON with nice errors ----
-async function fetchJSON(path){
-  const full = url(path) + `?v=${Date.now()}`;
-  const r = await fetch(full, { cache: "no-store" });
-  if (!r.ok) throw new Error(`${path}: ${r.status}`);
-  const txt = await r.text();
-
-  // Rask “beskyttelse” hvis GitHub returnerer HTML 404-side:
-  if (txt.trim().startsWith("<")) {
-    throw new Error(`${path}: returned HTML (wrong path / 404 page)`);
-  }
-
-  return JSON.parse(txt);
-}
-
-// ---- Expected files ----
-const FILES = {
-  football: [
-    { key:"obos", name:"OBOS-ligaen", file:"data/obos.json" },
-    { key:"prem", name:"Premier League", file:"data/premier_league.json" },
-    { key:"cl", name:"Champions League", file:"data/champions.json" },
-    { key:"laliga", name:"La Liga", file:"data/laliga.json" }
-  ],
-  handball: [
-    { key:"hb_m", name:"Håndball VM 2026 – Menn", file:"data/handball_vm_2026_menn.json" },
-    { key:"hb_k", name:"Håndball VM 2026 – Damer", file:"data/handball_vm_2026_damer.json" }
-  ],
-  wintersport: [
-    { key:"ws_m", name:"Vintersport – Menn", file:"data/vintersport_menn.json" },
-    { key:"ws_k", name:"Vintersport – Kvinner", file:"data/vintersport_kvinner.json" }
-  ],
-  vm2026: [
-    { key:"vm2026", name:"VM 2026", file:"data/vm2026.json" }
-  ],
-  events: [
-    { key:"events", name:"Events", file:"data/events.json" }
-  ]
-};
-
-// ---- Normalize different JSON shapes ----
-// Vi støtter disse vanligste formatene:
-// 1) { "games": [...] }
-// 2) { "events": [...] }
-// 3) { "items": [...] }
-// 4) [...] (array)
-function extractItems(obj){
-  if (!obj) return [];
-  if (Array.isArray(obj)) return obj;
-  if (Array.isArray(obj.games)) return obj.games;
-  if (Array.isArray(obj.events)) return obj.events;
-  if (Array.isArray(obj.items)) return obj.items;
-  // fallback: prøv å finne første array
-  for (const k of Object.keys(obj)){
-    if (Array.isArray(obj[k])) return obj[k];
-  }
-  return [];
-}
-
-// ---- Render sources ----
-function renderSources(statusList){
-  const wrap = $("sources");
-  wrap.innerHTML = "";
-
-  for (const s of statusList){
-    const div = document.createElement("div");
-    div.className = "source";
-    const badgeClass = s.ok ? "ok" : "missing";
-    div.innerHTML = `
-      <div>
-        <div><strong>${escapeHTML(s.name)}</strong></div>
-        <small>${escapeHTML(s.file)}</small>
-      </div>
-      <div class="badge ${badgeClass}">${s.ok ? "OK" : "MANGLER"}</div>
-    `;
-    wrap.appendChild(div);
-  }
-}
-
-// ---- Render list ----
-function renderList(title, items, days, q){
-  $("sectionTitle").textContent = title;
-
-  const list = $("list");
-  list.innerHTML = "";
-
-  const qq = (q || "").trim().toLowerCase();
+// Render resultater
+function renderResults(items, cat, days, q){
+  const el = $("results");
+  el.innerHTML = "";
 
   const filtered = items
-    .filter(x => {
-      const iso = x.kickoff || x.start || x.datetime || x.date || x.time;
-      return withinDays(iso, days);
-    })
-    .filter(x => {
-      if (!qq) return true;
-      const blob = JSON.stringify(x).toLowerCase();
-      return blob.includes(qq);
-    })
-    .sort((a,b) => {
-      const ta = parseISO(a.kickoff || a.start || a.datetime || a.date || a.time)?.getTime() ?? 0;
-      const tb = parseISO(b.kickoff || b.start || b.datetime || b.date || b.time)?.getTime() ?? 0;
-      return ta - tb;
-    });
+    .filter(it => (cat === "all" ? true : it.category === cat))
+    .filter(it => inNextDays(it.datetime, days))
+    .filter(it => matchSearch(it, q))
+    .sort((a,b) => (a.datetime?.getTime() || 0) - (b.datetime?.getTime() || 0));
 
-  if (!filtered.length){
-    const empty = document.createElement("div");
-    empty.className = "item";
-    empty.innerHTML = `Ingen treff i valgt periode.`;
-    list.appendChild(empty);
+  if (filtered.length === 0){
+    const div = document.createElement("div");
+    div.className = "empty";
+    div.innerHTML = `
+      <b>Ingen treff i valgt periode.</b><br>
+      Tips: øk <b>Dager</b> (f.eks. 365) eller sjekk at JSON har dato i feltet <code>kickoff</code>/<code>start</code>/<code>date</code>.
+    `;
+    el.appendChild(div);
     return;
   }
 
-  for (const x of filtered){
-    const iso = x.kickoff || x.start || x.datetime || x.date || x.time;
-    const when = fmtOslo(iso);
+  for (const it of filtered){
+    const card = document.createElement("div");
+    card.className = "item";
 
-    const mainLine =
-      x.home && x.away ? `${x.home} – ${x.away}` :
-      x.title ? x.title :
-      x.name ? x.name :
-      "Ukjent";
+    const when = it.datetime ? fmtOslo(it.datetime) : "(mangler dato)";
+    const line2 = [
+      it.league ? `🏷️ ${escapeHtml(it.league)}` : "",
+      it.venue ? `📍 ${escapeHtml(it.venue)}` : "",
+      it.channel ? `📺 ${escapeHtml(it.channel)}` : "",
+      it.city ? `🏙️ ${escapeHtml(it.city)}` : ""
+    ].filter(Boolean).join(" · ");
 
-    const league = x.league || x.competition || x.tournament || "";
-    const channel = x.channel || x.tv || x.broadcast || "";
-    const where = Array.isArray(x.where) ? x.where.join(", ") :
-                  Array.isArray(x.pubs) ? x.pubs.map(p => p.name || p).join(", ") :
-                  (x.where || x.place || x.location || "");
+    const wherePills = renderWherePills(it.where);
 
-    const row = document.createElement("div");
-    row.className = "item";
-    row.innerHTML = `
-      <div class="top">
-        <div><strong>${escapeHTML(mainLine)}</strong></div>
-        <div class="kv">${escapeHTML(when)}</div>
+    card.innerHTML = `
+      <div class="item-top">
+        <div>
+          <div class="item-title">${escapeHtml(it.title)}</div>
+          <div class="item-sub">🕒 ${escapeHtml(when)}${line2 ? `<br>${line2}` : ""}</div>
+        </div>
+        <div class="pill">${escapeHtml(it.sourceName)}</div>
       </div>
-      <div class="meta">
-        ${league ? `<span class="kv">${escapeHTML(league)}</span>` : ""}
-        ${channel ? `<span class="kv">${escapeHTML(channel)}</span>` : ""}
-        ${where ? `<span class="kv">${escapeHTML(where)}</span>` : ""}
-      </div>
+      ${wherePills}
     `;
-    list.appendChild(row);
+
+    el.appendChild(card);
   }
 }
 
-function escapeHTML(s){
+function renderWherePills(where){
+  if (!where) return "";
+  let arr = [];
+  if (Array.isArray(where)){
+    arr = where.map(x => (typeof x === "string" ? x : (x?.name || ""))).filter(Boolean);
+  }
+  if (arr.length === 0) return "";
+
+  const pills = arr.slice(0, 10).map(x => `<span class="pill">${escapeHtml(x)}</span>`).join("");
+  const more = arr.length > 10 ? `<span class="pill">+${arr.length - 10} flere</span>` : "";
+
+  return `<div class="pills">${pills}${more}</div>`;
+}
+
+function escapeHtml(s){
   return String(s ?? "")
     .replaceAll("&","&amp;")
     .replaceAll("<","&lt;")
@@ -211,72 +306,84 @@ function escapeHTML(s){
     .replaceAll("'","&#039;");
 }
 
-// ---- Load everything ----
-let DATA = { status: [], itemsByView: {} };
-
+// Hoved-last
 async function loadAll(){
-  const status = [];
-  const itemsByView = {};
+  setNetStatus();
 
-  for (const view of Object.keys(FILES)){
-    itemsByView[view] = [];
+  const statuses = {};
+  renderSourcesStatus(statuses);
 
-    for (const src of FILES[view]){
-      try{
-        const json = await fetchJSON(src.file);
-        const items = extractItems(json);
-        status.push({ ...src, ok:true, count: items.length });
-        itemsByView[view].push(...items);
-      }catch(e){
-        console.warn("load failed:", src.file, e);
-        status.push({ ...src, ok:false, error: String(e) });
+  const allItems = [];
+
+  for (const src of SOURCES){
+    try{
+      const data = await fetchJSON(src.path);
+
+      // Godta både {games:[...]} og {events:[...]} og direkte array
+      const arr =
+        Array.isArray(data) ? data :
+        Array.isArray(data.games) ? data.games :
+        Array.isArray(data.events) ? data.events :
+        Array.isArray(data.items) ? data.items :
+        [];
+
+      for (const it of arr){
+        const n = normalizeItem(src, it);
+        // kun behold hvis vi har dato (ellers havner alt i "ingen treff")
+        // Men vi tar med de som mangler dato også? Du kan velge. Her: ta med,
+        // men de vil ikke vises i periodefilteret.
+        allItems.push(n);
+      }
+
+      statuses[src.key] = { state:"ok" };
+    } catch (e){
+      const msg = String(e?.message || e);
+      if (msg.includes(": 404")){
+        statuses[src.key] = { state:"missing", msg };
+      } else {
+        statuses[src.key] = { state:"error", msg };
       }
     }
+    renderSourcesStatus(statuses);
   }
 
-  DATA = { status, itemsByView };
-  renderSources(status);
-
-  // Info i footer
-  $("buildInfo").textContent = `BASE: ${BASE} • Sist oppdatert: ${new Date().toLocaleString("no-NO")}`;
+  return allItems;
 }
 
-function currentView(){
-  return $("viewSelect").value;
-}
+// App state
+let STATE = {
+  items: [],
+  category: "football",
+  days: 30,
+  q: ""
+};
 
-function updateUI(){
-  const view = currentView();
-  const days = parseInt($("daysSelect").value, 10);
-  const q = $("q").value;
-
-  const titleMap = {
-    football:"Fotball",
-    handball:"Håndball",
-    wintersport:"Vintersport",
-    vm2026:"VM 2026",
-    events:"Events"
-  };
-
-  renderList(titleMap[view] || "Liste", DATA.itemsByView[view] || [], days, q);
-}
-
-async function boot(){
-  setNetStatus();
-  window.addEventListener("online", setNetStatus);
-  window.addEventListener("offline", setNetStatus);
-
-  $("refreshBtn").addEventListener("click", async () => {
-    await loadAll();
-    updateUI();
+function bindUI(){
+  $("selCategory").addEventListener("change", (e)=>{
+    STATE.category = e.target.value;
+    setPanelTitle(STATE.category);
+    renderResults(STATE.items, STATE.category, STATE.days, STATE.q);
   });
 
-  $("viewSelect").addEventListener("change", updateUI);
-  $("daysSelect").addEventListener("change", updateUI);
-  $("q").addEventListener("input", updateUI);
+  $("selDays").addEventListener("change", (e)=>{
+    STATE.days = Number(e.target.value);
+    renderResults(STATE.items, STATE.category, STATE.days, STATE.q);
+  });
 
-  await loadAll();
-  updateUI();
+  $("inpSearch").addEventListener("input", (e)=>{
+    STATE.q = e.target.value.trim();
+    renderResults(STATE.items, STATE.category, STATE.days, STATE.q);
+  });
+
+  $("btnRefresh").addEventListener("click", async ()=>{
+    STATE.items = await loadAll();
+    renderResults(STATE.items, STATE.category, STATE.days, STATE.q);
+  });
 }
 
-boot();
+(async function init(){
+  bindUI();
+  setPanelTitle(STATE.category);
+  STATE.items = await loadAll();
+  renderResults(STATE.items, STATE.category, STATE.days, STATE.q);
+})();
