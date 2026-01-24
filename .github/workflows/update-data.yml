@@ -38,7 +38,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r tools/requirements-tools.txt
 
-      - name: Run full pipeline (football + handball + wintersport + filter 2026)
+      - name: Run full pipeline (football + handball + vintersport + filter 2026)
         run: |
           python tools/fetch_all.py
 
