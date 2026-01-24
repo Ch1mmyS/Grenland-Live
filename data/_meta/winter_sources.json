@@ -1,1 +1,7 @@
-
+{
+  "biathlon": {
+    "base_url": "https://api.biathlonresults.com/modules/sportapi/api",
+    "season_id": 2526,
+    "level": 3
+  }
+}
