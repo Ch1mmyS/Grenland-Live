@@ -1,40 +1,82 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+# tools/providers/football.py
+import requests
+from datetime import datetime, timezone
+from zoneinfo import ZoneInfo
 
-"""
-Main pipeline runner for Grenland Live.
-Runs:
-- Football fixtures (existing logic)
-- Handball 2026 (EHF EURO Cup discovery + history pages)
-- Wintersport 2026 (FIS calendar)
-"""
+OSLO = ZoneInfo("Europe/Oslo")
 
-import subprocess
-import sys
-from pathlib import Path
-
-ROOT = Path(__file__).resolve().parents[1]
-
-
-def run(cmd: list, name: str) -> None:
-    print(f"\n==> {name}")
-    print("   ", " ".join(cmd))
-    r = subprocess.run(cmd, cwd=ROOT, capture_output=False)
-    if r.returncode != 0:
-        raise SystemExit(r.returncode)
+# FixtureDownload har season-spesifikke feed-URLs. Bytt kun URLene her ved behov.
+FEEDS = [
+    {
+        "league": "Champions League",
+        "url": "https://fixturedownload.com/feed/json/champions-league-2025",
+    },
+    {
+        "league": "La Liga",
+        "url": "https://fixturedownload.com/feed/json/la-liga-2025",
+    },
+]
 
 
-def main() -> None:
-    # 1) Football script you already use (keep as-is).
-    # If your football fetcher is in another file name, update it here.
-    run([sys.executable, "tools/fetch_football_2026.py"], "Football (2026 filter)")
+def _to_dt_utc(date_utc_str: str) -> datetime | None:
+    """
+    Input:  '2025-09-16 16:45:00Z'
+    Output: datetime(tz=UTC)
+    """
+    if not date_utc_str:
+        return None
+    s = str(date_utc_str).strip()
+    try:
+        return datetime.strptime(s, "%Y-%m-%d %H:%M:%SZ").replace(tzinfo=timezone.utc)
+    except Exception:
+        return None
 
-    # 2) Handball 2026
-    run([sys.executable, "tools/fetch_handball_2026.py"], "Handball (menn/kvinner)")
 
-    # 3) Wintersport 2026
-    run([sys.executable, "tools/fetch_wintersport_2026.py"], "Wintersport (menn/kvinner)")
+def fetch_fixturedownload() -> list[dict]:
+    """
+    Henter kamper fra FixtureDownload og returnerer en felles liste med events.
+    kickoff blir konvertert til Europe/Oslo ISO-format.
+    """
+    events: list[dict] = []
 
+    for item in FEEDS:
+        league = item["league"]
+        feed_url = item["url"]
 
-if __name__ == "__main__":
-    main()
+        print(f"FixtureDownload: {league} -> {feed_url}")
+        r = requests.get(feed_url, timeout=30)
+        r.raise_for_status()
+
+        rows = r.json()
+        if not isinstance(rows, list):
+            continue
+
+        for row in rows:
+            if not isinstance(row, dict):
+                continue
+
+            dt_utc = _to_dt_utc(row.get("DateUtc"))
+            home = row.get("HomeTeam")
+            away = row.get("AwayTeam")
+
+            if not dt_utc or not home or not away:
+                continue
+
+            dt_oslo = dt_utc.astimezone(OSLO)
+
+            events.append(
+                {
+                    "league": league,
+                    "home": str(home).strip(),
+                    "away": str(away).strip(),
+                    "kickoff": dt_oslo.isoformat(),  # Oslo-tid
+                    "location": (row.get("Location") or "").strip(),
+                    "round": row.get("RoundNumber"),
+                    "homeScore": row.get("HomeTeamScore"),
+                    "awayScore": row.get("AwayTeamScore"),
+                    "source": "fixturedownload",
+                }
+            )
+
+    events.sort(key=lambda g: g.get("kickoff") or "")
+    return events
