@@ -1,1 +1,338 @@
-
+{
+  "generated_at": "2026-01-23T21:03:06+01:00",
+  "timezone": "Europe/Oslo",
+  "league": "Champions League",
+  "default_tv": "TV 2 Play Premium / TV 2 Sport 1",
+  "source": {
+    "key": "champions_league",
+    "name": "Champions League",
+    "type": "fixturedownload_json",
+    "url": "https://fixturedownload.com/feed/json/champions-league-2025"
+  },
+  "games": [
+    {
+      "league": "Champions League",
+      "home": "Kairat Almaty",
+      "away": "Club Brugge",
+      "kickoff": "2026-01-20T16:30:00+01:00",
+      "start": "2026-01-20T16:30:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
+    },
+    {
+      "league": "Champions League",
+      "home": "Bodø/Glimt",
+      "away": "Man City",
+      "kickoff": "2026-01-20T18:45:00+01:00",
+      "start": "2026-01-20T18:45:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
+    },
+    {
+      "league": "Champions League",
+      "home": "Real Madrid",
+      "away": "Monaco",
+      "kickoff": "2026-01-20T21:00:00+01:00",
+      "start": "2026-01-20T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
+    },
+    {
+      "league": "Champions League",
+      "home": "Inter",
+      "away": "Arsenal",
+      "kickoff": "2026-01-20T21:00:00+01:00",
+      "start": "2026-01-20T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
+    },
+    {
+      "league": "Champions League",
+      "home": "Villarreal",
+      "away": "Ajax",
+      "kickoff": "2026-01-20T21:00:00+01:00",
+      "start": "2026-01-20T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
+    },
+    {
+      "league": "Champions League",
+      "home": "Tottenham",
+      "away": "B. Dortmund",
+      "kickoff": "2026-01-20T21:00:00+01:00",
+      "start": "2026-01-20T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
+    },
+    {
+      "league": "Champions League",
+      "home": "Sporting CP",
+      "away": "Paris",
+      "kickoff": "2026-01-20T21:00:00+01:00",
+      "start": "2026-01-20T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
+    },
+    {
+      "league": "Champions League",
+      "home": "Olympiacos",
+      "away": "Leverkusen",
+      "kickoff": "2026-01-20T21:00:00+01:00",
+      "start": "2026-01-20T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
+    },
+    {
+      "league": "Champions League",
+      "home": "Copenhagen",
+      "away": "Napoli",
+      "kickoff": "2026-01-20T21:00:00+01:00",
+      "start": "2026-01-20T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
+    },
+    {
+      "league": "Champions League",
+      "home": "Galatasaray",
+      "away": "Atleti",
+      "kickoff": "2026-01-21T18:45:00+01:00",
+      "start": "2026-01-21T18:45:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
+    },
+    {
+      "league": "Champions League",
+      "home": "Qarabag",
+      "away": "Frankfurt",
+      "kickoff": "2026-01-21T18:45:00+01:00",
+      "start": "2026-01-21T18:45:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
+    },
+    {
+      "league": "Champions League",
+      "home": "Chelsea",
+      "away": "Pafos",
+      "kickoff": "2026-01-21T21:00:00+01:00",
+      "start": "2026-01-21T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
+    },
+    {
+      "league": "Champions League",
+      "home": "Atalanta",
+      "away": "Athletic Club",
+      "kickoff": "2026-01-21T21:00:00+01:00",
+      "start": "2026-01-21T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
+    },
+    {
+      "league": "Champions League",
+      "home": "Juventus",
+      "away": "Benfica",
+      "kickoff": "2026-01-21T21:00:00+01:00",
+      "start": "2026-01-21T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
+    },
+    {
+      "league": "Champions League",
+      "home": "Slavia Praha",
+      "away": "Barcelona",
+      "kickoff": "2026-01-21T21:00:00+01:00",
+      "start": "2026-01-21T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
+    },
+    {
+      "league": "Champions League",
+      "home": "Marseille",
+      "away": "Liverpool",
+      "kickoff": "2026-01-21T21:00:00+01:00",
+      "start": "2026-01-21T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
+    },
+    {
+      "league": "Champions League",
+      "home": "Newcastle",
+      "away": "PSV",
+      "kickoff": "2026-01-21T21:00:00+01:00",
+      "start": "2026-01-21T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
+    },
+    {
+      "league": "Champions League",
+      "home": "Bayern München",
+      "away": "Union SG",
+      "kickoff": "2026-01-21T21:00:00+01:00",
+      "start": "2026-01-21T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
+    },
+    {
+      "league": "Champions League",
+      "home": "Paris",
+      "away": "Newcastle",
+      "kickoff": "2026-01-28T21:00:00+01:00",
+      "start": "2026-01-28T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
+    },
+    {
+      "league": "Champions League",
+      "home": "Man City",
+      "away": "Galatasaray",
+      "kickoff": "2026-01-28T21:00:00+01:00",
+      "start": "2026-01-28T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
+    },
+    {
+      "league": "Champions League",
+      "home": "Liverpool",
+      "away": "Qarabag",
+      "kickoff": "2026-01-28T21:00:00+01:00",
+      "start": "2026-01-28T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
+    },
+    {
+      "league": "Champions League",
+      "home": "B. Dortmund",
+      "away": "Inter",
+      "kickoff": "2026-01-28T21:00:00+01:00",
+      "start": "2026-01-28T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
+    },
+    {
+      "league": "Champions League",
+      "home": "Barcelona",
+      "away": "Copenhagen",
+      "kickoff": "2026-01-28T21:00:00+01:00",
+      "start": "2026-01-28T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
+    },
+    {
+      "league": "Champions League",
+      "home": "Arsenal",
+      "away": "Kairat Almaty",
+      "kickoff": "2026-01-28T21:00:00+01:00",
+      "start": "2026-01-28T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
+    },
+    {
+      "league": "Champions League",
+      "home": "Leverkusen",
+      "away": "Villarreal",
+      "kickoff": "2026-01-28T21:00:00+01:00",
+      "start": "2026-01-28T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
+    },
+    {
+      "league": "Champions League",
+      "home": "Atleti",
+      "away": "Bodø/Glimt",
+      "kickoff": "2026-01-28T21:00:00+01:00",
+      "start": "2026-01-28T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
+    },
+    {
+      "league": "Champions League",
+      "home": "Benfica",
+      "away": "Real Madrid",
+      "kickoff": "2026-01-28T21:00:00+01:00",
+      "start": "2026-01-28T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
+    },
+    {
+      "league": "Champions League",
+      "home": "Frankfurt",
+      "away": "Tottenham",
+      "kickoff": "2026-01-28T21:00:00+01:00",
+      "start": "2026-01-28T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
+    },
+    {
+      "league": "Champions League",
+      "home": "Club Brugge",
+      "away": "Marseille",
+      "kickoff": "2026-01-28T21:00:00+01:00",
+      "start": "2026-01-28T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
+    },
+    {
+      "league": "Champions League",
+      "home": "PSV",
+      "away": "Bayern München",
+      "kickoff": "2026-01-28T21:00:00+01:00",
+      "start": "2026-01-28T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
+    },
+    {
+      "league": "Champions League",
+      "home": "Ajax",
+      "away": "Olympiacos",
+      "kickoff": "2026-01-28T21:00:00+01:00",
+      "start": "2026-01-28T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
+    },
+    {
+      "league": "Champions League",
+      "home": "Napoli",
+      "away": "Chelsea",
+      "kickoff": "2026-01-28T21:00:00+01:00",
+      "start": "2026-01-28T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
+    },
+    {
+      "league": "Champions League",
+      "home": "Monaco",
+      "away": "Juventus",
+      "kickoff": "2026-01-28T21:00:00+01:00",
+      "start": "2026-01-28T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
+    },
+    {
+      "league": "Champions League",
+      "home": "Union SG",
+      "away": "Atalanta",
+      "kickoff": "2026-01-28T21:00:00+01:00",
+      "start": "2026-01-28T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
+    },
+    {
+      "league": "Champions League",
+      "home": "Athletic Club",
+      "away": "Sporting CP",
+      "kickoff": "2026-01-28T21:00:00+01:00",
+      "start": "2026-01-28T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
+    },
+    {
+      "league": "Champions League",
+      "home": "Pafos",
+      "away": "Slavia Praha",
+      "kickoff": "2026-01-28T21:00:00+01:00",
+      "start": "2026-01-28T21:00:00+01:00",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "channel": "TV 2 Play Premium / TV 2 Sport 1"
+    }
+  ]
+}
