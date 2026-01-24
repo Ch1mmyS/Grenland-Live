@@ -1,1 +1,98 @@
-
+{
+  "year": 2026,
+  "timezone": "Europe/Oslo",
+  "outputs": {
+    "football": "data/2026/football.json",
+    "handball_men": "data/2026/handball_men.json",
+    "handball_women": "data/2026/handball_women.json",
+    "wintersport_men": "data/2026/wintersport_men.json",
+    "wintersport_women": "data/2026/wintersport_women.json"
+  },
+  "sports": {
+    "football": [
+      {
+        "key": "eliteserien",
+        "name": "Eliteserien",
+        "type": "nff_ics",
+        "url": "https://www.fotball.no/footballapi/Calendar/GetCalendar?tournamentId=206092",
+        "default_tv": "TV 2 / TV 2 Play / NRK"
+      },
+      {
+        "key": "obos",
+        "name": "OBOS-ligaen",
+        "type": "nff_ics",
+        "url": "https://www.fotball.no/footballapi/Calendar/GetCalendar?tournamentId=206093",
+        "default_tv": "TV 2 Play / NRK"
+      },
+      {
+        "key": "premier_league",
+        "name": "Premier League",
+        "type": "fixturedownload_json",
+        "url": "https://fixturedownload.com/feed/json/epl-2025",
+        "default_tv": "Viaplay / V Sport"
+      },
+      {
+        "key": "champions_league",
+        "name": "Champions League",
+        "type": "fixturedownload_json",
+        "url": "https://fixturedownload.com/feed/json/champions-league-2025",
+        "default_tv": "TV 2 Play Premium / TV 2 Sport 1"
+      },
+      {
+        "key": "laliga",
+        "name": "La Liga",
+        "type": "fixturedownload_json",
+        "url": "https://fixturedownload.com/feed/json/la-liga-2025",
+        "default_tv": "TV 2 / TV 2 Play"
+      }
+    ],
+    "handball": {
+      "men": [
+        {
+          "key": "handball_men_ehf_euro_2026",
+          "type": "handball_pdf",
+          "name": "Håndball – Men's EHF EURO 2026",
+          "channel": "TV 2 / TV 2 Play",
+          "pdf_url": "https://tickets.eurohandball.com/fileadmin/fm_de/EHF2026M/250901_EHF2026-M_Match_Schedule_new.pdf"
+        }
+      ],
+      "women": [
+        {
+          "key": "handball_women_ehf_euro_2026",
+          "type": "handball_pdf",
+          "name": "Håndball – Women's EHF EURO 2026",
+          "channel": "TV 2 / TV 2 Play",
+          "pdf_url": ""
+        }
+      ]
+    },
+    "wintersport": {
+      "men": [
+        {
+          "key": "biathlon_world_2526_men",
+          "type": "biathlon_api",
+          "name": "Vintersport – Skiskyting (IBU) 2025/2026",
+          "channel": "TV 2 / TV 2 Play",
+          "api": {
+            "base_url": "https://api.biathlonresults.com/modules/sportapi/api",
+            "season_id": 2526,
+            "level": 3
+          }
+        }
+      ],
+      "women": [
+        {
+          "key": "biathlon_world_2526_women",
+          "type": "biathlon_api",
+          "name": "Vintersport – Skiskyting (IBU) 2025/2026",
+          "channel": "TV 2 / TV 2 Play",
+          "api": {
+            "base_url": "https://api.biathlonresults.com/modules/sportapi/api",
+            "season_id": 2526,
+            "level": 3
+          }
+        }
+      ]
+    }
+  }
+}
