@@ -17,16 +17,16 @@ def run(cmd: list[str], label: str) -> None:
 
 
 def main() -> None:
-    # 1) Football (din eksisterende pipeline)
+    # 1) Fotball (din eksisterende pipeline)
     run([sys.executable, "tools/fetch_official.py"], "Football (existing pipeline)")
 
-    # 2) Handball (menn/kvinner)
+    # 2) Håndball
     run([sys.executable, "tools/fetch_handball_2026.py"], "Handball 2026 (menn/kvinner)")
 
-    # 3) Wintersport (menn/kvinner)
-    run([sys.executable, "tools/fetch_wintersport_2026.py"], "Wintersport 2026 (menn/kvinner)")
+    # 3) Vintersport
+    run([sys.executable, "tools/fetch_vintersport_2026.py"], "Vintersport 2026 (menn/kvinner)")
 
-    # 4) Filter alt til kun år 2026
+    # 4) Filter alt til kun 2026
     run([sys.executable, "tools/filter_year_2026.py"], "Filter all data to year 2026 only")
 
 
