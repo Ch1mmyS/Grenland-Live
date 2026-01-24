@@ -1,56 +1,40 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""
-Fetch handball fixtures for 2026 and write:
-- data/handball_vm_2026_menn.json
-- data/handball_vm_2026_damer.json
-
-Source approach:
-- Uses eurohandball.com competition pages to discover match links
-- Parses match detail pages from history.eurohandball.com (stable HTML)
-- Filters strictly to year == 2026
-- Adds fixed Norway TV channel text (can be adjusted)
-"""
-
 import json
 import re
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
+
 import requests
 from bs4 import BeautifulSoup
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = ROOT / "data"
 
-# Discover match links here (HTML contains links to history.eurohandball.com match pages)
-EHF_SOURCES = {
+UA = {"User-Agent": "Mozilla/5.0 (Grenland-Live/1.0)"}
+YEAR = 2026
+TZ_SUFFIX = "+01:00"
+
+EHF = {
     "menn": {
         "discover_url": "https://www.eurohandball.com/en/competitions/national-team-competitions/men/ehf-euro-cup-2026/",
-        "out_file": DATA_DIR / "handball_vm_2026_menn.json",
-        "league_name": "Håndball EM 2026 – Menn (EHF EURO)",
-        # Norway: Viaplay has full coverage; some matches on TV3 / V sport. Source: Viaplay guide/news.
-        "fixed_channel": "Viaplay (alle kamper) / TV3 (Norge-kamper) / V sport (utvalgte)",
+        "out": DATA_DIR / "handball_vm_2026_menn.json",
+        "league": "Håndball 2026 – Menn (EHF)",
+        "channel": "Viaplay / TV3 / V sport (varierer)",
     },
     "damer": {
         "discover_url": "https://www.eurohandball.com/en/competitions/national-team-competitions/women/ehf-euro-cup-2026/",
-        "out_file": DATA_DIR / "handball_vm_2026_damer.json",
-        "league_name": "Håndball EM 2026 – Kvinner (EHF EURO)",
-        "fixed_channel": "Viaplay (alle kamper) / TV3 (utvalgte) / V sport (utvalgte)",
+        "out": DATA_DIR / "handball_vm_2026_damer.json",
+        "league": "Håndball 2026 – Kvinner (EHF)",
+        "channel": "Viaplay / TV3 / V sport (varierer)",
     },
 }
 
-TIMEZONE_SUFFIX = "+01:00"  # Oslo vintertid. (Sommerkamper kan være +02, men EHF-tider i CET på disse sidene.)
-
-UA = {
-    "User-Agent": "Mozilla/5.0 (Grenland-Live/1.0; +https://github.com/Ch1mmyS/Grenland-Live)"
-}
-
-MATCH_LINK_RE = re.compile(r"^https?://history\.eurohandball\.com/.*?/match/.*", re.IGNORECASE)
+MATCH_LINK_RE = re.compile(r"https?://history\.eurohandball\.com/.*/match/.*", re.IGNORECASE)
 DT_RE = re.compile(r"(\d{2}\.\d{2}\.\d{4})\s+(\d{2}:\d{2})")
-VS_RE = re.compile(r"\bVS\b", re.IGNORECASE)
 
 
 @dataclass
@@ -59,8 +43,8 @@ class Event:
     title: str
     league: str
     channel: str
-    venue: str
-    source_url: str
+    source: str
+    venue: str = ""
 
     def to_json(self) -> Dict:
         return {
@@ -69,100 +53,72 @@ class Event:
             "league": self.league,
             "channel": self.channel,
             "venue": self.venue,
-            "source": self.source_url,
+            "source": self.source,
+            "kind": "handball",
         }
 
 
-def http_get(url: str, timeout: int = 30) -> str:
-    r = requests.get(url, headers=UA, timeout=timeout)
+def get(url: str) -> str:
+    r = requests.get(url, headers=UA, timeout=40)
     r.raise_for_status()
     return r.text
 
 
-def discover_history_match_links(discover_url: str) -> List[str]:
-    html = http_get(discover_url)
-    soup = BeautifulSoup(html, "html.parser")
+def dt_to_iso(dt: datetime) -> str:
+    return dt.strftime("%Y-%m-%dT%H:%M:%S") + TZ_SUFFIX
 
+
+def discover_match_links(discover_url: str) -> List[str]:
+    html = get(discover_url)
+    soup = BeautifulSoup(html, "html.parser")
     links = set()
+
     for a in soup.select("a[href]"):
-        href = a.get("href", "").strip()
+        href = (a.get("href") or "").strip()
         if not href:
             continue
-
-        # Some pages contain relative links, some absolute; normalize.
         if href.startswith("//"):
             href = "https:" + href
-        elif href.startswith("/"):
-            href = "https://www.eurohandball.com" + href
-
-        # We want history.eurohandball.com match pages
-        if "history.eurohandball.com" in href and "/match/" in href:
-            if MATCH_LINK_RE.search(href):
-                links.add(href)
+        if "history.eurohandball.com" in href and "/match/" in href and MATCH_LINK_RE.match(href):
+            links.add(href)
 
     return sorted(links)
 
 
-def parse_match_page_for_event(match_url: str) -> Optional[Tuple[datetime, str, str]]:
-    """
-    Returns (dt, title, venue) if parse succeeds, else None.
+def parse_history_match(url: str) -> Optional[Tuple[datetime, str, str]]:
+    html = get(url)
+    soup = BeautifulSoup(html, "html.parser")
+    text = " ".join(soup.get_text(" ", strip=True).split())
 
-    history match pages often include lines like:
-    15.10.2025 20:00 Denmark VS Czechia ...
-    and a VENUE block like:
-    VENUE
-      Nykobing F.(DEN), Spar Nord BOXEN
-    """
-    html = http_get(match_url)
-    text = " ".join(BeautifulSoup(html, "html.parser").get_text(" ", strip=True).split())
-
-    # Find the first dd.mm.yyyy hh:mm on the page (this match page focuses on one match)
     m = DT_RE.search(text)
     if not m:
         return None
 
-    date_s, time_s = m.group(1), m.group(2)
     try:
-        dt = datetime.strptime(f"{date_s} {time_s}", "%d.%m.%Y %H:%M")
+        dt = datetime.strptime(f"{m.group(1)} {m.group(2)}", "%d.%m.%Y %H:%M")
     except ValueError:
         return None
 
-    # Try to extract "Home VS Away" around the first occurrence near the datetime
-    # We'll take a window around the datetime match.
-    start_i = max(0, m.start() - 120)
-    end_i = min(len(text), m.end() + 220)
-    window = text[start_i:end_i]
-
-    # Extract tokens around "VS"
-    # Example window contains "... 05.03.2026 18:00 Hungary VS Denmark ..."
-    vs_pos = window.upper().find("VS")
+    # Title heuristic around VS
+    window = text[max(0, m.start() - 150): min(len(text), m.end() + 250)]
+    up = window.upper()
+    vs_pos = up.find("VS")
     title = "Kamp"
     if vs_pos != -1:
-        left = window[:vs_pos].strip()
-        right = window[vs_pos + 2 :].strip()
-
-        # left ends with "... 05.03.2026 18:00 Hungary"
-        # right begins with "Denmark ..."
-        # We'll remove the datetime from left and keep the last word chunk as home team.
-        left_clean = DT_RE.sub("", left).strip()
-        # Keep last 4 words as a safe team name slice
-        home = " ".join(left_clean.split()[-4:]).strip(" ,")
+        left = DT_RE.sub("", window[:vs_pos]).strip()
+        right = window[vs_pos + 2:].strip()
+        home = " ".join(left.split()[-4:]).strip(" ,")
         away = " ".join(right.split()[:4]).strip(" ,")
-
         if home and away:
             title = f"{home} – {away}"
 
-    # Venue: look for "VENUE" and grab next chunk
+    # Venue heuristic
     venue = ""
     vpos = text.upper().find("VENUE")
     if vpos != -1:
-        vwin = text[vpos : vpos + 220]
-        # Often: "VENUE Nykobing F.(DEN), Spar Nord BOXEN SPECTATORS ..."
-        vwin = re.sub(r"\s+", " ", vwin).strip()
+        vwin = text[vpos:vpos + 240]
         vwin = vwin.replace("VENUE", "").strip()
-
-        # Cut at SPECTATORS / REFEREES / MATCHREPORT etc
-        for cut in ["SPECTATORS", "REFEREES", "MATCHREPORT", "EHF-Delegate", "live"]:
+        for cut in ["SPECTATORS", "REFEREES", "MATCHREPORT", "EHF-Delegate"]:
             cpos = vwin.upper().find(cut.upper())
             if cpos != -1:
                 vwin = vwin[:cpos].strip()
@@ -171,64 +127,43 @@ def parse_match_page_for_event(match_url: str) -> Optional[Tuple[datetime, str, 
     return dt, title, venue
 
 
-def dt_to_iso_oslo(dt: datetime) -> str:
-    # We keep +01:00 as requested. If du senere vil støtte +02 (sommer), sier du ifra.
-    return dt.strftime("%Y-%m-%dT%H:%M:%S") + TIMEZONE_SUFFIX
-
-
-def write_events(path: Path, league_name: str, channel: str, events: List[Event]) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-
-    out = {
+def write(out_path: Path, league: str, channel: str, events: List[Event]) -> None:
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    payload = {
         "meta": {
-            "name": league_name,
+            "name": league,
             "generated_at": datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
             "count": len(events),
-            "year_filter": 2026,
+            "year_filter": YEAR,
         },
         "events": [e.to_json() for e in sorted(events, key=lambda x: x.start)],
     }
-
-    path.write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
+    out_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
 def main() -> None:
-    for k, cfg in EHF_SOURCES.items():
-        print(f"[handball] Discovering match links for {k} …")
-        links = discover_history_match_links(cfg["discover_url"])
-        print(f"[handball] Found {len(links)} candidate match links")
+    for _, cfg in EHF.items():
+        links = discover_match_links(cfg["discover_url"])
 
         events: List[Event] = []
         seen = set()
 
         for url in links:
-            parsed = parse_match_page_for_event(url)
+            parsed = parse_history_match(url)
             if not parsed:
                 continue
             dt, title, venue = parsed
-
-            if dt.year != 2026:
+            if dt.year != YEAR:
                 continue
-
-            start_iso = dt_to_iso_oslo(dt)
-            key = (start_iso, title)
-            if key in seen:
+            start = dt_to_iso(dt)
+            k = (start, title)
+            if k in seen:
                 continue
-            seen.add(key)
+            seen.add(k)
+            events.append(Event(start=start, title=title, league=cfg["league"], channel=cfg["channel"], source=url, venue=venue))
 
-            events.append(
-                Event(
-                    start=start_iso,
-                    title=title,
-                    league=cfg["league_name"],
-                    channel=cfg["fixed_channel"],
-                    venue=venue,
-                    source_url=url,
-                )
-            )
-
-        print(f"[handball] {k}: writing {len(events)} events -> {cfg['out_file'].as_posix()}")
-        write_events(cfg["out_file"], cfg["league_name"], cfg["fixed_channel"], events)
+        write(cfg["out"], cfg["league"], cfg["channel"], events)
+        print(f"WROTE {cfg['out']} -> {len(events)}")
 
 
 if __name__ == "__main__":
