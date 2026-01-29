@@ -1,4 +1,4 @@
-name: Update data (fixtures JSON)
+name: Update data (2026 JSON)
 
 on:
   workflow_dispatch:
@@ -7,8 +7,8 @@ on:
   push:
     paths:
       - "tools/**"
-      - "data/ics_sources.json"
-      - ".github/workflows/Update-data.yml"
+      - "data/_meta/sources.json"
+      - ".github/workflows/update-data.yml"
 
 permissions:
   contents: write
@@ -38,9 +38,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r tools/requirements-tools.txt
 
-      - name: Run full pipeline (football + handball + vintersport + filter 2026)
+      - name: Run pipeline (2026)
         run: |
-          python tools/fetch_all.py
+          python tools/update_all.py
 
       - name: Commit and push changes (safe rebase)
         shell: bash
@@ -50,14 +50,17 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          if git status --porcelain | grep -qE "^( M|M |A |\\?\\?)"; then
-            git add data/*.json
-            git commit -m "Auto update fixtures JSON" || echo "Nothing to commit"
+          # Stage only data outputs we expect
+          git add -A data/2026 data/_meta data/content data/events
 
-            git fetch origin main
-            git rebase origin/main
-
-            git push origin HEAD:main
-          else
+          if git diff --cached --quiet; then
             echo "No changes to commit."
+            exit 0
           fi
+
+          git commit -m "Auto update data (2026)" || echo "Nothing to commit"
+
+          git fetch origin main
+          git rebase origin/main
+
+          git push origin HEAD:main
