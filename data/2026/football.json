@@ -1,152 +1,4397 @@
 {
-  "matches": [
+  "timezone": "Europe/Oslo",
+  "seasonYear": 2026,
+  "generatedAt": "2026-01-29T22:59:53+01:00",
+  "items": [
     {
-      "competition": "Odd",
-      "iso": "2026-01-23T15:00:00+01:00",
-      "match": "Odd – Arendal",
-      "watchAt": "Gimle Pub (Skien)",
-      "tv": "TV 2 Sport 1 / TV 2 Play",
-      "note": "Treningskamp (oppkjøring)."
+      "id": "95067db46be1894f",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-01-01T18:30:00+01:00",
+      "title": "Crystal Palace – Fulham",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
     },
     {
-      "competition": "Odd",
-      "iso": "2026-01-30T15:00:00+01:00",
-      "match": "Odd – Jerv",
-      "watchAt": "Vikinghjørnet (Skien)",
-      "tv": "TV 2 Sport 1 / TV 2 Play",
-      "note": "Treningskamp (oppkjøring)."
+      "id": "55f363f374316489",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-01-01T18:30:00+01:00",
+      "title": "Liverpool – Leeds",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
     },
     {
-      "competition": "Odd",
-      "iso": "2026-02-18T15:00:00+01:00",
-      "match": "Odd – Strømsgodset",
-      "watchAt": "O’Learys Skien",
-      "tv": "TV 2 Sport 1 / TV 2 Play",
-      "note": "Treningskamp (oppkjøring)."
-    },
-
-    {
-      "competition": "Premier League",
-      "iso": "2026-01-17T13:30:00+01:00",
-      "match": "Manchester United – Manchester City",
-      "watchAt": "O’Learys Skien",
-      "tv": "V Sport / Viaplay",
-      "note": "Sjekk med puben ved TV-endringer."
+      "id": "5f06ad02fe21b211",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-01-01T21:00:00+01:00",
+      "title": "Brentford – Spurs",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
     },
     {
-      "competition": "Premier League",
-      "iso": "2026-01-17T18:30:00+01:00",
-      "match": "Nottingham Forest – Arsenal",
-      "watchAt": "Gimle Pub (Skien)",
-      "tv": "V Sport / Viaplay",
-      "note": "Sjekk med puben ved TV-endringer."
+      "id": "ea66d18334091de0",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-01-01T21:00:00+01:00",
+      "title": "Sunderland – Man City",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
     },
     {
-      "competition": "Premier League",
-      "iso": "2026-01-19T21:00:00+01:00",
-      "match": "Brighton – Bournemouth",
-      "watchAt": "The Old Irish Pub (Skien)",
-      "tv": "V Sport / Viaplay",
-      "note": "Sjekk med puben ved TV-endringer."
-    },
-
-    {
-      "competition": "Premier League",
-      "iso": "2026-01-24T13:30:00+01:00",
-      "match": "West Ham – Sunderland",
-      "watchAt": "Union Bar (Skien)",
-      "tv": "V Sport / Viaplay",
-      "note": "Sjekk med puben ved TV-endringer."
+      "id": "540906690fa3a546",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-01-02T21:00:00+01:00",
+      "title": "Rayo Vallecano – Getafe CF",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
     },
     {
-      "competition": "Premier League",
-      "iso": "2026-01-24T18:30:00+01:00",
-      "match": "Bournemouth – Liverpool",
-      "watchAt": "Vikinghjørnet (Skien)",
-      "tv": "V Sport / Viaplay",
-      "note": "Sjekk med puben ved TV-endringer."
+      "id": "b0cc3b38edc7bc00",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-01-03T13:30:00+01:00",
+      "title": "Aston Villa – Nott'm Forest",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
     },
     {
-      "competition": "Premier League",
-      "iso": "2026-01-25T15:00:00+01:00",
-      "match": "Wolves – Newcastle",
-      "watchAt": "Tollboden Bar (Porsgrunn)",
-      "tv": "V Sport / Viaplay",
-      "note": "Sjekk med puben ved TV-endringer."
+      "id": "410c1f5404818d81",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-01-03T14:00:00+01:00",
+      "title": "Celta – Valencia CF",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
     },
     {
-      "competition": "Premier League",
-      "iso": "2026-01-25T17:30:00+01:00",
-      "match": "Arsenal – Manchester United",
-      "watchAt": "Jimmys (Porsgrunn)",
-      "tv": "V Sport / Viaplay",
-      "note": "Sjekk med puben ved TV-endringer."
+      "id": "b695a79ea4ffe9ba",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-01-03T16:00:00+01:00",
+      "title": "Brighton – Burnley",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
     },
     {
-      "competition": "Premier League",
-      "iso": "2026-01-25T17:30:00+01:00",
-      "match": "Aston Villa – Everton",
-      "watchAt": "Daimlers (Porsgrunn)",
-      "tv": "V Sport / Viaplay",
-      "note": "Sjekk med puben ved TV-endringer."
+      "id": "11e00a0137ad2657",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-01-03T16:00:00+01:00",
+      "title": "Wolves – West Ham",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
     },
     {
-      "competition": "Premier League",
-      "iso": "2026-01-26T21:00:00+01:00",
-      "match": "Everton – Leeds",
-      "watchAt": "Gimle Pub (Skien)",
-      "tv": "V Sport / Viaplay",
-      "note": "Sjekk med puben ved TV-endringer."
-    },
-
-    {
-      "competition": "Premier League",
-      "iso": "2026-01-31T18:30:00+01:00",
-      "match": "Chelsea – West Ham",
-      "watchAt": "Vikinghjørnet (Skien)",
-      "tv": "V Sport / Viaplay",
-      "note": "Sjekk med puben ved TV-endringer."
+      "id": "09134dcfc12115ba",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-01-03T16:15:00+01:00",
+      "title": "CA Osasuna – Athletic Club",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
     },
     {
-      "competition": "Premier League",
-      "iso": "2026-01-31T21:00:00+01:00",
-      "match": "Liverpool – Newcastle",
-      "watchAt": "O’Learys Skien",
-      "tv": "V Sport / Viaplay",
-      "note": "Sjekk med puben ved TV-endringer."
+      "id": "c5a70cc832f137cd",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-01-03T18:30:00+01:00",
+      "title": "Bournemouth – Arsenal",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
     },
     {
-      "competition": "Premier League",
-      "iso": "2026-02-01T15:00:00+01:00",
-      "match": "Manchester United – Fulham",
-      "watchAt": "The Old Irish Pub (Skien)",
-      "tv": "V Sport / Viaplay",
-      "note": "Sjekk med puben ved TV-endringer."
+      "id": "ec5adaf009393dfa",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-01-03T18:30:00+01:00",
+      "title": "Elche CF – Villarreal CF",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
     },
     {
-      "competition": "Premier League",
-      "iso": "2026-02-01T17:30:00+01:00",
-      "match": "Tottenham – Manchester City",
-      "watchAt": "Jimmys (Porsgrunn)",
-      "tv": "V Sport / Viaplay",
-      "note": "Sjekk med puben ved TV-endringer."
-    },
-
-    {
-      "competition": "Premier League",
-      "iso": "2026-02-07T13:30:00+01:00",
-      "match": "Manchester United – Tottenham",
-      "watchAt": "Tollboden Bar (Porsgrunn)",
-      "tv": "V Sport / Viaplay",
-      "note": "Sjekk med puben ved TV-endringer."
+      "id": "9e82a81e436f21c0",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-01-03T21:00:00+01:00",
+      "title": "RCD Espanyol de Barcelona – FC Barcelona",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
     },
     {
-      "competition": "Premier League",
-      "iso": "2026-02-08T17:30:00+01:00",
-      "match": "Liverpool – Manchester City",
-      "watchAt": "Vikinghjørnet (Skien)",
-      "tv": "V Sport / Viaplay",
-      "note": "Sjekk med puben ved TV-endringer."
+      "id": "f74ab45b2a9c49a5",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-01-04T13:30:00+01:00",
+      "title": "Leeds – Man Utd",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "dc6bda7430d86195",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-01-04T14:00:00+01:00",
+      "title": "Sevilla FC – Levante UD",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "c73633f7b4c4245f",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-01-04T16:00:00+01:00",
+      "title": "Everton – Brentford",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "63615e520943c5cb",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-01-04T16:00:00+01:00",
+      "title": "Newcastle – Crystal Palace",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "d83ba46a2894e794",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-01-04T16:00:00+01:00",
+      "title": "Spurs – Sunderland",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "0c9c3183ec11b597",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-01-04T16:15:00+01:00",
+      "title": "Fulham – Liverpool",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "09627aedf41a08f4",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-01-04T16:15:00+01:00",
+      "title": "Real Madrid – Real Betis",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "320c9a8660ecbbd5",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-01-04T18:30:00+01:00",
+      "title": "Man City – Chelsea",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "1e846bc7eb0d7440",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-01-04T18:30:00+01:00",
+      "title": "Deportivo Alavés – Real Oviedo",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "46929cfbd0479da0",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-01-04T18:30:00+01:00",
+      "title": "RCD Mallorca – Girona FC",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "d041aa5b679f4a4c",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-01-04T21:00:00+01:00",
+      "title": "Real Sociedad – Atlético de Madrid",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "079ea7ca8c26dbe2",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-01-06T21:00:00+01:00",
+      "title": "West Ham – Nott'm Forest",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "9c3a685b0353898f",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-01-07T20:30:00+01:00",
+      "title": "Bournemouth – Spurs",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "28395dc345051ca6",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-01-07T20:30:00+01:00",
+      "title": "Brentford – Sunderland",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "6e8c1fe11463cd16",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-01-07T20:30:00+01:00",
+      "title": "Crystal Palace – Aston Villa",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "d652978c97e132e1",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-01-07T20:30:00+01:00",
+      "title": "Everton – Wolves",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "6c0a274046a479e6",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-01-07T20:30:00+01:00",
+      "title": "Fulham – Chelsea",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "a5cfa431ab183f2b",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-01-07T20:30:00+01:00",
+      "title": "Man City – Brighton",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "46d79466c4086394",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-01-07T21:15:00+01:00",
+      "title": "Burnley – Man Utd",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "ccbe3110151ea03f",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-01-07T21:15:00+01:00",
+      "title": "Newcastle – Leeds",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "2c8a461c13d56957",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-01-08T21:00:00+01:00",
+      "title": "Arsenal – Liverpool",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "278ee669be214d10",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-01-09T21:00:00+01:00",
+      "title": "Getafe CF – Real Sociedad",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "92e16662f44d5dbd",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-01-10T14:00:00+01:00",
+      "title": "Real Oviedo – Real Betis",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "4f2827197dc1c81b",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-01-10T16:15:00+01:00",
+      "title": "Villarreal CF – Deportivo Alavés",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "f9330b4907561b35",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-01-10T18:30:00+01:00",
+      "title": "Girona FC – CA Osasuna",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "42b4258db5980e90",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-01-10T21:00:00+01:00",
+      "title": "Valencia CF – Elche CF",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "3189754cd0aa32e3",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-01-11T14:00:00+01:00",
+      "title": "Rayo Vallecano – RCD Mallorca",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "f2c7d75ddaa46294",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-01-11T16:15:00+01:00",
+      "title": "Levante UD – RCD Espanyol de Barcelona",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "075557fddfbd6445",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-01-12T21:00:00+01:00",
+      "title": "Sevilla FC – Celta",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "c80b25f434ca1bd1",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-01-16T21:00:00+01:00",
+      "title": "RCD Espanyol de Barcelona – Girona FC",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "2d2774db3591d437",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-01-17T13:30:00+01:00",
+      "title": "Man Utd – Man City",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "e7f2f3faa28d1baf",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-01-17T14:00:00+01:00",
+      "title": "Real Madrid – Levante UD",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "6e56c1db37167195",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-01-17T16:00:00+01:00",
+      "title": "Chelsea – Brentford",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "4edf9a558567deb1",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-01-17T16:00:00+01:00",
+      "title": "Leeds – Fulham",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "aed36c6c6b287e8f",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-01-17T16:00:00+01:00",
+      "title": "Liverpool – Burnley",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "a1775794c4babcdf",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-01-17T16:00:00+01:00",
+      "title": "Sunderland – Crystal Palace",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "b69b5e4d127dd438",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-01-17T16:00:00+01:00",
+      "title": "Spurs – West Ham",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "4fb18c7ae3c5b3f8",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-01-17T16:15:00+01:00",
+      "title": "RCD Mallorca – Athletic Club",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "09ce3341c4ce35e3",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-01-17T18:30:00+01:00",
+      "title": "Nott'm Forest – Arsenal",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "6ba3150fb3b8ae0e",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-01-17T18:30:00+01:00",
+      "title": "CA Osasuna – Real Oviedo",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "ce43031961d97e52",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-01-17T21:00:00+01:00",
+      "title": "Real Betis – Villarreal CF",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "81bace8d28de331a",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-01-18T14:00:00+01:00",
+      "title": "Getafe CF – Valencia CF",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "0d290dda4eb1106f",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-01-18T15:00:00+01:00",
+      "title": "Wolves – Newcastle",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "2831516fb9de0388",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-01-18T16:15:00+01:00",
+      "title": "Atlético de Madrid – Deportivo Alavés",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "683dc1729c28c7c2",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-01-18T17:30:00+01:00",
+      "title": "Aston Villa – Everton",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "25589bd056a943dd",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-01-18T18:30:00+01:00",
+      "title": "Celta – Rayo Vallecano",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "8fbd82bd6c5bec0b",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-01-18T21:00:00+01:00",
+      "title": "Real Sociedad – FC Barcelona",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "98aeeba73d6c585c",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-01-19T21:00:00+01:00",
+      "title": "Brighton – Bournemouth",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "8416841420e1ee49",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-01-19T21:00:00+01:00",
+      "title": "Elche CF – Sevilla FC",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "b34f53428573a9d6",
+      "sport": "football",
+      "category": "Champions League",
+      "start": "2026-01-20T16:30:00+01:00",
+      "title": "Kairat Almaty – Club Brugge",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "54316b6d02ca6399",
+      "sport": "football",
+      "category": "Champions League",
+      "start": "2026-01-20T18:45:00+01:00",
+      "title": "Bodø/Glimt – Man City",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "064efc4cc431bd64",
+      "sport": "football",
+      "category": "Champions League",
+      "start": "2026-01-20T21:00:00+01:00",
+      "title": "Real Madrid – Monaco",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "eb2f9611eb1c81d7",
+      "sport": "football",
+      "category": "Champions League",
+      "start": "2026-01-20T21:00:00+01:00",
+      "title": "Inter – Arsenal",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "35975ca411469258",
+      "sport": "football",
+      "category": "Champions League",
+      "start": "2026-01-20T21:00:00+01:00",
+      "title": "Villarreal – Ajax",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "435d87e7e2dfe969",
+      "sport": "football",
+      "category": "Champions League",
+      "start": "2026-01-20T21:00:00+01:00",
+      "title": "Tottenham – B. Dortmund",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "5cf2bc7055bacafb",
+      "sport": "football",
+      "category": "Champions League",
+      "start": "2026-01-20T21:00:00+01:00",
+      "title": "Sporting CP – Paris",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "886f5122746ccbb5",
+      "sport": "football",
+      "category": "Champions League",
+      "start": "2026-01-20T21:00:00+01:00",
+      "title": "Olympiacos – Leverkusen",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "96bf4a1b26f9dde7",
+      "sport": "football",
+      "category": "Champions League",
+      "start": "2026-01-20T21:00:00+01:00",
+      "title": "Copenhagen – Napoli",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "471a71a4a001c91a",
+      "sport": "football",
+      "category": "Champions League",
+      "start": "2026-01-21T18:45:00+01:00",
+      "title": "Galatasaray – Atleti",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "c669a1f29c4eaab4",
+      "sport": "football",
+      "category": "Champions League",
+      "start": "2026-01-21T18:45:00+01:00",
+      "title": "Qarabag – Frankfurt",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "e4adcbd2cd4f190f",
+      "sport": "football",
+      "category": "Champions League",
+      "start": "2026-01-21T21:00:00+01:00",
+      "title": "Chelsea – Pafos",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "e25ccd50fe94646d",
+      "sport": "football",
+      "category": "Champions League",
+      "start": "2026-01-21T21:00:00+01:00",
+      "title": "Atalanta – Athletic Club",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "fe86a066a9693acb",
+      "sport": "football",
+      "category": "Champions League",
+      "start": "2026-01-21T21:00:00+01:00",
+      "title": "Juventus – Benfica",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "1dd2523453e14334",
+      "sport": "football",
+      "category": "Champions League",
+      "start": "2026-01-21T21:00:00+01:00",
+      "title": "Slavia Praha – Barcelona",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "fa7765a6d95b5c6a",
+      "sport": "football",
+      "category": "Champions League",
+      "start": "2026-01-21T21:00:00+01:00",
+      "title": "Marseille – Liverpool",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "b4b4b6938b53c4fc",
+      "sport": "football",
+      "category": "Champions League",
+      "start": "2026-01-21T21:00:00+01:00",
+      "title": "Newcastle – PSV",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "d76b43de4c2173f3",
+      "sport": "football",
+      "category": "Champions League",
+      "start": "2026-01-21T21:00:00+01:00",
+      "title": "Bayern München – Union SG",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "67964938d9d67270",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-01-23T21:00:00+01:00",
+      "title": "Levante UD – Elche CF",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "51071edd05c3c928",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-01-24T13:30:00+01:00",
+      "title": "West Ham – Sunderland",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "4c40c20f67c517b9",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-01-24T14:00:00+01:00",
+      "title": "Rayo Vallecano – CA Osasuna",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "8ed9a5d59f0cae82",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-01-24T16:00:00+01:00",
+      "title": "Burnley – Spurs",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "c90f4712cb670738",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-01-24T16:00:00+01:00",
+      "title": "Fulham – Brighton",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "4497c06a9f106232",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-01-24T16:00:00+01:00",
+      "title": "Man City – Wolves",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "03c942b3a03d3da1",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-01-24T16:15:00+01:00",
+      "title": "Valencia CF – RCD Espanyol de Barcelona",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "05ab65bab2d4c558",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-01-24T18:30:00+01:00",
+      "title": "Bournemouth – Liverpool",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "af13ecea32cca713",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-01-24T18:30:00+01:00",
+      "title": "Sevilla FC – Athletic Club",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "90077fa0fceeab5d",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-01-24T21:00:00+01:00",
+      "title": "Villarreal CF – Real Madrid",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "7f5e888de3a7e10b",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-01-25T14:00:00+01:00",
+      "title": "Atlético de Madrid – RCD Mallorca",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "ca7aa1ac4f2ad90e",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-01-25T15:00:00+01:00",
+      "title": "Brentford – Nott'm Forest",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "d032d31eb2260fa7",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-01-25T15:00:00+01:00",
+      "title": "Crystal Palace – Chelsea",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "9ea7c59f4a222e55",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-01-25T15:00:00+01:00",
+      "title": "Newcastle – Aston Villa",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "0c87e9f0fb3afcc8",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-01-25T16:15:00+01:00",
+      "title": "FC Barcelona – Real Oviedo",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "e6849bfec739bd22",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-01-25T17:30:00+01:00",
+      "title": "Arsenal – Man Utd",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "7468e0f1cb014ebe",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-01-25T18:30:00+01:00",
+      "title": "Real Sociedad – Celta",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "8a4d99dc82c3b25f",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-01-25T21:00:00+01:00",
+      "title": "Deportivo Alavés – Real Betis",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "e5a2ec3f70ce1316",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-01-26T21:00:00+01:00",
+      "title": "Everton – Leeds",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "3b66e26e31953aa9",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-01-26T21:00:00+01:00",
+      "title": "Girona FC – Getafe CF",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "e5d9b8a38469bf6b",
+      "sport": "football",
+      "category": "Champions League",
+      "start": "2026-01-28T21:00:00+01:00",
+      "title": "Paris – Newcastle",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "3d3ef298c8f1d1d5",
+      "sport": "football",
+      "category": "Champions League",
+      "start": "2026-01-28T21:00:00+01:00",
+      "title": "Man City – Galatasaray",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "dc2903d3975d3e55",
+      "sport": "football",
+      "category": "Champions League",
+      "start": "2026-01-28T21:00:00+01:00",
+      "title": "Liverpool – Qarabag",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "3f8127569c578f61",
+      "sport": "football",
+      "category": "Champions League",
+      "start": "2026-01-28T21:00:00+01:00",
+      "title": "B. Dortmund – Inter",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "28b8b4a0f2482a79",
+      "sport": "football",
+      "category": "Champions League",
+      "start": "2026-01-28T21:00:00+01:00",
+      "title": "Barcelona – Copenhagen",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "cc705dac8858694c",
+      "sport": "football",
+      "category": "Champions League",
+      "start": "2026-01-28T21:00:00+01:00",
+      "title": "Arsenal – Kairat Almaty",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "755ff4ceaf570e0f",
+      "sport": "football",
+      "category": "Champions League",
+      "start": "2026-01-28T21:00:00+01:00",
+      "title": "Leverkusen – Villarreal",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "e301a6e40e02d0e1",
+      "sport": "football",
+      "category": "Champions League",
+      "start": "2026-01-28T21:00:00+01:00",
+      "title": "Atleti – Bodø/Glimt",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "fb162cc10c288fde",
+      "sport": "football",
+      "category": "Champions League",
+      "start": "2026-01-28T21:00:00+01:00",
+      "title": "Benfica – Real Madrid",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "0b227fa07ef88fb0",
+      "sport": "football",
+      "category": "Champions League",
+      "start": "2026-01-28T21:00:00+01:00",
+      "title": "Frankfurt – Tottenham",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "3908bcf253e574e7",
+      "sport": "football",
+      "category": "Champions League",
+      "start": "2026-01-28T21:00:00+01:00",
+      "title": "Club Brugge – Marseille",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "101cf5637d9f2fd4",
+      "sport": "football",
+      "category": "Champions League",
+      "start": "2026-01-28T21:00:00+01:00",
+      "title": "PSV – Bayern München",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "9973d80ed52803e9",
+      "sport": "football",
+      "category": "Champions League",
+      "start": "2026-01-28T21:00:00+01:00",
+      "title": "Ajax – Olympiacos",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "2593c026ffa9670d",
+      "sport": "football",
+      "category": "Champions League",
+      "start": "2026-01-28T21:00:00+01:00",
+      "title": "Napoli – Chelsea",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "9c168a8a607dba9b",
+      "sport": "football",
+      "category": "Champions League",
+      "start": "2026-01-28T21:00:00+01:00",
+      "title": "Monaco – Juventus",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "1f13c3736542d981",
+      "sport": "football",
+      "category": "Champions League",
+      "start": "2026-01-28T21:00:00+01:00",
+      "title": "Union SG – Atalanta",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "28f50472602e4738",
+      "sport": "football",
+      "category": "Champions League",
+      "start": "2026-01-28T21:00:00+01:00",
+      "title": "Athletic Club – Sporting CP",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "5f00ac3f806faf89",
+      "sport": "football",
+      "category": "Champions League",
+      "start": "2026-01-28T21:00:00+01:00",
+      "title": "Pafos – Slavia Praha",
+      "tv": "TV 2 Play Premium / TV 2 Sport 1",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "5d1eed2c5c8824b6",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-01-30T21:00:00+01:00",
+      "title": "RCD Espanyol de Barcelona – Deportivo Alavés",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "014515db4846512f",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-01-31T14:00:00+01:00",
+      "title": "Real Oviedo – Girona FC",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "1407d882b20ca5bb",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-01-31T16:00:00+01:00",
+      "title": "Brighton – Everton",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "141d2a11ec806671",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-01-31T16:00:00+01:00",
+      "title": "Leeds – Arsenal",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "2b6711690ce8e87d",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-01-31T16:00:00+01:00",
+      "title": "Wolves – Bournemouth",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "c855929c6d7e22a0",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-01-31T16:15:00+01:00",
+      "title": "CA Osasuna – Villarreal CF",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "60d97d495231379d",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-01-31T18:30:00+01:00",
+      "title": "Chelsea – West Ham",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "f0aa22366b7671b1",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-01-31T18:30:00+01:00",
+      "title": "Levante UD – Atlético de Madrid",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "e36f82e1b68c476d",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-01-31T18:30:00+01:00",
+      "title": "Elche CF – FC Barcelona",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "94380bac22779fb5",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-01-31T21:00:00+01:00",
+      "title": "Liverpool – Newcastle",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "70721397d0ab5d39",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-02-01T14:00:00+01:00",
+      "title": "Real Madrid – Rayo Vallecano",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "16022c90641a649b",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-02-01T15:00:00+01:00",
+      "title": "Aston Villa – Brentford",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "783c917627ca91bc",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-02-01T15:00:00+01:00",
+      "title": "Man Utd – Fulham",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "a86b0ca15565073f",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-02-01T15:00:00+01:00",
+      "title": "Nott'm Forest – Crystal Palace",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "29d235e0050c89c0",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-02-01T16:15:00+01:00",
+      "title": "Real Betis – Valencia CF",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "b5b763fa6e498bf7",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-02-01T17:30:00+01:00",
+      "title": "Spurs – Man City",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "5e723122145e19ef",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-02-01T18:30:00+01:00",
+      "title": "Getafe CF – Celta",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "b3647d6a5e1b8bb2",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-02-01T21:00:00+01:00",
+      "title": "Athletic Club – Real Sociedad",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "13fe538d45828573",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-02-02T21:00:00+01:00",
+      "title": "Sunderland – Burnley",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "98f615ab098b9cce",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-02-02T21:00:00+01:00",
+      "title": "RCD Mallorca – Sevilla FC",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "b0fd40a21fad0a16",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-02-06T21:00:00+01:00",
+      "title": "Leeds – Nott'm Forest",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "fa46fd852c1eda9d",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-02-06T21:00:00+01:00",
+      "title": "Celta – CA Osasuna",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "11211bac03a8e751",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-02-07T13:30:00+01:00",
+      "title": "Man Utd – Spurs",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "023a283a9f4b13b6",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-02-07T14:00:00+01:00",
+      "title": "Rayo Vallecano – Real Oviedo",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "763414421fcb9359",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-02-07T16:00:00+01:00",
+      "title": "Arsenal – Sunderland",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "def8b2b9973dc7c2",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-02-07T16:00:00+01:00",
+      "title": "Bournemouth – Aston Villa",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "16e815daa2b933e5",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-02-07T16:00:00+01:00",
+      "title": "Burnley – West Ham",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "f25c721ee15de5b5",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-02-07T16:00:00+01:00",
+      "title": "Fulham – Everton",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "3e0e5a61c3fb9a9c",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-02-07T16:00:00+01:00",
+      "title": "Wolves – Chelsea",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "bef4850ee19fa647",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-02-07T16:15:00+01:00",
+      "title": "FC Barcelona – RCD Mallorca",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "259f0e76a50c411e",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-02-07T18:30:00+01:00",
+      "title": "Newcastle – Brentford",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "d0c46bbab61932e2",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-02-07T18:30:00+01:00",
+      "title": "Sevilla FC – Girona FC",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "9010e8d00a79defd",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-02-07T21:00:00+01:00",
+      "title": "Real Sociedad – Elche CF",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "e7cee8d7d618cf96",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-02-08T14:00:00+01:00",
+      "title": "Deportivo Alavés – Getafe CF",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "70dc2034fa285d52",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-02-08T15:00:00+01:00",
+      "title": "Brighton – Crystal Palace",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "c6da7308851deb85",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-02-08T16:15:00+01:00",
+      "title": "Athletic Club – Levante UD",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "39786d1e06cecf51",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-02-08T17:30:00+01:00",
+      "title": "Liverpool – Man City",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "9425a8b4c2ed64af",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-02-08T18:30:00+01:00",
+      "title": "Atlético de Madrid – Real Betis",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "e8aceb154e405cc0",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-02-08T21:00:00+01:00",
+      "title": "Valencia CF – Real Madrid",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "6ba07501b3078659",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-02-09T21:00:00+01:00",
+      "title": "Villarreal CF – RCD Espanyol de Barcelona",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "023d8dab661415b5",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-02-10T20:30:00+01:00",
+      "title": "Chelsea – Leeds",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "e4c8316139b5b5cf",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-02-10T20:30:00+01:00",
+      "title": "Everton – Bournemouth",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "aaad30d3497b816e",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-02-10T20:30:00+01:00",
+      "title": "Spurs – Newcastle",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "66f373f1beabf84f",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-02-10T21:15:00+01:00",
+      "title": "West Ham – Man Utd",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "08d50e55436ef4b4",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-02-11T16:00:00+01:00",
+      "title": "Sunderland – Liverpool",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "cccaa26f612d2ea0",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-02-11T20:30:00+01:00",
+      "title": "Aston Villa – Brighton",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "9cca0d038a97f0ab",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-02-11T20:30:00+01:00",
+      "title": "Crystal Palace – Burnley",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "99a1c0a35c2443d8",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-02-11T20:30:00+01:00",
+      "title": "Man City – Fulham",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "90e8757d38b1224e",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-02-11T20:30:00+01:00",
+      "title": "Nott'm Forest – Wolves",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "46a9b53846362a73",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-02-12T21:00:00+01:00",
+      "title": "Brentford – Arsenal",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "111739d0bc175021",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-02-15T21:00:00+01:00",
+      "title": "Elche CF – CA Osasuna",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "1bc89f49806e0274",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-02-15T21:00:00+01:00",
+      "title": "Getafe CF – Villarreal CF",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "dad1952a951b4ebe",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-02-15T21:00:00+01:00",
+      "title": "Levante UD – Valencia CF",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "145508258f151d07",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-02-15T21:00:00+01:00",
+      "title": "Real Madrid – Real Sociedad",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "5103ec14567f26e9",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-02-15T21:00:00+01:00",
+      "title": "Sevilla FC – Deportivo Alavés",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "287518bfa61f4e93",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-02-15T21:00:00+01:00",
+      "title": "Real Oviedo – Athletic Club",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "d60226e39f0ae422",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-02-15T21:00:00+01:00",
+      "title": "Rayo Vallecano – Atlético de Madrid",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "969a36c7280ba64e",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-02-15T21:00:00+01:00",
+      "title": "Girona FC – FC Barcelona",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "5aa68645e4d9c0c4",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-02-15T21:00:00+01:00",
+      "title": "RCD Mallorca – Real Betis",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "4d6952d55f140f31",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-02-15T21:00:00+01:00",
+      "title": "RCD Espanyol de Barcelona – Celta",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "aee4aa0e07dd5e98",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-02-18T20:00:00+01:00",
+      "title": "Levante UD – Villarreal CF",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "7681c09dac3d3730",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-02-21T13:30:00+01:00",
+      "title": "Man City – Newcastle",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "7c380fd479859549",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-02-21T16:00:00+01:00",
+      "title": "Aston Villa – Leeds",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "57cf5eff92af520d",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-02-21T16:00:00+01:00",
+      "title": "Brentford – Brighton",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "3dc3e258af58ff89",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-02-21T16:00:00+01:00",
+      "title": "Chelsea – Burnley",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "bb86647d6a779ed3",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-02-21T16:00:00+01:00",
+      "title": "Nott'm Forest – Liverpool",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "2b1554f4e5153012",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-02-21T18:30:00+01:00",
+      "title": "West Ham – Bournemouth",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "e77b545702b0f4cc",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-02-22T15:00:00+01:00",
+      "title": "Crystal Palace – Wolves",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "ddefc89a6acec204",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-02-22T15:00:00+01:00",
+      "title": "Sunderland – Fulham",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "3d3a467b302942cb",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-02-22T17:30:00+01:00",
+      "title": "Spurs – Arsenal",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "b1b120228d76e4cf",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-02-22T21:00:00+01:00",
+      "title": "Deportivo Alavés – Girona FC",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "2acacdda044c67b6",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-02-22T21:00:00+01:00",
+      "title": "Athletic Club – Elche CF",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "fd6a98f276619d69",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-02-22T21:00:00+01:00",
+      "title": "Atlético de Madrid – RCD Espanyol de Barcelona",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "c04a4712077fa8f4",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-02-22T21:00:00+01:00",
+      "title": "FC Barcelona – Levante UD",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "c063c97ca823b521",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-02-22T21:00:00+01:00",
+      "title": "Real Betis – Rayo Vallecano",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "6b4ef66c4a581c82",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-02-22T21:00:00+01:00",
+      "title": "Celta – RCD Mallorca",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "51098a4990f85141",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-02-22T21:00:00+01:00",
+      "title": "Getafe CF – Sevilla FC",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "85c43eab3fbb4e88",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-02-22T21:00:00+01:00",
+      "title": "CA Osasuna – Real Madrid",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "2f2275f2d6bc0f49",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-02-22T21:00:00+01:00",
+      "title": "Villarreal CF – Valencia CF",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "d47d4eaa4940fcfb",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-02-22T21:00:00+01:00",
+      "title": "Real Sociedad – Real Oviedo",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "0f957402e4bf16ae",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-02-23T21:00:00+01:00",
+      "title": "Everton – Man Utd",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "7e9ad5a73a870478",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-02-27T21:00:00+01:00",
+      "title": "Wolves – Aston Villa",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "c493c9325b7765b4",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-02-28T13:30:00+01:00",
+      "title": "Bournemouth – Sunderland",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "845047936f464732",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-02-28T16:00:00+01:00",
+      "title": "Brighton – Nott'm Forest",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "16b51820e014e5dc",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-02-28T16:00:00+01:00",
+      "title": "Burnley – Brentford",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "1fd975f99adef2db",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-02-28T16:00:00+01:00",
+      "title": "Liverpool – West Ham",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "b0373672d0e89104",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-02-28T16:00:00+01:00",
+      "title": "Newcastle – Everton",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "ff5e75bd14473521",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-02-28T18:30:00+01:00",
+      "title": "Leeds – Man City",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "3042fe43d572b24e",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-03-01T15:00:00+01:00",
+      "title": "Fulham – Spurs",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "659af5c39d21b9d4",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-03-01T15:00:00+01:00",
+      "title": "Man Utd – Crystal Palace",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "3605aef3c358e53d",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-03-01T17:30:00+01:00",
+      "title": "Arsenal – Chelsea",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "31f76c4f19a9dc95",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-03-01T21:00:00+01:00",
+      "title": "FC Barcelona – Villarreal CF",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "ea294d4f14d5c204",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-03-01T21:00:00+01:00",
+      "title": "Real Betis – Sevilla FC",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "2320e3138d27760f",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-03-01T21:00:00+01:00",
+      "title": "Elche CF – RCD Espanyol de Barcelona",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "a4249d06810381a4",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-03-01T21:00:00+01:00",
+      "title": "RCD Mallorca – Real Sociedad",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "43ccf65b8770ebdd",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-03-01T21:00:00+01:00",
+      "title": "Levante UD – Deportivo Alavés",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "16b325f7b909c923",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-03-01T21:00:00+01:00",
+      "title": "Rayo Vallecano – Athletic Club",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "56949b3e57db8dfc",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-03-01T21:00:00+01:00",
+      "title": "Real Oviedo – Atlético de Madrid",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "6450a764ead21132",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-03-01T21:00:00+01:00",
+      "title": "Girona FC – Celta",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "5a10ffbad6a49360",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-03-01T21:00:00+01:00",
+      "title": "Real Madrid – Getafe CF",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "4dd3ba291b36b114",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-03-01T21:00:00+01:00",
+      "title": "Valencia CF – CA Osasuna",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "11a5e2f4cd46b43a",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-03-03T20:30:00+01:00",
+      "title": "Bournemouth – Brentford",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "fee74ddad5fe32ef",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-03-03T20:30:00+01:00",
+      "title": "Everton – Burnley",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "a8df8c35263570c2",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-03-03T20:30:00+01:00",
+      "title": "Leeds – Sunderland",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "5b32c4e0e1b9609c",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-03-03T21:15:00+01:00",
+      "title": "Wolves – Liverpool",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "afd6b735f4328cb8",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-03-04T20:30:00+01:00",
+      "title": "Aston Villa – Chelsea",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "a680f02fdd985580",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-03-04T20:30:00+01:00",
+      "title": "Brighton – Arsenal",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "5065b102c008933c",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-03-04T20:30:00+01:00",
+      "title": "Fulham – West Ham",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "60c2645d7ec39d16",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-03-04T20:30:00+01:00",
+      "title": "Man City – Nott'm Forest",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "9f6d956ea785d909",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-03-04T21:15:00+01:00",
+      "title": "Newcastle – Man Utd",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "25fb9a20d11aacf9",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-03-05T21:00:00+01:00",
+      "title": "Spurs – Crystal Palace",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "5779ac5e0d7f4b4d",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-03-08T21:00:00+01:00",
+      "title": "Athletic Club – FC Barcelona",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "ed386f5ccc1e7e0b",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-03-08T21:00:00+01:00",
+      "title": "Atlético de Madrid – Real Sociedad",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "cf0de351bb8f77a3",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-03-08T21:00:00+01:00",
+      "title": "Celta – Real Madrid",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "78d09c118b103d7b",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-03-08T21:00:00+01:00",
+      "title": "RCD Espanyol de Barcelona – Real Oviedo",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "326ec5436c629648",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-03-08T21:00:00+01:00",
+      "title": "Valencia CF – Deportivo Alavés",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "8cf6cc11124b8ce3",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-03-08T21:00:00+01:00",
+      "title": "Getafe CF – Real Betis",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "f859b14de00651c8",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-03-08T21:00:00+01:00",
+      "title": "Villarreal CF – Elche CF",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "4c73d26844f6615e",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-03-08T21:00:00+01:00",
+      "title": "Levante UD – Girona FC",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "06f1d697d29352df",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-03-08T21:00:00+01:00",
+      "title": "CA Osasuna – RCD Mallorca",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "fb9a8e0f068c8689",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-03-08T21:00:00+01:00",
+      "title": "Sevilla FC – Rayo Vallecano",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "123fa2f59352abff",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-03-14T13:30:00+01:00",
+      "title": "West Ham – Man City",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "bd47856ef382a49a",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-03-14T16:00:00+01:00",
+      "title": "Burnley – Bournemouth",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "d1d45162885881a9",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-03-14T16:00:00+01:00",
+      "title": "Crystal Palace – Leeds",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "42ef01a731d8fdf6",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-03-14T16:00:00+01:00",
+      "title": "Man Utd – Aston Villa",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "40aef45d7420a709",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-03-14T16:00:00+01:00",
+      "title": "Nott'm Forest – Fulham",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "0708566bf5cb8915",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-03-14T16:00:00+01:00",
+      "title": "Sunderland – Brighton",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "f9763584f9ecdddb",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-03-14T18:30:00+01:00",
+      "title": "Chelsea – Newcastle",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "9e7591eed003b6cb",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-03-15T15:00:00+01:00",
+      "title": "Arsenal – Everton",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "1b49420d36ffc5b2",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-03-15T17:30:00+01:00",
+      "title": "Liverpool – Spurs",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "247df9de24953b21",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-03-15T21:00:00+01:00",
+      "title": "Deportivo Alavés – Villarreal CF",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "9e9cb2461d232459",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-03-15T21:00:00+01:00",
+      "title": "Atlético de Madrid – Getafe CF",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "740ec6796cd6ef57",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-03-15T21:00:00+01:00",
+      "title": "FC Barcelona – Sevilla FC",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "152dfc71d3c82075",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-03-15T21:00:00+01:00",
+      "title": "Real Betis – Celta",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "693368c2313a0f39",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-03-15T21:00:00+01:00",
+      "title": "Real Oviedo – Valencia CF",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "5cfdb1a98b13d39a",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-03-15T21:00:00+01:00",
+      "title": "Girona FC – Athletic Club",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "fb141af308358dbd",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-03-15T21:00:00+01:00",
+      "title": "Real Madrid – Elche CF",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "3ebcaa2d8e7eedf1",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-03-15T21:00:00+01:00",
+      "title": "RCD Mallorca – RCD Espanyol de Barcelona",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "d5ef39f0cf67bf70",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-03-15T21:00:00+01:00",
+      "title": "Rayo Vallecano – Levante UD",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "026ae970b9685f9c",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-03-15T21:00:00+01:00",
+      "title": "Real Sociedad – CA Osasuna",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "2f64d824cc15cece",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-03-16T21:00:00+01:00",
+      "title": "Brentford – Wolves",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "1bab07d28b4c0f0f",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-03-20T21:00:00+01:00",
+      "title": "Bournemouth – Man Utd",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "59ca7ee47881f4ae",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-03-21T13:30:00+01:00",
+      "title": "Brighton – Liverpool",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "c5d7f0ebb58018fc",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-03-21T16:00:00+01:00",
+      "title": "Aston Villa – West Ham",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "fd477015fa56d491",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-03-21T16:00:00+01:00",
+      "title": "Fulham – Burnley",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "9af9f7102b1bc0b3",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-03-21T16:00:00+01:00",
+      "title": "Man City – Crystal Palace",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "edbcadcb6aacf20f",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-03-21T16:00:00+01:00",
+      "title": "Wolves – Arsenal",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "4de4cf63d73f4f40",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-03-21T18:30:00+01:00",
+      "title": "Everton – Chelsea",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "e25aab303aac54df",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-03-21T21:00:00+01:00",
+      "title": "Leeds – Brentford",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "dc0ece61b659c333",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-03-22T13:00:00+01:00",
+      "title": "Newcastle – Sunderland",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "9af1a0365ac96f07",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-03-22T15:15:00+01:00",
+      "title": "Spurs – Nott'm Forest",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "644e4192097f5eb2",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-03-22T21:00:00+01:00",
+      "title": "Athletic Club – Real Betis",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "bbfedcd4083a77a0",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-03-22T21:00:00+01:00",
+      "title": "FC Barcelona – Rayo Vallecano",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "171a33e367e46cbd",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-03-22T21:00:00+01:00",
+      "title": "Elche CF – RCD Mallorca",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "d9d26296ff256f86",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-03-22T21:00:00+01:00",
+      "title": "RCD Espanyol de Barcelona – Getafe CF",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "8ce31a8bf6219e2a",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-03-22T21:00:00+01:00",
+      "title": "Levante UD – Real Oviedo",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "a46c009595b93bfc",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-03-22T21:00:00+01:00",
+      "title": "Sevilla FC – Valencia CF",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "696a1429dcab38f8",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-03-22T21:00:00+01:00",
+      "title": "Celta – Deportivo Alavés",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "714fcd771846076f",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-03-22T21:00:00+01:00",
+      "title": "Real Madrid – Atlético de Madrid",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "ef809d74d10fd155",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-03-22T21:00:00+01:00",
+      "title": "CA Osasuna – Girona FC",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "7c818df65c4e4da9",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-03-22T21:00:00+01:00",
+      "title": "Villarreal CF – Real Sociedad",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "6db017b9b66900a4",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-04-05T21:00:00+02:00",
+      "title": "Deportivo Alavés – CA Osasuna",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "e10993daae7a8082",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-04-05T21:00:00+02:00",
+      "title": "Atlético de Madrid – FC Barcelona",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "8f2843a73f343934",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-04-05T21:00:00+02:00",
+      "title": "Real Betis – RCD Espanyol de Barcelona",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "157e89f836457331",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-04-05T21:00:00+02:00",
+      "title": "Girona FC – Villarreal CF",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "c63887824d37d1a8",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-04-05T21:00:00+02:00",
+      "title": "RCD Mallorca – Real Madrid",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "7864decc3774be25",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-04-05T21:00:00+02:00",
+      "title": "Real Oviedo – Sevilla FC",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "8cfbf9382f8384d9",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-04-05T21:00:00+02:00",
+      "title": "Getafe CF – Athletic Club",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "6171642eb500f302",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-04-05T21:00:00+02:00",
+      "title": "Valencia CF – Celta",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "ff6d3b5d9dedd017",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-04-05T21:00:00+02:00",
+      "title": "Rayo Vallecano – Elche CF",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "d8ced3a7d5059dd7",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-04-05T21:00:00+02:00",
+      "title": "Real Sociedad – Levante UD",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "972513a89d644c82",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-04-11T16:00:00+02:00",
+      "title": "Arsenal – Bournemouth",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "55cda9c719644d60",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-04-11T16:00:00+02:00",
+      "title": "Brentford – Everton",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "256c2fd91fa2c2cc",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-04-11T16:00:00+02:00",
+      "title": "Burnley – Brighton",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "cf42f3e4492e1a0d",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-04-11T16:00:00+02:00",
+      "title": "Chelsea – Man City",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "bb11d7133b4ae100",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-04-11T16:00:00+02:00",
+      "title": "Crystal Palace – Newcastle",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "b9930f4c563281ee",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-04-11T16:00:00+02:00",
+      "title": "Liverpool – Fulham",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "f11a63d24fd0e90c",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-04-11T16:00:00+02:00",
+      "title": "Man Utd – Leeds",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "b2aa8e699bbff7aa",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-04-11T16:00:00+02:00",
+      "title": "Nott'm Forest – Aston Villa",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "09ffef5331d8a6ec",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-04-11T16:00:00+02:00",
+      "title": "Sunderland – Spurs",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "d9060bd202057683",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-04-11T16:00:00+02:00",
+      "title": "West Ham – Wolves",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "15383c98893091ce",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-04-12T21:00:00+02:00",
+      "title": "Athletic Club – Villarreal CF",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "c0d2ada9289aa06e",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-04-12T21:00:00+02:00",
+      "title": "FC Barcelona – RCD Espanyol de Barcelona",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "1d73efe12cdeb910",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-04-12T21:00:00+02:00",
+      "title": "Celta – Real Oviedo",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "04224225ca2837c4",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-04-12T21:00:00+02:00",
+      "title": "Elche CF – Valencia CF",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "5e30c0265eb92e66",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-04-12T21:00:00+02:00",
+      "title": "RCD Mallorca – Rayo Vallecano",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "077e2ee900ad1b78",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-04-12T21:00:00+02:00",
+      "title": "Real Sociedad – Deportivo Alavés",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "2b76c1723f442e61",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-04-12T21:00:00+02:00",
+      "title": "Sevilla FC – Atlético de Madrid",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "882b767bdafe387b",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-04-12T21:00:00+02:00",
+      "title": "CA Osasuna – Real Betis",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "b1c076b92249a6ae",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-04-12T21:00:00+02:00",
+      "title": "Levante UD – Getafe CF",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "febf97db5f40556f",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-04-12T21:00:00+02:00",
+      "title": "Real Madrid – Girona FC",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "2546e6c54c471fd1",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-04-18T16:00:00+02:00",
+      "title": "Aston Villa – Sunderland",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "bddfa012e8315a18",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-04-18T16:00:00+02:00",
+      "title": "Brentford – Fulham",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "d1db810af4ff015c",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-04-18T16:00:00+02:00",
+      "title": "Chelsea – Man Utd",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "9ef7bdea6194ed50",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-04-18T16:00:00+02:00",
+      "title": "Crystal Palace – West Ham",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "f36f7664ae639bd4",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-04-18T16:00:00+02:00",
+      "title": "Everton – Liverpool",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "c6689007f43e9c75",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-04-18T16:00:00+02:00",
+      "title": "Leeds – Wolves",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "eaf61bdd1ee4c2ec",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-04-18T16:00:00+02:00",
+      "title": "Man City – Arsenal",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "cf942ee28540e698",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-04-18T16:00:00+02:00",
+      "title": "Newcastle – Bournemouth",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "3096f17b14cf22b6",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-04-18T16:00:00+02:00",
+      "title": "Nott'm Forest – Burnley",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "3cfda52122e71f36",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-04-18T16:00:00+02:00",
+      "title": "Spurs – Brighton",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "15fcafda8c5ece10",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-04-19T21:00:00+02:00",
+      "title": "Deportivo Alavés – RCD Mallorca",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "86b462e443fc4487",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-04-19T21:00:00+02:00",
+      "title": "Real Betis – Real Madrid",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "44b40dc6e1556218",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-04-19T21:00:00+02:00",
+      "title": "RCD Espanyol de Barcelona – Levante UD",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "1dcf5f93835c064c",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-04-19T21:00:00+02:00",
+      "title": "CA Osasuna – Sevilla FC",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "262d9819a5a88ed5",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-04-19T21:00:00+02:00",
+      "title": "Rayo Vallecano – Real Sociedad",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "2cbc6de62205a090",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-04-19T21:00:00+02:00",
+      "title": "Atlético de Madrid – Athletic Club",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "7a4b3f70af65d8e1",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-04-19T21:00:00+02:00",
+      "title": "Getafe CF – FC Barcelona",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "c7fd215f46b21904",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-04-19T21:00:00+02:00",
+      "title": "Villarreal CF – Celta",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "3191cadb0a41c688",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-04-19T21:00:00+02:00",
+      "title": "Real Oviedo – Elche CF",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "d6136f033771e237",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-04-19T21:00:00+02:00",
+      "title": "Valencia CF – Girona FC",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "cbdd5569ae520190",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-04-22T21:00:00+02:00",
+      "title": "Athletic Club – CA Osasuna",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "e9ff567d0f9f845e",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-04-22T21:00:00+02:00",
+      "title": "FC Barcelona – Celta",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "22d21fd440150929",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-04-22T21:00:00+02:00",
+      "title": "Levante UD – Sevilla FC",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "2b60dc8911c51345",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-04-22T21:00:00+02:00",
+      "title": "RCD Mallorca – Valencia CF",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "d851d7c57202e4f9",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-04-22T21:00:00+02:00",
+      "title": "Real Oviedo – Villarreal CF",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "de47bbc44a07427c",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-04-22T21:00:00+02:00",
+      "title": "Real Madrid – Deportivo Alavés",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "bab8df2b18b6faf0",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-04-22T21:00:00+02:00",
+      "title": "Elche CF – Atlético de Madrid",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "11254820ce1c4fe4",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-04-22T21:00:00+02:00",
+      "title": "Girona FC – Real Betis",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "54f076f9b04eb050",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-04-22T21:00:00+02:00",
+      "title": "Rayo Vallecano – RCD Espanyol de Barcelona",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "ad91cdb7c33a67ae",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-04-22T21:00:00+02:00",
+      "title": "Real Sociedad – Getafe CF",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "a48e61ba11175e7d",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-04-25T16:00:00+02:00",
+      "title": "Arsenal – Newcastle",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "9227296b52a89ecb",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-04-25T16:00:00+02:00",
+      "title": "Bournemouth – Leeds",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "a95893a0b10e99eb",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-04-25T16:00:00+02:00",
+      "title": "Brighton – Chelsea",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "de08b1901633b4c2",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-04-25T16:00:00+02:00",
+      "title": "Burnley – Man City",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "bcb6cc639ff29b61",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-04-25T16:00:00+02:00",
+      "title": "Fulham – Aston Villa",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "a37a2f9539ee7b3c",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-04-25T16:00:00+02:00",
+      "title": "Liverpool – Crystal Palace",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "1e8d21ea0a31a94e",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-04-25T16:00:00+02:00",
+      "title": "Man Utd – Brentford",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "f9979600de362760",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-04-25T16:00:00+02:00",
+      "title": "Sunderland – Nott'm Forest",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "9fe8548a541907b9",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-04-25T16:00:00+02:00",
+      "title": "West Ham – Everton",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "b09bdfe6b8632e07",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-04-25T16:00:00+02:00",
+      "title": "Wolves – Spurs",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "c7fe8197dae0f00c",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-05-02T16:00:00+02:00",
+      "title": "Arsenal – Fulham",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "9ae057c11a77b305",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-05-02T16:00:00+02:00",
+      "title": "Aston Villa – Spurs",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "0bbd131808f5a6e5",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-05-02T16:00:00+02:00",
+      "title": "Bournemouth – Crystal Palace",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "cfdc1d37403a2397",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-05-02T16:00:00+02:00",
+      "title": "Brentford – West Ham",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "87c4baa47ebc7406",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-05-02T16:00:00+02:00",
+      "title": "Chelsea – Nott'm Forest",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "f6a8c3eb002b0ea0",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-05-02T16:00:00+02:00",
+      "title": "Everton – Man City",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "4bf691a3342bb227",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-05-02T16:00:00+02:00",
+      "title": "Leeds – Burnley",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "2f3268999b376e04",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-05-02T16:00:00+02:00",
+      "title": "Man Utd – Liverpool",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "71c7ba3768086894",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-05-02T16:00:00+02:00",
+      "title": "Newcastle – Brighton",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "3f17a7f3fb9b2cd8",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-05-02T16:00:00+02:00",
+      "title": "Wolves – Sunderland",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "b073ab480428afd1",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-05-03T21:00:00+02:00",
+      "title": "Deportivo Alavés – Athletic Club",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "8aac597a3f8669a1",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-05-03T21:00:00+02:00",
+      "title": "Real Betis – Real Oviedo",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "eb9543a3bca1c570",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-05-03T21:00:00+02:00",
+      "title": "Celta – Elche CF",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "3a374bdacb5f8c7a",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-05-03T21:00:00+02:00",
+      "title": "RCD Espanyol de Barcelona – Real Madrid",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "e2eaf2220f52059e",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-05-03T21:00:00+02:00",
+      "title": "Getafe CF – Rayo Vallecano",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "eaac8058aacc2b05",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-05-03T21:00:00+02:00",
+      "title": "Girona FC – RCD Mallorca",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "0a482aef5400c6d7",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-05-03T21:00:00+02:00",
+      "title": "Valencia CF – Atlético de Madrid",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "e89ca1a6c627508e",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-05-03T21:00:00+02:00",
+      "title": "CA Osasuna – FC Barcelona",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "3dec97fed81c5250",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-05-03T21:00:00+02:00",
+      "title": "Villarreal CF – Levante UD",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "b4d425438af2c864",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-05-03T21:00:00+02:00",
+      "title": "Sevilla FC – Real Sociedad",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "9d719433de6487f0",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-05-09T16:00:00+02:00",
+      "title": "Brighton – Wolves",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "135528ee5f79181c",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-05-09T16:00:00+02:00",
+      "title": "Burnley – Aston Villa",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "0bda5b3af4c38b7f",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-05-09T16:00:00+02:00",
+      "title": "Crystal Palace – Everton",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "0384c463eebeeeb1",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-05-09T16:00:00+02:00",
+      "title": "Fulham – Bournemouth",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "e799e20c9d3ebd01",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-05-09T16:00:00+02:00",
+      "title": "Liverpool – Chelsea",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "d1d528aa7e6339bd",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-05-09T16:00:00+02:00",
+      "title": "Man City – Brentford",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "97f70970c207d108",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-05-09T16:00:00+02:00",
+      "title": "Nott'm Forest – Newcastle",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "8866305167cc6fdc",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-05-09T16:00:00+02:00",
+      "title": "Sunderland – Man Utd",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "aa661a37a220d970",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-05-09T16:00:00+02:00",
+      "title": "Spurs – Leeds",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "4a4e7df342c54ae2",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-05-09T16:00:00+02:00",
+      "title": "West Ham – Arsenal",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "e9e3dbaf58d5eea2",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-05-10T21:00:00+02:00",
+      "title": "Athletic Club – Valencia CF",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "374434c24fe8a950",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-05-10T21:00:00+02:00",
+      "title": "Atlético de Madrid – Celta",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "d5dab88417c1e60f",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-05-10T21:00:00+02:00",
+      "title": "FC Barcelona – Real Madrid",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "009404713000aa85",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-05-10T21:00:00+02:00",
+      "title": "Levante UD – CA Osasuna",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "e35aab50639919cd",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-05-10T21:00:00+02:00",
+      "title": "RCD Mallorca – Villarreal CF",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "8978675c3d6a4f3d",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-05-10T21:00:00+02:00",
+      "title": "Elche CF – Deportivo Alavés",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "f4c72dd0ad04a156",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-05-10T21:00:00+02:00",
+      "title": "Real Sociedad – Real Betis",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "9aac7c61979f29f3",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-05-10T21:00:00+02:00",
+      "title": "Sevilla FC – RCD Espanyol de Barcelona",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "b914281d43a952f8",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-05-10T21:00:00+02:00",
+      "title": "Real Oviedo – Getafe CF",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "f5000c1687a0107a",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-05-10T21:00:00+02:00",
+      "title": "Rayo Vallecano – Girona FC",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "1fe2a04b25488a2b",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-05-13T21:00:00+02:00",
+      "title": "Deportivo Alavés – FC Barcelona",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "6fac271c148a6733",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-05-13T21:00:00+02:00",
+      "title": "Real Betis – Elche CF",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "4cf62f6cf26aa344",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-05-13T21:00:00+02:00",
+      "title": "Celta – Levante UD",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "53d1615427ac1d1f",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-05-13T21:00:00+02:00",
+      "title": "Getafe CF – RCD Mallorca",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "1ef948e57a0c162a",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-05-13T21:00:00+02:00",
+      "title": "Girona FC – Real Sociedad",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "c1fd38c8ae3b34e1",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-05-13T21:00:00+02:00",
+      "title": "RCD Espanyol de Barcelona – Athletic Club",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "095917be5a3acef6",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-05-13T21:00:00+02:00",
+      "title": "CA Osasuna – Atlético de Madrid",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "f3b976ea969bdb3c",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-05-13T21:00:00+02:00",
+      "title": "Valencia CF – Rayo Vallecano",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "c4128c5ce119af63",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-05-13T21:00:00+02:00",
+      "title": "Villarreal CF – Sevilla FC",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "b20443700bce9a0f",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-05-13T21:00:00+02:00",
+      "title": "Real Madrid – Real Oviedo",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "510be4ea1d94bebe",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-05-17T16:00:00+02:00",
+      "title": "Arsenal – Burnley",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "0267d50dd79927f2",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-05-17T16:00:00+02:00",
+      "title": "Aston Villa – Liverpool",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "27790f4591a7f487",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-05-17T16:00:00+02:00",
+      "title": "Bournemouth – Man City",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "628aedc9b553f596",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-05-17T16:00:00+02:00",
+      "title": "Brentford – Crystal Palace",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "6e6291de28fd489f",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-05-17T16:00:00+02:00",
+      "title": "Chelsea – Spurs",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "ae674f90799e2014",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-05-17T16:00:00+02:00",
+      "title": "Everton – Sunderland",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "57c9e3c0c118e58d",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-05-17T16:00:00+02:00",
+      "title": "Leeds – Brighton",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "1127a3de90598ea4",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-05-17T16:00:00+02:00",
+      "title": "Man Utd – Nott'm Forest",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "e427a7516e709a1e",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-05-17T16:00:00+02:00",
+      "title": "Newcastle – West Ham",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "4a9344cac46d637b",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-05-17T16:00:00+02:00",
+      "title": "Wolves – Fulham",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "023cbb2c8887491d",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-05-17T21:00:00+02:00",
+      "title": "Athletic Club – Celta",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "b630e51bcb5fd2fb",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-05-17T21:00:00+02:00",
+      "title": "Atlético de Madrid – Girona FC",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "52f482d6fa01d415",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-05-17T21:00:00+02:00",
+      "title": "FC Barcelona – Real Betis",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "c49e5f6eb5c3fbfa",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-05-17T21:00:00+02:00",
+      "title": "Elche CF – Getafe CF",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "e1c40c19eeecb89c",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-05-17T21:00:00+02:00",
+      "title": "Levante UD – RCD Mallorca",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "3edb3ffb67a7b295",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-05-17T21:00:00+02:00",
+      "title": "Rayo Vallecano – Villarreal CF",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "e2416017299f648a",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-05-17T21:00:00+02:00",
+      "title": "Real Sociedad – Valencia CF",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "8f7604008b9c8d39",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-05-17T21:00:00+02:00",
+      "title": "Real Oviedo – Deportivo Alavés",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "39827b0dc19c9d49",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-05-17T21:00:00+02:00",
+      "title": "CA Osasuna – RCD Espanyol de Barcelona",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "ec868c8a67572e23",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-05-17T21:00:00+02:00",
+      "title": "Sevilla FC – Real Madrid",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "a411f820e1e46231",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-05-24T17:00:00+02:00",
+      "title": "Brighton – Man Utd",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "25ee82860edcb6a7",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-05-24T17:00:00+02:00",
+      "title": "Burnley – Wolves",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "56d6e18f2fbd2ca3",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-05-24T17:00:00+02:00",
+      "title": "Crystal Palace – Arsenal",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "de6c2d61122d4fa5",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-05-24T17:00:00+02:00",
+      "title": "Fulham – Newcastle",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "d6e8048916ae99af",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-05-24T17:00:00+02:00",
+      "title": "Liverpool – Brentford",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "dfed5838a3af9931",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-05-24T17:00:00+02:00",
+      "title": "Man City – Aston Villa",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "096244f91753da05",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-05-24T17:00:00+02:00",
+      "title": "Nott'm Forest – Bournemouth",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "3de87637c11f0512",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-05-24T17:00:00+02:00",
+      "title": "Sunderland – Chelsea",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "24593834407346b8",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-05-24T17:00:00+02:00",
+      "title": "Spurs – Everton",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "887b5d8e5b711239",
+      "sport": "football",
+      "category": "Premier League",
+      "start": "2026-05-24T17:00:00+02:00",
+      "title": "West Ham – Leeds",
+      "tv": "Viaplay / V Sport",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "cc31ef601eb5d1cf",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-05-24T21:00:00+02:00",
+      "title": "Deportivo Alavés – Rayo Vallecano",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "127c5c971a1ec521",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-05-24T21:00:00+02:00",
+      "title": "Real Betis – Levante UD",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "87ba202a0a63dd71",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-05-24T21:00:00+02:00",
+      "title": "Celta – Sevilla FC",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "669fc57363a1a438",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-05-24T21:00:00+02:00",
+      "title": "RCD Espanyol de Barcelona – Real Sociedad",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "04b43a45753d9a19",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-05-24T21:00:00+02:00",
+      "title": "Getafe CF – CA Osasuna",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "6bc659b153701aee",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-05-24T21:00:00+02:00",
+      "title": "RCD Mallorca – Real Oviedo",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "4fe3b6cab89ce67e",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-05-24T21:00:00+02:00",
+      "title": "Real Madrid – Athletic Club",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "5590c9f4e3cf3c7c",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-05-24T21:00:00+02:00",
+      "title": "Villarreal CF – Atlético de Madrid",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "1fe1a223b4c519e8",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-05-24T21:00:00+02:00",
+      "title": "Valencia CF – FC Barcelona",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
+    },
+    {
+      "id": "dc0dffa951083709",
+      "sport": "football",
+      "category": "La Liga",
+      "start": "2026-05-24T21:00:00+02:00",
+      "title": "Girona FC – Elche CF",
+      "tv": "TV 2 / TV 2 Play",
+      "where": [],
+      "source": "fixturedownload"
     }
   ]
 }
