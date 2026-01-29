@@ -8,3 +8,4 @@ Pillow
 beautifulsoup4==4.12.3
 PyPDF2==3.0.1
 lxml==5.3.0
+pypdf==4.3.1
