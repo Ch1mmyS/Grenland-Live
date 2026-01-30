@@ -1,1 +1,37 @@
-
+{
+  "last_run": "2026-01-30T02:21:25+01:00",
+  "targets": {
+    "data/2026/football.json": {
+      "ok": false,
+      "items": 0,
+      "error": "HTTP GET failed after 3 retries: https://www.fotball.no/footballapi/Calendar/GetCalendar?tournamentId=206092 -> 403 Client Error: Forbidden for url: https://www.fotball.no/footballapi/Calendar/GetCalendar?tournamentId=206092",
+      "traceback": "Traceback (most recent call last):\n  File \"/home/runner/work/Grenland-Live/Grenland-Live/tools/update_all.py\", line 249, in main\n    n, srcs = _run_football(conf)\n              ^^^^^^^^^^^^^^^^^^^\n  File \"/home/runner/work/Grenland-Live/Grenland-Live/tools/update_all.py\", line 59, in _run_football\n    events = fetch_nff_ics(url)\n             ^^^^^^^^^^^^^^^^^^\n  File \"/home/runner/work/Grenland-Live/Grenland-Live/tools/providers/nff_ics.py\", line 21, in fetch\n    text = get_text(url)\n           ^^^^^^^^^^^^^\n  File \"/home/runner/work/Grenland-Live/Grenland-Live/tools/lib/http.py\", line 21, in get_text\n    b = get_bytes(url, timeout=timeout, retries=retries, backoff=backoff)\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/runner/work/Grenland-Live/Grenland-Live/tools/lib/http.py\", line 18, in get_bytes\n    raise RuntimeError(f\"HTTP GET failed after {retries} retries: {url} -> {last_err}\")\nRuntimeError: HTTP GET failed after 3 retries: https://www.fotball.no/footballapi/Calendar/GetCalendar?tournamentId=206092 -> 403 Client Error: Forbidden for url: https://www.fotball.no/footballapi/Calendar/GetCalendar?tournamentId=206092\n"
+    },
+    "data/2026/handball_men.json": {
+      "ok": true,
+      "items": 0,
+      "sources": [
+        "handball_men_ehf_euro_2026"
+      ]
+    },
+    "data/2026/handball_women.json": {
+      "ok": true,
+      "items": 0,
+      "sources": []
+    },
+    "data/2026/wintersport_men.json": {
+      "ok": true,
+      "items": 5,
+      "sources": [
+        "biathlon_world_2526_men"
+      ]
+    },
+    "data/2026/wintersport_women.json": {
+      "ok": true,
+      "items": 5,
+      "sources": [
+        "biathlon_world_2526_women"
+      ]
+    }
+  }
+}
