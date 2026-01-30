@@ -1,19 +1,12 @@
-// app.js — Grenland Live (SPORT FIX 2026)
+// app.js – Grenland Live (SAFE RESTORE VERSION)
 
 const TZ = "Europe/Oslo";
 
 function $(id){ return document.getElementById(id); }
+function show(el){ el.classList.remove("hidden"); }
+function hide(el){ el.classList.add("hidden"); }
 
-async function fetchJsonSafe(path){
-  try{
-    const res = await fetch(path, { cache: "no-store" });
-    if (!res.ok) throw new Error(`${res.status}`);
-    return await res.json();
-  }catch(e){
-    return null; // <- ALDRI kast, aldri stopp UI
-  }
-}
-
+// ---------- TIME ----------
 function fmtOslo(iso){
   try{
     return new Date(iso).toLocaleString("no-NO", {
@@ -25,93 +18,145 @@ function fmtOslo(iso){
       minute:"2-digit"
     });
   }catch{
-    return iso;
+    return iso || "";
   }
 }
 
-function showSport(){
-  $("sportSection").style.display = "block";
+// ---------- FETCH ----------
+async function fetchJsonSafe(url){
+  try{
+    const res = await fetch(url, { cache:"no-store" });
+    if (!res.ok) throw new Error(res.status);
+    return { ok:true, data: await res.json() };
+  }catch(e){
+    return { ok:false, error:e.message };
+  }
 }
 
-async function loadSport(){
-  showSport();
-
-  const errors = [];
-  const datasets = {
-    football: await fetchJsonSafe("data/2026/football.json"),
-    handball_men: await fetchJsonSafe("data/2026/handball_men.json"),
-    handball_women: await fetchJsonSafe("data/2026/handball_women.json"),
-    wintersport_men: await fetchJsonSafe("data/2026/wintersport_men.json"),
-    wintersport_women: await fetchJsonSafe("data/2026/wintersport_women.json")
-  };
-
-  for (const k in datasets){
-    if (!datasets[k]) errors.push(k);
-  }
-
-  $("sportErrors").textContent =
-    errors.length
-      ? "⚠️ Mangler data for: " + errors.join(", ")
-      : "";
-
-  const sportSel = $("sportSelect");
-  const leagueSel = $("leagueSelect");
-
-  function render(){
-    const key = sportSel.value;
-    const doc = datasets[key];
-    const list = $("sportList");
-    list.innerHTML = "";
-
-    if (!doc || !Array.isArray(doc.items)){
-      list.innerHTML = "<div>Ingen data tilgjengelig.</div>";
-      return;
-    }
-
-    let items = doc.items.slice();
-
-    if (key === "football"){
-      const leagues = [...new Set(items.map(i => i.league).filter(Boolean))];
-      leagueSel.style.display = "inline-block";
-      leagueSel.innerHTML =
-        `<option value="">Alle ligaer</option>` +
-        leagues.map(l => `<option value="${l}">${l}</option>`).join("");
-
-      if (leagueSel.value){
-        items = items.filter(i => i.league === leagueSel.value);
-      }
-    }else{
-      leagueSel.style.display = "none";
-    }
-
-    items
-      .sort((a,b)=> new Date(a.start)-new Date(b.start))
-      .slice(0,300)
-      .forEach(it=>{
-        const title = it.home && it.away
-          ? `${it.home} – ${it.away}`
-          : it.title || "Event";
-
-        const div = document.createElement("div");
-        div.className = "card";
-        div.innerHTML = `
-          <strong>${title}</strong><br>
-          ${fmtOslo(it.start)}<br>
-          <span class="muted">${it.league || ""} ${it.channel || ""}</span>
-        `;
-        list.appendChild(div);
-      });
-  }
-
-  sportSel.onchange = render;
-  leagueSel.onchange = render;
-  render();
+function normalizeItems(doc){
+  if (!doc) return [];
+  if (Array.isArray(doc.items)) return doc.items;
+  if (Array.isArray(doc.games)) return doc.games;
+  return [];
 }
 
-// MENY-KOBLING (VIKTIG)
+// ---------- MODAL ----------
+function openModal(it){
+  $("modalTitle").textContent =
+    it.home && it.away ? `${it.home} – ${it.away}` : (it.title || "Event");
+  $("modalTime").textContent = it.start ? fmtOslo(it.start) : "Ukjent";
+  $("modalChannel").textContent = it.channel || "Ukjent";
+
+  const pubs = Array.isArray(it.where) ? it.where : ["Vikinghjørnet","Gimle Pub"];
+  const wrap = $("modalPubs");
+  wrap.innerHTML = "";
+  pubs.forEach(p=>{
+    const s = document.createElement("span");
+    s.className = "tag";
+    s.textContent = p;
+    wrap.appendChild(s);
+  });
+
+  $("modalBack").classList.add("show");
+}
+
+function closeModal(){
+  $("modalBack").classList.remove("show");
+}
+
+// ---------- SPORT ----------
+async function showSport(){
+  $("panelH2").textContent = "Sport";
+  $("panelMeta").textContent = "2026";
+  $("list").innerHTML = "";
+
+  const r = await fetchJsonSafe("data/2026/football.json");
+
+  if (!r.ok){
+    $("list").innerHTML = `
+      <div class="item">
+        <strong>⚠️ Kunne ikke laste sport</strong><br>
+        data/2026/football.json (${r.error})
+      </div>
+    `;
+    return;
+  }
+
+  const items = normalizeItems(r.data)
+    .sort((a,b)=> new Date(a.start)-new Date(b.start))
+    .slice(0,200);
+
+  if (!items.length){
+    $("list").innerHTML = `<div class="item">Ingen kamper funnet</div>`;
+    return;
+  }
+
+  items.forEach(it=>{
+    const div = document.createElement("div");
+    div.className = "item clickable";
+    div.innerHTML = `
+      <div class="itemTop">
+        <div class="itemTitle">
+          ${it.home && it.away ? `${it.home} – ${it.away}` : (it.title || "Event")}
+        </div>
+        <div class="meta">${it.start ? fmtOslo(it.start) : ""}</div>
+      </div>
+      <div class="tagRow">
+        <span class="tag">${it.league || "Ukjent"}</span>
+        <span class="tag">${it.channel || "Ukjent kanal"}</span>
+      </div>
+    `;
+    div.addEventListener("click", ()=> openModal(it));
+    $("list").appendChild(div);
+  });
+}
+
+// ---------- PUBER ----------
+async function showPuber(){
+  $("panelH2").textContent = "Puber";
+  $("panelMeta").textContent = "";
+  $("list").innerHTML = "<div class='item'>Puber-visning OK</div>";
+}
+
+// ---------- EVENTER ----------
+async function showEvents(){
+  $("panelH2").textContent = "Eventer";
+  $("panelMeta").textContent = "";
+  $("list").innerHTML = "<div class='item'>Eventer-visning OK</div>";
+}
+
+// ---------- NAV ----------
+function goApp(tab){
+  hide($("home"));
+  show($("app"));
+
+  if (tab === "sport") showSport();
+  if (tab === "puber") showPuber();
+  if (tab === "events") showEvents();
+}
+
+function goHome(){
+  hide($("app"));
+  show($("home"));
+}
+
+// ---------- WIRE ----------
 document.addEventListener("DOMContentLoaded", ()=>{
-  const sportBtn = document.querySelector("[data-open='sport']");
-  if (sportBtn){
-    sportBtn.onclick = loadSport;
-  }
+  // Modal
+  $("modalClose").onclick = closeModal;
+  $("modalBack").onclick = e => { if (e.target.id==="modalBack") closeModal(); };
+
+  // Forside-knapper
+  document.querySelectorAll("[data-go]").forEach(b=>{
+    b.onclick = ()=> goApp(b.dataset.go);
+  });
+
+  // Tabs
+  $("tabSport").onclick = ()=> goApp("sport");
+  $("tabPuber").onclick = ()=> goApp("puber");
+  $("tabEvents").onclick = ()=> goApp("events");
+
+  // Back
+  $("backHome").onclick = goHome;
+  $("backHome2").onclick = goHome;
 });
