@@ -1,1 +1,23 @@
+{
+  "version": 1,
+  "timezone": "Europe/Oslo",
+  "sports": {
+    "football": {
+      "path": "data/2026/football.json",
+      "leagues": ["Eliteserien", "OBOS-ligaen", "Premier League", "Champions League", "La Liga"]
+    },
+    "handball_men": {
+      "path": "data/2026/handball_men.json"
+    },
+    "handball_women": {
+      "path": "data/2026/handball_women.json"
+    },
+    "wintersport_men": {
+      "path": "data/2026/wintersport_men.json"
+    },
+    "wintersport_women": {
+      "path": "data/2026/wintersport_women.json"
+    }
+  }
+}
 
