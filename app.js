@@ -1,389 +1,328 @@
-// app.js — Grenland Live (SPORT: football + handball + wintersport) + league filter + default pubs
-// ✅ Uses ONLY data/2026/*.json
-// ✅ Sport shows combined feed + sport/league filters
-// ✅ Auto-adds Vikinghjørnet + Gimle Pub if "where" missing
-// ✅ Keeps your existing HTML IDs intact
+(() => {
+  const TZ = "Europe/Oslo";
+  const DEFAULT_WHERE = [
+    "Vikinghjørnet",
+    "Gimle Pub",
+    "O’Learys Skien",
+    "The Old Irish Pub (Skien)",
+    "Union Bar",
+    "Tollboden Bar",
+    "Daimlers",
+    "Jimmys"
+  ];
 
-window.__GL_APP_OK__ = false;
+  // ---- DOM
+  const leagueSelect = document.getElementById("leagueSelect");
+  const daysSelect = document.getElementById("daysSelect");
+  const searchInput = document.getElementById("searchInput");
+  const refreshBtn = document.getElementById("refreshBtn");
 
-const TZ = "Europe/Oslo";
-const DEFAULT_PUBS = ["Vikinghjørnet", "Gimle Pub"];
+  const listEl = document.getElementById("list");
+  const errorBox = document.getElementById("errorBox");
+  const emptyBox = document.getElementById("emptyBox");
+  const lastUpdated = document.getElementById("lastUpdated");
 
-const PATHS = {
-  football: "data/2026/football.json",
-  handball_men: "data/2026/handball_men.json",
-  handball_women: "data/2026/handball_women.json",
-  wintersport_men: "data/2026/wintersport_men.json",
-  wintersport_women: "data/2026/wintersport_women.json",
-  pubs: "data/content/pubs.json",
-  events: "data/events/events.json"
-};
+  const netDot = document.getElementById("netDot");
+  const netText = document.getElementById("netText");
 
-function $(id){ return document.getElementById(id); }
-function show(el){ el.classList.remove("hidden"); }
-function hide(el){ el.classList.add("hidden"); }
+  const modalBackdrop = document.getElementById("modalBackdrop");
+  const modalClose = document.getElementById("modalClose");
+  const modalTitle = document.getElementById("modalTitle");
+  const modalSub = document.getElementById("modalSub");
+  const mTime = document.getElementById("mTime");
+  const mChannel = document.getElementById("mChannel");
+  const mWhere = document.getElementById("mWhere");
 
-function fmtOslo(iso){
-  try{
-    return new Date(iso).toLocaleString("no-NO", {
+  // ---- Robust base path
+  // Always load JSON from /data/ regardless of domain or repo path.
+  // This is the key fix for custom domain.
+  const dataURL = (filename) => new URL(`./data/${filename}`, window.location.href).toString();
+
+  // ---- League config (edit file names to match yours)
+  const LEAGUES = [
+    { key: "football",  name: "Fotball (samlet)", file: "football.json" },
+    { key: "eliteserien", name: "Eliteserien", file: "eliteserien.json" },
+    { key: "obos", name: "OBOS-ligaen", file: "obos.json" },
+    { key: "premier_league", name: "Premier League", file: "premier_league.json" },
+    { key: "champions_league", name: "Champions League", file: "champions_league.json" },
+    { key: "la_liga", name: "La Liga", file: "la_liga.json" },
+
+    { key: "handball", name: "Håndball (samlet)", file: "handball.json" },
+    { key: "handball_men", name: "Håndball VM 2026 Menn", file: "handball_vm_2026_menn.json" },
+    { key: "handball_women", name: "Håndball VM 2026 Damer", file: "handball_vm_2026_damer.json" },
+
+    { key: "wintersport", name: "Vintersport (samlet)", file: "wintersport.json" },
+    { key: "wintersport_men", name: "Vintersport Menn", file: "vintersport_menn.json" },
+    { key: "wintersport_women", name: "Vintersport Kvinner", file: "vintersport_kvinner.json" }
+  ];
+
+  // ---- Utilities
+  const clampStr = (s) => (s == null ? "" : String(s));
+  const isArr = (v) => Array.isArray(v);
+
+  function setNetStatus() {
+    const online = navigator.onLine;
+    netDot.classList.toggle("ok", online);
+    netDot.classList.toggle("bad", !online);
+    netText.textContent = online ? "Online" : "Offline";
+  }
+
+  function fmtOslo(iso) {
+    if (!iso) return "Ukjent";
+    const d = new Date(iso);
+    if (isNaN(d.getTime())) return "Ukjent";
+    return d.toLocaleString("no-NO", {
       timeZone: TZ,
-      weekday:"short",
-      day:"2-digit",
-      month:"2-digit",
-      hour:"2-digit",
-      minute:"2-digit"
+      weekday: "short",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit"
     });
-  }catch{
-    return iso || "";
-  }
-}
-
-async function fetchJsonSafe(url){
-  try{
-    const res = await fetch(url, { cache:"no-store" });
-    if (!res.ok) throw new Error(String(res.status));
-    return { ok:true, data: await res.json() };
-  }catch(e){
-    return { ok:false, error: String(e.message || e) };
-  }
-}
-
-function normalizeItems(doc){
-  if (!doc) return [];
-  if (Array.isArray(doc.items)) return doc.items;
-  if (Array.isArray(doc.games)) return doc.games;
-  return [];
-}
-
-function safeWhere(where){
-  if (Array.isArray(where) && where.length) return where;
-  return DEFAULT_PUBS.slice();
-}
-
-function guessSportFromItem(it){
-  const s = (it.sport || "").toLowerCase();
-  if (s) return s;
-  const league = (it.league || "").toLowerCase();
-  if (league.includes("handball") || league.includes("håndball")) return "handball";
-  if (league.includes("wintersport") || league.includes("vintersport") || league.includes("skiskyting")) return "wintersport";
-  return "football";
-}
-
-function titleFromItem(it){
-  if (it.home && it.away) return `${it.home} – ${it.away}`;
-  return it.title || "Event";
-}
-
-function startMs(it){
-  const t = Date.parse(it.start || "");
-  return Number.isFinite(t) ? t : Number.POSITIVE_INFINITY;
-}
-
-function withinNextDays(items, days=120){
-  const now = Date.now();
-  const max = now + days*24*60*60*1000;
-  return items
-    .filter(it => {
-      const t = startMs(it);
-      return t >= now - 12*60*60*1000 && t <= max;
-    })
-    .sort((a,b)=> startMs(a) - startMs(b));
-}
-
-// ---------- MODAL ----------
-function openModal(it){
-  $("modalTitle").textContent = titleFromItem(it);
-  $("modalTime").textContent = it.start ? fmtOslo(it.start) : "Ukjent";
-  $("modalChannel").textContent = it.channel || "Ukjent";
-
-  const pubs = safeWhere(it.where);
-  const wrap = $("modalPubs");
-  wrap.innerHTML = "";
-  pubs.forEach(p=>{
-    const s = document.createElement("span");
-    s.className = "tag";
-    s.textContent = p;
-    wrap.appendChild(s);
-  });
-
-  $("modalBack").classList.add("show");
-}
-
-function closeModal(){
-  $("modalBack").classList.remove("show");
-}
-
-// ---------- UI HELPERS ----------
-function ensureSportFiltersRow(){
-  // inject one row of filters under the panel title (without touching index.html manually)
-  const panel = document.querySelector(".panel");
-  const panelTitle = document.querySelector(".panelTitle");
-  if (!panel || !panelTitle) return;
-
-  if ($("sportFiltersRow")) return; // already exists
-
-  const row = document.createElement("div");
-  row.id = "sportFiltersRow";
-  row.style.display = "flex";
-  row.style.gap = "10px";
-  row.style.flexWrap = "wrap";
-  row.style.marginTop = "12px";
-
-  row.innerHTML = `
-    <select id="filterSport" class="search" style="flex:0; min-width:200px; max-width:260px;">
-      <option value="all">Alle sporter</option>
-      <option value="football">Fotball</option>
-      <option value="handball">Håndball</option>
-      <option value="wintersport">Vintersport</option>
-    </select>
-
-    <select id="filterLeague" class="search" style="flex:1; min-width:220px;">
-      <option value="all">Alle ligaer</option>
-    </select>
-  `;
-
-  panel.insertBefore(row, $("list"));
-}
-
-function setPanelError(text){
-  // show error inside list (keeps site alive)
-  $("list").innerHTML = `
-    <div class="item">
-      <div class="itemTitle">⚠️ Feil</div>
-      <div class="meta" style="white-space:pre-wrap">${text}</div>
-    </div>
-  `;
-}
-
-function renderList(items){
-  const list = $("list");
-  list.innerHTML = "";
-
-  if (!items.length){
-    list.innerHTML = `<div class="item"><div class="itemTitle">Ingen treff</div><div class="meta">Ingen data tilgjengelig.</div></div>`;
-    return;
   }
 
-  items.forEach(it=>{
-    const div = document.createElement("div");
-    div.className = "item clickable";
-    div.innerHTML = `
-      <div class="itemTop">
-        <div class="itemTitle">${titleFromItem(it)}</div>
-        <div class="meta">${it.start ? fmtOslo(it.start) : ""}</div>
-      </div>
-      <div class="tagRow">
-        <span class="tag">${it.league || "Ukjent"}</span>
-        <span class="tag">${it.channel || "Ukjent kanal"}</span>
-        <span class="tag">${guessSportFromItem(it) === "football" ? "Fotball" : (guessSportFromItem(it) === "handball" ? "Håndball" : "Vintersport")}</span>
-      </div>
-    `;
-    div.addEventListener("click", ()=> openModal(it));
-    list.appendChild(div);
-  });
-}
-
-// ---------- SPORT (COMBINED) ----------
-async function showSport(){
-  $("panelH2").textContent = "Sport";
-  $("panelMeta").textContent = "2026 • Fotball + Håndball + Vintersport";
-  $("list").innerHTML = `<div class="item">Laster…</div>`;
-
-  ensureSportFiltersRow();
-
-  const errs = [];
-  const [
-    football,
-    hbMen,
-    hbWomen,
-    wsMen,
-    wsWomen
-  ] = await Promise.all([
-    fetchJsonSafe(PATHS.football),
-    fetchJsonSafe(PATHS.handball_men),
-    fetchJsonSafe(PATHS.handball_women),
-    fetchJsonSafe(PATHS.wintersport_men),
-    fetchJsonSafe(PATHS.wintersport_women)
-  ]);
-
-  if (!football.ok) errs.push(`Fotball: ${PATHS.football} (${football.error})`);
-  if (!hbMen.ok) errs.push(`Håndball menn: ${PATHS.handball_men} (${hbMen.error})`);
-  if (!hbWomen.ok) errs.push(`Håndball damer: ${PATHS.handball_women} (${hbWomen.error})`);
-  if (!wsMen.ok) errs.push(`Vintersport menn: ${PATHS.wintersport_men} (${wsMen.error})`);
-  if (!wsWomen.ok) errs.push(`Vintersport kvinner: ${PATHS.wintersport_women} (${wsWomen.error})`);
-
-  // Build combined list (even if some are missing)
-  const all = [];
-
-  normalizeItems(football.data).forEach(it => all.push({ ...it, sport: "football", where: safeWhere(it.where) }));
-  normalizeItems(hbMen.data).forEach(it => all.push({ ...it, sport: "handball", where: safeWhere(it.where) }));
-  normalizeItems(hbWomen.data).forEach(it => all.push({ ...it, sport: "handball", where: safeWhere(it.where) }));
-  normalizeItems(wsMen.data).forEach(it => all.push({ ...it, sport: "wintersport", where: safeWhere(it.where) }));
-  normalizeItems(wsWomen.data).forEach(it => all.push({ ...it, sport: "wintersport", where: safeWhere(it.where) }));
-
-  if (!all.length){
-    setPanelError(
-      (errs.length ? errs.join("\n") + "\n\n" : "") +
-      "Ingen sportsdata lastet. Sjekk at filene finnes i repoet: data/2026/*.json"
-    );
-    return;
+  function isoToMs(iso) {
+    const d = new Date(iso);
+    return isNaN(d.getTime()) ? null : d.getTime();
   }
 
-  // Limit to next 120 days for speed/clean UI
-  let base = withinNextDays(all, 120);
-
-  // Fill league dropdown from base list
-  const filterSport = $("filterSport");
-  const filterLeague = $("filterLeague");
-
-  function rebuildLeagueOptions(currentSport){
-    const leagues = new Set();
-    base.forEach(it=>{
-      const s = guessSportFromItem(it);
-      if (currentSport !== "all" && s !== currentSport) return;
-      if (it.league) leagues.add(it.league);
-    });
-    const sorted = Array.from(leagues).sort((a,b)=> a.localeCompare(b, "no"));
-    const current = filterLeague.value || "all";
-    filterLeague.innerHTML = `<option value="all">Alle ligaer</option>` + sorted.map(l=>`<option value="${l}">${l}</option>`).join("");
-    // try keep selection if still exists
-    if ([...filterLeague.options].some(o=>o.value===current)) filterLeague.value = current;
+  function nowMs() {
+    return Date.now();
   }
 
-  function applyFilters(){
-    const sportVal = filterSport.value;
-    const leagueVal = filterLeague.value;
+  function withinNextDays(iso, days) {
+    const ms = isoToMs(iso);
+    if (ms == null) return false;
+    const max = nowMs() + days * 24 * 60 * 60 * 1000;
+    return ms >= nowMs() - (6 * 60 * 60 * 1000) && ms <= max; // allow a small past window
+  }
 
-    let items = base.slice();
+  function normGame(raw) {
+    // Accept different field names from your JSON history:
+    const league = raw.league ?? raw.tournament ?? raw.competition ?? "";
+    const home = raw.home ?? raw.homeTeam ?? raw.h ?? "";
+    const away = raw.away ?? raw.awayTeam ?? raw.a ?? "";
+    const kickoff = raw.kickoff ?? raw.start ?? raw.datetime ?? raw.date ?? raw.time ?? "";
+    const channel = raw.channel ?? raw.tv ?? raw.broadcaster ?? "";
+    const where = raw.where ?? raw.pubs ?? raw.venues ?? raw.pub ?? null;
 
-    if (sportVal !== "all"){
-      items = items.filter(it => guessSportFromItem(it) === sportVal);
-    }
-    if (leagueVal !== "all"){
-      items = items.filter(it => it.league === leagueVal);
+    let whereList = [];
+    if (isArr(where)) {
+      // handle list of strings or objects
+      whereList = where.map(x => (typeof x === "string" ? x : (x?.name ?? ""))).filter(Boolean);
+    } else if (typeof where === "string") {
+      whereList = [where];
     }
 
-    renderList(items.slice(0, 300));
-
-    // update meta (shows if partial feeds failing)
-    $("panelMeta").textContent =
-      `2026 • ${items.length} treff` + (errs.length ? ` • ⚠️ ${errs.length} kilde(r) feilet` : "");
+    return {
+      league: clampStr(league),
+      home: clampStr(home),
+      away: clampStr(away),
+      kickoff: clampStr(kickoff),
+      channel: clampStr(channel),
+      where: whereList
+    };
   }
 
-  // Hook events once
-  filterSport.onchange = ()=>{
-    rebuildLeagueOptions(filterSport.value);
-    applyFilters();
-  };
-  filterLeague.onchange = applyFilters;
-
-  // initial
-  rebuildLeagueOptions(filterSport.value);
-  applyFilters();
-
-  // Show non-blocking errors in console for debugging
-  if (errs.length) console.warn("Grenland Live: some sports feeds failed:\n" + errs.join("\n"));
-}
-
-// ---------- PUBER ----------
-async function showPuber(){
-  $("panelH2").textContent = "Puber";
-  $("panelMeta").textContent = PATHS.pubs;
-  $("list").innerHTML = `<div class="item">Laster…</div>`;
-
-  const r = await fetchJsonSafe(PATHS.pubs);
-  if (!r.ok){
-    setPanelError(`Puber: ${PATHS.pubs} (${r.error})`);
-    return;
+  function displayChannel(ch) {
+    const v = clampStr(ch).trim();
+    return v ? v : "Ukjent";
   }
 
-  const pubs = normalizeItems(r.data);
-  renderList(pubs.map(p=>({
-    title: p.name || p.title || "Pub",
-    start: "",
-    league: p.city || "",
-    channel: "",
-    where: []
-  })));
-}
-
-// ---------- EVENTER ----------
-async function showEvents(){
-  $("panelH2").textContent = "Eventer";
-  $("panelMeta").textContent = PATHS.events;
-  $("list").innerHTML = `<div class="item">Laster…</div>`;
-
-  const r = await fetchJsonSafe(PATHS.events);
-  if (!r.ok){
-    setPanelError(`Eventer: ${PATHS.events} (${r.error})`);
-    return;
+  function displayWhere(whereList) {
+    const list = (isArr(whereList) && whereList.length) ? whereList : DEFAULT_WHERE;
+    return list;
   }
 
-  const events = normalizeItems(r.data)
-    .map(ev => ({
-      title: ev.title || ev.name || "Event",
-      start: ev.start || ev.date || "",
-      league: ev.location || "",
-      channel: "",
-      where: []
-    }))
-    .sort((a,b)=> (Date.parse(a.start)||0) - (Date.parse(b.start)||0))
-    .slice(0, 250);
+  function gameText(g) {
+    return [
+      g.league, g.home, g.away, g.kickoff, g.channel,
+      ...(displayWhere(g.where) || [])
+    ].join(" ").toLowerCase();
+  }
 
-  renderList(events);
-}
+  // ---- Fetch with clear errors
+  async function fetchJSON(filename) {
+    const url = dataURL(filename);
+    const res = await fetch(url, { cache: "no-store" });
+    if (!res.ok) {
+      throw new Error(`Kunne ikke laste ${filename} (${res.status}).\nURL: ${url}`);
+    }
+    return await res.json();
+  }
 
-// ---------- NAV ----------
-function goApp(tab){
-  hide($("home"));
-  show($("app"));
+  function extractGames(json) {
+    // Supports:
+    // 1) { games: [...] }
+    // 2) { matches: [...] }
+    // 3) [ ... ]
+    // 4) { data: [...] }
+    if (isArr(json)) return json;
+    if (isArr(json?.games)) return json.games;
+    if (isArr(json?.matches)) return json.matches;
+    if (isArr(json?.data)) return json.data;
+    return [];
+  }
 
-  // reset any previous filter row values safely
-  if ($("filterSport")) $("filterSport").value = "all";
-  if ($("filterLeague")) $("filterLeague").value = "all";
+  // ---- Render
+  function showError(msg) {
+    errorBox.textContent = msg;
+    errorBox.classList.remove("hidden");
+  }
+  function clearError() {
+    errorBox.textContent = "";
+    errorBox.classList.add("hidden");
+  }
 
-  if (tab === "sport") showSport();
-  if (tab === "puber") showPuber();
-  if (tab === "events") showEvents();
-}
+  function openModal(game) {
+    modalTitle.textContent = `${game.home || "Ukjent"} vs ${game.away || "Ukjent"}`;
+    modalSub.textContent = game.league || "Ukjent";
+    mTime.textContent = fmtOslo(game.kickoff);
+    mChannel.textContent = displayChannel(game.channel);
 
-function goHome(){
-  hide($("app"));
-  show($("home"));
-}
+    const pubs = displayWhere(game.where);
+    mWhere.innerHTML = pubs.map(p => `<div class="badge accent">${escapeHtml(p)}</div>`).join(" ");
 
-// ---------- WIRE ----------
-document.addEventListener("DOMContentLoaded", ()=>{
-  // Modal
-  const modalClose = $("modalClose");
-  const modalBack = $("modalBack");
-  if (modalClose) modalClose.onclick = closeModal;
-  if (modalBack) modalBack.onclick = e => { if (e.target && e.target.id==="modalBack") closeModal(); };
+    modalBackdrop.classList.remove("hidden");
+    modalBackdrop.setAttribute("aria-hidden", "false");
+  }
 
-  // Forside-knapper
-  document.querySelectorAll("[data-go]").forEach(b=>{
-    b.onclick = ()=> goApp(b.dataset.go);
+  function closeModal() {
+    modalBackdrop.classList.add("hidden");
+    modalBackdrop.setAttribute("aria-hidden", "true");
+  }
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, (m) => ({
+      "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;"
+    }[m]));
+  }
+
+  function renderList(games) {
+    listEl.innerHTML = "";
+    if (!games.length) {
+      emptyBox.classList.remove("hidden");
+      return;
+    }
+    emptyBox.classList.add("hidden");
+
+    for (const g of games) {
+      const card = document.createElement("div");
+      card.className = "card";
+      card.tabIndex = 0;
+
+      const title = document.createElement("div");
+      title.className = "row";
+      title.innerHTML = `
+        <div>
+          <div class="teams">${escapeHtml(g.home || "Ukjent")} <span class="muted">vs</span> ${escapeHtml(g.away || "Ukjent")}</div>
+          <div class="muted small">${escapeHtml(g.league || "Ukjent")}</div>
+        </div>
+        <div class="muted small" style="text-align:right; min-width:140px;">
+          ${escapeHtml(fmtOslo(g.kickoff))}
+        </div>
+      `;
+
+      const badges = document.createElement("div");
+      badges.className = "badges";
+      const ch = displayChannel(g.channel);
+      badges.innerHTML = `
+        <div class="badge accent">${escapeHtml(ch)}</div>
+        <div class="badge">${escapeHtml(displayWhere(g.where)[0] || "Ukjent")}</div>
+      `;
+
+      card.appendChild(title);
+      card.appendChild(badges);
+
+      card.addEventListener("click", () => openModal(g));
+      card.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") openModal(g);
+      });
+
+      listEl.appendChild(card);
+    }
+  }
+
+  // ---- Main load
+  let ALL = [];      // all games loaded from selected league file
+  let FILTERED = []; // filtered games
+
+  function applyFilters() {
+    const days = Number(daysSelect.value || 30);
+    const q = (searchInput.value || "").trim().toLowerCase();
+
+    let games = ALL
+      .filter(g => withinNextDays(g.kickoff, days))
+      .sort((a, b) => {
+        const am = isoToMs(a.kickoff) ?? Number.MAX_SAFE_INTEGER;
+        const bm = isoToMs(b.kickoff) ?? Number.MAX_SAFE_INTEGER;
+        return am - bm;
+      });
+
+    if (q) {
+      games = games.filter(g => gameText(g).includes(q));
+    }
+
+    FILTERED = games;
+    renderList(FILTERED);
+  }
+
+  async function loadSelectedLeague() {
+    clearError();
+    listEl.innerHTML = "";
+    emptyBox.classList.add("hidden");
+
+    const key = leagueSelect.value;
+    const league = LEAGUES.find(l => l.key === key) || LEAGUES[0];
+
+    try {
+      const json = await fetchJSON(league.file);
+      const rawGames = extractGames(json);
+      const games = rawGames.map(normGame);
+
+      // store
+      ALL = games;
+
+      // show updated
+      const stamp = new Date().toLocaleString("no-NO", { timeZone: TZ });
+      lastUpdated.textContent = `Sist oppdatert: ${stamp} • Kilde: /data/${league.file}`;
+
+      applyFilters();
+    } catch (err) {
+      ALL = [];
+      FILTERED = [];
+      renderList([]);
+      showError(String(err?.message || err));
+    }
+  }
+
+  function initLeagueSelect() {
+    leagueSelect.innerHTML = LEAGUES
+      .map(l => `<option value="${l.key}">${l.name}</option>`)
+      .join("");
+    leagueSelect.value = "football"; // default
+  }
+
+  // ---- Events
+  window.addEventListener("online", setNetStatus);
+  window.addEventListener("offline", setNetStatus);
+
+  leagueSelect.addEventListener("change", loadSelectedLeague);
+  daysSelect.addEventListener("change", applyFilters);
+  searchInput.addEventListener("input", applyFilters);
+  refreshBtn.addEventListener("click", loadSelectedLeague);
+
+  modalClose.addEventListener("click", closeModal);
+  modalBackdrop.addEventListener("click", (e) => {
+    if (e.target === modalBackdrop) closeModal();
+  });
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeModal();
   });
 
-  // Tabs
-  const tabSport = $("tabSport");
-  const tabPuber = $("tabPuber");
-  const tabEvents = $("tabEvents");
-  if (tabSport) tabSport.onclick = ()=> goApp("sport");
-  if (tabPuber) tabPuber.onclick = ()=> goApp("puber");
-  if (tabEvents) tabEvents.onclick = ()=> goApp("events");
-
-  // Back
-  const backHome = $("backHome");
-  const backHome2 = $("backHome2");
-  if (backHome) backHome.onclick = goHome;
-  if (backHome2) backHome2.onclick = goHome;
-
-  // ✅ signal to index.html debug banner
-  window.__GL_APP_OK__ = true;
-  console.log("Grenland Live JS OK");
-
-  // Optional: remove the JS warning banner if it exists
-  const warn = document.getElementById("jsWarn");
-  if (warn) warn.remove();
-});
+  // ---- Boot
+  setNetStatus();
+  initLeagueSelect();
+  loadSelectedLeague();
+})();
