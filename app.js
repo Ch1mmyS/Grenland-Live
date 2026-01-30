@@ -1,4 +1,6 @@
-// app.js – Grenland Live (SAFE RESTORE VERSION)
+// app.js – Grenland Live (SAFE RESTORE – FIXED)
+
+window.__GL_APP_OK__ = false; // settes true når alt er koblet
 
 const TZ = "Europe/Oslo";
 
@@ -112,14 +114,14 @@ async function showSport(){
 }
 
 // ---------- PUBER ----------
-async function showPuber(){
+function showPuber(){
   $("panelH2").textContent = "Puber";
   $("panelMeta").textContent = "";
   $("list").innerHTML = "<div class='item'>Puber-visning OK</div>";
 }
 
 // ---------- EVENTER ----------
-async function showEvents(){
+function showEvents(){
   $("panelH2").textContent = "Eventer";
   $("panelMeta").textContent = "";
   $("list").innerHTML = "<div class='item'>Eventer-visning OK</div>";
@@ -159,4 +161,8 @@ document.addEventListener("DOMContentLoaded", ()=>{
   // Back
   $("backHome").onclick = goHome;
   $("backHome2").onclick = goHome;
+
+  // ✅ SIGNAL TIL index.html
+  window.__GL_APP_OK__ = true;
+  console.log("Grenland Live JS OK");
 });
