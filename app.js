@@ -1,175 +1,117 @@
-// app.js — Grenland Live (Sports loader v2026)
-// Uses: data/index.json + data/2026/*.json
-// Fixes legacy 404 (data/eliteserien.json etc.)
+// app.js — Grenland Live (SPORT FIX 2026)
 
 const TZ = "Europe/Oslo";
 
 function $(id){ return document.getElementById(id); }
 
-async function fetchJson(path){
-  const res = await fetch(path, { cache: "no-store" });
-  if (!res.ok) throw new Error(`${path}: ${res.status}`);
-  return await res.json();
+async function fetchJsonSafe(path){
+  try{
+    const res = await fetch(path, { cache: "no-store" });
+    if (!res.ok) throw new Error(`${res.status}`);
+    return await res.json();
+  }catch(e){
+    return null; // <- ALDRI kast, aldri stopp UI
+  }
 }
 
 function fmtOslo(iso){
   try{
-    const d = new Date(iso);
-    return d.toLocaleString("no-NO", {
+    return new Date(iso).toLocaleString("no-NO", {
       timeZone: TZ,
-      weekday: "short",
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit"
+      weekday:"short",
+      day:"2-digit",
+      month:"2-digit",
+      hour:"2-digit",
+      minute:"2-digit"
     });
-  }catch(e){
+  }catch{
     return iso;
   }
 }
 
-function normalizeItems(doc){
-  if (!doc) return [];
-  if (Array.isArray(doc.items)) return doc.items;
-  if (Array.isArray(doc.games)) return doc.games;
-  return [];
+function showSport(){
+  $("sportSection").style.display = "block";
 }
 
-function renderErrorList(errors){
-  const el = $("errors");
-  if (!el) return;
-  if (!errors.length){
-    el.style.display = "none";
-    el.textContent = "";
-    return;
-  }
-  el.style.display = "block";
-  el.textContent = "Noen JSON-filer ble ikke funnet:\n" + errors.join("\n");
-}
+async function loadSport(){
+  showSport();
 
-function renderItems(items){
-  const list = $("sportsList");
-  if (!list) return;
-
-  list.innerHTML = "";
-
-  if (!items.length){
-    list.innerHTML = `<div class="card"><div class="muted">Ingen kamper/arrangementer funnet.</div></div>`;
-    return;
-  }
-
-  for (const it of items){
-    const home = it.home || "";
-    const away = it.away || "";
-    const title = it.title || (home && away ? `${home} - ${away}` : "Event");
-    const when = it.start ? fmtOslo(it.start) : "";
-    const league = it.league || "";
-    const channel = it.channel || "";
-    const where = Array.isArray(it.where) ? it.where.join(", ") : (it.where || "");
-
-    const card = document.createElement("div");
-    card.className = "card";
-    card.innerHTML = `
-      <div class="row">
-        <div class="title">${title}</div>
-        <div class="muted">${when}</div>
-      </div>
-      <div class="muted">${league}${channel ? " • " + channel : ""}</div>
-      <div class="muted">${where ? "📍 " + where : ""}</div>
-    `;
-    list.appendChild(card);
-  }
-}
-
-function byUpcoming(items, days=365){
-  const now = Date.now();
-  const max = now + days*24*60*60*1000;
-  return items
-    .filter(it => {
-      const t = Date.parse(it.start || "");
-      return Number.isFinite(t) && t >= now - 6*60*60*1000 && t <= max;
-    })
-    .sort((a,b) => Date.parse(a.start) - Date.parse(b.start));
-}
-
-async function loadSports(){
   const errors = [];
+  const datasets = {
+    football: await fetchJsonSafe("data/2026/football.json"),
+    handball_men: await fetchJsonSafe("data/2026/handball_men.json"),
+    handball_women: await fetchJsonSafe("data/2026/handball_women.json"),
+    wintersport_men: await fetchJsonSafe("data/2026/wintersport_men.json"),
+    wintersport_women: await fetchJsonSafe("data/2026/wintersport_women.json")
+  };
 
-  // 1) read index.json (single source of truth)
-  let index;
-  try{
-    index = await fetchJson("data/index.json");
-  }catch(e){
-    renderErrorList([`data/index.json (Error: ${e.message})`]);
-    return;
+  for (const k in datasets){
+    if (!datasets[k]) errors.push(k);
   }
 
-  // 2) load datasets
-  const datasets = {};
-  const sports = index?.sports || {};
+  $("sportErrors").textContent =
+    errors.length
+      ? "⚠️ Mangler data for: " + errors.join(", ")
+      : "";
 
-  for (const key of Object.keys(sports)){
-    const path = sports[key]?.path;
-    if (!path) continue;
-    try{
-      datasets[key] = await fetchJson(path);
-    }catch(e){
-      errors.push(`${path} (Error: ${e.message})`);
-      datasets[key] = { meta:{}, items:[] };
-    }
-  }
-
-  renderErrorList(errors);
-
-  // 3) build UI controls
   const sportSel = $("sportSelect");
   const leagueSel = $("leagueSelect");
 
-  const sportOptions = [
-    { key:"football", label:"Fotball" },
-    { key:"handball_men", label:"Håndball (menn)" },
-    { key:"handball_women", label:"Håndball (damer)" },
-    { key:"wintersport_men", label:"Vintersport (menn)" },
-    { key:"wintersport_women", label:"Vintersport (kvinner)" }
-  ].filter(o => sports[o.key]?.path);
+  function render(){
+    const key = sportSel.value;
+    const doc = datasets[key];
+    const list = $("sportList");
+    list.innerHTML = "";
 
-  if (sportSel){
-    sportSel.innerHTML = sportOptions.map(o => `<option value="${o.key}">${o.label}</option>`).join("");
-  }
+    if (!doc || !Array.isArray(doc.items)){
+      list.innerHTML = "<div>Ingen data tilgjengelig.</div>";
+      return;
+    }
 
-  function refresh(){
-    const sportKey = sportSel ? sportSel.value : "football";
+    let items = doc.items.slice();
 
-    // leagues only apply to football
-    if (leagueSel){
-      if (sportKey === "football"){
-        const leagues = sports.football?.leagues || [];
-        leagueSel.style.display = "inline-block";
-        leagueSel.innerHTML = `<option value="">Alle ligaer</option>` + leagues.map(l => `<option value="${l}">${l}</option>`).join("");
-      }else{
-        leagueSel.style.display = "none";
-        leagueSel.innerHTML = "";
+    if (key === "football"){
+      const leagues = [...new Set(items.map(i => i.league).filter(Boolean))];
+      leagueSel.style.display = "inline-block";
+      leagueSel.innerHTML =
+        `<option value="">Alle ligaer</option>` +
+        leagues.map(l => `<option value="${l}">${l}</option>`).join("");
+
+      if (leagueSel.value){
+        items = items.filter(i => i.league === leagueSel.value);
       }
+    }else{
+      leagueSel.style.display = "none";
     }
 
-    let items = normalizeItems(datasets[sportKey]);
-    items = byUpcoming(items, 365);
+    items
+      .sort((a,b)=> new Date(a.start)-new Date(b.start))
+      .slice(0,300)
+      .forEach(it=>{
+        const title = it.home && it.away
+          ? `${it.home} – ${it.away}`
+          : it.title || "Event";
 
-    if (sportKey === "football" && leagueSel && leagueSel.value){
-      const wanted = leagueSel.value;
-      items = items.filter(it => it.league === wanted);
-    }
-
-    renderItems(items.slice(0, 400));
+        const div = document.createElement("div");
+        div.className = "card";
+        div.innerHTML = `
+          <strong>${title}</strong><br>
+          ${fmtOslo(it.start)}<br>
+          <span class="muted">${it.league || ""} ${it.channel || ""}</span>
+        `;
+        list.appendChild(div);
+      });
   }
 
-  if (sportSel) sportSel.addEventListener("change", refresh);
-  if (leagueSel) leagueSel.addEventListener("change", refresh);
-
-  refresh();
+  sportSel.onchange = render;
+  leagueSel.onchange = render;
+  render();
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  loadSports();
+// MENY-KOBLING (VIKTIG)
+document.addEventListener("DOMContentLoaded", ()=>{
+  const sportBtn = document.querySelector("[data-open='sport']");
+  if (sportBtn){
+    sportBtn.onclick = loadSport;
+  }
 });
