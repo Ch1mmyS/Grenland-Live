@@ -1,253 +1,286 @@
-<!doctype html>
-<html lang="no">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Grenland Live</title>
+// app.js — Grenland Live (2026 fixed loader)
+// ✅ Uses ONLY data/2026/*.json
+// ✅ Sport always opens even if some files 404
+// ✅ Errors shown in #errorBox (non-blocking)
 
-  <link rel="icon" href="favicon.ico">
+const TZ = "Europe/Oslo";
 
-  <style>
-    :root{
-      --bg:#ffffff;
-      --text:#0b1220;
-      --muted:rgba(11,18,32,.70);
-      --line:#0b1220;
-      --card:#ffffff;
-    }
-    *{box-sizing:border-box}
-    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text)}
-    .wrap{max-width:1100px;margin:0 auto;padding:28px 16px 48px}
+// 2026 paths (your current repo structure)
+const PATHS_2026 = {
+  football: "data/2026/football.json",
+  handball_men: "data/2026/handball_men.json",
+  handball_women: "data/2026/handball_women.json",
+  wintersport_men: "data/2026/wintersport_men.json",
+  wintersport_women: "data/2026/wintersport_women.json",
 
-    h1{margin:0 0 10px 0;text-align:center;font-size:56px;letter-spacing:.5px}
-    .sub{text-align:center;margin:0;color:var(--muted);line-height:1.4}
+  // existing content/events (kept)
+  pubs: "data/content/pubs.json",
+  events: "data/events/events.json"
+};
 
-    .menuRow{display:flex;justify-content:space-between;gap:24px;margin-top:36px;flex-wrap:wrap}
-    .menuBtn{
-      flex:1;min-width:200px;
-      display:flex;align-items:center;justify-content:center;text-align:center;
-      padding:18px 14px;border:4px solid var(--line);border-radius:18px;background:#fff;font-weight:800;
-      cursor:pointer; user-select:none;
-      transition:transform .08s ease;
-      text-decoration:none;      /* ✅ for <a> */
-      color:inherit;             /* ✅ for <a> */
-    }
-    .menuBtn:hover{transform:translateY(-2px)}
-    .menuBtn:active{transform:translateY(0)}
+function $(id){ return document.getElementById(id); }
 
-    .hintRow{display:flex;justify-content:space-between;gap:24px;margin-top:10px;flex-wrap:wrap}
-    .hint{flex:1;min-width:200px;text-align:center;color:var(--muted);font-size:12px}
+function show(el){ el.classList.remove("hidden"); }
+function hide(el){ el.classList.add("hidden"); }
 
-    .topbar{
-      display:flex;align-items:center;justify-content:space-between;gap:12px;
-      border:4px solid var(--line);
-      border-radius:18px;
-      padding:12px 12px;
-      margin-top:22px;
-      flex-wrap:wrap;
-    }
-    .topLeft{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-    .pill{
-      border:3px solid var(--line);
-      border-radius:999px;
-      padding:8px 12px;
-      background:#fff;
-      font-weight:800;
-      cursor:pointer;
-      text-decoration:none;     /* ✅ for <a> */
-      color:inherit;            /* ✅ for <a> */
-      display:inline-flex;      /* ✅ for <a> */
-      align-items:center;       /* ✅ for <a> */
-      justify-content:center;   /* ✅ for <a> */
-    }
-    .pill.secondary{font-weight:700;border-width:2px}
-    .pill.active{background:#0b1220;color:#fff}
-    .pill:active{transform:translateY(1px)}
+function setActiveTab(tab){
+  ["tabSport","tabPuber","tabEvents"].forEach(id=>{
+    const b = $(id);
+    if (!b) return;
+    b.classList.toggle("active", b.dataset.tab === tab);
+  });
+}
 
-    .search{
-      min-width:220px;flex:1;
-      border:2px solid var(--line);
-      border-radius:999px;
-      padding:10px 14px;
-      outline:none;
-    }
+function fmtOslo(iso){
+  try{
+    const d = new Date(iso);
+    return d.toLocaleString("no-NO", {
+      timeZone: TZ,
+      weekday: "short",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit"
+    });
+  }catch{
+    return iso || "";
+  }
+}
 
-    .panel{
-      margin-top:16px;
-      border:4px solid var(--line);
-      border-radius:18px;
-      padding:14px;
-      background:var(--card);
-    }
-    .panelTitle{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap}
-    .panelTitle h2{margin:0;font-size:22px}
-    .meta{color:var(--muted);font-size:12px}
+async function fetchJson(path){
+  const res = await fetch(path, { cache: "no-store" });
+  if (!res.ok) throw new Error(`${path}: ${res.status}`);
+  return await res.json();
+}
 
-    .list{display:flex;flex-direction:column;gap:10px;margin-top:12px}
-    .item{
-      border:2px solid rgba(11,18,32,.20);
-      border-radius:16px;
-      padding:12px;
-      background:#fff;
-    }
-    .item.clickable{cursor:pointer}
-    .item.clickable:hover{border-color:rgba(11,18,32,.45)}
-    .itemTop{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap}
-    .itemTitle{font-weight:900}
-    .tagRow{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
-    .tag{border:2px solid rgba(11,18,32,.25);border-radius:999px;padding:6px 10px;font-size:12px;color:rgba(11,18,32,.85)}
+async function fetchJsonSafe(path, label){
+  try{
+    const data = await fetchJson(path);
+    return { ok:true, data };
+  }catch(e){
+    return { ok:false, data:null, error: `${label}: ${e.message}` };
+  }
+}
 
-    .backRow{display:flex;justify-content:center;margin-top:18px}
-    .backBtn{border:4px solid var(--line);border-radius:18px;padding:12px 18px;background:#fff;font-weight:900;cursor:pointer}
+function clearError(){
+  const box = $("errorBox");
+  if (!box) return;
+  box.textContent = "";
+  box.classList.remove("show");
+}
 
-    .hidden{display:none !important}
-    footer{margin-top:34px;text-align:center;color:var(--muted);font-size:12px}
+function showError(lines){
+  const box = $("errorBox");
+  if (!box) return;
+  if (!lines || !lines.length){
+    clearError();
+    return;
+  }
+  box.textContent = "⚠️ Kunne ikke laste:\n" + lines.join(" • ");
+  box.classList.add("show");
+}
 
-    /* ===== MODAL ===== */
-    .modalBack{
-      position:fixed; inset:0;
-      background:rgba(0,0,0,.55);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding:18px;
-      z-index:9999;
-    }
-    .modalBack.show{display:flex}
-    .modal{
-      width:min(860px, 100%);
-      background:#fff;
-      border-radius:18px;
-      border:4px solid var(--line);
-      padding:14px;
-    }
-    .modalHead{
-      display:flex;align-items:flex-start;justify-content:space-between;gap:10px;flex-wrap:wrap
-    }
-    .modalTitle{
-      font-weight:900;
-      font-size:20px;
-      margin:0;
-    }
-    .modalClose{
-      border:3px solid var(--line);
-      border-radius:999px;
-      padding:8px 12px;
-      background:#fff;
-      font-weight:900;
-      cursor:pointer;
-      white-space:nowrap;
-    }
-    .modalGrid{
-      margin-top:10px;
-      display:grid;
-      grid-template-columns: 1fr;
-      gap:10px;
-    }
-    .modalSection{
-      border:2px solid rgba(11,18,32,.20);
-      border-radius:16px;
-      padding:12px;
-    }
-    .modalSection h3{
-      margin:0 0 8px 0;
-      font-size:14px;
-      color:rgba(11,18,32,.90);
-    }
-    .pubList{
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-    }
-  </style>
-</head>
+function normalizeItems(doc){
+  if (!doc) return [];
+  if (Array.isArray(doc.items)) return doc.items;
+  if (Array.isArray(doc.games)) return doc.games;
+  return [];
+}
 
-<body>
-  <main class="wrap">
+function renderList(items, renderer){
+  const list = $("list");
+  list.innerHTML = "";
+  if (!items.length){
+    list.innerHTML = `<div class="item"><div class="itemTitle">Ingen treff</div><div class="meta">Ingen data tilgjengelig.</div></div>`;
+    return;
+  }
+  items.forEach(it => list.appendChild(renderer(it)));
+}
 
-    <!-- FORSIDE -->
-    <section id="home">
-      <h1>Grenland Live</h1>
-      <p class="sub">Se kampene. Finn puben og opplev stemningen i Grenland.</p>
-      <p class="sub">Grenland Live – der Grenland møtes.</p>
+// ---------- Modal ----------
+function openModal(item){
+  const back = $("modalBack");
+  $("modalTitle").textContent = (item.home && item.away) ? `${item.home} – ${item.away}` : (item.title || "Event");
+  $("modalTime").textContent = item.start ? fmtOslo(item.start) : "Ukjent";
+  $("modalChannel").textContent = item.channel || "Ukjent";
 
-      <div class="menuRow">
-        <button class="menuBtn" data-go="sport" type="button">Sport</button>
-        <button class="menuBtn" data-go="puber" type="button">Puber</button>
-        <button class="menuBtn" data-go="events" type="button">Kommende eventer</button>
+  const pubs = Array.isArray(item.where) ? item.where : [];
+  const wrap = $("modalPubs");
+  wrap.innerHTML = "";
+  (pubs.length ? pubs : ["Vikinghjørnet", "Gimle Pub"]).forEach(p=>{
+    const tag = document.createElement("span");
+    tag.className = "tag";
+    tag.textContent = p;
+    wrap.appendChild(tag);
+  });
 
-        <!-- ✅ ENDRET: åpner calendar.html -->
-        <a class="menuBtn" href="calendar.html">VM kalender 2026</a>
+  back.classList.add("show");
+  back.setAttribute("aria-hidden", "false");
+}
+
+function closeModal(){
+  const back = $("modalBack");
+  back.classList.remove("show");
+  back.setAttribute("aria-hidden", "true");
+}
+
+function wireModal(){
+  $("modalClose").addEventListener("click", closeModal);
+  $("modalBack").addEventListener("click", (e)=>{
+    if (e.target.id === "modalBack") closeModal();
+  });
+  document.addEventListener("keydown",(e)=>{
+    if (e.key === "Escape") closeModal();
+  });
+}
+
+// ---------- Views ----------
+async function showSport(){
+  $("panelH2").textContent = "Sport";
+  $("panelMeta").textContent = "2026-feed (data/2026/*.json)";
+  clearError();
+
+  const errors = [];
+
+  const football = await fetchJsonSafe(PATHS_2026.football, "Fotball");
+  if (!football.ok) errors.push(football.error);
+
+  const hbMen = await fetchJsonSafe(PATHS_2026.handball_men, "Håndball (menn)");
+  if (!hbMen.ok) errors.push(hbMen.error);
+
+  const hbWomen = await fetchJsonSafe(PATHS_2026.handball_women, "Håndball (damer)");
+  if (!hbWomen.ok) errors.push(hbWomen.error);
+
+  const wsMen = await fetchJsonSafe(PATHS_2026.wintersport_men, "Vintersport (menn)");
+  if (!wsMen.ok) errors.push(wsMen.error);
+
+  const wsWomen = await fetchJsonSafe(PATHS_2026.wintersport_women, "Vintersport (kvinner)");
+  if (!wsWomen.ok) errors.push(wsWomen.error);
+
+  showError(errors);
+
+  // default: football list
+  const items = normalizeItems(football.data)
+    .sort((a,b)=> new Date(a.start) - new Date(b.start))
+    .slice(0, 250);
+
+  renderList(items, (it)=>{
+    const div = document.createElement("div");
+    div.className = "item clickable";
+    div.innerHTML = `
+      <div class="itemTop">
+        <div class="itemTitle">${(it.home && it.away) ? `${it.home} – ${it.away}` : (it.title || "Event")}</div>
+        <div class="meta">${it.start ? fmtOslo(it.start) : ""}</div>
       </div>
-
-      <div class="hintRow">
-        <div class="hint">Ligaer / kamper</div>
-        <div class="hint">Liste + kart</div>
-        <div class="hint">Arrangement i Grenland</div>
-        <div class="hint">VM-oversikt</div>
+      <div class="tagRow">
+        <span class="tag">${it.league || "Ukjent"}</span>
+        <span class="tag">${it.channel || "Ukjent kanal"}</span>
       </div>
-    </section>
+    `;
+    div.addEventListener("click", ()=> openModal(it));
+    return div;
+  });
+}
 
-    <!-- APP -->
-    <section id="app" class="hidden">
+async function showPuber(){
+  $("panelH2").textContent = "Puber";
+  $("panelMeta").textContent = "data/content/pubs.json";
+  clearError();
 
-      <div class="topbar">
-        <div class="topLeft">
-          <button class="pill" id="tabSport" type="button" data-tab="sport">Sport</button>
-          <button class="pill" id="tabPuber" type="button" data-tab="puber">Puber</button>
-          <button class="pill" id="tabEvents" type="button" data-tab="events">Eventer</button>
-
-          <!-- ✅ ENDRET: åpner calendar.html -->
-          <a class="pill" id="tabVM" href="calendar.html">VM 2026</a>
-        </div>
-
-        <input id="q" class="search" placeholder="Søk…" />
-        <button id="backHome" class="pill secondary" type="button">Forside</button>
+  const r = await fetchJsonSafe(PATHS_2026.pubs, "Puber");
+  if (!r.ok){
+    showError([r.error]);
+    renderList([], ()=>document.createElement("div"));
+    return;
+  }
+  const pubs = normalizeItems(r.data);
+  renderList(pubs, (p)=>{
+    const div = document.createElement("div");
+    div.className = "item";
+    const name = p.name || p.title || "Pub";
+    const city = p.city || "";
+    div.innerHTML = `
+      <div class="itemTop">
+        <div class="itemTitle">${name}</div>
+        <div class="meta">${city}</div>
       </div>
+    `;
+    return div;
+  });
+}
 
-      <div class="panel">
-        <div class="panelTitle">
-          <h2 id="panelH2">Laster…</h2>
-          <div class="meta" id="panelMeta"></div>
-        </div>
-        <div class="list" id="list"></div>
+async function showEvents(){
+  $("panelH2").textContent = "Eventer";
+  $("panelMeta").textContent = "data/events/events.json";
+  clearError();
+
+  const r = await fetchJsonSafe(PATHS_2026.events, "Eventer");
+  if (!r.ok){
+    showError([r.error]);
+    renderList([], ()=>document.createElement("div"));
+    return;
+  }
+  const events = normalizeItems(r.data)
+    .sort((a,b)=> new Date(a.start||a.date||0) - new Date(b.start||b.date||0))
+    .slice(0, 250);
+
+  renderList(events, (ev)=>{
+    const div = document.createElement("div");
+    div.className = "item";
+    const title = ev.title || ev.name || "Event";
+    const when = ev.start || ev.date || "";
+    div.innerHTML = `
+      <div class="itemTop">
+        <div class="itemTitle">${title}</div>
+        <div class="meta">${when ? fmtOslo(when) : ""}</div>
       </div>
-
-      <div class="backRow">
-        <button id="backHome2" class="backBtn" type="button">← Tilbake til forsiden</button>
+      <div class="tagRow">
+        ${ev.location ? `<span class="tag">${ev.location}</span>` : ""}
       </div>
-    </section>
+    `;
+    return div;
+  });
+}
 
-    <footer>© Grenland Live</footer>
-  </main>
+// ---------- Navigation ----------
+function goApp(tab){
+  hide($("home"));
+  show($("app"));
+  setActiveTab(tab);
 
-  <!-- MODAL -->
-  <div id="modalBack" class="modalBack" aria-hidden="true">
-    <div class="modal" role="dialog" aria-modal="true" aria-label="Kampdetaljer">
-      <div class="modalHead">
-        <h3 id="modalTitle" class="modalTitle">Kamp</h3>
-        <button id="modalClose" class="modalClose" type="button">Lukk</button>
-      </div>
+  // reset search
+  const q = $("q");
+  if (q) q.value = "";
 
-      <div class="modalGrid">
-        <div class="modalSection">
-          <h3>Klokkeslett</h3>
-          <div id="modalTime"></div>
-        </div>
+  if (tab === "sport") showSport();
+  if (tab === "puber") showPuber();
+  if (tab === "events") showEvents();
+}
 
-        <div class="modalSection">
-          <h3>Kanal</h3>
-          <div id="modalChannel"></div>
-        </div>
+function goHome(){
+  hide($("app"));
+  show($("home"));
+  clearError();
+}
 
-        <div class="modalSection">
-          <h3>Hvor vises den (puber)</h3>
-          <div id="modalPubs" class="pubList"></div>
-        </div>
-      </div>
-    </div>
-  </div>
+// ---------- Wire ----------
+document.addEventListener("DOMContentLoaded", ()=>{
+  wireModal();
 
-  <script src="app.js"></script>
-</body>
-</html>
+  // Forside menu
+  document.querySelectorAll("[data-go]").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      goApp(btn.dataset.go);
+    });
+  });
+
+  // Tabs inne i app
+  $("tabSport").addEventListener("click", ()=> goApp("sport"));
+  $("tabPuber").addEventListener("click", ()=> goApp("puber"));
+  $("tabEvents").addEventListener("click", ()=> goApp("events"));
+
+  // Back buttons
+  $("backHome").addEventListener("click", goHome);
+  $("backHome2").addEventListener("click", goHome);
+});
