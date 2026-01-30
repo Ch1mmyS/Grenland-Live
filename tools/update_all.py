@@ -22,7 +22,7 @@ from tools.providers.biathlon_api import fetch as fetch_biathlon
 SOURCES_PATH = Path("data/_meta/sources.json")
 STATUS_PATH  = Path("data/_meta/pipeline_status.json")
 
-# --- Legacy/compat outputs expected by current frontend (GitHub Pages) ---
+# Files your FRONTEND expects (legacy paths)
 LEGACY_FOOTBALL_FILES = {
     "Eliteserien": "data/eliteserien.json",
     "OBOS-ligaen": "data/obos.json",
@@ -30,11 +30,10 @@ LEGACY_FOOTBALL_FILES = {
     "Champions League": "data/champions.json",
     "La Liga": "data/laliga.json",
 }
-LEGACY_ALIASES = {
-    # handball old names
+
+LEGACY_ALIAS_FILES = {
     "data/handball_vm_2026_menn.json": "data/2026/handball_men.json",
     "data/handball_vm_2026_damer.json": "data/2026/handball_women.json",
-    # wintersport old names (vintersport + kjønn)
     "data/vintersport_menn.json": "data/2026/wintersport_men.json",
     "data/vintersport_kvinner.json": "data/2026/wintersport_women.json",
 }
@@ -57,7 +56,21 @@ def _record_error(status: dict, out_path: str, exc: Exception) -> None:
         "traceback": traceback.format_exc()
     }
 
-# ---------------- FOOTBALL ----------------
+def _empty_doc(*, sport: str, name: str, season: str, source_ids: list[str]) -> dict:
+    doc = {
+        "meta": {
+            "season": season,
+            "sport": sport,
+            "name": name,
+            "generated_at": now_oslo_iso(),
+            "source_ids": source_ids
+        },
+        "items": []
+    }
+    validate_doc(doc)
+    return doc
+
+# ---------------- FOOTBALL (2026 aggregate) ----------------
 def _run_football(conf: dict) -> tuple[int, list[str]]:
     year = str(conf["year"])
     out_path = Path(conf["outputs"]["football"])
@@ -116,12 +129,8 @@ def _run_football(conf: dict) -> tuple[int, list[str]]:
     _write_json(out_path, doc)
     return len(items), source_ids
 
-# ---------------- HANDBALL ----------------
+# ---------------- HANDBALL (2026 men/women) ----------------
 def _run_handball(conf: dict, gender: str) -> tuple[int, list[str]]:
-    """
-    Uses PDF feed if enabled.
-    If pypdf missing or pdf_url empty, throws and will be caught per-target.
-    """
     year = str(conf["year"])
     out_path = Path(conf["outputs"][f"handball_{gender}"])
 
@@ -144,7 +153,6 @@ def _run_handball(conf: dict, gender: str) -> tuple[int, list[str]]:
 
         if typ != "handball_pdf":
             raise RuntimeError(f"Unknown handball type: {typ} ({key})")
-
         if not pdf_url:
             raise RuntimeError(f"{key}: pdf_url is empty")
 
@@ -182,7 +190,7 @@ def _run_handball(conf: dict, gender: str) -> tuple[int, list[str]]:
     _write_json(out_path, doc)
     return len(items), source_ids
 
-# ---------------- WINTERSPORT ----------------
+# ---------------- WINTERSPORT (2026 men/women) ----------------
 def _run_wintersport(conf: dict, gender: str) -> tuple[int, list[str]]:
     year = str(conf["year"])
     out_path = Path(conf["outputs"][f"wintersport_{gender}"])
@@ -205,7 +213,6 @@ def _run_wintersport(conf: dict, gender: str) -> tuple[int, list[str]]:
         if typ != "biathlon_api":
             raise RuntimeError(f"Unknown wintersport type: {typ} ({key})")
 
-        # hard-fix if someone used the wrong host
         base_url = api["base_url"].replace("https://api.biathlonresults.com", "https://biathlonresults.com").rstrip("/")
         season_id = int(api["season_id"])
         level = int(api.get("level", 3))
@@ -244,34 +251,41 @@ def _run_wintersport(conf: dict, gender: str) -> tuple[int, list[str]]:
     _write_json(out_path, doc)
     return len(items), source_ids
 
-# ---------------- LEGACY COMPAT WRITES ----------------
-def _write_legacy_from_football_2026(football_2026_path: Path) -> dict[str, int]:
+# ---------------- LEGACY WRITERS (always create files to stop 404) ----------------
+def _write_legacy_football_per_league(conf: dict) -> dict[str, int]:
     """
-    Create old per-league files in data/*.json so frontend stops 404.
-    Reads data/2026/football.json (items-format) and filters by league.
+    Always writes:
+      data/eliteserien.json, data/obos.json, data/premier_league.json, data/champions.json, data/laliga.json
+    If data/2026/football.json exists -> filter by league.
+    Else -> write empty docs (still prevents 404).
     """
-    if not football_2026_path.exists():
-        return {k: 0 for k in LEGACY_FOOTBALL_FILES.values()}
+    year = str(conf["year"])
+    src_path = Path(conf["outputs"]["football"])
 
-    doc = _read_json(football_2026_path)
-    items = doc.get("items", [])
-    meta = doc.get("meta", {})
-    season = str(meta.get("season", "2026"))
+    if src_path.exists():
+        src_doc = _read_json(src_path)
+        src_items = src_doc.get("items", [])
+        generated_at = (src_doc.get("meta") or {}).get("generated_at", now_oslo_iso())
+        source_ids = (src_doc.get("meta") or {}).get("source_ids", [])
+    else:
+        src_items = []
+        generated_at = now_oslo_iso()
+        source_ids = []
 
     counts: dict[str, int] = {}
 
     for league_name, out_file in LEGACY_FOOTBALL_FILES.items():
         out_path = Path(out_file)
-        league_items = [it for it in items if it.get("league") == league_name]
+        league_items = [it for it in src_items if it.get("league") == league_name]
         league_items.sort(key=lambda x: x.get("start") or "")
 
         out_doc = {
             "meta": {
-                "season": season,
+                "season": year,
                 "sport": "football",
                 "name": league_name,
-                "generated_at": meta.get("generated_at"),
-                "source_ids": meta.get("source_ids", [])
+                "generated_at": generated_at,
+                "source_ids": source_ids
             },
             "items": league_items
         }
@@ -281,20 +295,36 @@ def _write_legacy_from_football_2026(football_2026_path: Path) -> dict[str, int]
 
     return counts
 
-def _write_alias_copies() -> dict[str, str]:
+def _write_legacy_alias_copies(conf: dict) -> dict[str, str]:
     """
-    Create old filenames as copies of current 2026 outputs.
+    Always writes:
+      data/handball_vm_2026_menn.json
+      data/handball_vm_2026_damer.json
+      data/vintersport_menn.json
+      data/vintersport_kvinner.json
+    If source exists -> copy.
+    Else -> write empty docs (still prevents 404).
     """
+    year = str(conf["year"])
     results: dict[str, str] = {}
-    for legacy_path, src_path in LEGACY_ALIASES.items():
-        src = Path(src_path)
+
+    for legacy_path, src_path in LEGACY_ALIAS_FILES.items():
         dst = Path(legacy_path)
-        if not src.exists():
-            results[legacy_path] = f"missing source: {src_path}"
-            continue
-        dst.parent.mkdir(parents=True, exist_ok=True)
-        dst.write_text(src.read_text(encoding="utf-8"), encoding="utf-8")
-        results[legacy_path] = f"copied from {src_path}"
+        src = Path(src_path)
+
+        if src.exists():
+            dst.parent.mkdir(parents=True, exist_ok=True)
+            dst.write_text(src.read_text(encoding="utf-8"), encoding="utf-8")
+            results[legacy_path] = f"copied from {src_path}"
+        else:
+            # write empty doc as safe fallback
+            if "handball" in legacy_path:
+                doc = _empty_doc(sport="handball", name=dst.stem, season=year, source_ids=[])
+            else:
+                doc = _empty_doc(sport="wintersport", name=dst.stem, season=year, source_ids=[])
+            _write_json(dst, doc)
+            results[legacy_path] = f"wrote empty (missing {src_path})"
+
     return results
 
 def main():
@@ -306,8 +336,8 @@ def main():
         "legacy": {}
     }
 
-    # Run 2026 targets
-    # Football
+    # 2026 targets (these may fail, but we still write legacy fallbacks)
+    # Football aggregate
     out = conf["outputs"]["football"]
     try:
         n, srcs = _run_football(conf)
@@ -333,26 +363,26 @@ def main():
         except Exception as e:
             _record_error(status, out, e)
 
-    # Write legacy/compat files so frontend stops 404
+    # Legacy outputs (always create files to stop frontend 404)
     try:
-        football_2026_path = Path(conf["outputs"]["football"])
-        legacy_counts = _write_legacy_from_football_2026(football_2026_path)
-        status["legacy"]["football_per_league"] = {"ok": True, "counts": legacy_counts}
+        counts = _write_legacy_football_per_league(conf)
+        status["legacy"]["football_per_league"] = {"ok": True, "counts": counts}
     except Exception as e:
         status["legacy"]["football_per_league"] = {"ok": False, "error": str(e), "traceback": traceback.format_exc()}
 
     try:
-        alias_results = _write_alias_copies()
-        status["legacy"]["aliases"] = {"ok": True, "results": alias_results}
+        results = _write_legacy_alias_copies(conf)
+        status["legacy"]["aliases"] = {"ok": True, "results": results}
     except Exception as e:
         status["legacy"]["aliases"] = {"ok": False, "error": str(e), "traceback": traceback.format_exc()}
 
     _write_json(STATUS_PATH, status)
 
-    # Always green; inspect pipeline_status.json for failures
     print("---- pipeline_status.json ----")
     print(json.dumps(status, ensure_ascii=False, indent=2))
     print("---- end ----")
+
+    # Always exit 0 so Pages keeps updating (status.json shows failures)
     return 0
 
 if __name__ == "__main__":
