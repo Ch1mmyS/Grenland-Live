@@ -1,8 +1,15 @@
 # tools/update_all.py
 from __future__ import annotations
 
-import json
+import sys
 from pathlib import Path
+
+# --- IMPORTANT: ensure repo root is on PYTHONPATH ---
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+import json
 
 from tools.lib.normalize import make_doc, normalize_item
 from tools.lib.schema import validate_doc
@@ -13,28 +20,40 @@ from tools.providers.fixturedownload_json import fetch as fetch_fd_json
 from tools.providers.biathlon_api import fetch as fetch_biathlon
 from tools.providers.handball_pdf import fetch as fetch_handball_pdf
 
+
 SOURCES_PATH = Path("data/_meta/sources.json")
 STATUS_PATH = Path("data/_meta/pipeline_status.json")
 
+
 def _write_json(path: Path, obj: dict) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(obj, ensure_ascii=False, indent=2), encoding="utf-8")
+    path.write_text(
+        json.dumps(obj, ensure_ascii=False, indent=2),
+        encoding="utf-8"
+    )
+
 
 def _load_conf() -> dict:
     return json.loads(SOURCES_PATH.read_text(encoding="utf-8"))
 
-def _run_football(conf: dict) -> tuple[dict, int]:
-    year = str(conf.get("year", 2026))
+
+# ---------------- FOOTBALL ----------------
+
+def _run_football(conf: dict) -> tuple[int, list[str]]:
+    year = str(conf["year"])
     out_path = Path(conf["outputs"]["football"])
 
     items: list[dict] = []
     source_ids: list[str] = []
 
     for src in conf["sports"]["football"]:
+        if not src.get("enabled", True):
+            continue
+
         key = src["key"]
-        name = src.get("name", key)
+        name = src["name"]
         typ = src["type"]
-        url = src.get("url")
+        url = src["url"]
         default_tv = src.get("default_tv")
 
         source_ids.append(key)
@@ -44,26 +63,20 @@ def _run_football(conf: dict) -> tuple[dict, int]:
         elif typ == "fixturedownload_json":
             events = fetch_fd_json(url)
         else:
-            raise RuntimeError(f"Unknown football type: {typ} ({key})")
+            raise RuntimeError(f"Unknown football type: {typ}")
 
         for ev in events:
-            start = ev["start"]
-            home = ev.get("home")
-            away = ev.get("away")
-            title = ev.get("title")
-            venue = ev.get("venue")
-
             items.append(normalize_item(
                 sport="football",
                 season=year,
                 league=name,
-                start=start,
-                home=home,
-                away=away,
-                title=title,
+                start=ev["start"],
+                home=ev.get("home"),
+                away=ev.get("away"),
+                title=ev.get("title"),
                 channel=default_tv,
                 where=None,
-                venue=venue,
+                venue=ev.get("venue"),
                 country=None,
                 status="scheduled",
                 source_id=key,
@@ -71,35 +84,43 @@ def _run_football(conf: dict) -> tuple[dict, int]:
                 source_url=url
             ))
 
-    items.sort(key=lambda x: x.get("start") or "")
-    doc = make_doc(sport="football", name="Football 2026", season=year, source_ids=source_ids, items=items)
+    items.sort(key=lambda x: x["start"])
+
+    doc = make_doc(
+        sport="football",
+        name="Football 2026",
+        season=year,
+        source_ids=source_ids,
+        items=items
+    )
+
     validate_doc(doc)
     _write_json(out_path, doc)
-    return doc, len(items)
+    return len(items), source_ids
 
-def _run_handball(conf: dict, gender: str) -> tuple[dict | None, int, str | None]:
-    year = str(conf.get("year", 2026))
-    out_key = f"handball_{gender}"
-    out_path = Path(conf["outputs"][out_key])
 
-    sources = conf["sports"]["handball"][gender]
+# ---------------- HANDBALL ----------------
+
+def _run_handball(conf: dict, gender: str) -> tuple[int, list[str], str | None]:
+    year = str(conf["year"])
+    out_path = Path(conf["outputs"][f"handball_{gender}"])
+
     items: list[dict] = []
     source_ids: list[str] = []
 
-    for src in sources:
+    for src in conf["sports"]["handball"][gender]:
+        if not src.get("enabled", True):
+            return 0, [], f"{src['key']} disabled"
+
         key = src["key"]
-        name = src.get("name", key)
-        typ = src["type"]
+        name = src["name"]
         channel = src.get("channel")
         pdf_url = src.get("pdf_url")
 
         source_ids.append(key)
 
-        if typ != "handball_pdf":
-            raise RuntimeError(f"Unknown handball type: {typ} ({key})")
-
         if not pdf_url:
-            return None, 0, f"{key}: pdf_url is empty"
+            return 0, source_ids, "pdf_url is empty"
 
         events = fetch_handball_pdf(pdf_url)
 
@@ -118,42 +139,55 @@ def _run_handball(conf: dict, gender: str) -> tuple[dict | None, int, str | None
                 country=None,
                 status="scheduled",
                 source_id=key,
-                source_type=typ,
+                source_type="handball_pdf",
                 source_url=pdf_url
             ))
 
-    items.sort(key=lambda x: x.get("start") or "")
-    doc = make_doc(sport="handball", name=f"Handball {gender.capitalize()} 2026", season=year, source_ids=source_ids, items=items)
+    items.sort(key=lambda x: x["start"])
+
+    doc = make_doc(
+        sport="handball",
+        name=f"Handball {gender.capitalize()} 2026",
+        season=year,
+        source_ids=source_ids,
+        items=items
+    )
+
     validate_doc(doc)
     _write_json(out_path, doc)
-    return doc, len(items), None
+    return len(items), source_ids, None
 
-def _run_wintersport(conf: dict, gender: str) -> tuple[dict, int]:
-    year = str(conf.get("year", 2026))
-    out_key = f"wintersport_{gender}"
-    out_path = Path(conf["outputs"][out_key])
 
-    sources = conf["sports"]["wintersport"][gender]
+# ---------------- WINTERSPORT ----------------
+
+def _run_wintersport(conf: dict, gender: str) -> tuple[int, list[str]]:
+    year = str(conf["year"])
+    out_path = Path(conf["outputs"][f"wintersport_{gender}"])
+
     items: list[dict] = []
     source_ids: list[str] = []
 
-    for src in sources:
+    for src in conf["sports"]["wintersport"][gender]:
+        if not src.get("enabled", True):
+            continue
+
         key = src["key"]
-        name = src.get("name", key)
-        typ = src["type"]
+        name = src["name"]
         channel = src.get("channel")
+        api = src["api"]
+
+        base_url = api["base_url"].rstrip("/")
+        season_id = api["season_id"]
+        level = api.get("level", 3)
 
         source_ids.append(key)
 
-        if typ != "biathlon_api":
-            raise RuntimeError(f"Unknown wintersport type: {typ} ({key})")
-
-        api = src["api"]
-        base_url = api["base_url"].replace("https://api.biathlonresults.com", "https://biathlonresults.com").rstrip("/")
-        season_id = int(api["season_id"])
-        level = int(api.get("level", 3))
-
-        events = fetch_biathlon(base_url=base_url, season_id=season_id, level=level, gender=gender)
+        events = fetch_biathlon(
+            base_url=base_url,
+            season_id=season_id,
+            level=level,
+            gender=gender
+        )
 
         for ev in events:
             items.append(normalize_item(
@@ -170,15 +204,26 @@ def _run_wintersport(conf: dict, gender: str) -> tuple[dict, int]:
                 country=None,
                 status="scheduled",
                 source_id=key,
-                source_type=typ,
-                source_url=f"{base_url}/Events?Level={level}&SeasonId={season_id}"
+                source_type="biathlon_api",
+                source_url=f"{base_url}/Events?SeasonId={season_id}&Level={level}"
             ))
 
-    items.sort(key=lambda x: x.get("start") or "")
-    doc = make_doc(sport="wintersport", name=f"Wintersport {gender.capitalize()} 2026", season=year, source_ids=source_ids, items=items)
+    items.sort(key=lambda x: x["start"])
+
+    doc = make_doc(
+        sport="wintersport",
+        name=f"Wintersport {gender.capitalize()} 2026",
+        season=year,
+        source_ids=source_ids,
+        items=items
+    )
+
     validate_doc(doc)
     _write_json(out_path, doc)
-    return doc, len(items)
+    return len(items), source_ids
+
+
+# ---------------- MAIN ----------------
 
 def main():
     conf = _load_conf()
@@ -188,50 +233,43 @@ def main():
         "targets": {}
     }
 
-    failed_any = False
+    failed = False
 
-    # Football
     try:
-        _, n = _run_football(conf)
+        n, _ = _run_football(conf)
         status["targets"][conf["outputs"]["football"]] = {"ok": True, "items": n}
     except Exception as e:
-        failed_any = True
-        status["targets"][conf["outputs"]["football"]] = {"ok": False, "items": 0, "error": str(e)}
+        failed = True
+        status["targets"][conf["outputs"]["football"]] = {"ok": False, "error": str(e)}
 
-    # Handball men/women
     for gender in ("men", "women"):
-        out_key = f"handball_{gender}"
-        out_path = conf["outputs"][out_key]
+        out = conf["outputs"][f"handball_{gender}"]
         try:
-            doc, n, warn = _run_handball(conf, gender)
+            n, _, warn = _run_handball(conf, gender)
             if warn:
-                status["targets"][out_path] = {"ok": False, "items": 0, "error": warn}
+                status["targets"][out] = {"ok": False, "error": warn}
             else:
-                status["targets"][out_path] = {"ok": True, "items": n}
+                status["targets"][out] = {"ok": True, "items": n}
         except Exception as e:
-            failed_any = True
-            status["targets"][out_path] = {"ok": False, "items": 0, "error": str(e)}
+            failed = True
+            status["targets"][out] = {"ok": False, "error": str(e)}
 
-    # Wintersport men/women
     for gender in ("men", "women"):
-        out_key = f"wintersport_{gender}"
-        out_path = conf["outputs"][out_key]
+        out = conf["outputs"][f"wintersport_{gender}"]
         try:
-            _, n = _run_wintersport(conf, gender)
-            status["targets"][out_path] = {"ok": True, "items": n}
+            n, _ = _run_wintersport(conf, gender)
+            status["targets"][out] = {"ok": True, "items": n}
         except Exception as e:
-            failed_any = True
-            status["targets"][out_path] = {"ok": False, "items": 0, "error": str(e)}
+            failed = True
+            status["targets"][out] = {"ok": False, "error": str(e)}
 
     _write_json(STATUS_PATH, status)
 
-    # If anything failed hard, fail the action (so you notice)
-    # Note: women's handball with empty pdf_url is treated as ok=false but not "hard fail"
-    # If you want it to hard fail too, set failed_any=True when warn happens.
-    if failed_any:
-        raise SystemExit("One or more targets failed. See data/_meta/pipeline_status.json")
+    if failed:
+        raise SystemExit("Pipeline failed – see pipeline_status.json")
 
     print("DONE")
+
 
 if __name__ == "__main__":
     main()
