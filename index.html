@@ -1,4 +1,4 @@
-<!-- /index.html -->
+<!-- /index.html  (KUN DET - komplett, med faner: Sport / Puber / Eventer / VM 2026 / Kalender 2026) -->
 <!doctype html>
 <html lang="no">
 <head>
@@ -19,6 +19,14 @@
         </div>
       </div>
 
+      <nav class="tabs" aria-label="Hovedmeny">
+        <button class="tab active" data-view="sport">Sport</button>
+        <button class="tab" data-view="puber">Puber</button>
+        <button class="tab" data-view="eventer">Eventer</button>
+        <button class="tab" data-view="vm">VM 2026</button>
+        <button class="tab" data-view="kalender">Kalender 2026</button>
+      </nav>
+
       <div class="status">
         <span id="netDot" class="dot"></span>
         <span id="netText">Sjekker…</span>
@@ -27,7 +35,8 @@
   </header>
 
   <main class="wrap main">
-    <section class="panel">
+    <!-- SPORT -->
+    <section id="view-sport" class="panel view">
       <div class="controls">
         <div class="control">
           <label for="leagueSelect">Liga</label>
@@ -60,14 +69,43 @@
         <div class="hint">Klikk på en kamp for detaljer.</div>
         <div id="lastUpdated" class="muted"></div>
       </div>
-    </section>
 
-    <section class="panel">
       <div id="errorBox" class="error hidden"></div>
       <div id="emptyBox" class="empty hidden">Ingen kamper funnet i valgt periode.</div>
       <div id="list" class="list"></div>
     </section>
 
+    <!-- PUBER -->
+    <section id="view-puber" class="panel view hidden">
+      <h2 class="h2">Puber</h2>
+      <div class="muted">Denne visningen kan kobles mot din pub-liste (data/pubs.json) når du vil.</div>
+      <div class="empty" style="margin-top:12px;">Kommer snart – si ifra hvis du vil at jeg skal koble inn pub-data nå.</div>
+    </section>
+
+    <!-- EVENTER -->
+    <section id="view-eventer" class="panel view hidden">
+      <h2 class="h2">Eventer</h2>
+      <div class="muted">Denne visningen kan kobles mot data/events/* når du vil.</div>
+      <div class="empty" style="margin-top:12px;">Kommer snart – si ifra hvis du vil at jeg skal koble inn event-data nå.</div>
+    </section>
+
+    <!-- VM 2026 -->
+    <section id="view-vm" class="panel view hidden">
+      <h2 class="h2">VM 2026</h2>
+      <div class="muted">Denne visningen kan samle håndball + vintersport + annet VM-innhold.</div>
+      <div class="empty" style="margin-top:12px;">Kommer snart – si ifra hva “VM 2026” skal vise, så kobler jeg det inn.</div>
+    </section>
+
+    <!-- KALENDER -->
+    <section id="view-kalender" class="panel view hidden">
+      <h2 class="h2">Kalender 2026</h2>
+      <div class="muted">Hvis du vil beholde din eksisterende calendar.html, kan vi linke dit her.</div>
+      <div class="empty" style="margin-top:12px;">
+        Åpne kalender: <a class="link" href="calendar.html">calendar.html</a>
+      </div>
+    </section>
+
+    <!-- MODAL -->
     <section id="modalBackdrop" class="modal-backdrop hidden" aria-hidden="true">
       <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
         <div class="modal-head">
