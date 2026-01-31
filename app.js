@@ -1,35 +1,3 @@
-// Faner (views)
-(() => {
-  const tabs = Array.from(document.querySelectorAll(".tab"));
-  const views = {
-    sport: document.getElementById("view-sport"),
-    puber: document.getElementById("view-puber"),
-    eventer: document.getElementById("view-eventer"),
-    vm: document.getElementById("view-vm"),
-    kalender: document.getElementById("view-kalender"),
-  };
-
-  function showView(name){
-    for (const [k, el] of Object.entries(views)) {
-      if (!el) continue;
-      el.classList.toggle("hidden", k !== name);
-    }
-    tabs.forEach(t => t.classList.toggle("active", t.dataset.view === name));
-  }
-
-  tabs.forEach(t => {
-    t.addEventListener("click", () => showView(t.dataset.view));
-  });
-
-  // default
-  showView("sport");
-})();
-// /app.js  (KUN DET - komplett, med automatisk fallback + riktig mappe)
-// ✅ Leser fra /data/2026/ hvis fil finnes der
-// ✅ Hvis fil mangler: prøver automatisk /data/<filnavn> og /data/2026/<alt-navn>
-// ✅ Menyen viser kun ligaer som faktisk finnes (auto)
-// ✅ Ingen "Fotball (samlet)"
-
 (() => {
   const TZ = "Europe/Oslo";
   const YEAR_DIR = "data/2026";
@@ -46,7 +14,27 @@
     "Jimmys"
   ];
 
-  // DOM
+  // ---------- FANER ----------
+  const tabs = Array.from(document.querySelectorAll(".tab"));
+  const views = {
+    sport: document.getElementById("view-sport"),
+    puber: document.getElementById("view-puber"),
+    eventer: document.getElementById("view-eventer"),
+    vm: document.getElementById("view-vm"),
+    kalender: document.getElementById("view-kalender"),
+  };
+
+  function showView(name){
+    for (const [k, el] of Object.entries(views)) {
+      if (!el) continue;
+      el.classList.toggle("hidden", k !== name);
+    }
+    tabs.forEach(t => t.classList.toggle("active", t.dataset.view === name));
+  }
+  tabs.forEach(t => t.addEventListener("click", () => showView(t.dataset.view)));
+  showView("sport");
+
+  // ---------- DOM (SPORT) ----------
   const leagueSelect = document.getElementById("leagueSelect");
   const daysSelect = document.getElementById("daysSelect");
   const searchInput = document.getElementById("searchInput");
@@ -72,27 +60,19 @@
   const isArr = (v) => Array.isArray(v);
   const clampStr = (s) => (s == null ? "" : String(s));
 
-  // --- Config: expected filenames + fallback candidates
-  // Hvis du har andre filnavn i /data/2026, legg dem inn i "alts".
+  // Prøver flere filnavn automatisk (så du slipper å matche eksakt)
   const LEAGUE_CANDIDATES = [
     { key: "eliteserien", name: "Eliteserien", files: ["eliteserien.json"] },
     { key: "obos", name: "OBOS-ligaen", files: ["obos.json", "obos-ligaen.json", "obos_ligaen.json"] },
     { key: "premier_league", name: "Premier League", files: ["premier_league.json", "epl.json", "premierleague.json"] },
-
-    // 🔥 Her er problemet ditt: champions_league.json finnes ikke hos deg
-    // Så vi prøver også disse alternativene automatisk:
     { key: "champions_league", name: "Champions League", files: ["champions_league.json", "champions-league.json", "ucl.json", "championsleague.json"] },
-
     { key: "la_liga", name: "La Liga", files: ["la_liga.json", "laliga.json", "la-liga.json"] },
-
     { key: "handball_men", name: "Håndball VM 2026 Menn", files: ["handball_vm_2026_menn.json", "handball_men.json"] },
     { key: "handball_women", name: "Håndball VM 2026 Damer", files: ["handball_vm_2026_damer.json", "handball_women.json"] },
-
     { key: "ws_men", name: "Vintersport Menn", files: ["vintersport_menn.json", "wintersport_men.json"] },
     { key: "ws_women", name: "Vintersport Kvinner", files: ["vintersport_kvinner.json", "wintersport_women.json"] }
   ];
 
-  // ---- UI helpers
   function setNetStatus() {
     const online = navigator.onLine;
     netDot.classList.toggle("ok", online);
@@ -247,7 +227,6 @@
     }
   }
 
-  // --- Fetch helpers
   async function headOk(path) {
     try {
       const res = await fetch(urlOf(path), { method: "HEAD", cache: "no-store" });
@@ -264,18 +243,15 @@
     return await res.json();
   }
 
-  // Build a real league list by checking which files exist
   async function resolveLeagues() {
     const resolved = [];
     for (const c of LEAGUE_CANDIDATES) {
       let chosen = null;
 
-      // try year dir first
       for (const f of c.files) {
         const p = `${YEAR_DIR}/${f}`;
         if (await headOk(p)) { chosen = p; break; }
       }
-      // then try root dir
       if (!chosen) {
         for (const f of c.files) {
           const p = `${ROOT_DIR}/${f}`;
@@ -288,7 +264,6 @@
     return resolved;
   }
 
-  // ---- Main state
   let LEAGUES = [];
   let ALL = [];
 
@@ -305,7 +280,6 @@
       });
 
     if (q) games = games.filter(g => gameText(g).includes(q));
-
     renderList(games);
   }
 
@@ -346,14 +320,12 @@
       .map(l => `<option value="${l.key}">${l.name}</option>`)
       .join("");
 
-    // Default to Eliteserien if available, else first available
     const hasElite = LEAGUES.some(l => l.key === "eliteserien");
     leagueSelect.value = hasElite ? "eliteserien" : (LEAGUES[0]?.key || "");
 
     loadSelectedLeague();
   }
 
-  // Events
   window.addEventListener("online", setNetStatus);
   window.addEventListener("offline", setNetStatus);
 
@@ -368,4 +340,3 @@
 
   init();
 })();
-
