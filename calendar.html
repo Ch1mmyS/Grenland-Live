@@ -4,42 +4,30 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Grenland Live – Kalender 2026</title>
-  <link rel="icon" href="logo.ico" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="./styles.css" />
+  <link rel="manifest" href="./manifest.webmanifest" />
 </head>
 <body>
-  <main class="wrap main">
+  <main class="app">
     <section class="panel">
-      <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;">
-        <div style="font-weight:900;font-size:18px;">Grenland Live – Kalender</div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;">
-          <button id="prevBtn" class="btn" type="button">◀ Forrige</button>
-          <div id="monthLabel" style="align-self:center;font-weight:800;"></div>
-          <button id="nextBtn" class="btn" type="button">Neste ▶</button>
-          <button id="todayBtn" class="btn" type="button">I dag</button>
-          <a class="btn" href="index.html" style="text-decoration:none;display:inline-grid;place-items:center;">Tilbake</a>
+      <div class="row row-top">
+        <div class="col">
+          <div class="label">Kalender 2026</div>
+          <div class="muted">🔴 fotball · 🟡 håndball · 🟢 vintersport</div>
         </div>
       </div>
 
-      <div style="display:grid;grid-template-columns:1.1fr .9fr;gap:12px;margin-top:14px;">
-        <div>
-          <div id="grid" style="display:grid;grid-template-columns:repeat(7,1fr);gap:10px;"></div>
-
-          <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:12px;color:var(--muted);font-size:13px;">
-            <span>🔴 Fotball</span>
-            <span>🟡 Håndball</span>
-            <span>🟢 Vintersport</span>
-          </div>
-        </div>
-
-        <div>
-          <div style="font-weight:900;margin-bottom:8px;">Velg en dag</div>
-          <div id="dayList" class="empty">Klikk på en dato for detaljer.</div>
+      <div class="calendar-layout">
+        <div id="calendarRoot" class="calendar-root"></div>
+        <div id="calendarSide" class="calendar-side">
+          <div class="label">Valgt dato</div>
+          <div id="calendarPicked" class="muted">Klikk en dag for å se liste.</div>
+          <div id="calendarList" class="list"><div class="empty">Ingen elementer.</div></div>
         </div>
       </div>
     </section>
   </main>
 
-  <script src="calendar.js"></script>
+  <script defer src="./calendar.js"></script>
 </body>
 </html>
