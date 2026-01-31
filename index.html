@@ -1,4 +1,3 @@
-<!-- /index.html  (KOMPLETT FIL – legg i ROOT) -->
 <!doctype html>
 <html lang="no">
 <head>
@@ -19,7 +18,6 @@
         </div>
       </div>
 
-      <!-- ✅ STOR MIDTSTILT TITTEL + GO-TEKST (EGEN RAD, INGEN OVERLAPP) -->
       <div class="hero" aria-label="Intro">
         <div class="hero-title">Grenland Live</div>
         <div class="hero-sub">
@@ -27,18 +25,17 @@
         </div>
       </div>
 
-      <!-- ✅ STATUS -->
       <div class="status">
         <span id="netDot" class="dot"></span>
         <span id="netText">Sjekker…</span>
       </div>
 
-      <!-- ✅ FANER (UNDER HERO) -->
       <nav class="tabs" aria-label="Hovedmeny">
         <button class="tab active" data-view="sport" type="button">Sport</button>
         <button class="tab" data-view="puber" type="button">Puber</button>
         <button class="tab" data-view="eventer" type="button">Eventer</button>
         <button class="tab" data-view="vm" type="button">VM 2026</button>
+        <button class="tab" data-view="em" type="button">EM 2026</button>
         <button class="tab" data-view="kalender" type="button">Kalender 2026</button>
       </nav>
     </div>
@@ -88,19 +85,29 @@
     <!-- PUBER -->
     <section id="view-puber" class="panel view hidden">
       <h2 class="h2">Puber</h2>
-      <div class="empty" style="margin-top:12px;">Kommer snart – kobles mot pub-data når du vil.</div>
+      <div id="pubsError" class="error hidden"></div>
+      <div id="pubsList" class="list" style="margin-top:12px;"></div>
     </section>
 
     <!-- EVENTER -->
     <section id="view-eventer" class="panel view hidden">
       <h2 class="h2">Eventer</h2>
-      <div class="empty" style="margin-top:12px;">Kommer snart – kobles mot event-data når du vil.</div>
+      <div id="eventsError" class="error hidden"></div>
+      <div id="eventsList" class="list" style="margin-top:12px;"></div>
     </section>
 
     <!-- VM -->
     <section id="view-vm" class="panel view hidden">
       <h2 class="h2">VM 2026</h2>
-      <div class="empty" style="margin-top:12px;">Kommer snart – kobles mot VM-data når du vil.</div>
+      <div id="vmError" class="error hidden"></div>
+      <div id="vmList" class="list" style="margin-top:12px;"></div>
+    </section>
+
+    <!-- EM -->
+    <section id="view-em" class="panel view hidden">
+      <h2 class="h2">EM 2026</h2>
+      <div id="emError" class="error hidden"></div>
+      <div id="emList" class="list" style="margin-top:12px;"></div>
     </section>
 
     <!-- KALENDER -->
