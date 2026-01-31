@@ -170,3 +170,30 @@ select:focus, input:focus{ border-color: rgba(96,165,250,.55); box-shadow:0 0 0 
 }
 .k{ color:var(--muted); font-size:13px; }
 .v{ font-weight:700; }
+/* LEGG DETTE HELT NEDERST I /styles.css  (KUN DET) */
+.tabs{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  flex-wrap:wrap;
+  margin:0 14px;
+}
+.tab{
+  border:1px solid var(--line);
+  background: rgba(15,23,42,.55);
+  color: var(--text);
+  border-radius:999px;
+  padding:8px 12px;
+  cursor:pointer;
+  font-weight:700;
+  font-size:13px;
+}
+.tab:hover{ border-color: rgba(96,165,250,.35); }
+.tab.active{
+  border-color: rgba(96,165,250,.55);
+  background: rgba(96,165,250,.18);
+}
+.h2{ margin:0 0 10px 0; }
+.link{ color: rgba(96,165,250,.95); text-decoration:none; }
+.link:hover{ text-decoration:underline; }
+
