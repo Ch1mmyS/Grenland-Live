@@ -271,3 +271,6 @@ select:focus, input:focus{ border-color: rgba(96,165,250,.55); box-shadow:0 0 0 
 .brand .title,
 .brand .subtitle{
   display:none !important;
+.status{
+  display:none !important;
+}
