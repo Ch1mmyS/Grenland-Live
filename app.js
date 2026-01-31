@@ -1,5 +1,6 @@
 (() => {
   const TZ = "Europe/Oslo";
+
   const DEFAULT_WHERE = [
     "Vikinghjørnet",
     "Gimle Pub",
@@ -11,7 +12,7 @@
     "Jimmys"
   ];
 
-  // ---- DOM
+  // --- DOM
   const leagueSelect = document.getElementById("leagueSelect");
   const daysSelect = document.getElementById("daysSelect");
   const searchInput = document.getElementById("searchInput");
@@ -33,27 +34,37 @@
   const mChannel = document.getElementById("mChannel");
   const mWhere = document.getElementById("mWhere");
 
-  // ---- Robust base path
-  // Always load JSON from /data/ regardless of domain or repo path.
-  // This is the key fix for custom domain.
-  const dataURL = (filename) => new URL(`./data/${filename}`, window.location.href).toString();
+  // --- Where your data actually lives NOW
+  //   - league-specific JSON:  /data/2026/*.json
+  //   - optional "combined" JSON: /data/football.json etc.
+  const ROOT_DATA_DIR = "data";        // /data/
+  const YEAR_DATA_DIR = "data/2026";   // /data/2026/
 
-  // ---- League config (edit file names to match yours)
+  // Robust URL builder for GitHub Pages + custom domain
+  const urlOf = (path) => new URL(`./${path}`, window.location.href).toString();
+
+  // --- League config (matches your repo filenames)
   const LEAGUES = [
-    { key: "football",  name: "Fotball (samlet)", file: "football.json" },
-    { key: "eliteserien", name: "Eliteserien", file: "eliteserien.json" },
-    { key: "obos", name: "OBOS-ligaen", file: "obos.json" },
-    { key: "premier_league", name: "Premier League", file: "premier_league.json" },
-    { key: "champions_league", name: "Champions League", file: "champions_league.json" },
-    { key: "la_liga", name: "La Liga", file: "la_liga.json" },
+    // ✅ League-specific (from /data/2026/)
+    { key: "eliteserien",      name: "Eliteserien",       path: `${YEAR_DATA_DIR}/eliteserien.json` },
+    { key: "obos",            name: "OBOS-ligaen",       path: `${YEAR_DATA_DIR}/obos.json` },
+    { key: "premier_league",  name: "Premier League",    path: `${YEAR_DATA_DIR}/premier_league.json` },
+    { key: "champions_league",name: "Champions League",  path: `${YEAR_DATA_DIR}/champions_league.json` },
+    { key: "la_liga",         name: "La Liga",           path: `${YEAR_DATA_DIR}/la_liga.json` },
 
-    { key: "handball", name: "Håndball (samlet)", file: "handball.json" },
-    { key: "handball_men", name: "Håndball VM 2026 Menn", file: "handball_vm_2026_menn.json" },
-    { key: "handball_women", name: "Håndball VM 2026 Damer", file: "handball_vm_2026_damer.json" },
+    // ✅ If you have more, add them here:
+    // { key:"serie_a", name:"Serie A", path:`${YEAR_DATA_DIR}/serie_a.json` },
 
-    { key: "wintersport", name: "Vintersport (samlet)", file: "wintersport.json" },
-    { key: "wintersport_men", name: "Vintersport Menn", file: "vintersport_menn.json" },
-    { key: "wintersport_women", name: "Vintersport Kvinner", file: "vintersport_kvinner.json" }
+    // ✅ Combined (from /data/) – optional
+    { key: "football",        name: "Fotball (samlet)",  path: `${ROOT_DATA_DIR}/football.json` },
+    { key: "handball",        name: "Håndball (samlet)", path: `${ROOT_DATA_DIR}/handball.json` },
+    { key: "wintersport",     name: "Vintersport (samlet)", path: `${ROOT_DATA_DIR}/wintersport.json` },
+
+    // ✅ Your existing VM files (if they live in /data/2026/)
+    { key: "handball_men",    name: "Håndball VM 2026 Menn", path: `${YEAR_DATA_DIR}/handball_vm_2026_menn.json` },
+    { key: "handball_women",  name: "Håndball VM 2026 Damer", path: `${YEAR_DATA_DIR}/handball_vm_2026_damer.json` },
+    { key: "ws_men",          name: "Vintersport Menn", path: `${YEAR_DATA_DIR}/vintersport_menn.json` },
+    { key: "ws_women",        name: "Vintersport Kvinner", path: `${YEAR_DATA_DIR}/vintersport_kvinner.json` }
   ];
 
   // ---- Utilities
@@ -87,20 +98,16 @@
     return isNaN(d.getTime()) ? null : d.getTime();
   }
 
-  function nowMs() {
-    return Date.now();
-  }
-
   function withinNextDays(iso, days) {
     const ms = isoToMs(iso);
     if (ms == null) return false;
-    const max = nowMs() + days * 24 * 60 * 60 * 1000;
-    return ms >= nowMs() - (6 * 60 * 60 * 1000) && ms <= max; // allow a small past window
+    const now = Date.now();
+    const max = now + days * 24 * 60 * 60 * 1000;
+    return ms >= (now - 6 * 60 * 60 * 1000) && ms <= max;
   }
 
   function normGame(raw) {
-    // Accept different field names from your JSON history:
-    const league = raw.league ?? raw.tournament ?? raw.competition ?? "";
+    const league = raw.league ?? raw.tournament ?? raw.competition ?? raw.name ?? "";
     const home = raw.home ?? raw.homeTeam ?? raw.h ?? "";
     const away = raw.away ?? raw.awayTeam ?? raw.a ?? "";
     const kickoff = raw.kickoff ?? raw.start ?? raw.datetime ?? raw.date ?? raw.time ?? "";
@@ -109,7 +116,6 @@
 
     let whereList = [];
     if (isArr(where)) {
-      // handle list of strings or objects
       whereList = where.map(x => (typeof x === "string" ? x : (x?.name ?? ""))).filter(Boolean);
     } else if (typeof where === "string") {
       whereList = [where];
@@ -142,22 +148,14 @@
     ].join(" ").toLowerCase();
   }
 
-  // ---- Fetch with clear errors
-  async function fetchJSON(filename) {
-    const url = dataURL(filename);
+  async function fetchJSON(path) {
+    const url = urlOf(path);
     const res = await fetch(url, { cache: "no-store" });
-    if (!res.ok) {
-      throw new Error(`Kunne ikke laste ${filename} (${res.status}).\nURL: ${url}`);
-    }
+    if (!res.ok) throw new Error(`Kunne ikke laste ${path} (${res.status}).\nURL: ${url}`);
     return await res.json();
   }
 
   function extractGames(json) {
-    // Supports:
-    // 1) { games: [...] }
-    // 2) { matches: [...] }
-    // 3) [ ... ]
-    // 4) { data: [...] }
     if (isArr(json)) return json;
     if (isArr(json?.games)) return json.games;
     if (isArr(json?.matches)) return json.matches;
@@ -165,7 +163,6 @@
     return [];
   }
 
-  // ---- Render
   function showError(msg) {
     errorBox.textContent = msg;
     errorBox.classList.remove("hidden");
@@ -173,6 +170,12 @@
   function clearError() {
     errorBox.textContent = "";
     errorBox.classList.add("hidden");
+  }
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, (m) => ({
+      "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;"
+    }[m]));
   }
 
   function openModal(game) {
@@ -193,12 +196,6 @@
     modalBackdrop.setAttribute("aria-hidden", "true");
   }
 
-  function escapeHtml(s) {
-    return String(s).replace(/[&<>"']/g, (m) => ({
-      "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;"
-    }[m]));
-  }
-
   function renderList(games) {
     listEl.innerHTML = "";
     if (!games.length) {
@@ -212,28 +209,21 @@
       card.className = "card";
       card.tabIndex = 0;
 
-      const title = document.createElement("div");
-      title.className = "row";
-      title.innerHTML = `
-        <div>
-          <div class="teams">${escapeHtml(g.home || "Ukjent")} <span class="muted">vs</span> ${escapeHtml(g.away || "Ukjent")}</div>
-          <div class="muted small">${escapeHtml(g.league || "Ukjent")}</div>
+      card.innerHTML = `
+        <div class="row">
+          <div>
+            <div class="teams">${escapeHtml(g.home || "Ukjent")} <span class="muted">vs</span> ${escapeHtml(g.away || "Ukjent")}</div>
+            <div class="muted small">${escapeHtml(g.league || "Ukjent")}</div>
+          </div>
+          <div class="muted small" style="text-align:right; min-width:140px;">
+            ${escapeHtml(fmtOslo(g.kickoff))}
+          </div>
         </div>
-        <div class="muted small" style="text-align:right; min-width:140px;">
-          ${escapeHtml(fmtOslo(g.kickoff))}
+        <div class="badges">
+          <div class="badge accent">${escapeHtml(displayChannel(g.channel))}</div>
+          <div class="badge">${escapeHtml(displayWhere(g.where)[0] || "Ukjent")}</div>
         </div>
       `;
-
-      const badges = document.createElement("div");
-      badges.className = "badges";
-      const ch = displayChannel(g.channel);
-      badges.innerHTML = `
-        <div class="badge accent">${escapeHtml(ch)}</div>
-        <div class="badge">${escapeHtml(displayWhere(g.where)[0] || "Ukjent")}</div>
-      `;
-
-      card.appendChild(title);
-      card.appendChild(badges);
 
       card.addEventListener("click", () => openModal(g));
       card.addEventListener("keydown", (e) => {
@@ -244,9 +234,8 @@
     }
   }
 
-  // ---- Main load
-  let ALL = [];      // all games loaded from selected league file
-  let FILTERED = []; // filtered games
+  // ---- Main state
+  let ALL = [];
 
   function applyFilters() {
     const days = Number(daysSelect.value || 30);
@@ -260,12 +249,9 @@
         return am - bm;
       });
 
-    if (q) {
-      games = games.filter(g => gameText(g).includes(q));
-    }
+    if (q) games = games.filter(g => gameText(g).includes(q));
 
-    FILTERED = games;
-    renderList(FILTERED);
+    renderList(games);
   }
 
   async function loadSelectedLeague() {
@@ -277,21 +263,16 @@
     const league = LEAGUES.find(l => l.key === key) || LEAGUES[0];
 
     try {
-      const json = await fetchJSON(league.file);
+      const json = await fetchJSON(league.path);
       const rawGames = extractGames(json);
-      const games = rawGames.map(normGame);
+      ALL = rawGames.map(normGame);
 
-      // store
-      ALL = games;
-
-      // show updated
       const stamp = new Date().toLocaleString("no-NO", { timeZone: TZ });
-      lastUpdated.textContent = `Sist oppdatert: ${stamp} • Kilde: /data/${league.file}`;
+      lastUpdated.textContent = `Sist oppdatert: ${stamp} • Kilde: /${league.path}`;
 
       applyFilters();
     } catch (err) {
       ALL = [];
-      FILTERED = [];
       renderList([]);
       showError(String(err?.message || err));
     }
