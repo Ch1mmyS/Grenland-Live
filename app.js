@@ -1,3 +1,4 @@
+// /app.js  (KOMPLETT FIL – legg i ROOT)
 (() => {
   const TZ = "Europe/Oslo";
   const YEAR_DIR = "data/2026";
@@ -60,7 +61,6 @@
   const isArr = (v) => Array.isArray(v);
   const clampStr = (s) => (s == null ? "" : String(s));
 
-  // Prøver flere filnavn automatisk (så du slipper å matche eksakt)
   const LEAGUE_CANDIDATES = [
     { key: "eliteserien", name: "Eliteserien", files: ["eliteserien.json"] },
     { key: "obos", name: "OBOS-ligaen", files: ["obos.json", "obos-ligaen.json", "obos_ligaen.json"] },
