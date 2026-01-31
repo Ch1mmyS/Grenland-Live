@@ -1,40 +1,36 @@
-// sw.js — SAFE (avoid stale caching)
-const CACHE_NAME = "grenland-live-shell-v3";
-
-const STATIC_SHELL = [
+const CACHE = "grenland-live-v1";
+const CORE = [
   "./",
   "./index.html",
-  "./manifest.json",
-  "./icons/icon-192.png",
-  "./icons/icon-512.png"
+  "./styles.css",
+  "./app.js",
+  "./calendar.js",
+  "./calendar.html",
+  "./manifest.webmanifest"
 ];
 
 self.addEventListener("install", (event) => {
-  self.skipWaiting();
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(STATIC_SHELL))
+    caches.open(CACHE).then(c => c.addAll(CORE)).then(() => self.skipWaiting())
   );
 });
 
 self.addEventListener("activate", (event) => {
   event.waitUntil(
-    caches.keys().then((keys) =>
-      Promise.all(keys.map((k) => (k !== CACHE_NAME ? caches.delete(k) : null)))
-    )
+    caches.keys().then(keys => Promise.all(keys.map(k => (k === CACHE ? null : caches.delete(k)))))
+      .then(() => self.clients.claim())
   );
-  self.clients.claim();
 });
 
 self.addEventListener("fetch", (event) => {
   const url = new URL(event.request.url);
-  const isJS = url.pathname.endsWith("app.js");
-  const isCSS = url.pathname.endsWith("styles.css");
-  const isJSON = url.pathname.endsWith(".json");
 
-  if (isJS || isCSS || isJSON) {
-    event.respondWith(fetch(event.request));
+  // data/json: network-first (unngår “sticky” 0-kamper)
+  if (url.pathname.includes("/data/") || url.pathname.endsWith(".json")) {
+    event.respondWith(fetch(event.request).catch(() => caches.match(event.request)));
     return;
   }
 
-  event.respondWith(fetch(event.request).catch(() => caches.match(event.request)));
+  // core: cache-first
+  event.respondWith(caches.match(event.request).then(c => c || fetch(event.request)));
 });
