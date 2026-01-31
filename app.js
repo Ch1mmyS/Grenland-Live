@@ -1,3 +1,4 @@
+// /app.js
 (() => {
   const TZ = "Europe/Oslo";
 
@@ -12,7 +13,6 @@
     "Jimmys"
   ];
 
-  // --- DOM
   const leagueSelect = document.getElementById("leagueSelect");
   const daysSelect = document.getElementById("daysSelect");
   const searchInput = document.getElementById("searchInput");
@@ -34,42 +34,24 @@
   const mChannel = document.getElementById("mChannel");
   const mWhere = document.getElementById("mWhere");
 
-  // --- Where your data actually lives NOW
-  //   - league-specific JSON:  /data/2026/*.json
-  //   - optional "combined" JSON: /data/football.json etc.
-  const ROOT_DATA_DIR = "data";        // /data/
-  const YEAR_DATA_DIR = "data/2026";   // /data/2026/
-
-  // Robust URL builder for GitHub Pages + custom domain
+  const YEAR_DIR = "data/2026";
   const urlOf = (path) => new URL(`./${path}`, window.location.href).toString();
 
-  // --- League config (matches your repo filenames)
+  // ⚠️ Filnavnene her må finnes eksakt i repoet ditt under /data/2026/
   const LEAGUES = [
-    // ✅ League-specific (from /data/2026/)
-    { key: "eliteserien",      name: "Eliteserien",       path: `${YEAR_DATA_DIR}/eliteserien.json` },
-    { key: "obos",            name: "OBOS-ligaen",       path: `${YEAR_DATA_DIR}/obos.json` },
-    { key: "premier_league",  name: "Premier League",    path: `${YEAR_DATA_DIR}/premier_league.json` },
-    { key: "champions_league",name: "Champions League",  path: `${YEAR_DATA_DIR}/champions_league.json` },
-    { key: "la_liga",         name: "La Liga",           path: `${YEAR_DATA_DIR}/la_liga.json` },
-
-    // ✅ If you have more, add them here:
-    // { key:"serie_a", name:"Serie A", path:`${YEAR_DATA_DIR}/serie_a.json` },
-
-    // ✅ Combined (from /data/) – optional
-    { key: "football",        name: "Fotball (samlet)",  path: `${ROOT_DATA_DIR}/football.json` },
-    { key: "handball",        name: "Håndball (samlet)", path: `${ROOT_DATA_DIR}/handball.json` },
-    { key: "wintersport",     name: "Vintersport (samlet)", path: `${ROOT_DATA_DIR}/wintersport.json` },
-
-    // ✅ Your existing VM files (if they live in /data/2026/)
-    { key: "handball_men",    name: "Håndball VM 2026 Menn", path: `${YEAR_DATA_DIR}/handball_vm_2026_menn.json` },
-    { key: "handball_women",  name: "Håndball VM 2026 Damer", path: `${YEAR_DATA_DIR}/handball_vm_2026_damer.json` },
-    { key: "ws_men",          name: "Vintersport Menn", path: `${YEAR_DATA_DIR}/vintersport_menn.json` },
-    { key: "ws_women",        name: "Vintersport Kvinner", path: `${YEAR_DATA_DIR}/vintersport_kvinner.json` }
+    { key: "eliteserien", name: "Eliteserien", path: `${YEAR_DIR}/eliteserien.json` },
+    { key: "obos", name: "OBOS-ligaen", path: `${YEAR_DIR}/obos.json` },
+    { key: "premier_league", name: "Premier League", path: `${YEAR_DIR}/premier_league.json` },
+    { key: "champions_league", name: "Champions League", path: `${YEAR_DIR}/champions_league.json` },
+    { key: "la_liga", name: "La Liga", path: `${YEAR_DIR}/la_liga.json` },
+    { key: "handball_men", name: "Håndball VM 2026 Menn", path: `${YEAR_DIR}/handball_vm_2026_menn.json` },
+    { key: "handball_women", name: "Håndball VM 2026 Damer", path: `${YEAR_DIR}/handball_vm_2026_damer.json` },
+    { key: "ws_men", name: "Vintersport Menn", path: `${YEAR_DIR}/vintersport_menn.json` },
+    { key: "ws_women", name: "Vintersport Kvinner", path: `${YEAR_DIR}/vintersport_kvinner.json` }
   ];
 
-  // ---- Utilities
-  const clampStr = (s) => (s == null ? "" : String(s));
   const isArr = (v) => Array.isArray(v);
+  const clampStr = (s) => (s == null ? "" : String(s));
 
   function setNetStatus() {
     const online = navigator.onLine;
@@ -234,7 +216,6 @@
     }
   }
 
-  // ---- Main state
   let ALL = [];
 
   function applyFilters() {
@@ -282,10 +263,9 @@
     leagueSelect.innerHTML = LEAGUES
       .map(l => `<option value="${l.key}">${l.name}</option>`)
       .join("");
-    leagueSelect.value = "football"; // default
+    leagueSelect.value = "eliteserien";
   }
 
-  // ---- Events
   window.addEventListener("online", setNetStatus);
   window.addEventListener("offline", setNetStatus);
 
@@ -302,7 +282,6 @@
     if (e.key === "Escape") closeModal();
   });
 
-  // ---- Boot
   setNetStatus();
   initLeagueSelect();
   loadSelectedLeague();
