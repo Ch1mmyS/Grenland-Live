@@ -2,133 +2,228 @@
 <html lang="no">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Grenland Live</title>
 
-  <!-- Beholder designet ditt -->
-  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="./styles.css" />
+  <link rel="manifest" href="./manifest.webmanifest" />
 
-  <!-- PWA -->
-  <link rel="manifest" href="/manifest.webmanifest" />
+  <meta name="theme-color" content="#0b1220" />
 </head>
 
 <body>
-  <main id="app">
-    <!-- TOPP / HEADER -->
-    <header class="topbar">
+  <header id="topbar" class="topbar">
+    <div class="topbar-inner">
+      <!-- ✅ Overskrift + tekst (den du savner) -->
       <div class="brand">
-        <h1 class="title">Grenland Live</h1>
-        <div class="subtitle" id="statusLine">Laster…</div>
+        <div id="siteTitle" class="site-title">Grenland Live</div>
+        <div id="siteIntro" class="site-intro">
+          Kampoversikt, pubvisning og kalender for 2026 – alt på ett sted.
+        </div>
       </div>
 
-      <!-- NAV (ingen stil-endringer; kun struktur/IDer for JS) -->
-      <nav class="tabs" id="tabs">
-        <button class="tab active" data-tab="sport">Sport</button>
-        <button class="tab" data-tab="pubs">Puber</button>
-        <button class="tab" data-tab="events">Eventer</button>
-        <button class="tab" data-tab="vm">VM 2026</button>
-        <button class="tab" data-tab="em">EM 2026</button>
-        <button class="tab" data-tab="calendar">Kalender 2026</button>
+      <!-- ✅ Faner -->
+      <nav id="tabs" class="tabs" aria-label="Navigasjon">
+        <button class="tab-btn active" data-tab="sport" type="button">Sport</button>
+        <button class="tab-btn" data-tab="pubs" type="button">Puber</button>
+        <button class="tab-btn" data-tab="events" type="button">Eventer</button>
+        <button class="tab-btn" data-tab="vm2026" type="button">VM 2026</button>
+        <button class="tab-btn" data-tab="em2026" type="button">EM 2026</button>
+        <button class="tab-btn" data-tab="calendar" type="button">Kalender 2026</button>
       </nav>
-    </header>
+    </div>
+  </header>
 
-    <!-- CONTENT -->
-    <section class="panel">
-      <!-- SPORT -->
-      <section id="tab-sport" class="tabpane">
-        <div class="row">
-          <div class="field">
-            <label for="sportSelect">Velg liga</label>
-            <select id="sportSelect"></select>
-          </div>
+  <main id="app" class="app">
+    <!-- ===================== -->
+    <!-- SPORT TAB -->
+    <!-- ===================== -->
+    <section id="tab-sport" class="tab-panel">
+      <div class="panel">
+        <div class="row row-top">
+          <div class="col">
+            <div class="label">Velg liga</div>
+            <select id="leagueSelect" class="select">
+              <!-- ✅ Nøyaktig dropdown slik du krevde -->
+              <option value="eliteserien">Eliteserien</option>
+              <option value="obos">OBOS-ligaen</option>
+              <option value="premier_league">Premier League</option>
+              <option value="champions_league">Champions League</option>
+              <option value="la_liga">La Liga</option>
+              <option value="handball_men">Håndball Menn</option>
+              <option value="handball_women">Håndball Damer</option>
+              <option value="wintersport_men">Vintersport Menn</option>
+              <option value="wintersport_women">Vintersport Kvinner</option>
+            </select>
 
-          <div class="field">
-            <label for="searchInput">Søk</label>
-            <input id="searchInput" type="search" placeholder="Søk lag/arena/kanal…" />
-          </div>
-        </div>
-
-        <div id="sportMeta" class="muted"></div>
-        <div id="sportList" class="list"></div>
-      </section>
-
-      <!-- PUBER -->
-      <section id="tab-pubs" class="tabpane hidden">
-        <div class="row">
-          <div class="field">
-            <label for="pubSearch">Søk pub</label>
-            <input id="pubSearch" type="search" placeholder="Søk navn/by…" />
-          </div>
-        </div>
-        <div id="pubsMeta" class="muted"></div>
-        <div id="pubsList" class="list"></div>
-      </section>
-
-      <!-- EVENTER -->
-      <section id="tab-events" class="tabpane hidden">
-        <div class="row">
-          <div class="field">
-            <label for="eventSearch">Søk event</label>
-            <input id="eventSearch" type="search" placeholder="Søk tittel/sted…" />
-          </div>
-        </div>
-        <div id="eventsMeta" class="muted"></div>
-        <div id="eventsList" class="list"></div>
-      </section>
-
-      <!-- VM -->
-      <section id="tab-vm" class="tabpane hidden">
-        <div id="vmMeta" class="muted"></div>
-        <div id="vmList" class="list"></div>
-      </section>
-
-      <!-- EM -->
-      <section id="tab-em" class="tabpane hidden">
-        <div id="emMeta" class="muted"></div>
-        <div id="emList" class="list"></div>
-      </section>
-
-      <!-- KALENDER -->
-      <section id="tab-calendar" class="tabpane hidden">
-        <div class="calendarWrap">
-          <!-- Kalender til venstre -->
-          <div id="calendarRoot"></div>
-
-          <!-- Detaljer til høyre -->
-          <aside class="calendarSide">
-            <div class="calendarLegend muted">
-              <span>Prikker:</span>
-              <span>🔴 fotball</span>
-              <span>🟡 håndball</span>
-              <span>🟢 vintersport</span>
+            <div id="leagueMeta" class="muted">
+              <span id="leagueCount">0</span> kamper · <span id="leagueName">Eliteserien</span>
             </div>
+          </div>
 
-            <h3 id="calendarDayTitle">Klikk en dato</h3>
-            <div id="calendarDayList" class="list"></div>
-          </aside>
+          <div class="col right">
+            <div class="label">Søk</div>
+            <input id="searchInput" class="input" placeholder="Søk lag/arena/kanal..." />
+          </div>
         </div>
-      </section>
+
+        <div id="gamesList" class="list">
+          <div class="empty">Ingen kamper funnet.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== -->
+    <!-- PUBS TAB -->
+    <!-- ===================== -->
+    <section id="tab-pubs" class="tab-panel hidden">
+      <div class="panel">
+        <div class="row row-top">
+          <div class="col">
+            <div class="label">Puber</div>
+            <div class="muted">Hentes fra /data/content/pubs.json</div>
+          </div>
+          <div class="col right">
+            <div class="label">Søk</div>
+            <input id="pubSearchInput" class="input" placeholder="Søk pub/by..." />
+          </div>
+        </div>
+
+        <div id="pubsList" class="list">
+          <div class="empty">Ingen puber funnet.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== -->
+    <!-- EVENTS TAB -->
+    <!-- ===================== -->
+    <section id="tab-events" class="tab-panel hidden">
+      <div class="panel">
+        <div class="row row-top">
+          <div class="col">
+            <div class="label">Eventer</div>
+            <div class="muted">Hentes fra /data/events/events.json</div>
+          </div>
+          <div class="col right">
+            <div class="label">Søk</div>
+            <input id="eventSearchInput" class="input" placeholder="Søk event..." />
+          </div>
+        </div>
+
+        <div id="eventsList" class="list">
+          <div class="empty">Ingen eventer funnet.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== -->
+    <!-- VM 2026 TAB -->
+    <!-- ===================== -->
+    <section id="tab-vm2026" class="tab-panel hidden">
+      <div class="panel">
+        <div class="row row-top">
+          <div class="col">
+            <div class="label">VM 2026</div>
+            <div class="muted">Hentes fra /data/2026/vm2026_list.json</div>
+          </div>
+          <div class="col right">
+            <div class="label">Søk</div>
+            <input id="vmSearchInput" class="input" placeholder="Søk..." />
+          </div>
+        </div>
+
+        <div id="vmList" class="list">
+          <div class="empty">Ingen elementer funnet.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== -->
+    <!-- EM 2026 TAB -->
+    <!-- ===================== -->
+    <section id="tab-em2026" class="tab-panel hidden">
+      <div class="panel">
+        <div class="row row-top">
+          <div class="col">
+            <div class="label">EM 2026</div>
+            <div class="muted">Hentes fra /data/2026/em2026_list.json</div>
+          </div>
+          <div class="col right">
+            <div class="label">Søk</div>
+            <input id="emSearchInput" class="input" placeholder="Søk..." />
+          </div>
+        </div>
+
+        <div id="emList" class="list">
+          <div class="empty">Ingen elementer funnet.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== -->
+    <!-- CALENDAR TAB -->
+    <!-- ===================== -->
+    <section id="tab-calendar" class="tab-panel hidden">
+      <div class="panel">
+        <div class="row row-top">
+          <div class="col">
+            <div class="label">Kalender 2026</div>
+            <div class="muted">🔴 fotball · 🟡 håndball · 🟢 vintersport</div>
+          </div>
+        </div>
+
+        <div class="calendar-layout">
+          <div id="calendarRoot" class="calendar-root"></div>
+          <div id="calendarSide" class="calendar-side">
+            <div class="label">Valgt dato</div>
+            <div id="calendarPicked" class="muted">Klikk en dag for å se liste.</div>
+            <div id="calendarList" class="list">
+              <div class="empty">Ingen elementer.</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
   </main>
 
-  <!-- MODAL for kampdetaljer -->
-  <div id="modal" class="modal hidden" role="dialog" aria-modal="true">
-    <div class="modalBackdrop" id="modalClose"></div>
-    <div class="modalCard">
-      <div class="modalHeader">
-        <h2 id="modalTitle">Detaljer</h2>
-        <button id="modalX" class="iconBtn" aria-label="Lukk">✕</button>
+  <!-- ===================== -->
+  <!-- MODAL -->
+  <!-- ===================== -->
+  <div id="modalOverlay" class="modal-overlay hidden" role="dialog" aria-modal="true">
+    <div class="modal">
+      <div class="modal-head">
+        <div id="modalTitle" class="modal-title">Kamp</div>
+        <button id="modalClose" class="modal-close" type="button">✕</button>
       </div>
-      <div id="modalBody" class="modalBody"></div>
+
+      <div class="modal-body">
+        <div class="kv">
+          <div class="k">Tid</div>
+          <div id="modalTime" class="v">Ukjent</div>
+        </div>
+
+        <div class="kv">
+          <div class="k">Kanal</div>
+          <div id="modalChannel" class="v">Ukjent</div>
+        </div>
+
+        <div class="kv">
+          <div class="k">Hvor vises</div>
+          <div id="modalWhere" class="v">Vikinghjørnet, Gimle Pub</div>
+        </div>
+
+        <div id="modalMeta" class="muted"></div>
+      </div>
     </div>
   </div>
 
-  <script src="/app.js"></script>
-  <script src="/calendar.js"></script>
+  <script defer src="./app.js"></script>
+  <script defer src="./calendar.js"></script>
   <script>
-    // SW (beholder PWA)
+    // Register SW (hvis du vil) – men uten aggressiv caching
     if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("/sw.js").catch(() => {});
+      navigator.serviceWorker.register("./sw.js").catch(()=>{});
     }
   </script>
 </body>
