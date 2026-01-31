@@ -268,14 +268,9 @@ select:focus, input:focus{ border-color: rgba(96,165,250,.55); box-shadow:0 0 0 
   .hero-sub{ font-size:12px; }
   .tabs{ justify-content:center; }
 }
-
-/* Fjern liten tittel ved logo */
 .brand .title,
 .brand .subtitle{
   display:none !important;
-}
-
-/* Fjern Online-status */
 .status{
   display:none !important;
 }
