@@ -1,12 +1,11 @@
+<!-- /index.html -->
 <!doctype html>
 <html lang="no">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Grenland Live</title>
-  <meta name="description" content="Kamper + hvor de vises i Grenland." />
-
-  <link rel="icon" href="favicon.ico" />
+  <link rel="icon" href="logo.ico" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -58,7 +57,7 @@
       </div>
 
       <div class="meta">
-        <div id="hint" class="hint">Klikk på en kamp for detaljer.</div>
+        <div class="hint">Klikk på en kamp for detaljer.</div>
         <div id="lastUpdated" class="muted"></div>
       </div>
     </section>
@@ -66,7 +65,6 @@
     <section class="panel">
       <div id="errorBox" class="error hidden"></div>
       <div id="emptyBox" class="empty hidden">Ingen kamper funnet i valgt periode.</div>
-
       <div id="list" class="list"></div>
     </section>
 
@@ -93,18 +91,12 @@
           </div>
 
           <div class="muted small">
-            Tips: Hvis noe står “Ukjent”, mangler det felt i JSON-dataene.
+            Hvis noe står “Ukjent”, mangler felt i JSON-dataene.
           </div>
         </div>
       </div>
     </section>
   </main>
-
-  <footer class="footer wrap">
-    <div class="muted small">
-      Data leses fra <code>/data/*.json</code>. Domenet ditt: <code>www.grenland-live.no</code>
-    </div>
-  </footer>
 
   <script src="app.js"></script>
 </body>
