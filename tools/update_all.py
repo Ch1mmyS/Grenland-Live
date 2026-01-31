@@ -1,389 +1,288 @@
-# tools/update_all.py
-from __future__ import annotations
+import json, re, os
+from datetime import datetime
+from dateutil import parser as dtparse
+import pytz
+import requests
+from PyPDF2 import PdfReader
+from io import BytesIO
 
-import sys
-import json
-import traceback
-from pathlib import Path
+TZ = pytz.timezone("Europe/Oslo")
 
-# --- ensure repo root is on PYTHONPATH ---
-ROOT = Path(__file__).resolve().parents[1]
-if str(ROOT) not in sys.path:
-    sys.path.insert(0, str(ROOT))
+OUT_DIR_2026 = "data/2026"
+PUBS_FILE = "data/content/pubs.json"  # ✅ din plassering
 
-from tools.lib.normalize import make_doc, normalize_item
-from tools.lib.schema import validate_doc
-from tools.lib.timeutil import now_oslo_iso
+def http_get(url: str) -> bytes:
+    r = requests.get(url, timeout=60)
+    r.raise_for_status()
+    return r.content
 
-from tools.providers.nff_ics import fetch as fetch_nff_ics
-from tools.providers.fixturedownload_json import fetch as fetch_fd_json
-from tools.providers.biathlon_api import fetch as fetch_biathlon
+def write_json(path: str, obj):
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(obj, f, ensure_ascii=False, indent=2)
 
-SOURCES_PATH = Path("data/_meta/sources.json")
-STATUS_PATH  = Path("data/_meta/pipeline_status.json")
+def read_json(path: str):
+    with open(path, "r", encoding="utf-8") as f:
+        return json.load(f)
 
-# Files your FRONTEND expects (legacy paths)
-LEGACY_FOOTBALL_FILES = {
-    "Eliteserien": "data/eliteserien.json",
-    "OBOS-ligaen": "data/obos.json",
-    "Premier League": "data/premier_league.json",
-    "Champions League": "data/champions.json",
-    "La Liga": "data/laliga.json",
-}
+def safe_dt(s: str):
+    try:
+        return dtparse.parse(s)
+    except:
+        return None
 
-LEGACY_ALIAS_FILES = {
-    "data/handball_vm_2026_menn.json": "data/2026/handball_men.json",
-    "data/handball_vm_2026_damer.json": "data/2026/handball_women.json",
-    "data/vintersport_menn.json": "data/2026/wintersport_men.json",
-    "data/vintersport_kvinner.json": "data/2026/wintersport_women.json",
-}
+def to_iso_oslo(dt: datetime) -> str:
+    if dt.tzinfo is None:
+        dt = TZ.localize(dt)
+    return dt.astimezone(TZ).isoformat()
 
-def _write_json(path: Path, obj: dict) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(obj, ensure_ascii=False, indent=2), encoding="utf-8")
-
-def _read_json(path: Path) -> dict:
-    return json.loads(path.read_text(encoding="utf-8"))
-
-def _load_conf() -> dict:
-    return json.loads(SOURCES_PATH.read_text(encoding="utf-8"))
-
-def _record_error(status: dict, out_path: str, exc: Exception) -> None:
-    status["targets"][out_path] = {
-        "ok": False,
-        "items": 0,
-        "error": str(exc),
-        "traceback": traceback.format_exc()
+def normalize_match(sport, league, home, away, kickoff, channel="Ukjent", where=None):
+    if where is None: where = []
+    if not where:
+        where = ["Vikinghjørnet", "Gimle Pub"]
+    return {
+        "sport": sport,
+        "league": league,
+        "home": home,
+        "away": away,
+        "kickoff": kickoff,
+        "channel": channel or "Ukjent",
+        "where": where
     }
 
-def _empty_doc(*, sport: str, name: str, season: str, source_ids: list[str]) -> dict:
-    doc = {
-        "meta": {
-            "season": season,
+def load_pubs_default():
+    pubs = read_json(PUBS_FILE).get("pubs", [])
+    base = ["Vikinghjørnet", "Gimle Pub"]
+    rest = [p.get("name","").strip() for p in pubs if p.get("name") and p.get("name") not in base]
+    return base + rest
+
+DEFAULT_WHERE = None
+
+# ---------------------------
+# FOOTBALL (FixtureDownload JSON feeds)
+# ---------------------------
+def fetch_fixturedownload_json(url, league_name):
+    raw = json.loads(http_get(url).decode("utf-8", errors="ignore"))
+    games = []
+
+    items = raw
+    if isinstance(raw, dict):
+        for key in ["matches", "fixtures", "games", "data"]:
+            if isinstance(raw.get(key), list):
+                items = raw[key]
+                break
+
+    for it in items:
+        home = it.get("HomeTeam") or it.get("home") or it.get("homeTeam") or ""
+        away = it.get("AwayTeam") or it.get("away") or it.get("awayTeam") or ""
+        dt = it.get("DateUtc") or it.get("date") or it.get("kickoff") or it.get("start") or it.get("Date") or ""
+        d = safe_dt(dt)
+        if not d:
+            continue
+        kickoff = to_iso_oslo(d)
+        games.append(normalize_match("Fotball", league_name, home, away, kickoff, channel="Ukjent", where=DEFAULT_WHERE))
+    return games
+
+# ---------------------------
+# HANDball EM (EHF PDF parse - menn)
+# ---------------------------
+def pdf_text(url):
+    b = http_get(url)
+    r = PdfReader(BytesIO(b))
+    txt = ""
+    for page in r.pages:
+        t = page.extract_text() or ""
+        txt += t + "\n"
+    return txt
+
+def fetch_ehf_pdf_schedule(pdf_url, league_name):
+    text = pdf_text(pdf_url)
+    lines = [re.sub(r"\s+", " ", ln).strip() for ln in text.splitlines() if ln.strip()]
+
+    games = []
+    date_re = re.compile(r"(\d{1,2}\.\d{1,2}\.\d{4})")
+    time_re = re.compile(r"(\d{1,2}:\d{2})")
+
+    # Veldig tolerant “TEAM - TEAM”
+    vs_re = re.compile(r"([A-ZÆØÅ][A-ZÆØÅ \-\.]{2,})\s-\s([A-ZÆØÅ][A-ZÆØÅ \-\.]{2,})")
+
+    current_date = None
+    for ln in lines:
+        mdate = date_re.search(ln)
+        if mdate:
+            current_date = mdate.group(1)
+
+        mvs = vs_re.search(ln)
+        mtime = time_re.search(ln)
+
+        if current_date and mvs and mtime:
+            d = safe_dt(f"{current_date} {mtime.group(1)}")
+            if not d:
+                continue
+            kickoff = to_iso_oslo(d)
+            home = mvs.group(1).strip().title()
+            away = mvs.group(2).strip().title()
+            games.append(normalize_match("Håndball", league_name, home, away, kickoff, channel="Ukjent", where=DEFAULT_WHERE))
+    return games
+
+# ---------------------------
+# WINTERSPORT - “ramme” for alt (legg til flere kilder når du vil)
+# Vi starter med store blokker: Alpine + Langrenn + Hopp (FIS)
+# Disse sidene kan endres, men er offisielle FIS.
+# ---------------------------
+WINTER_SOURCES = [
+    # FIS Alpine calendar page provides season calendar (official)  :contentReference[oaicite:4]{index=4}
+    {"key":"alpine_wc", "name":"Vintersport – Alpint (FIS)", "type":"fis_page", "url":"https://www.fis-ski.com/DB/alpine-skiing/calendar-results.html?seasoncode=2026&categorycode=WC"},
+    # FIS Cross-country calendar page (official) :contentReference[oaicite:5]{index=5}
+    {"key":"xc_wc", "name":"Vintersport – Langrenn (FIS)", "type":"fis_page", "url":"https://www.fis-ski.com/DB/cross-country/calendar-results.html?seasoncode=2026&categorycode=WC"},
+    # FIS Ski Jumping calendar page (official) :contentReference[oaicite:6]{index=6}
+    {"key":"sj_wc", "name":"Vintersport – Hopp (FIS)", "type":"fis_page", "url":"https://www.fis-ski.com/DB/ski-jumping/calendar-results.html?seasoncode=2026&categorycode=WC"},
+]
+
+def fetch_fis_calendar_page(url, league_name):
+    """
+    FIS sider viser kalender i tabell. Vi henter HTML og prøver å plukke ut:
+    - dato (YYYY-MM-DD eller dd.mm.yyyy)
+    - sted
+    - event title
+    FIS HTML kan endre seg; hvis parsing feiler, lager vi tom liste (frontend går fortsatt).
+    """
+    html = http_get(url).decode("utf-8", errors="ignore")
+
+    # Finn datoer i ISO/tekst – best effort
+    # Vi leter etter YYYY-MM-DD først:
+    dates = re.findall(r"\b(20\d{2}-\d{2}-\d{2})\b", html)
+    # fallback: dd.mm.yyyy
+    dates2 = re.findall(r"\b(\d{1,2}\.\d{1,2}\.20\d{2})\b", html)
+
+    # Vi kan ikke garantere tider her → setter 12:00 hvis mangler
+    # (Når du vil ha 100% tider, legger vi inn spesifikke ICS/PDF per sport/arrangør)
+    games = []
+    used = set()
+
+    for dstr in (dates[:400] + dates2[:400]):
+        if dstr in used:
+            continue
+        used.add(dstr)
+        d = safe_dt(dstr)
+        if not d:
+            continue
+        # default midt på dagen
+        d = d.replace(hour=12, minute=0, second=0)
+        kickoff = to_iso_oslo(d)
+
+        # eventtext “Vintersport” (placeholder)
+        games.append(normalize_match("Vintersport", league_name, "Vintersport", dstr, kickoff, channel="Ukjent", where=DEFAULT_WHERE))
+
+    return games
+
+def build_index(league_files):
+    return {
+        "generated_at": to_iso_oslo(datetime.now(TZ)),
+        "leagues": league_files
+    }
+
+def build_calendar_feed(all_games):
+    out = []
+    for g in all_games:
+        sport = g.get("sport","")
+        color = "red" if sport == "Fotball" else ("yellow" if sport == "Håndball" else ("green" if sport == "Vintersport" else "gray"))
+        out.append({
+            "date": g["kickoff"][:10],
+            "kickoff": g["kickoff"],
             "sport": sport,
-            "name": name,
-            "generated_at": now_oslo_iso(),
-            "source_ids": source_ids
-        },
-        "items": []
+            "color": color,
+            "league": g["league"],
+            "home": g["home"],
+            "away": g["away"],
+            "channel": g["channel"],
+            "where": g["where"],
+        })
+    return {
+        "generated_at": to_iso_oslo(datetime.now(TZ)),
+        "items": out
     }
-    validate_doc(doc)
-    return doc
 
-# ---------------- FOOTBALL (2026 aggregate) ----------------
-def _run_football(conf: dict) -> tuple[int, list[str]]:
-    year = str(conf["year"])
-    out_path = Path(conf["outputs"]["football"])
-
-    items: list[dict] = []
-    source_ids: list[str] = []
-
-    for src in conf["sports"]["football"]:
-        if not src.get("enabled", True):
+def group_by_month(games):
+    items = sorted(games, key=lambda x: x.get("kickoff",""))
+    grouped = {}
+    for g in items:
+        d = safe_dt(g.get("kickoff",""))
+        if not d:
             continue
-
-        key = src["key"]
-        name = src["name"]
-        typ = src["type"]
-        url = src["url"]
-        default_tv = src.get("default_tv")
-
-        source_ids.append(key)
-
-        if typ == "nff_ics":
-            events = fetch_nff_ics(url)
-        elif typ == "fixturedownload_json":
-            events = fetch_fd_json(url)
-        else:
-            raise RuntimeError(f"Unknown football type: {typ} ({key})")
-
-        for ev in events:
-            items.append(normalize_item(
-                sport="football",
-                season=year,
-                league=name,
-                start=ev["start"],
-                home=ev.get("home"),
-                away=ev.get("away"),
-                title=ev.get("title"),
-                channel=default_tv,
-                where=None,
-                venue=ev.get("venue"),
-                country=None,
-                status="scheduled",
-                source_id=key,
-                source_type=typ,
-                source_url=url
-            ))
-
-    items.sort(key=lambda x: x["start"])
-
-    doc = make_doc(
-        sport="football",
-        name="Football 2026",
-        season=year,
-        source_ids=source_ids,
-        items=items
-    )
-    validate_doc(doc)
-    _write_json(out_path, doc)
-    return len(items), source_ids
-
-# ---------------- HANDBALL (2026 men/women) ----------------
-def _run_handball(conf: dict, gender: str) -> tuple[int, list[str]]:
-    year = str(conf["year"])
-    out_path = Path(conf["outputs"][f"handball_{gender}"])
-
-    items: list[dict] = []
-    source_ids: list[str] = []
-
-    from tools.providers.handball_pdf import fetch as fetch_handball_pdf
-
-    for src in conf["sports"]["handball"][gender]:
-        if not src.get("enabled", True):
-            continue
-
-        key = src["key"]
-        name = src["name"]
-        typ = src["type"]
-        channel = src.get("channel")
-        pdf_url = src.get("pdf_url")
-
-        source_ids.append(key)
-
-        if typ != "handball_pdf":
-            raise RuntimeError(f"Unknown handball type: {typ} ({key})")
-        if not pdf_url:
-            raise RuntimeError(f"{key}: pdf_url is empty")
-
-        events = fetch_handball_pdf(pdf_url)
-
-        for ev in events:
-            items.append(normalize_item(
-                sport="handball",
-                season=year,
-                league=name,
-                start=ev["start"],
-                home=ev.get("home"),
-                away=ev.get("away"),
-                title=ev.get("title"),
-                channel=channel,
-                where=None,
-                venue=ev.get("venue"),
-                country=None,
-                status="scheduled",
-                source_id=key,
-                source_type="handball_pdf",
-                source_url=pdf_url
-            ))
-
-    items.sort(key=lambda x: x["start"])
-
-    doc = make_doc(
-        sport="handball",
-        name=f"Handball {gender.capitalize()} 2026",
-        season=year,
-        source_ids=source_ids,
-        items=items
-    )
-    validate_doc(doc)
-    _write_json(out_path, doc)
-    return len(items), source_ids
-
-# ---------------- WINTERSPORT (2026 men/women) ----------------
-def _run_wintersport(conf: dict, gender: str) -> tuple[int, list[str]]:
-    year = str(conf["year"])
-    out_path = Path(conf["outputs"][f"wintersport_{gender}"])
-
-    items: list[dict] = []
-    source_ids: list[str] = []
-
-    for src in conf["sports"]["wintersport"][gender]:
-        if not src.get("enabled", True):
-            continue
-
-        key = src["key"]
-        name = src["name"]
-        typ = src["type"]
-        channel = src.get("channel")
-        api = src["api"]
-
-        source_ids.append(key)
-
-        if typ != "biathlon_api":
-            raise RuntimeError(f"Unknown wintersport type: {typ} ({key})")
-
-        base_url = api["base_url"].replace("https://api.biathlonresults.com", "https://biathlonresults.com").rstrip("/")
-        season_id = int(api["season_id"])
-        level = int(api.get("level", 3))
-
-        events = fetch_biathlon(base_url=base_url, season_id=season_id, level=level, gender=gender)
-
-        for ev in events:
-            items.append(normalize_item(
-                sport="wintersport",
-                season=year,
-                league=name,
-                start=ev["start"],
-                home=None,
-                away=None,
-                title=ev.get("title"),
-                channel=channel,
-                where=None,
-                venue=ev.get("venue"),
-                country=None,
-                status="scheduled",
-                source_id=key,
-                source_type="biathlon_api",
-                source_url=f"{base_url}/Events?SeasonId={season_id}&Level={level}"
-            ))
-
-    items.sort(key=lambda x: x["start"])
-
-    doc = make_doc(
-        sport="wintersport",
-        name=f"Wintersport {gender.capitalize()} 2026",
-        season=year,
-        source_ids=source_ids,
-        items=items
-    )
-    validate_doc(doc)
-    _write_json(out_path, doc)
-    return len(items), source_ids
-
-# ---------------- LEGACY WRITERS (always create files to stop 404) ----------------
-def _write_legacy_football_per_league(conf: dict) -> dict[str, int]:
-    """
-    Always writes:
-      data/eliteserien.json, data/obos.json, data/premier_league.json, data/champions.json, data/laliga.json
-    If data/2026/football.json exists -> filter by league.
-    Else -> write empty docs (still prevents 404).
-    """
-    year = str(conf["year"])
-    src_path = Path(conf["outputs"]["football"])
-
-    if src_path.exists():
-        src_doc = _read_json(src_path)
-        src_items = src_doc.get("items", [])
-        generated_at = (src_doc.get("meta") or {}).get("generated_at", now_oslo_iso())
-        source_ids = (src_doc.get("meta") or {}).get("source_ids", [])
-    else:
-        src_items = []
-        generated_at = now_oslo_iso()
-        source_ids = []
-
-    counts: dict[str, int] = {}
-
-    for league_name, out_file in LEGACY_FOOTBALL_FILES.items():
-        out_path = Path(out_file)
-        league_items = [it for it in src_items if it.get("league") == league_name]
-        league_items.sort(key=lambda x: x.get("start") or "")
-
-        out_doc = {
-            "meta": {
-                "season": year,
-                "sport": "football",
-                "name": league_name,
-                "generated_at": generated_at,
-                "source_ids": source_ids
-            },
-            "items": league_items
-        }
-        validate_doc(out_doc)
-        _write_json(out_path, out_doc)
-        counts[out_file] = len(league_items)
-
-    return counts
-
-def _write_legacy_alias_copies(conf: dict) -> dict[str, str]:
-    """
-    Always writes:
-      data/handball_vm_2026_menn.json
-      data/handball_vm_2026_damer.json
-      data/vintersport_menn.json
-      data/vintersport_kvinner.json
-    If source exists -> copy.
-    Else -> write empty docs (still prevents 404).
-    """
-    year = str(conf["year"])
-    results: dict[str, str] = {}
-
-    for legacy_path, src_path in LEGACY_ALIAS_FILES.items():
-        dst = Path(legacy_path)
-        src = Path(src_path)
-
-        if src.exists():
-            dst.parent.mkdir(parents=True, exist_ok=True)
-            dst.write_text(src.read_text(encoding="utf-8"), encoding="utf-8")
-            results[legacy_path] = f"copied from {src_path}"
-        else:
-            # write empty doc as safe fallback
-            if "handball" in legacy_path:
-                doc = _empty_doc(sport="handball", name=dst.stem, season=year, source_ids=[])
-            else:
-                doc = _empty_doc(sport="wintersport", name=dst.stem, season=year, source_ids=[])
-            _write_json(dst, doc)
-            results[legacy_path] = f"wrote empty (missing {src_path})"
-
-    return results
+        d = d.astimezone(TZ)
+        key = d.strftime("%Y-%m")
+        grouped.setdefault(key, []).append(g)
+    return [{"month": ym, "games": grouped[ym]} for ym in sorted(grouped.keys())]
 
 def main():
-    conf = _load_conf()
+    global DEFAULT_WHERE
+    DEFAULT_WHERE = load_pubs_default()
 
-    status = {
-        "last_run": now_oslo_iso(),
-        "targets": {},
-        "legacy": {}
-    }
+    league_files = []
+    all_games = []
 
-    # 2026 targets (these may fail, but we still write legacy fallbacks)
-    # Football aggregate
-    out = conf["outputs"]["football"]
-    try:
-        n, srcs = _run_football(conf)
-        status["targets"][out] = {"ok": True, "items": n, "sources": srcs}
-    except Exception as e:
-        _record_error(status, out, e)
+    # --------- FOOTBALL SOURCES ----------
+    football_sources = [
+        {"key":"eliteserien","name":"Eliteserien","url":"https://fixturedownload.com/feed/json/eliteserien-2026"},
+        {"key":"obos","name":"OBOS-ligaen","url":"https://fixturedownload.com/feed/json/obos-ligaen-2026"},
+        {"key":"premier_league","name":"Premier League","url":"https://fixturedownload.com/feed/json/epl-2025"},
+        {"key":"champions_league","name":"Champions League","url":"https://fixturedownload.com/feed/json/champions-league-2025"},
+        {"key":"la_liga","name":"La Liga","url":"https://fixturedownload.com/feed/json/la-liga-2025"},
+    ]
 
-    # Handball men/women
-    for gender in ("men", "women"):
-        out = conf["outputs"][f"handball_{gender}"]
+    for src in football_sources:
         try:
-            n, srcs = _run_handball(conf, gender)
-            status["targets"][out] = {"ok": True, "items": n, "sources": srcs}
-        except Exception as e:
-            _record_error(status, out, e)
+            games = fetch_fixturedownload_json(src["url"], src["name"])
+        except Exception:
+            games = []
+        path = f"{OUT_DIR_2026}/{src['key']}.json"
+        write_json(path, {"games": games})
+        league_files.append({"key": src["key"], "name": src["name"], "path": path.replace("\\","/"), "sport":"Fotball"})
+        all_games.extend(games)
 
-    # Wintersport men/women
-    for gender in ("men", "women"):
-        out = conf["outputs"][f"wintersport_{gender}"]
-        try:
-            n, srcs = _run_wintersport(conf, gender)
-            status["targets"][out] = {"ok": True, "items": n, "sources": srcs}
-        except Exception as e:
-            _record_error(status, out, e)
-
-    # Legacy outputs (always create files to stop frontend 404)
+    # --------- EM 2026 (HÅNDBALL MENN) ----------
+    # Official match schedule PDF :contentReference[oaicite:7]{index=7}
+    ehf_men_pdf = "https://tickets.eurohandball.com/fileadmin/fm_de/EHF2026M/250901_EHF2026-M_Match_Schedule_new.pdf"
     try:
-        counts = _write_legacy_football_per_league(conf)
-        status["legacy"]["football_per_league"] = {"ok": True, "counts": counts}
-    except Exception as e:
-        status["legacy"]["football_per_league"] = {"ok": False, "error": str(e), "traceback": traceback.format_exc()}
+        em_men = fetch_ehf_pdf_schedule(ehf_men_pdf, "EM 2026 – Håndball Menn")
+    except Exception:
+        em_men = []
+    em_men_path = f"{OUT_DIR_2026}/em_handball_men.json"
+    write_json(em_men_path, {"games": em_men})
+    league_files.append({"key":"em_handball_men","name":"EM 2026 – Håndball Menn","path":em_men_path.replace("\\","/"),"sport":"Håndball"})
+    all_games.extend(em_men)
 
-    try:
-        results = _write_legacy_alias_copies(conf)
-        status["legacy"]["aliases"] = {"ok": True, "results": results}
-    except Exception as e:
-        status["legacy"]["aliases"] = {"ok": False, "error": str(e), "traceback": traceback.format_exc()}
+    # (Kvinne-EM 2026: EHF-side er JS, legg til PDF/JSON-kilde når du har den)
+    em_women_path = f"{OUT_DIR_2026}/em_handball_women.json"
+    if not os.path.exists(em_women_path):
+        write_json(em_women_path, {"games": []})
+    league_files.append({"key":"em_handball_women","name":"EM 2026 – Håndball Damer","path":em_women_path.replace("\\","/"),"sport":"Håndball"})
 
-    _write_json(STATUS_PATH, status)
+    # --------- WINTERSPORT (BEST EFFORT) ----------
+    for ws in WINTER_SOURCES:
+      try:
+          games = fetch_fis_calendar_page(ws["url"], ws["name"])
+      except Exception:
+          games = []
+      path = f"{OUT_DIR_2026}/{ws['key']}.json"
+      write_json(path, {"games": games})
+      league_files.append({"key": ws["key"], "name": ws["name"], "path": path.replace("\\","/"), "sport":"Vintersport"})
+      all_games.extend(games)
 
-    print("---- pipeline_status.json ----")
-    print(json.dumps(status, ensure_ascii=False, indent=2))
-    print("---- end ----")
+    # --------- INDEX + CALENDAR FEED ----------
+    write_json(f"{OUT_DIR_2026}/index.json", build_index(league_files))
+    write_json(f"{OUT_DIR_2026}/calendar_feed.json", build_calendar_feed(all_games))
 
-    # Always exit 0 so Pages keeps updating (status.json shows failures)
-    return 0
+    # --------- VM 2026 / EM 2026 LISTS ----------
+    # VM-lista = “alt vi har” gruppert pr mnd (du kan senere filtrere til VM-only)
+    write_json(f"{OUT_DIR_2026}/vm2026_list.json", {"generated_at": to_iso_oslo(datetime.now(TZ)), "months": group_by_month(all_games)})
+
+    # EM-lista = foreløpig håndball EM filer (menn + kvinner)
+    em_games = []
+    em_games.extend(em_men)
+    # kvinner tom inntil kilde legges inn
+    write_json(f"{OUT_DIR_2026}/em2026_list.json", {"generated_at": to_iso_oslo(datetime.now(TZ)), "months": group_by_month(em_games)})
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    main()
