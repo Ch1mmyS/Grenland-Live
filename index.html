@@ -2,153 +2,134 @@
 <html lang="no">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Grenland Live</title>
-  <link rel="icon" href="logo.ico" />
-  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Beholder designet ditt -->
+  <link rel="stylesheet" href="/styles.css" />
+
+  <!-- PWA -->
+  <link rel="manifest" href="/manifest.webmanifest" />
 </head>
+
 <body>
-  <header class="topbar">
-    <div class="wrap header-grid">
+  <main id="app">
+    <!-- TOPP / HEADER -->
+    <header class="topbar">
       <div class="brand">
-        <div class="logo">GL</div>
-        <div>
-          <div class="title">Grenland Live</div>
-          <div class="subtitle">Kamper • Kanaler • Pub</div>
-        </div>
+        <h1 class="title">Grenland Live</h1>
+        <div class="subtitle" id="statusLine">Laster…</div>
       </div>
 
-      <div class="hero" aria-label="Intro">
-        <div class="hero-title">Grenland Live</div>
-        <div class="hero-sub">
-          Grenland Live samler kamper, puber og events i Grenland – så du alltid vet hva som skjer, hvor det skjer og når det skjer
-        </div>
-      </div>
-
-      <div class="status">
-        <span id="netDot" class="dot"></span>
-        <span id="netText">Sjekker…</span>
-      </div>
-
-      <nav class="tabs" aria-label="Hovedmeny">
-        <button class="tab active" data-view="sport" type="button">Sport</button>
-        <button class="tab" data-view="puber" type="button">Puber</button>
-        <button class="tab" data-view="eventer" type="button">Eventer</button>
-        <button class="tab" data-view="vm" type="button">VM 2026</button>
-        <button class="tab" data-view="em" type="button">EM 2026</button>
-        <button class="tab" data-view="kalender" type="button">Kalender 2026</button>
+      <!-- NAV (ingen stil-endringer; kun struktur/IDer for JS) -->
+      <nav class="tabs" id="tabs">
+        <button class="tab active" data-tab="sport">Sport</button>
+        <button class="tab" data-tab="pubs">Puber</button>
+        <button class="tab" data-tab="events">Eventer</button>
+        <button class="tab" data-tab="vm">VM 2026</button>
+        <button class="tab" data-tab="em">EM 2026</button>
+        <button class="tab" data-tab="calendar">Kalender 2026</button>
       </nav>
-    </div>
-  </header>
+    </header>
 
-  <main class="wrap main">
-    <!-- SPORT -->
-    <section id="view-sport" class="panel view">
-      <div class="controls">
-        <div class="control">
-          <label for="leagueSelect">Liga</label>
-          <select id="leagueSelect"></select>
-        </div>
-
-        <div class="control">
-          <label for="daysSelect">Vis</label>
-          <select id="daysSelect">
-            <option value="7">Neste 7 dager</option>
-            <option value="14">Neste 14 dager</option>
-            <option value="30" selected>Neste 30 dager</option>
-            <option value="90">Neste 90 dager</option>
-            <option value="365">Hele året</option>
-          </select>
-        </div>
-
-        <div class="control">
-          <label for="searchInput">Søk</label>
-          <input id="searchInput" type="search" placeholder="Lag, liga, kanal, pub…" />
-        </div>
-
-        <div class="control right">
-          <label>&nbsp;</label>
-          <button id="refreshBtn" class="btn" type="button">Oppdater</button>
-        </div>
-      </div>
-
-      <div class="meta">
-        <div class="hint">Klikk på en kamp for detaljer.</div>
-        <div id="lastUpdated" class="muted"></div>
-      </div>
-
-      <div id="errorBox" class="error hidden"></div>
-      <div id="emptyBox" class="empty hidden">Ingen kamper funnet i valgt periode.</div>
-      <div id="list" class="list"></div>
-    </section>
-
-    <!-- PUBER -->
-    <section id="view-puber" class="panel view hidden">
-      <h2 class="h2">Puber</h2>
-      <div id="pubsError" class="error hidden"></div>
-      <div id="pubsList" class="list" style="margin-top:12px;"></div>
-    </section>
-
-    <!-- EVENTER -->
-    <section id="view-eventer" class="panel view hidden">
-      <h2 class="h2">Eventer</h2>
-      <div id="eventsError" class="error hidden"></div>
-      <div id="eventsList" class="list" style="margin-top:12px;"></div>
-    </section>
-
-    <!-- VM -->
-    <section id="view-vm" class="panel view hidden">
-      <h2 class="h2">VM 2026</h2>
-      <div id="vmError" class="error hidden"></div>
-      <div id="vmList" class="list" style="margin-top:12px;"></div>
-    </section>
-
-    <!-- EM -->
-    <section id="view-em" class="panel view hidden">
-      <h2 class="h2">EM 2026</h2>
-      <div id="emError" class="error hidden"></div>
-      <div id="emList" class="list" style="margin-top:12px;"></div>
-    </section>
-
-    <!-- KALENDER -->
-    <section id="view-kalender" class="panel view hidden">
-      <h2 class="h2">Kalender 2026</h2>
-      <div class="empty" style="margin-top:12px;">
-        Åpne kalender: <a class="link" href="calendar.html">calendar.html</a>
-      </div>
-    </section>
-
-    <!-- MODAL -->
-    <section id="modalBackdrop" class="modal-backdrop hidden" aria-hidden="true">
-      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-        <div class="modal-head">
-          <div>
-            <div id="modalTitle" class="modal-title">Kamp</div>
-            <div id="modalSub" class="modal-sub muted"></div>
-          </div>
-          <button id="modalClose" class="iconbtn" aria-label="Lukk" type="button">✕</button>
-        </div>
-
-        <div class="modal-body">
-          <div class="kv">
-            <div class="k">Tid</div>
-            <div id="mTime" class="v">—</div>
-
-            <div class="k">Kanal</div>
-            <div id="mChannel" class="v">—</div>
-
-            <div class="k">Hvor vises</div>
-            <div id="mWhere" class="v">—</div>
+    <!-- CONTENT -->
+    <section class="panel">
+      <!-- SPORT -->
+      <section id="tab-sport" class="tabpane">
+        <div class="row">
+          <div class="field">
+            <label for="sportSelect">Velg liga</label>
+            <select id="sportSelect"></select>
           </div>
 
-          <div class="muted small">
-            Hvis noe står “Ukjent”, mangler felt i JSON-dataene.
+          <div class="field">
+            <label for="searchInput">Søk</label>
+            <input id="searchInput" type="search" placeholder="Søk lag/arena/kanal…" />
           </div>
         </div>
-      </div>
+
+        <div id="sportMeta" class="muted"></div>
+        <div id="sportList" class="list"></div>
+      </section>
+
+      <!-- PUBER -->
+      <section id="tab-pubs" class="tabpane hidden">
+        <div class="row">
+          <div class="field">
+            <label for="pubSearch">Søk pub</label>
+            <input id="pubSearch" type="search" placeholder="Søk navn/by…" />
+          </div>
+        </div>
+        <div id="pubsMeta" class="muted"></div>
+        <div id="pubsList" class="list"></div>
+      </section>
+
+      <!-- EVENTER -->
+      <section id="tab-events" class="tabpane hidden">
+        <div class="row">
+          <div class="field">
+            <label for="eventSearch">Søk event</label>
+            <input id="eventSearch" type="search" placeholder="Søk tittel/sted…" />
+          </div>
+        </div>
+        <div id="eventsMeta" class="muted"></div>
+        <div id="eventsList" class="list"></div>
+      </section>
+
+      <!-- VM -->
+      <section id="tab-vm" class="tabpane hidden">
+        <div id="vmMeta" class="muted"></div>
+        <div id="vmList" class="list"></div>
+      </section>
+
+      <!-- EM -->
+      <section id="tab-em" class="tabpane hidden">
+        <div id="emMeta" class="muted"></div>
+        <div id="emList" class="list"></div>
+      </section>
+
+      <!-- KALENDER -->
+      <section id="tab-calendar" class="tabpane hidden">
+        <div class="calendarWrap">
+          <!-- Kalender til venstre -->
+          <div id="calendarRoot"></div>
+
+          <!-- Detaljer til høyre -->
+          <aside class="calendarSide">
+            <div class="calendarLegend muted">
+              <span>Prikker:</span>
+              <span>🔴 fotball</span>
+              <span>🟡 håndball</span>
+              <span>🟢 vintersport</span>
+            </div>
+
+            <h3 id="calendarDayTitle">Klikk en dato</h3>
+            <div id="calendarDayList" class="list"></div>
+          </aside>
+        </div>
+      </section>
     </section>
   </main>
 
-  <script src="app.js"></script>
+  <!-- MODAL for kampdetaljer -->
+  <div id="modal" class="modal hidden" role="dialog" aria-modal="true">
+    <div class="modalBackdrop" id="modalClose"></div>
+    <div class="modalCard">
+      <div class="modalHeader">
+        <h2 id="modalTitle">Detaljer</h2>
+        <button id="modalX" class="iconBtn" aria-label="Lukk">✕</button>
+      </div>
+      <div id="modalBody" class="modalBody"></div>
+    </div>
+  </div>
+
+  <script src="/app.js"></script>
+  <script src="/calendar.js"></script>
+  <script>
+    // SW (beholder PWA)
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("/sw.js").catch(() => {});
+    }
+  </script>
 </body>
 </html>
