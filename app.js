@@ -1,3 +1,29 @@
+// Faner (views)
+(() => {
+  const tabs = Array.from(document.querySelectorAll(".tab"));
+  const views = {
+    sport: document.getElementById("view-sport"),
+    puber: document.getElementById("view-puber"),
+    eventer: document.getElementById("view-eventer"),
+    vm: document.getElementById("view-vm"),
+    kalender: document.getElementById("view-kalender"),
+  };
+
+  function showView(name){
+    for (const [k, el] of Object.entries(views)) {
+      if (!el) continue;
+      el.classList.toggle("hidden", k !== name);
+    }
+    tabs.forEach(t => t.classList.toggle("active", t.dataset.view === name));
+  }
+
+  tabs.forEach(t => {
+    t.addEventListener("click", () => showView(t.dataset.view));
+  });
+
+  // default
+  showView("sport");
+})();
 // /app.js  (KUN DET - komplett, med automatisk fallback + riktig mappe)
 // ✅ Leser fra /data/2026/ hvis fil finnes der
 // ✅ Hvis fil mangler: prøver automatisk /data/<filnavn> og /data/2026/<alt-navn>
@@ -342,3 +368,4 @@
 
   init();
 })();
+
