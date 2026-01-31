@@ -7,14 +7,13 @@
 
   <link rel="stylesheet" href="./styles.css" />
   <link rel="manifest" href="./manifest.webmanifest" />
-
   <meta name="theme-color" content="#0b1220" />
 </head>
 
 <body>
   <header id="topbar" class="topbar">
     <div class="topbar-inner">
-      <!-- ✅ Overskrift + tekst (den du savner) -->
+      <!-- ✅ Overskrift + tekst tilbake -->
       <div class="brand">
         <div id="siteTitle" class="site-title">Grenland Live</div>
         <div id="siteIntro" class="site-intro">
@@ -35,16 +34,13 @@
   </header>
 
   <main id="app" class="app">
-    <!-- ===================== -->
-    <!-- SPORT TAB -->
-    <!-- ===================== -->
+    <!-- SPORT -->
     <section id="tab-sport" class="tab-panel">
       <div class="panel">
         <div class="row row-top">
           <div class="col">
             <div class="label">Velg liga</div>
             <select id="leagueSelect" class="select">
-              <!-- ✅ Nøyaktig dropdown slik du krevde -->
               <option value="eliteserien">Eliteserien</option>
               <option value="obos">OBOS-ligaen</option>
               <option value="premier_league">Premier League</option>
@@ -73,9 +69,7 @@
       </div>
     </section>
 
-    <!-- ===================== -->
-    <!-- PUBS TAB -->
-    <!-- ===================== -->
+    <!-- PUBS -->
     <section id="tab-pubs" class="tab-panel hidden">
       <div class="panel">
         <div class="row row-top">
@@ -88,16 +82,11 @@
             <input id="pubSearchInput" class="input" placeholder="Søk pub/by..." />
           </div>
         </div>
-
-        <div id="pubsList" class="list">
-          <div class="empty">Ingen puber funnet.</div>
-        </div>
+        <div id="pubsList" class="list"><div class="empty">Ingen puber funnet.</div></div>
       </div>
     </section>
 
-    <!-- ===================== -->
-    <!-- EVENTS TAB -->
-    <!-- ===================== -->
+    <!-- EVENTS -->
     <section id="tab-events" class="tab-panel hidden">
       <div class="panel">
         <div class="row row-top">
@@ -110,16 +99,11 @@
             <input id="eventSearchInput" class="input" placeholder="Søk event..." />
           </div>
         </div>
-
-        <div id="eventsList" class="list">
-          <div class="empty">Ingen eventer funnet.</div>
-        </div>
+        <div id="eventsList" class="list"><div class="empty">Ingen eventer funnet.</div></div>
       </div>
     </section>
 
-    <!-- ===================== -->
-    <!-- VM 2026 TAB -->
-    <!-- ===================== -->
+    <!-- VM -->
     <section id="tab-vm2026" class="tab-panel hidden">
       <div class="panel">
         <div class="row row-top">
@@ -132,16 +116,11 @@
             <input id="vmSearchInput" class="input" placeholder="Søk..." />
           </div>
         </div>
-
-        <div id="vmList" class="list">
-          <div class="empty">Ingen elementer funnet.</div>
-        </div>
+        <div id="vmList" class="list"><div class="empty">Ingen elementer funnet.</div></div>
       </div>
     </section>
 
-    <!-- ===================== -->
-    <!-- EM 2026 TAB -->
-    <!-- ===================== -->
+    <!-- EM -->
     <section id="tab-em2026" class="tab-panel hidden">
       <div class="panel">
         <div class="row row-top">
@@ -154,16 +133,11 @@
             <input id="emSearchInput" class="input" placeholder="Søk..." />
           </div>
         </div>
-
-        <div id="emList" class="list">
-          <div class="empty">Ingen elementer funnet.</div>
-        </div>
+        <div id="emList" class="list"><div class="empty">Ingen elementer funnet.</div></div>
       </div>
     </section>
 
-    <!-- ===================== -->
-    <!-- CALENDAR TAB -->
-    <!-- ===================== -->
+    <!-- KALENDER -->
     <section id="tab-calendar" class="tab-panel hidden">
       <div class="panel">
         <div class="row row-top">
@@ -178,18 +152,14 @@
           <div id="calendarSide" class="calendar-side">
             <div class="label">Valgt dato</div>
             <div id="calendarPicked" class="muted">Klikk en dag for å se liste.</div>
-            <div id="calendarList" class="list">
-              <div class="empty">Ingen elementer.</div>
-            </div>
+            <div id="calendarList" class="list"><div class="empty">Ingen elementer.</div></div>
           </div>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- ===================== -->
   <!-- MODAL -->
-  <!-- ===================== -->
   <div id="modalOverlay" class="modal-overlay hidden" role="dialog" aria-modal="true">
     <div class="modal">
       <div class="modal-head">
@@ -198,21 +168,9 @@
       </div>
 
       <div class="modal-body">
-        <div class="kv">
-          <div class="k">Tid</div>
-          <div id="modalTime" class="v">Ukjent</div>
-        </div>
-
-        <div class="kv">
-          <div class="k">Kanal</div>
-          <div id="modalChannel" class="v">Ukjent</div>
-        </div>
-
-        <div class="kv">
-          <div class="k">Hvor vises</div>
-          <div id="modalWhere" class="v">Vikinghjørnet, Gimle Pub</div>
-        </div>
-
+        <div class="kv"><div class="k">Tid</div><div id="modalTime" class="v">Ukjent</div></div>
+        <div class="kv"><div class="k">Kanal</div><div id="modalChannel" class="v">Ukjent</div></div>
+        <div class="kv"><div class="k">Hvor vises</div><div id="modalWhere" class="v">Vikinghjørnet, Gimle Pub</div></div>
         <div id="modalMeta" class="muted"></div>
       </div>
     </div>
@@ -220,8 +178,8 @@
 
   <script defer src="./app.js"></script>
   <script defer src="./calendar.js"></script>
+
   <script>
-    // Register SW (hvis du vil) – men uten aggressiv caching
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("./sw.js").catch(()=>{});
     }
