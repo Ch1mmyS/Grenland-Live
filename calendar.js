@@ -1,354 +1,155 @@
-/* calendar.js — Kalender 2026 (NO DESIGN CHANGES)
-   Krav:
-   - vises direkte i fanen (ikke link)
-   - prikker: rød=fotball, gul=håndball, grønn=vintersport
-   - liste til høyre (detaljer) når man klikker dato
-   - bruker /data/2026/calendar_feed.json hvis den finnes
-   - fallback: bygger feed fra sport-data som lastes i app.js (GL_SPORT_UPDATED)
-*/
+const CAL_TZ = "Europe/Oslo";
+function c$(id){ return document.getElementById(id); }
 
-const GL_TZ = "Europe/Oslo";
-const CAL_FEED_PATH = "/data/2026/calendar_feed.json";
-
-function c$(id) { return document.getElementById(id); }
-function cEsc(s) {
-  return String(s ?? "")
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
+function dateKey(d){
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
 }
 
-async function calFetchJson(url) {
-  const res = await fetch(url, { cache: "no-store" });
-  if (!res.ok) throw new Error(`${res.status} ${res.statusText} (${url})`);
-  return await res.json();
-}
-
-function calToDate(iso) {
-  if (!iso) return null;
-  const d = new Date(iso);
-  return isNaN(d.getTime()) ? null : d;
-}
-
-function calDateKeyFromISO(iso) {
-  const d = calToDate(iso);
-  if (!d) return "";
-  return d.toLocaleDateString("sv-SE", { timeZone: GL_TZ }); // yyyy-mm-dd
-}
-
-function calFmtOslo(iso) {
-  const d = calToDate(iso);
-  if (!d) return "Tid ikke oppgitt";
-  return d.toLocaleString("no-NO", {
-    timeZone: GL_TZ,
-    weekday: "short",
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-}
-
-function calAsArrayMaybe(data, keys = []) {
-  if (Array.isArray(data)) return data;
-  if (data && typeof data === "object") {
-    for (const k of keys) {
-      if (Array.isArray(data[k])) return data[k];
-    }
-  }
+function parseRoot(json){
+  if (Array.isArray(json)) return json;
+  if (json && Array.isArray(json.items)) return json.items;
+  if (json && Array.isArray(json.events)) return json.events;
+  if (json && Array.isArray(json.games)) return json.games;
   return [];
 }
 
-// ----- Feed format vi støtter -----
-// 1) { items:[ {date:"2026-01-17", type:"football", title:"...", iso:"..."} ] }
-// 2) { days: { "2026-01-17": { football:[...], handball:[...], wintersport:[...] } } }
-// 3) array direkte
-function normalizeFeed(data) {
-  const items = [];
-
-  if (Array.isArray(data)) {
-    for (const it of data) items.push(it);
-    return items;
-  }
-
-  if (data && typeof data === "object") {
-    const arr = calAsArrayMaybe(data, ["items", "list", "events"]);
-    if (arr.length) return arr;
-
-    if (data.days && typeof data.days === "object") {
-      for (const [date, obj] of Object.entries(data.days)) {
-        for (const type of ["football", "handball", "wintersport"]) {
-          const list = Array.isArray(obj?.[type]) ? obj[type] : [];
-          for (const it of list) {
-            items.push({ ...it, date, type });
-          }
-        }
-      }
-      return items;
-    }
-  }
-
-  return items;
+function dot(type){
+  const t = String(type||"").toLowerCase();
+  if (t.includes("fotball") || t.includes("football") || t.includes("soccer")) return "🔴";
+  if (t.includes("håndball") || t.includes("handball")) return "🟡";
+  if (t.includes("vintersport") || t.includes("winter") || t.includes("ski")) return "🟢";
+  return "•";
 }
 
-function normalizeCalItem(raw) {
-  const o = raw ?? {};
-  const type = (o.type || o.sport || o.category || "").toLowerCase();
-  const iso = o.iso || o.kickoff || o.start || o.datetime || o.time || "";
-  const date = o.date || (iso ? calDateKeyFromISO(iso) : "");
-  const title = o.title || o.name || o.match || o.event || "Oppføring";
-  const channel = o.channel || o.tv || "Ukjent";
-  const whereArr = Array.isArray(o.where) ? o.where : (Array.isArray(o.pubs) ? o.pubs.map(p => typeof p === "string" ? p : p?.name).filter(Boolean) : []);
-  return {
-    type: (type === "football" || type === "handball" || type === "wintersport") ? type : "football",
-    date,
-    iso,
-    title,
-    league: o.league || o.competition || o.tournament || "",
-    channel,
-    where: whereArr,
-    raw: o
-  };
+function title(it){
+  return it.title || it.name || (it.home && it.away ? `${it.home} – ${it.away}` : "Event");
 }
 
-function buildIndex(items) {
-  // index: date -> {football:[], handball:[], wintersport:[]}
-  const idx = new Map();
-  for (const it of items) {
-    if (!it.date) continue;
-    if (!idx.has(it.date)) idx.set(it.date, { football: [], handball: [], wintersport: [] });
-    idx.get(it.date)[it.type].push(it);
-  }
-  return idx;
+function timeOnly(iso){
+  if (!iso) return "Ukjent";
+  try {
+    return new Date(iso).toLocaleString("no-NO", { timeZone: CAL_TZ, hour:"2-digit", minute:"2-digit" });
+  } catch { return "Ukjent"; }
 }
 
-function dotFor(type) {
-  // Vi bruker emoji for prikker (ikke CSS-endring)
-  if (type === "football") return "🔴";
-  if (type === "handball") return "🟡";
-  return "🟢";
+async function fetchJson(path){
+  const r = await fetch(`${path}?v=${Date.now()}`, { cache:"no-store" });
+  if (!r.ok) throw new Error(`HTTP ${r.status} ${path}`);
+  return r.json();
 }
 
-// -------- Calendar rendering --------
-function daysInMonth(year, monthIndex) {
-  return new Date(year, monthIndex + 1, 0).getDate();
+function buildGrid(y,m){
+  const first = new Date(y,m,1);
+  const last = new Date(y,m+1,0);
+  const start = (first.getDay()+6)%7; // man=0
+  const days = last.getDate();
+  const cells = [];
+  for(let i=0;i<start;i++) cells.push(null);
+  for(let d=1;d<=days;d++) cells.push(new Date(y,m,d));
+  while(cells.length%7!==0) cells.push(null);
+  return cells;
 }
 
-function weekdayIndexMonFirst(date) {
-  // Monday=0 … Sunday=6
-  const js = date.getDay(); // Sun=0..Sat=6
-  return (js + 6) % 7;
+function escapeHtml(s){
+  return String(s ?? "")
+    .replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;");
 }
 
-function monthNameNo(monthIndex) {
-  const d = new Date(2026, monthIndex, 1);
-  return d.toLocaleDateString("no-NO", { month: "long" });
-}
+function renderSide(key, items){
+  c$("calendarPicked").textContent = key;
+  const list = c$("calendarList");
+  list.innerHTML = "";
 
-function renderYear2026(root, feedIndex, selectedDate) {
-  const year = 2026;
-
-  let html = `<div class="calendarYear">`;
-  for (let m = 0; m < 12; m++) {
-    const first = new Date(year, m, 1);
-    const firstW = weekdayIndexMonFirst(first);
-    const dim = daysInMonth(year, m);
-
-    html += `
-      <section class="calendarMonth card">
-        <div class="calendarMonthTitle cardTitle">${cEsc(monthNameNo(m))} ${year}</div>
-        <div class="calendarGrid">
-          <div class="calendarWeekHead muted">Man</div>
-          <div class="calendarWeekHead muted">Tir</div>
-          <div class="calendarWeekHead muted">Ons</div>
-          <div class="calendarWeekHead muted">Tor</div>
-          <div class="calendarWeekHead muted">Fre</div>
-          <div class="calendarWeekHead muted">Lør</div>
-          <div class="calendarWeekHead muted">Søn</div>
-    `;
-
-    // blanks
-    for (let i = 0; i < firstW; i++) {
-      html += `<div class="calendarCell muted"></div>`;
-    }
-
-    for (let day = 1; day <= dim; day++) {
-      const dateKey = `${year}-${String(m + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
-      const bucket = feedIndex.get(dateKey);
-      const hasFootball = bucket && bucket.football.length;
-      const hasHandball = bucket && bucket.handball.length;
-      const hasWinter = bucket && bucket.wintersport.length;
-
-      const dots = [
-        hasFootball ? dotFor("football") : "",
-        hasHandball ? dotFor("handball") : "",
-        hasWinter ? dotFor("wintersport") : "",
-      ].filter(Boolean).join("");
-
-      const isSel = selectedDate === dateKey;
-      html += `
-        <button class="calendarCell ${isSel ? "active" : ""}" data-date="${cEsc(dateKey)}" type="button">
-          <div class="calendarDayNum">${day}</div>
-          <div class="calendarDots">${cEsc(dots)}</div>
-        </button>
-      `;
-    }
-
-    html += `</div></section>`;
-  }
-  html += `</div>`;
-
-  root.innerHTML = html;
-
-  // clicks
-  root.querySelectorAll("button.calendarCell[data-date]").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const date = btn.getAttribute("data-date");
-      window.__GL_CAL_SELECTED__ = date;
-      renderYear2026(root, feedIndex, date);
-      renderDayDetails(date, feedIndex);
-    });
-  });
-}
-
-function renderDayDetails(dateKey, feedIndex) {
-  const title = c$("calendarDayTitle");
-  const listEl = c$("calendarDayList");
-
-  title.textContent = dateKey ? `Detaljer: ${dateKey}` : "Klikk en dato";
-  listEl.innerHTML = "";
-
-  if (!dateKey) return;
-
-  const bucket = feedIndex.get(dateKey);
-  if (!bucket || (!bucket.football.length && !bucket.handball.length && !bucket.wintersport.length)) {
-    listEl.innerHTML = `<div class="empty muted">Ingen ting denne dagen.</div>`;
+  if (!items || !items.length) {
+    list.innerHTML = `<div class="empty">Ingen elementer.</div>`;
     return;
   }
 
-  const sections = [
-    { type: "football", label: "Fotball" },
-    { type: "handball", label: "Håndball" },
-    { type: "wintersport", label: "Vintersport" },
-  ];
-
-  const html = sections.map(sec => {
-    const arr = bucket[sec.type] || [];
-    if (!arr.length) return "";
-
-    // sorter
-    arr.sort((a,b) => (calToDate(a.iso)?.getTime() ?? 0) - (calToDate(b.iso)?.getTime() ?? 0));
-
-    const itemsHtml = arr.map(it => {
-      const when = it.iso ? calFmtOslo(it.iso) : dateKey;
-      const channel = it.channel || "Ukjent";
-      const where = Array.isArray(it.where) && it.where.length ? it.where.join(", ") : "Vikinghjørnet, Gimle Pub";
-      const league = it.league ? `${it.league} · ` : "";
-      return `
-        <div class="card">
-          <div class="cardTop">
-            <div class="cardTitle">${cEsc(dotFor(sec.type))} ${cEsc(it.title)}</div>
-            <div class="cardMeta muted">${cEsc(league + when)}</div>
-          </div>
-          <div class="cardBottom">
-            <div class="pill">Kanal: ${cEsc(channel)}</div>
-            <div class="pill">Hvor: ${cEsc(where)}</div>
-          </div>
-        </div>
-      `;
-    }).join("");
-
-    return `
-      <div class="calendarSection">
-        <h4 class="muted">${cEsc(sec.label)}</h4>
-        ${itemsHtml}
+  for (const it of items) {
+    const div = document.createElement("div");
+    div.className = "list-item";
+    div.innerHTML = `
+      <div class="li-main">
+        <div class="li-title">${escapeHtml(dot(it.type||it.sport) + " " + title(it))}</div>
+        <div class="li-sub muted">${escapeHtml(timeOnly(it.start||it.kickoff||it.date) + " · " + (it.channel||it.tv||"Ukjent"))}</div>
       </div>
     `;
-  }).join("");
-
-  listEl.innerHTML = html || `<div class="empty muted">Ingen ting denne dagen.</div>`;
+    list.appendChild(div);
+  }
 }
 
-// --------- Feed state (source priority) ---------
-let FEED_ITEMS = [];
-let FEED_INDEX = new Map();
+function renderMonth(root, y, m, map){
+  const names = ["Januar","Februar","Mars","April","Mai","Juni","Juli","August","September","Oktober","November","Desember"];
+  const wrap = document.createElement("div");
+  wrap.className = "cal-month";
 
-// Fallback feed bygges av sport-oppdateringer (fra app.js)
-function upsertFromSport(detail) {
-  // detail: { optionKey, label, sport, games }
-  if (!detail || !Array.isArray(detail.games)) return;
+  const head = document.createElement("div");
+  head.className = "cal-head";
+  head.textContent = `${names[m]} ${y}`;
+  wrap.appendChild(head);
 
-  // konverter games til kalender-items
-  const items = detail.games.map(g => ({
-    type: detail.sport === "football" ? "football" : (detail.sport === "handball" ? "handball" : "wintersport"),
-    date: calDateKeyFromISO(g.iso),
-    iso: g.iso,
-    title: g.title || "Kamp",
-    league: detail.label || "",
-    channel: g.channel || "Ukjent",
-    where: g.where || [],
-  })).filter(it => it.date && it.date.startsWith("2026-"));
+  const dow = document.createElement("div");
+  dow.className = "cal-dow";
+  dow.innerHTML = `<div>Man</div><div>Tir</div><div>Ons</div><div>Tor</div><div>Fre</div><div>Lør</div><div>Søn</div>`;
+  wrap.appendChild(dow);
 
-  // merge: behold eksisterende feed + legg til (unngå duplikater)
-  const key = (it) => `${it.type}|${it.date}|${it.title}|${it.iso || ""}`;
-  const set = new Set(FEED_ITEMS.map(key));
-  for (const it of items) {
-    const k = key(it);
-    if (!set.has(k)) {
-      FEED_ITEMS.push(it);
-      set.add(k);
+  const grid = document.createElement("div");
+  grid.className = "cal-grid";
+
+  for (const d of buildGrid(y,m)) {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "cal-cell";
+
+    if (!d) {
+      btn.classList.add("cal-empty");
+      btn.disabled = true;
+      btn.innerHTML = `<span class="cal-day"></span>`;
+    } else {
+      const key = dateKey(d);
+      const items = map.get(key) || [];
+      const dots = items.slice(0,6).map(it => dot(it.type||it.sport)).join("");
+      btn.innerHTML = `<span class="cal-day">${d.getDate()}</span><span class="cal-dots">${dots}</span>`;
+      btn.addEventListener("click", () => renderSide(key, items));
     }
+    grid.appendChild(btn);
   }
-  FEED_INDEX = buildIndex(FEED_ITEMS);
+
+  wrap.appendChild(grid);
+  root.appendChild(wrap);
 }
 
-async function loadCalendarFeedPreferred() {
+document.addEventListener("DOMContentLoaded", async () => {
+  const root = c$("calendarRoot");
+  if (!root) return;
+
+  root.innerHTML = `<div class="empty">Laster kalender…</div>`;
+
   try {
-    const data = await calFetchJson(CAL_FEED_PATH);
-    const rawItems = normalizeFeed(data);
-    FEED_ITEMS = rawItems.map(normalizeCalItem).filter(it => it.date && it.date.startsWith("2026-"));
-    FEED_INDEX = buildIndex(FEED_ITEMS);
-    return true;
-  } catch {
-    // ignorer, vi bruker fallback
-    return false;
+    const json = await fetchJson("data/2026/calendar_feed.json");
+    const arr = parseRoot(json);
+
+    const map = new Map();
+    for (const it of arr) {
+      const iso = it.start || it.kickoff || it.date || it.datetime || "";
+      if (!iso) continue;
+      const d = new Date(iso);
+      if (Number.isNaN(d.getTime())) continue;
+      const key = dateKey(new Date(d.getFullYear(), d.getMonth(), d.getDate()));
+      const list = map.get(key) || [];
+      list.push(it);
+      map.set(key, list);
+    }
+
+    for (const [k,list] of map.entries()) {
+      list.sort((a,b)=> (Date.parse(a.start||a.kickoff||a.date||"")||0)-(Date.parse(b.start||b.kickoff||b.date||"")||0));
+      map.set(k,list);
+    }
+
+    root.innerHTML = "";
+    for (let m=0;m<12;m++) renderMonth(root, 2026, m, map);
+  } catch (e) {
+    root.innerHTML = `<div class="empty">Kunne ikke laste /data/2026/calendar_feed.json</div>`;
+    console.error(e);
   }
-}
-
-async function initCalendar() {
-  const root = c$("calendarRoot");
-  if (!root) return;
-
-  // 1) prøv å laste /data/2026/calendar_feed.json
-  await loadCalendarFeedPreferred();
-
-  // 2) render uansett (tom => viser prikker der det finnes)
-  const selected = window.__GL_CAL_SELECTED__ || "";
-  renderYear2026(root, FEED_INDEX, selected);
-  if (selected) renderDayDetails(selected, FEED_INDEX);
-}
-
-window.addEventListener("GL_SPORT_UPDATED", (e) => {
-  // fallback-bygging av feed (så kalender blir fylt selv om calendar_feed.json er tom/ikke finnes)
-  upsertFromSport(e.detail);
-
-  const root = c$("calendarRoot");
-  if (!root) return;
-
-  const selected = window.__GL_CAL_SELECTED__ || "";
-  renderYear2026(root, FEED_INDEX, selected);
-  if (selected) renderDayDetails(selected, FEED_INDEX);
-});
-
-window.addEventListener("GL_CALENDAR_SHOW", () => {
-  // når man klikker fanen, sørg for init/render
-  initCalendar();
-});
-
-// Init på load (men uten å kreve at fanen er åpen)
-document.addEventListener("DOMContentLoaded", () => {
-  initCalendar();
 });
