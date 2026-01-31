@@ -1,0 +1,1924 @@
+{
+  "games": [
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "PSV",
+      "away": "Union SG",
+      "kickoff": "2025-09-16T18:45:00+02:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Athletic Club",
+      "away": "Arsenal",
+      "kickoff": "2025-09-16T18:45:00+02:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Real Madrid",
+      "away": "Marseille",
+      "kickoff": "2025-09-16T21:00:00+02:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Benfica",
+      "away": "Qarabag",
+      "kickoff": "2025-09-16T21:00:00+02:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Juventus",
+      "away": "B. Dortmund",
+      "kickoff": "2025-09-16T21:00:00+02:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Tottenham",
+      "away": "Villarreal",
+      "kickoff": "2025-09-16T21:00:00+02:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Olympiacos",
+      "away": "Pafos",
+      "kickoff": "2025-09-17T18:45:00+02:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Slavia Praha",
+      "away": "Bodø/Glimt",
+      "kickoff": "2025-09-17T18:45:00+02:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Paris",
+      "away": "Atalanta",
+      "kickoff": "2025-09-17T21:00:00+02:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Bayern München",
+      "away": "Chelsea",
+      "kickoff": "2025-09-17T21:00:00+02:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Liverpool",
+      "away": "Atleti",
+      "kickoff": "2025-09-17T21:00:00+02:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Ajax",
+      "away": "Inter",
+      "kickoff": "2025-09-17T21:00:00+02:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Club Brugge",
+      "away": "Monaco",
+      "kickoff": "2025-09-18T18:45:00+02:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Copenhagen",
+      "away": "Leverkusen",
+      "kickoff": "2025-09-18T18:45:00+02:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Man City",
+      "away": "Napoli",
+      "kickoff": "2025-09-18T21:00:00+02:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Frankfurt",
+      "away": "Galatasaray",
+      "kickoff": "2025-09-18T21:00:00+02:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Sporting CP",
+      "away": "Kairat Almaty",
+      "kickoff": "2025-09-18T21:00:00+02:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Newcastle",
+      "away": "Barcelona",
+      "kickoff": "2025-09-18T21:00:00+02:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Atalanta",
+      "away": "Club Brugge",
+      "kickoff": "2025-09-30T18:45:00+02:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Kairat Almaty",
+      "away": "Real Madrid",
+      "kickoff": "2025-09-30T18:45:00+02:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Inter",
+      "away": "Slavia Praha",
+      "kickoff": "2025-09-30T21:00:00+02:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Chelsea",
+      "away": "Benfica",
+      "kickoff": "2025-09-30T21:00:00+02:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Atleti",
+      "away": "Frankfurt",
+      "kickoff": "2025-09-30T21:00:00+02:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Bodø/Glimt",
+      "away": "Tottenham",
+      "kickoff": "2025-09-30T21:00:00+02:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Marseille",
+      "away": "Ajax",
+      "kickoff": "2025-09-30T21:00:00+02:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Galatasaray",
+      "away": "Liverpool",
+      "kickoff": "2025-09-30T21:00:00+02:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Pafos",
+      "away": "Bayern München",
+      "kickoff": "2025-09-30T21:00:00+02:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Union SG",
+      "away": "Newcastle",
+      "kickoff": "2025-10-01T18:45:00+02:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Qarabag",
+      "away": "Copenhagen",
+      "kickoff": "2025-10-01T18:45:00+02:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Arsenal",
+      "away": "Olympiacos",
+      "kickoff": "2025-10-01T21:00:00+02:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Leverkusen",
+      "away": "PSV",
+      "kickoff": "2025-10-01T21:00:00+02:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Villarreal",
+      "away": "Juventus",
+      "kickoff": "2025-10-01T21:00:00+02:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Napoli",
+      "away": "Sporting CP",
+      "kickoff": "2025-10-01T21:00:00+02:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Monaco",
+      "away": "Man City",
+      "kickoff": "2025-10-01T21:00:00+02:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "B. Dortmund",
+      "away": "Athletic Club",
+      "kickoff": "2025-10-01T21:00:00+02:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Barcelona",
+      "away": "Paris",
+      "kickoff": "2025-10-01T21:00:00+02:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Barcelona",
+      "away": "Olympiacos",
+      "kickoff": "2025-10-21T18:45:00+02:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Kairat Almaty",
+      "away": "Pafos",
+      "kickoff": "2025-10-21T18:45:00+02:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Arsenal",
+      "away": "Atleti",
+      "kickoff": "2025-10-21T21:00:00+02:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Leverkusen",
+      "away": "Paris",
+      "kickoff": "2025-10-21T21:00:00+02:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Villarreal",
+      "away": "Man City",
+      "kickoff": "2025-10-21T21:00:00+02:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "PSV",
+      "away": "Napoli",
+      "kickoff": "2025-10-21T21:00:00+02:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Copenhagen",
+      "away": "B. Dortmund",
+      "kickoff": "2025-10-21T21:00:00+02:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Union SG",
+      "away": "Inter",
+      "kickoff": "2025-10-21T21:00:00+02:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Newcastle",
+      "away": "Benfica",
+      "kickoff": "2025-10-21T21:00:00+02:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Galatasaray",
+      "away": "Bodø/Glimt",
+      "kickoff": "2025-10-22T18:45:00+02:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Athletic Club",
+      "away": "Qarabag",
+      "kickoff": "2025-10-22T18:45:00+02:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Chelsea",
+      "away": "Ajax",
+      "kickoff": "2025-10-22T21:00:00+02:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Atalanta",
+      "away": "Slavia Praha",
+      "kickoff": "2025-10-22T21:00:00+02:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Frankfurt",
+      "away": "Liverpool",
+      "kickoff": "2025-10-22T21:00:00+02:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Sporting CP",
+      "away": "Marseille",
+      "kickoff": "2025-10-22T21:00:00+02:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Monaco",
+      "away": "Tottenham",
+      "kickoff": "2025-10-22T21:00:00+02:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Real Madrid",
+      "away": "Juventus",
+      "kickoff": "2025-10-22T21:00:00+02:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Bayern München",
+      "away": "Club Brugge",
+      "kickoff": "2025-10-22T21:00:00+02:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Napoli",
+      "away": "Frankfurt",
+      "kickoff": "2025-11-04T18:45:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Slavia Praha",
+      "away": "Arsenal",
+      "kickoff": "2025-11-04T18:45:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Paris",
+      "away": "Bayern München",
+      "kickoff": "2025-11-04T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Liverpool",
+      "away": "Real Madrid",
+      "kickoff": "2025-11-04T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Atleti",
+      "away": "Union SG",
+      "kickoff": "2025-11-04T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Juventus",
+      "away": "Sporting CP",
+      "kickoff": "2025-11-04T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Tottenham",
+      "away": "Copenhagen",
+      "kickoff": "2025-11-04T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Olympiacos",
+      "away": "PSV",
+      "kickoff": "2025-11-04T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Bodø/Glimt",
+      "away": "Monaco",
+      "kickoff": "2025-11-04T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Qarabag",
+      "away": "Chelsea",
+      "kickoff": "2025-11-05T18:45:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Pafos",
+      "away": "Villarreal",
+      "kickoff": "2025-11-05T18:45:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Man City",
+      "away": "B. Dortmund",
+      "kickoff": "2025-11-05T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Inter",
+      "away": "Kairat Almaty",
+      "kickoff": "2025-11-05T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Benfica",
+      "away": "Leverkusen",
+      "kickoff": "2025-11-05T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Club Brugge",
+      "away": "Barcelona",
+      "kickoff": "2025-11-05T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Ajax",
+      "away": "Galatasaray",
+      "kickoff": "2025-11-05T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Marseille",
+      "away": "Atalanta",
+      "kickoff": "2025-11-05T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Newcastle",
+      "away": "Athletic Club",
+      "kickoff": "2025-11-05T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Ajax",
+      "away": "Benfica",
+      "kickoff": "2025-11-25T18:45:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Galatasaray",
+      "away": "Union SG",
+      "kickoff": "2025-11-25T18:45:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Man City",
+      "away": "Leverkusen",
+      "kickoff": "2025-11-25T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Chelsea",
+      "away": "Barcelona",
+      "kickoff": "2025-11-25T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "B. Dortmund",
+      "away": "Villarreal",
+      "kickoff": "2025-11-25T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Napoli",
+      "away": "Qarabag",
+      "kickoff": "2025-11-25T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Slavia Praha",
+      "away": "Athletic Club",
+      "kickoff": "2025-11-25T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Bodø/Glimt",
+      "away": "Juventus",
+      "kickoff": "2025-11-25T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Marseille",
+      "away": "Newcastle",
+      "kickoff": "2025-11-25T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Copenhagen",
+      "away": "Kairat Almaty",
+      "kickoff": "2025-11-26T18:45:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Pafos",
+      "away": "Monaco",
+      "kickoff": "2025-11-26T18:45:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Paris",
+      "away": "Tottenham",
+      "kickoff": "2025-11-26T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Liverpool",
+      "away": "PSV",
+      "kickoff": "2025-11-26T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Arsenal",
+      "away": "Bayern München",
+      "kickoff": "2025-11-26T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Atleti",
+      "away": "Inter",
+      "kickoff": "2025-11-26T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Frankfurt",
+      "away": "Atalanta",
+      "kickoff": "2025-11-26T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Sporting CP",
+      "away": "Club Brugge",
+      "kickoff": "2025-11-26T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Olympiacos",
+      "away": "Real Madrid",
+      "kickoff": "2025-11-26T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Kairat Almaty",
+      "away": "Olympiacos",
+      "kickoff": "2025-12-09T16:30:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Bayern München",
+      "away": "Sporting CP",
+      "kickoff": "2025-12-09T18:45:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Inter",
+      "away": "Liverpool",
+      "kickoff": "2025-12-09T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Barcelona",
+      "away": "Frankfurt",
+      "kickoff": "2025-12-09T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Atalanta",
+      "away": "Chelsea",
+      "kickoff": "2025-12-09T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Tottenham",
+      "away": "Slavia Praha",
+      "kickoff": "2025-12-09T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "PSV",
+      "away": "Atleti",
+      "kickoff": "2025-12-09T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Monaco",
+      "away": "Galatasaray",
+      "kickoff": "2025-12-09T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Union SG",
+      "away": "Marseille",
+      "kickoff": "2025-12-09T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Villarreal",
+      "away": "Copenhagen",
+      "kickoff": "2025-12-10T18:45:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Qarabag",
+      "away": "Ajax",
+      "kickoff": "2025-12-10T18:45:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "B. Dortmund",
+      "away": "Bodø/Glimt",
+      "kickoff": "2025-12-10T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Leverkusen",
+      "away": "Newcastle",
+      "kickoff": "2025-12-10T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Benfica",
+      "away": "Napoli",
+      "kickoff": "2025-12-10T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Juventus",
+      "away": "Pafos",
+      "kickoff": "2025-12-10T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Club Brugge",
+      "away": "Arsenal",
+      "kickoff": "2025-12-10T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Athletic Club",
+      "away": "Paris",
+      "kickoff": "2025-12-10T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Real Madrid",
+      "away": "Man City",
+      "kickoff": "2025-12-10T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Kairat Almaty",
+      "away": "Club Brugge",
+      "kickoff": "2026-01-20T16:30:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Bodø/Glimt",
+      "away": "Man City",
+      "kickoff": "2026-01-20T18:45:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Real Madrid",
+      "away": "Monaco",
+      "kickoff": "2026-01-20T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Inter",
+      "away": "Arsenal",
+      "kickoff": "2026-01-20T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Villarreal",
+      "away": "Ajax",
+      "kickoff": "2026-01-20T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Tottenham",
+      "away": "B. Dortmund",
+      "kickoff": "2026-01-20T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Sporting CP",
+      "away": "Paris",
+      "kickoff": "2026-01-20T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Olympiacos",
+      "away": "Leverkusen",
+      "kickoff": "2026-01-20T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Copenhagen",
+      "away": "Napoli",
+      "kickoff": "2026-01-20T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Galatasaray",
+      "away": "Atleti",
+      "kickoff": "2026-01-21T18:45:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Qarabag",
+      "away": "Frankfurt",
+      "kickoff": "2026-01-21T18:45:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Chelsea",
+      "away": "Pafos",
+      "kickoff": "2026-01-21T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Atalanta",
+      "away": "Athletic Club",
+      "kickoff": "2026-01-21T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Juventus",
+      "away": "Benfica",
+      "kickoff": "2026-01-21T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Slavia Praha",
+      "away": "Barcelona",
+      "kickoff": "2026-01-21T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Marseille",
+      "away": "Liverpool",
+      "kickoff": "2026-01-21T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Newcastle",
+      "away": "PSV",
+      "kickoff": "2026-01-21T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Bayern München",
+      "away": "Union SG",
+      "kickoff": "2026-01-21T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Paris",
+      "away": "Newcastle",
+      "kickoff": "2026-01-28T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Man City",
+      "away": "Galatasaray",
+      "kickoff": "2026-01-28T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Liverpool",
+      "away": "Qarabag",
+      "kickoff": "2026-01-28T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "B. Dortmund",
+      "away": "Inter",
+      "kickoff": "2026-01-28T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Barcelona",
+      "away": "Copenhagen",
+      "kickoff": "2026-01-28T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Arsenal",
+      "away": "Kairat Almaty",
+      "kickoff": "2026-01-28T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Leverkusen",
+      "away": "Villarreal",
+      "kickoff": "2026-01-28T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Atleti",
+      "away": "Bodø/Glimt",
+      "kickoff": "2026-01-28T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Benfica",
+      "away": "Real Madrid",
+      "kickoff": "2026-01-28T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Frankfurt",
+      "away": "Tottenham",
+      "kickoff": "2026-01-28T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Club Brugge",
+      "away": "Marseille",
+      "kickoff": "2026-01-28T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "PSV",
+      "away": "Bayern München",
+      "kickoff": "2026-01-28T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Ajax",
+      "away": "Olympiacos",
+      "kickoff": "2026-01-28T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Napoli",
+      "away": "Chelsea",
+      "kickoff": "2026-01-28T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Monaco",
+      "away": "Juventus",
+      "kickoff": "2026-01-28T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Union SG",
+      "away": "Atalanta",
+      "kickoff": "2026-01-28T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Athletic Club",
+      "away": "Sporting CP",
+      "kickoff": "2026-01-28T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Pafos",
+      "away": "Slavia Praha",
+      "kickoff": "2026-01-28T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Galatasaray",
+      "away": "Juventus",
+      "kickoff": "2026-02-17T18:45:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Monaco",
+      "away": "Paris",
+      "kickoff": "2026-02-17T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Benfica",
+      "away": "Real Madrid",
+      "kickoff": "2026-02-17T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "B. Dortmund",
+      "away": "Atalanta",
+      "kickoff": "2026-02-17T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Qarabag",
+      "away": "Newcastle",
+      "kickoff": "2026-02-18T18:45:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Olympiacos",
+      "away": "Leverkusen",
+      "kickoff": "2026-02-18T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Bodø/Glimt",
+      "away": "Inter",
+      "kickoff": "2026-02-18T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Club Brugge",
+      "away": "Atleti",
+      "kickoff": "2026-02-18T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Atleti",
+      "away": "Club Brugge",
+      "kickoff": "2026-02-24T18:45:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Leverkusen",
+      "away": "Olympiacos",
+      "kickoff": "2026-02-24T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Inter",
+      "away": "Bodø/Glimt",
+      "kickoff": "2026-02-24T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Newcastle",
+      "away": "Qarabag",
+      "kickoff": "2026-02-24T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Atalanta",
+      "away": "B. Dortmund",
+      "kickoff": "2026-02-25T18:45:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Paris",
+      "away": "Monaco",
+      "kickoff": "2026-02-25T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Juventus",
+      "away": "Galatasaray",
+      "kickoff": "2026-02-25T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "sport": "Fotball",
+      "league": "Champions League",
+      "home": "Real Madrid",
+      "away": "Benfica",
+      "kickoff": "2026-02-25T21:00:00+01:00",
+      "channel": "Ukjent",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    }
+  ]
+}

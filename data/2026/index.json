@@ -1,1 +1,65 @@
-
+{
+  "generated_at": "2026-01-31T16:35:06.009238+01:00",
+  "leagues": [
+    {
+      "key": "eliteserien",
+      "name": "Eliteserien",
+      "path": "data/2026/eliteserien.json",
+      "sport": "Fotball"
+    },
+    {
+      "key": "obos",
+      "name": "OBOS-ligaen",
+      "path": "data/2026/obos.json",
+      "sport": "Fotball"
+    },
+    {
+      "key": "premier_league",
+      "name": "Premier League",
+      "path": "data/2026/premier_league.json",
+      "sport": "Fotball"
+    },
+    {
+      "key": "champions_league",
+      "name": "Champions League",
+      "path": "data/2026/champions_league.json",
+      "sport": "Fotball"
+    },
+    {
+      "key": "la_liga",
+      "name": "La Liga",
+      "path": "data/2026/la_liga.json",
+      "sport": "Fotball"
+    },
+    {
+      "key": "em_handball_men",
+      "name": "EM 2026 – Håndball Menn",
+      "path": "data/2026/em_handball_men.json",
+      "sport": "Håndball"
+    },
+    {
+      "key": "em_handball_women",
+      "name": "EM 2026 – Håndball Damer",
+      "path": "data/2026/em_handball_women.json",
+      "sport": "Håndball"
+    },
+    {
+      "key": "alpine_wc",
+      "name": "Vintersport – Alpint (FIS)",
+      "path": "data/2026/alpine_wc.json",
+      "sport": "Vintersport"
+    },
+    {
+      "key": "xc_wc",
+      "name": "Vintersport – Langrenn (FIS)",
+      "path": "data/2026/xc_wc.json",
+      "sport": "Vintersport"
+    },
+    {
+      "key": "sj_wc",
+      "name": "Vintersport – Hopp (FIS)",
+      "path": "data/2026/sj_wc.json",
+      "sport": "Vintersport"
+    }
+  ]
+}
