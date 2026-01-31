@@ -1,3 +1,4 @@
+<!-- /index.html  (KOMPLETT FIL – legg i ROOT) -->
 <!doctype html>
 <html lang="no">
 <head>
@@ -9,7 +10,7 @@
 </head>
 <body>
   <header class="topbar">
-    <div class="wrap">
+    <div class="wrap header-grid">
       <div class="brand">
         <div class="logo">GL</div>
         <div>
@@ -18,7 +19,7 @@
         </div>
       </div>
 
-      <!-- ✅ STOR MIDTSTILT TITTEL + GO-TEKST -->
+      <!-- ✅ STOR MIDTSTILT TITTEL + GO-TEKST (EGEN RAD, INGEN OVERLAPP) -->
       <div class="hero" aria-label="Intro">
         <div class="hero-title">Grenland Live</div>
         <div class="hero-sub">
@@ -26,7 +27,13 @@
         </div>
       </div>
 
-      <!-- ✅ FANER -->
+      <!-- ✅ STATUS -->
+      <div class="status">
+        <span id="netDot" class="dot"></span>
+        <span id="netText">Sjekker…</span>
+      </div>
+
+      <!-- ✅ FANER (UNDER HERO) -->
       <nav class="tabs" aria-label="Hovedmeny">
         <button class="tab active" data-view="sport" type="button">Sport</button>
         <button class="tab" data-view="puber" type="button">Puber</button>
@@ -34,11 +41,6 @@
         <button class="tab" data-view="vm" type="button">VM 2026</button>
         <button class="tab" data-view="kalender" type="button">Kalender 2026</button>
       </nav>
-
-      <div class="status">
-        <span id="netDot" class="dot"></span>
-        <span id="netText">Sjekker…</span>
-      </div>
     </div>
   </header>
 
