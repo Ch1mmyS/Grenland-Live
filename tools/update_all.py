@@ -1,4 +1,18 @@
-import json
+def read_json(path: Path):
+  if not path.exists():
+    raise FileNotFoundError(f"Missing JSON file: {path}")
+
+  raw = path.read_text(encoding="utf-8", errors="replace").strip()
+  if not raw:
+    raise ValueError(f"JSON file is empty: {path}")
+
+  # common: accidentally committed HTML error page
+  head = raw.lstrip().lower()
+  if head.startswith("<!doctype") or head.startswith("<html"):
+    raise ValueError(f"JSON file contains HTML (wrong file content): {path}")
+
+  return json.loads(raw)
+
 import os
 import re
 from datetime import datetime
