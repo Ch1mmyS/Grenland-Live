@@ -1,238 +1,107 @@
-/* /styles.css  (KOMPLETT FIL – ROOT) */
-:root{
-  --bg:#0b0f17;
-  --panel:#111827;
-  --card:#0f172a;
-  --text:#e5e7eb;
-  --muted:rgba(229,231,235,.65);
-  --line:rgba(229,231,235,.12);
-  --accent:#60a5fa;
-  --good:#22c55e;
-  --bad:#ef4444;
-}
-
-*{ box-sizing:border-box; }
-html,body{ height:100%; }
-body{
-  margin:0;
-  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
-  background:
-    radial-gradient(1200px 600px at 20% -10%, rgba(96,165,250,.20), transparent),
-    radial-gradient(900px 500px at 100% 0%, rgba(34,197,94,.12), transparent),
-    var(--bg);
-  color:var(--text);
-}
-
-.wrap{ max-width:1100px; margin:0 auto; padding:0 16px; }
-
-.topbar{
-  position:sticky; top:0;
-  background: rgba(11,15,23,.72);
-  backdrop-filter: blur(10px);
-  border-bottom:1px solid var(--line);
-  z-index:50;
-}
-
-/* HEADER: kun senter (du ba om å fjerne logo/venstre-del) */
-.header-grid{
-  display:grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: auto auto;
-  justify-items:center;
-  gap:10px;
-  padding:18px 16px 14px;
-}
-
-.brand, .status { display:none !important; }
-
-.hero{
-  grid-row:1;
-  text-align:center;
-  pointer-events:auto; /* viktig: aldri blokk klikk */
-}
-.hero-title{
-  font-weight:950;
-  letter-spacing:.3px;
-  font-size:38px;
-  line-height:1.05;
-  margin:0;
-}
-.hero-sub{
-  margin-top:6px;
-  font-size:13px;
-  line-height:1.35;
-  color:var(--muted);
-  max-width:820px;
-}
-
-.tabs{
-  grid-row:2;
-  display:flex;
-  gap:8px;
-  align-items:center;
-  flex-wrap:wrap;
-  justify-content:center;
-  pointer-events:auto;
-}
-
-.tab{
-  border:1px solid var(--line);
-  background: rgba(15,23,42,.55);
-  color: var(--text);
-  border-radius:999px;
-  padding:8px 12px;
-  cursor:pointer;
-  font-weight:800;
-  font-size:13px;
-  user-select:none;
-}
-.tab:hover{ border-color: rgba(96,165,250,.35); }
-.tab.active{
-  border-color: rgba(96,165,250,.55);
-  background: rgba(96,165,250,.18);
-}
-
-.main{ padding:18px 16px 32px; display:grid; gap:14px; }
-
-.panel{
-  background:rgba(17,24,39,.75);
-  border:1px solid var(--line);
-  border-radius:18px;
-  padding:14px;
-  box-shadow: 0 18px 50px rgba(0,0,0,.25);
-}
-
-.controls{
-  display:grid;
-  grid-template-columns: 1.1fr .6fr 1.4fr .7fr;
-  gap:12px;
-}
-@media (max-width: 900px){
-  .controls{ grid-template-columns:1fr 1fr; }
-}
-@media (max-width: 520px){
-  .controls{ grid-template-columns:1fr; }
-}
-
-.control label{ display:block; font-size:12px; color:var(--muted); margin:0 0 6px 2px; }
-select, input{
-  width:100%;
-  padding:10px 10px;
-  border-radius:14px;
-  border:1px solid var(--line);
-  background: rgba(15,23,42,.8);
-  color:var(--text);
-  outline:none;
-}
-select:focus, input:focus{
-  border-color: rgba(96,165,250,.55);
-  box-shadow:0 0 0 4px rgba(96,165,250,.18);
-}
-
-.control.right{ display:flex; flex-direction:column; justify-content:flex-end; }
-.btn{
-  width:100%;
-  padding:10px 12px;
-  border-radius:14px;
-  border:1px solid rgba(96,165,250,.35);
-  background: rgba(96,165,250,.15);
-  color:var(--text);
-  font-weight:800;
-  cursor:pointer;
-}
-.btn:hover{ background: rgba(96,165,250,.22); }
-
-.meta{ display:flex; justify-content:space-between; gap:12px; margin-top:10px; }
-.hint{ font-size:13px; color:var(--muted); }
-.muted{ color:var(--muted); }
-.small{ font-size:12px; }
-
-.list{ display:grid; gap:10px; }
-.card{
-  border:1px solid var(--line);
-  background: rgba(15,23,42,.7);
-  border-radius:16px;
-  padding:12px;
-  cursor:pointer;
-  transition: transform .08s ease, border-color .08s ease;
-  color: var(--text); /* <- hindrer “svart tekst” */
-}
-.card *{ color: inherit; } /* <- hindrer svart tekst fra rare default-stiler */
-.card:hover{ transform: translateY(-1px); border-color: rgba(96,165,250,.35); }
-
-.row{ display:flex; justify-content:space-between; gap:10px; align-items:flex-start; }
-.teams{ font-weight:900; }
-.badges{ display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
-.badge{
-  font-size:12px; padding:6px 10px; border-radius:999px;
-  border:1px solid var(--line);
-  color:rgba(229,231,235,.85);
-  background: rgba(11,15,23,.35);
-}
-.badge.accent{ border-color: rgba(96,165,250,.35); color: rgba(229,231,235,.98); }
-
-.error{
-  border:1px solid rgba(239,68,68,.35);
-  background: rgba(239,68,68,.10);
-  color: rgba(255,220,220,.95);
-  padding:12px;
-  border-radius:16px;
-  white-space:pre-wrap;
-}
-.empty{
-  border:1px dashed rgba(229,231,235,.25);
-  padding:14px;
-  border-radius:16px;
-  color:var(--muted);
-}
-
-.hidden{ display:none !important; }
-
-.modal-backdrop{
-  position:fixed; inset:0;
-  background: rgba(0,0,0,.55);
-  display:grid; place-items:center;
-  padding:18px;
-  z-index:200;
-}
-.modal{
-  width:min(680px, 100%);
-  border-radius:20px;
-  background: rgba(17,24,39,.95);
-  border:1px solid var(--line);
-  box-shadow: 0 30px 90px rgba(0,0,0,.55);
-}
-.modal-head{
-  display:flex; align-items:flex-start; justify-content:space-between; gap:12px;
-  padding:14px 14px 10px 14px;
-  border-bottom:1px solid var(--line);
-}
-.modal-title{ font-weight:950; font-size:18px; }
-.modal-sub{ font-size:13px; margin-top:4px; color: var(--muted); }
-.iconbtn{
-  background: transparent;
-  border:1px solid var(--line);
-  color: var(--text);
-  border-radius:12px;
-  padding:8px 10px;
-  cursor:pointer;
-}
-.iconbtn:hover{ border-color: rgba(96,165,250,.35); }
-.modal-body{ padding:14px; }
-.kv{
-  display:grid;
-  grid-template-columns: 140px 1fr;
-  gap:10px 12px;
-  margin-bottom:12px;
-}
-.k{ color:var(--muted); font-size:13px; }
-.v{ font-weight:800; }
-
-.link{ color: rgba(96,165,250,.95); text-decoration:none; }
-.link:hover{ text-decoration:underline; }
-
-/* MOBIL */
-@media (max-width: 760px){
-  .hero-title{ font-size:28px; }
-  .hero-sub{ font-size:12px; }
+{
+  "year": 2026,
+  "timezone": "Europe/Oslo",
+  "outputs": {
+    "football": "data/2026/football.json",
+    "handball_men": "data/2026/handball_men.json",
+    "handball_women": "data/2026/handball_women.json",
+    "wintersport_men": "data/2026/wintersport_men.json",
+    "wintersport_women": "data/2026/wintersport_women.json"
+  },
+  "sports": {
+    "football": [
+      {
+        "key": "eliteserien",
+        "name": "Eliteserien",
+        "type": "nff_ics",
+        "url": "https://www.fotball.no/footballapi/Calendar/GetCalendar?tournamentId=206092",
+        "default_tv": "TV 2 / TV 2 Play / NRK",
+        "enabled": true
+      },
+      {
+        "key": "obos",
+        "name": "OBOS-ligaen",
+        "type": "nff_ics",
+        "url": "https://www.fotball.no/footballapi/Calendar/GetCalendar?tournamentId=206093",
+        "default_tv": "TV 2 Play / NRK",
+        "enabled": true
+      },
+      {
+        "key": "premier_league",
+        "name": "Premier League",
+        "type": "fixturedownload_json",
+        "url": "https://fixturedownload.com/feed/json/epl-2025",
+        "default_tv": "Viaplay / V Sport",
+        "enabled": true
+      },
+      {
+        "key": "champions_league",
+        "name": "Champions League",
+        "type": "fixturedownload_json",
+        "url": "https://fixturedownload.com/feed/json/champions-league-2025",
+        "default_tv": "TV 2 Play Premium / TV 2 Sport 1",
+        "enabled": true
+      },
+      {
+        "key": "la_liga",
+        "name": "La Liga",
+        "type": "fixturedownload_json",
+        "url": "https://fixturedownload.com/feed/json/la-liga-2025",
+        "default_tv": "TV 2 / TV 2 Play",
+        "enabled": true
+      }
+    ],
+    "handball": {
+      "men": [
+        {
+          "key": "handball_men_ehf_euro_2026",
+          "type": "handball_pdf",
+          "name": "Håndball – Men's EHF EURO 2026",
+          "channel": "TV 2 / TV 2 Play",
+          "pdf_url": "https://tickets.eurohandball.com/fileadmin/fm_de/EHF2026M/250901_EHF2026-M_Match_Schedule_new.pdf",
+          "enabled": true
+        }
+      ],
+      "women": [
+        {
+          "key": "handball_women_ehf_euro_2026",
+          "type": "handball_pdf",
+          "name": "Håndball – Women's EHF EURO 2026",
+          "channel": "TV 2 / TV 2 Play",
+          "pdf_url": "",
+          "enabled": false
+        }
+      ]
+    },
+    "wintersport": {
+      "men": [
+        {
+          "key": "biathlon_world_2526_men",
+          "type": "biathlon_api",
+          "name": "Vintersport – Skiskyting (IBU) 2025/2026",
+          "channel": "TV 2 / TV 2 Play",
+          "api": {
+            "base_url": "https://biathlonresults.com/modules/sportapi/api",
+            "season_id": 2526,
+            "level": 3
+          },
+          "enabled": true
+        }
+      ],
+      "women": [
+        {
+          "key": "biathlon_world_2526_women",
+          "type": "biathlon_api",
+          "name": "Vintersport – Skiskyting (IBU) 2025/2026",
+          "channel": "TV 2 / TV 2 Play",
+          "api": {
+            "base_url": "https://biathlonresults.com/modules/sportapi/api",
+            "season_id": 2526,
+            "level": 3
+          },
+          "enabled": true
+        }
+      ]
+    }
+  }
 }
