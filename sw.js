@@ -1,11 +1,10 @@
-const CACHE = "grenland-live-v1";
+const CACHE = "grenland-live-v2";
 const CORE = [
   "./",
   "./index.html",
   "./styles.css",
   "./app.js",
   "./calendar.js",
-  "./calendar.html",
   "./manifest.webmanifest"
 ];
 
@@ -25,12 +24,16 @@ self.addEventListener("activate", (event) => {
 self.addEventListener("fetch", (event) => {
   const url = new URL(event.request.url);
 
-  // data/json: network-first (unngår “sticky” 0-kamper)
+  // Data: network-first (unngår “sticky 0 kamper”)
   if (url.pathname.includes("/data/") || url.pathname.endsWith(".json")) {
-    event.respondWith(fetch(event.request).catch(() => caches.match(event.request)));
+    event.respondWith(
+      fetch(event.request).catch(() => caches.match(event.request))
+    );
     return;
   }
 
-  // core: cache-first
-  event.respondWith(caches.match(event.request).then(c => c || fetch(event.request)));
+  // Core: cache-first
+  event.respondWith(
+    caches.match(event.request).then(cached => cached || fetch(event.request))
+  );
 });
