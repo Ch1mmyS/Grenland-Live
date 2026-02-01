@@ -1,4 +1,4 @@
-// /app.js (KOMPLETT – ROOT)
+// /app.js (KOMPLETT – ROOT) ✅ FIXET fetchJson + tekst/encoding
 
 function $(id){ return document.getElementById(id); }
 function show(el){ el.classList.remove("hidden"); }
@@ -17,22 +17,63 @@ function fmtNoDateTime(iso){
   }
 }
 
+/* =========================================================
+   ✅ UTF/MOJIBAKE FIX (Ã¸ Ã¥ Ã¦ etc)
+   - Fixer typiske UTF-8->Latin1 feil i ALLE strings i JSON
+========================================================= */
+function fixMojibakeString(s){
+  if (typeof s !== "string") return s;
+
+  // Bare prøv å fikse hvis den ser mistenkelig ut (unngår å ødelegge normale tekster)
+  if (!/[ÃÂ]/.test(s)) return s;
+
+  try{
+    // klassisk: UTF-8 bytes tolket som Latin-1
+    return decodeURIComponent(escape(s));
+  }catch{
+    // fallback – ingen endring hvis det feiler
+    return s;
+  }
+}
+
+function deepFixText(value){
+  if (typeof value === "string") return fixMojibakeString(value);
+  if (Array.isArray(value)) return value.map(deepFixText);
+  if (value && typeof value === "object"){
+    const out = {};
+    for (const [k, v] of Object.entries(value)){
+      out[deepFixText(k)] = deepFixText(v);
+    }
+    return out;
+  }
+  return value;
+}
+
+/* =========================================================
+   ✅ fetchJson: henter som TEXT + JSON.parse + deepFixText
+   (IKKE res.json())
+========================================================= */
 async function fetchJson(url){
   const r = await fetch(url, { cache: "no-store" });
   if(!r.ok) throw new Error(`${r.status} ${r.statusText} :: ${url}`);
-  return await r.json();
+
+  const txt = await r.text();          // <-- viktig
+  let data;
+  try{
+    data = JSON.parse(txt);            // <-- viktig
+  }catch(e){
+    throw new Error(`JSON parse error (${url}): ${e.message}`);
+  }
+  return deepFixText(data);            // <-- viktig
 }
 
 /* =========================================================
    STABILISERING HELPERS (NO DESIGN CHANGES)
-   - Ingen 2025
-   - Kanal fallback (PL/CL/LL)
-   - Default pubs (Gimle + Vikinghjørnet først)
-   - Vintersport title-fallback
-   - Klikkbare puber (kart + evt url)
 ========================================================= */
 const ONLY_YEAR = 2026;
-const DEFAULT_PUBS = ["Gimle Pub", "Vikinghjørnet"];
+
+// ✅ Vikinghjørnet først
+const DEFAULT_PUBS = ["Vikinghjørnet", "Gimle Pub"];
 
 function defaultChannelForLeague(leagueRaw=""){
   const s = (leagueRaw || "").toLowerCase();
@@ -59,20 +100,6 @@ function isInOnlyYearKickoff(kickoff){
   try { return new Date(iso).getFullYear() === ONLY_YEAR; } catch(e){ return false; }
 }
 
-function uniqStrings(arr){
-  const out = [];
-  const seen = new Set();
-  for (const x of (arr || [])){
-    const s = safeText(x);
-    if (!s) continue;
-    if (!seen.has(s)){
-      seen.add(s);
-      out.push(s);
-    }
-  }
-  return out;
-}
-
 // pub kan være string eller object {name, city, url}
 function pubToHtml(pub){
   const name = (typeof pub === "string") ? pub : (pub?.name || "Ukjent");
@@ -90,7 +117,6 @@ function pubToHtml(pub){
 }
 
 function mergeWhereWithDefaults(whereArr){
-  // behold objects og strings, men sørg for DEFAULT_PUBS først og ingen dupliserte strings
   const strings = [];
   const objs = [];
 
@@ -108,7 +134,6 @@ function mergeWhereWithDefaults(whereArr){
     ...restObjs
   ];
 
-  // dedupe bare stringene
   const rebuilt = [];
   const seen = new Set();
   for (const p of merged){
@@ -125,7 +150,6 @@ function mergeWhereWithDefaults(whereArr){
 }
 
 function displayTitle(g){
-  // Vintersport / events: hvis home/away er "Ukjent", bruk title/name
   const h = safeText(g.home);
   const a = safeText(g.away);
   if ((h === "" || h === "Ukjent") && (a === "" || a === "Ukjent")){
@@ -148,7 +172,6 @@ function setActiveTab(tabKey){
     btn.classList.toggle("active", btn.dataset.tab === tabKey);
   });
 
-  // last data for current tab
   if(tabKey === "sport") loadSport();
   if(tabKey === "puber") loadPubs();
   if(tabKey === "eventer") loadEvents();
@@ -166,7 +189,6 @@ function initTabs(){
 }
 
 /* ---------------- SPORT ---------------- */
-// “En fil per liga” (som du ba om)
 const LEAGUES = [
   { key:"eliteserien", label:"Eliteserien", url:"/data/2026/eliteserien.json", listKeys:["games","items"] },
   { key:"obos", label:"OBOS-ligaen", url:"/data/2026/obos.json", listKeys:["games","items"] },
@@ -182,7 +204,6 @@ const LEAGUES = [
 ];
 
 function getListFromPayload(payload, listKeys){
-  // Støtter også at payload er en array direkte
   if (Array.isArray(payload)) return payload;
   for(const k of listKeys){
     if(Array.isArray(payload?.[k])) return payload[k];
@@ -191,10 +212,7 @@ function getListFromPayload(payload, listKeys){
 }
 
 function normalizeGame(x, fallbackLeague){
-  // støtter ulike formater fra pipeline
   const league = x.league || x.competition || x.tournament || fallbackLeague || "Ukjent";
-
-  // Noen vintersport/events har ikke home/away
   const home = x.home || x.homeTeam || x.hjemme || x.team1 || x.athlete || "Ukjent";
   const away = x.away || x.awayTeam || x.borte || x.team2 || x.opponent || "Ukjent";
 
@@ -206,11 +224,9 @@ function normalizeGame(x, fallbackLeague){
     channel = defaultChannelForLeague(league);
   }
 
-  // pubs kan ligge som where[], pubs[], eller pubs:[{name,city,url}]
   const where = x.where || x.pubs || x.places || x.venue_pubs || x.venues || [];
   const whereArr = Array.isArray(where) ? where : [];
 
-  // vintersport: title/name
   const title = x.title || x.name || x.event || x.race || x.summary || "";
 
   return {
@@ -244,13 +260,11 @@ function renderGameCard(g){
     </div>
   `;
 
-  // Klikk åpner modal
   card.addEventListener("click", ()=> openModal(g));
   return card;
 }
 
 function openModal(g){
-  // enkel modal uten ekstra filer
   let backdrop = document.querySelector(".modal-backdrop");
   if(backdrop) backdrop.remove();
 
@@ -315,10 +329,9 @@ async function loadSport(){
     const payload = await fetchJson(league.url);
     const raw = getListFromPayload(payload, league.listKeys);
 
-    // NORMALISER + KUN 2026
     const games = raw
       .map(x=>normalizeGame(x, league.label))
-      .filter(g => g.kickoff && isInOnlyYearKickoff(g.kickoff)); // <-- ingen 2025
+      .filter(g => g.kickoff && isInOnlyYearKickoff(g.kickoff));
 
     const filtered = games.filter(g=>{
       if(!q) return true;
@@ -360,8 +373,6 @@ async function loadPubs(){
 
   try{
     const payload = await fetchJson("/data/content/pubs.json");
-
-    // DU har: { "places": [...] }
     const items = Array.isArray(payload.places) ? payload.places
                 : Array.isArray(payload.pubs) ? payload.pubs
                 : [];
@@ -379,8 +390,6 @@ async function loadPubs(){
       card.className = "card";
       const tags = Array.isArray(p.tags) ? p.tags : [];
 
-      // KLIKK: åpne kart. Hvis url finnes, ctrl/klikk kan åpne i ny tab via link i modal,
-      // men her holder vi oss til kart-klikk (ingen designendring).
       card.addEventListener("click", ()=>{
         const name = safeText(p.name);
         const city = safeText(p.city || "");
@@ -396,7 +405,7 @@ async function loadPubs(){
       list.appendChild(card);
     }
   }catch(e){
-    err.textContent = `Kunbe ikke laste /data/content/pubs.json\n${e.message}`;
+    err.textContent = `Kunne ikke laste /data/content/pubs.json\n${e.message}`;
     show(err);
   }
 }
@@ -440,7 +449,6 @@ async function loadEvents(){
 
 /* ---------------- VM/EM ---------------- */
 function flattenMonths(payload){
-  // vm2026_list.json hos deg: { generated_at, months:[{month, games:[...]}] }
   const months = Array.isArray(payload.months) ? payload.months : [];
   const all = [];
   for(const m of months){
@@ -483,7 +491,6 @@ async function loadVM(){
     const payload = await fetchJson("/data/2026/vm2026_list.json");
     const items = flattenMonths(payload);
 
-    // KUN 2026
     const only2026 = items.filter(x=>{
       const kickoff = x.kickoff || x.start || x.date || x.datetime || x.time || x.utcDate || null;
       return kickoff && isInOnlyYearKickoff(kickoff);
@@ -515,7 +522,6 @@ async function loadEM(){
     const payload = await fetchJson("/data/2026/em2026_list.json");
     const items = flattenMonths(payload);
 
-    // KUN 2026
     const only2026 = items.filter(x=>{
       const kickoff = x.kickoff || x.start || x.date || x.datetime || x.time || x.utcDate || null;
       return kickoff && isInOnlyYearKickoff(kickoff);
