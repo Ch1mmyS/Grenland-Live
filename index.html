@@ -4,7 +4,6 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Grenland Live</title>
-
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -12,32 +11,23 @@
   <div class="topbar">
     <div class="wrap header-grid">
 
-      <div class="brand">
-        <div class="logo">GL</div>
-        <div>
-          <div class="title">Grenland Live</div>
-          <div class="subtitle">Kampoversikt, pubvisning og kalender for 2026 – alt på ett sted.</div>
-        </div>
-      </div>
-
       <div class="hero">
         <div class="hero-title">Grenland Live</div>
         <div class="hero-sub">Kampoversikt, pubvisning og kalender for 2026 – alt på ett sted.</div>
       </div>
 
-      <div class="status">
-        <span class="dot ok"></span><span>Online</span>
-      </div>
-
-      <!-- FANER -->
       <div class="tabs" id="tabs">
-        <!-- NB: knapper (ikke a href) => alltid klikkbart -->
         <button class="tab active" id="tabSport" data-tab="sport" type="button">Sport</button>
         <button class="tab" id="tabPuber" data-tab="puber" type="button">Puber</button>
         <button class="tab" id="tabEventer" data-tab="eventer" type="button">Eventer</button>
         <button class="tab" id="tabVM" data-tab="vm" type="button">VM 2026</button>
         <button class="tab" id="tabEM" data-tab="em" type="button">EM 2026</button>
-        <button class="tab" id="tabKalender" data-tab="kalender" type="button">Kalender 2026</button>
+
+        <!-- Kalender: gå til egen side som før -->
+        <button class="tab" id="tabKalender" data-tab="kalender" type="button"
+          onclick="window.location.href='calendar.html'">
+          Kalender 2026
+        </button>
       </div>
 
     </div>
@@ -131,11 +121,6 @@
       <div style="margin-top:12px;" class="list" id="emList"></div>
     </section>
 
-    <!-- KALENDER (placeholder – du sa vi lar den være i fred nå) -->
-    <section class="panel hidden" id="viewKalender">
-      <div class="empty">Kalenderen håndteres av calendar.html / calendar.js (lar den stå i fred nå).</div>
-    </section>
-
   </div>
 
   <!-- MODAL -->
@@ -144,7 +129,7 @@
       <div class="modal-head">
         <div>
           <div class="modal-title" id="modalTitle">Kamp</div>
-          <div class="modal-sub muted" id="modalSub"></div>
+          <div class="modal-sub" id="modalSub"></div>
         </div>
         <button class="iconbtn" id="modalClose" type="button">Lukk</button>
       </div>
@@ -153,16 +138,6 @@
       </div>
     </div>
   </div>
-
-  <script>
-    // failsafe: hvis noe er <a href> et annet sted, stopp navigating
-    document.addEventListener("click", (e) => {
-      const a = e.target && e.target.closest ? e.target.closest("a") : null;
-      if(a && a.getAttribute("href") === "#"){
-        e.preventDefault();
-      }
-    }, true);
-  </script>
 
   <script src="app.js"></script>
 </body>
