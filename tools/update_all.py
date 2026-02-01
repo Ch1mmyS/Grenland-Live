@@ -1,288 +1,247 @@
-import json, re, os
+import json
+import os
+import re
 from datetime import datetime
-from dateutil import parser as dtparse
-import pytz
+from pathlib import Path
+
 import requests
-from PyPDF2 import PdfReader
-from io import BytesIO
 
-TZ = pytz.timezone("Europe/Oslo")
+YEAR = 2026
+ROOT = Path(__file__).resolve().parents[1]
+SOURCES_PATH = ROOT / "data" / "_meta" / "sources.json"
 
-OUT_DIR_2026 = "data/2026"
-PUBS_FILE = "data/content/pubs.json"  # ✅ din plassering
+OUT_DIR = ROOT / "data" / "2026"
+OUT_DIR.mkdir(parents=True, exist_ok=True)
 
-def http_get(url: str) -> bytes:
-    r = requests.get(url, timeout=60)
-    r.raise_for_status()
-    return r.content
+UA = "Grenland-Live/1.0 (+https://grenland-live.no)"
 
-def write_json(path: str, obj):
-    os.makedirs(os.path.dirname(path), exist_ok=True)
-    with open(path, "w", encoding="utf-8") as f:
-        json.dump(obj, f, ensure_ascii=False, indent=2)
+def read_json(path: Path):
+  return json.loads(path.read_text(encoding="utf-8"))
 
-def read_json(path: str):
-    with open(path, "r", encoding="utf-8") as f:
-        return json.load(f)
+def write_json(path: Path, payload):
+  path.parent.mkdir(parents=True, exist_ok=True)
+  path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
 
-def safe_dt(s: str):
-    try:
-        return dtparse.parse(s)
-    except:
-        return None
+def load_existing_list(path: Path, keys=("games","items")):
+  if not path.exists():
+    return []
+  try:
+    data = read_json(path)
+    for k in keys:
+      if isinstance(data.get(k), list):
+        return data[k]
+  except Exception:
+    return []
+  return []
 
-def to_iso_oslo(dt: datetime) -> str:
-    if dt.tzinfo is None:
-        dt = TZ.localize(dt)
-    return dt.astimezone(TZ).isoformat()
+def http_get(url: str) -> str:
+  r = requests.get(url, headers={"User-Agent": UA, "Accept": "*/*"}, timeout=30)
+  r.raise_for_status()
+  return r.text
 
-def normalize_match(sport, league, home, away, kickoff, channel="Ukjent", where=None):
-    if where is None: where = []
-    if not where:
-        where = ["Vikinghjørnet", "Gimle Pub"]
-    return {
-        "sport": sport,
-        "league": league,
-        "home": home,
-        "away": away,
-        "kickoff": kickoff,
-        "channel": channel or "Ukjent",
-        "where": where
-    }
+def extract_ics(text: str) -> str:
+  # If endpoint returns JSON wrapping an ICS string, try to extract it.
+  t = text.strip()
+  if t.startswith("{") and "BEGIN:VCALENDAR" in t:
+    # try to find ICS inside JSON values
+    m = re.search(r"(BEGIN:VCALENDAR.*END:VCALENDAR)", t, re.S)
+    if m:
+      return m.group(1)
+  if "BEGIN:VCALENDAR" in t and "END:VCALENDAR" in t:
+    m = re.search(r"(BEGIN:VCALENDAR.*END:VCALENDAR)", t, re.S)
+    if m:
+      return m.group(1)
+  return ""
 
-def load_pubs_default():
-    pubs = read_json(PUBS_FILE).get("pubs", [])
-    base = ["Vikinghjørnet", "Gimle Pub"]
-    rest = [p.get("name","").strip() for p in pubs if p.get("name") and p.get("name") not in base]
-    return base + rest
+def parse_ics_events(ics_text: str):
+  # Lightweight ICS parse (no external libs)
+  # We only need DTSTART + SUMMARY
+  # This handles common NFF calendar output well.
+  lines = [ln.rstrip("\n") for ln in ics_text.splitlines()]
+  # unfold lines (ICS can continue with leading space)
+  unfolded = []
+  for ln in lines:
+    if ln.startswith(" ") and unfolded:
+      unfolded[-1] += ln[1:]
+    else:
+      unfolded.append(ln)
 
-DEFAULT_WHERE = None
+  events = []
+  cur = None
+  for ln in unfolded:
+    if ln == "BEGIN:VEVENT":
+      cur = {}
+    elif ln == "END:VEVENT":
+      if cur:
+        events.append(cur)
+      cur = None
+    elif cur is not None:
+      if ln.startswith("DTSTART"):
+        cur["DTSTART"] = ln.split(":",1)[-1].strip()
+      elif ln.startswith("SUMMARY:"):
+        cur["SUMMARY"] = ln.split(":",1)[-1].strip()
+      elif ln.startswith("LOCATION:"):
+        cur["LOCATION"] = ln.split(":",1)[-1].strip()
+  return events
 
-# ---------------------------
-# FOOTBALL (FixtureDownload JSON feeds)
-# ---------------------------
-def fetch_fixturedownload_json(url, league_name):
-    raw = json.loads(http_get(url).decode("utf-8", errors="ignore"))
-    games = []
+def dt_to_iso(dt_raw: str) -> str:
+  # handles:
+  # 20260118T170000Z
+  # 20260118T180000
+  # 20260118
+  dt_raw = dt_raw.strip()
+  if dt_raw.endswith("Z"):
+    base = dt_raw[:-1]
+    dt = datetime.strptime(base, "%Y%m%dT%H%M%S")
+    # store as UTC Z
+    return dt.strftime("%Y-%m-%dT%H:%M:%SZ")
+  if "T" in dt_raw:
+    fmt = "%Y%m%dT%H%M%S" if len(dt_raw) >= 15 else "%Y%m%dT%H%M"
+    dt = datetime.strptime(dt_raw, fmt)
+    return dt.strftime("%Y-%m-%dT%H:%M:%S+01:00")
+  dt = datetime.strptime(dt_raw, "%Y%m%d")
+  return dt.strftime("%Y-%m-%dT00:00:00+01:00")
 
-    items = raw
-    if isinstance(raw, dict):
-        for key in ["matches", "fixtures", "games", "data"]:
-            if isinstance(raw.get(key), list):
-                items = raw[key]
-                break
+def parse_summary(summary: str):
+  # typical: "Odd - Brann"
+  s = summary.replace("–","-").strip()
+  if " - " in s:
+    a,b = s.split(" - ",1)
+    return a.strip(), b.strip()
+  if "-" in s:
+    a,b = s.split("-",1)
+    return a.strip(), b.strip()
+  return s.strip(), "Ukjent"
 
-    for it in items:
-        home = it.get("HomeTeam") or it.get("home") or it.get("homeTeam") or ""
-        away = it.get("AwayTeam") or it.get("away") or it.get("awayTeam") or ""
-        dt = it.get("DateUtc") or it.get("date") or it.get("kickoff") or it.get("start") or it.get("Date") or ""
-        d = safe_dt(dt)
-        if not d:
-            continue
-        kickoff = to_iso_oslo(d)
-        games.append(normalize_match("Fotball", league_name, home, away, kickoff, channel="Ukjent", where=DEFAULT_WHERE))
-    return games
+def fetch_nff_ics(url: str, league_name: str, default_tv: str):
+  text = http_get(url)
+  ics = extract_ics(text)
+  if not ics:
+    # sometimes endpoint is direct ICS already
+    if "BEGIN:VCALENDAR" in text and "END:VCALENDAR" in text:
+      ics = text
+  if not ics:
+    raise RuntimeError("No ICS found in response")
 
-# ---------------------------
-# HANDball EM (EHF PDF parse - menn)
-# ---------------------------
-def pdf_text(url):
-    b = http_get(url)
-    r = PdfReader(BytesIO(b))
-    txt = ""
-    for page in r.pages:
-        t = page.extract_text() or ""
-        txt += t + "\n"
-    return txt
+  raw_events = parse_ics_events(ics)
+  games = []
+  for ev in raw_events:
+    dt = ev.get("DTSTART")
+    summ = ev.get("SUMMARY","")
+    if not dt or not summ:
+      continue
+    iso = dt_to_iso(dt)
+    if not iso.startswith(f"{YEAR}-"):
+      continue
+    home, away = parse_summary(summ)
+    games.append({
+      "league": league_name,
+      "home": home,
+      "away": away,
+      "kickoff": iso,
+      "channel": default_tv or "Ukjent",
+      "where": ["Vikinghjørnet","Gimle Pub"],
+    })
+  return games
 
-def fetch_ehf_pdf_schedule(pdf_url, league_name):
-    text = pdf_text(pdf_url)
-    lines = [re.sub(r"\s+", " ", ln).strip() for ln in text.splitlines() if ln.strip()]
+def fetch_fixturedownload_json(url: str, league_name: str, default_tv: str):
+  # FixtureDownload feed is JSON array objects
+  raw = http_get(url)
+  data = json.loads(raw)
+  games = []
 
-    games = []
-    date_re = re.compile(r"(\d{1,2}\.\d{1,2}\.\d{4})")
-    time_re = re.compile(r"(\d{1,2}:\d{2})")
+  # data can be list or dict with list inside
+  if isinstance(data, dict):
+    # try common keys
+    for k in ("matches","fixtures","games","data"):
+      if isinstance(data.get(k), list):
+        data = data[k]
+        break
 
-    # Veldig tolerant “TEAM - TEAM”
-    vs_re = re.compile(r"([A-ZÆØÅ][A-ZÆØÅ \-\.]{2,})\s-\s([A-ZÆØÅ][A-ZÆØÅ \-\.]{2,})")
+  if not isinstance(data, list):
+    raise RuntimeError("Unexpected FixtureDownload JSON shape")
 
-    current_date = None
-    for ln in lines:
-        mdate = date_re.search(ln)
-        if mdate:
-            current_date = mdate.group(1)
+  for m in data:
+    # common fields:
+    # Date: "2025-08-16", Time: "12:30", HomeTeam, AwayTeam
+    date = (m.get("Date") or m.get("date") or "").strip()
+    time = (m.get("Time") or m.get("time") or "").strip()
+    home = (m.get("HomeTeam") or m.get("home") or m.get("Home") or "Ukjent").strip()
+    away = (m.get("AwayTeam") or m.get("away") or m.get("Away") or "Ukjent").strip()
 
-        mvs = vs_re.search(ln)
-        mtime = time_re.search(ln)
+    if not date:
+      continue
 
-        if current_date and mvs and mtime:
-            d = safe_dt(f"{current_date} {mtime.group(1)}")
-            if not d:
-                continue
-            kickoff = to_iso_oslo(d)
-            home = mvs.group(1).strip().title()
-            away = mvs.group(2).strip().title()
-            games.append(normalize_match("Håndball", league_name, home, away, kickoff, channel="Ukjent", where=DEFAULT_WHERE))
-    return games
+    # build ISO
+    if time:
+      iso = f"{date}T{time}:00+01:00"
+    else:
+      iso = f"{date}T00:00:00+01:00"
 
-# ---------------------------
-# WINTERSPORT - “ramme” for alt (legg til flere kilder når du vil)
-# Vi starter med store blokker: Alpine + Langrenn + Hopp (FIS)
-# Disse sidene kan endres, men er offisielle FIS.
-# ---------------------------
-WINTER_SOURCES = [
-    # FIS Alpine calendar page provides season calendar (official)  :contentReference[oaicite:4]{index=4}
-    {"key":"alpine_wc", "name":"Vintersport – Alpint (FIS)", "type":"fis_page", "url":"https://www.fis-ski.com/DB/alpine-skiing/calendar-results.html?seasoncode=2026&categorycode=WC"},
-    # FIS Cross-country calendar page (official) :contentReference[oaicite:5]{index=5}
-    {"key":"xc_wc", "name":"Vintersport – Langrenn (FIS)", "type":"fis_page", "url":"https://www.fis-ski.com/DB/cross-country/calendar-results.html?seasoncode=2026&categorycode=WC"},
-    # FIS Ski Jumping calendar page (official) :contentReference[oaicite:6]{index=6}
-    {"key":"sj_wc", "name":"Vintersport – Hopp (FIS)", "type":"fis_page", "url":"https://www.fis-ski.com/DB/ski-jumping/calendar-results.html?seasoncode=2026&categorycode=WC"},
-]
+    if not iso.startswith(f"{YEAR}-"):
+      continue
 
-def fetch_fis_calendar_page(url, league_name):
-    """
-    FIS sider viser kalender i tabell. Vi henter HTML og prøver å plukke ut:
-    - dato (YYYY-MM-DD eller dd.mm.yyyy)
-    - sted
-    - event title
-    FIS HTML kan endre seg; hvis parsing feiler, lager vi tom liste (frontend går fortsatt).
-    """
-    html = http_get(url).decode("utf-8", errors="ignore")
-
-    # Finn datoer i ISO/tekst – best effort
-    # Vi leter etter YYYY-MM-DD først:
-    dates = re.findall(r"\b(20\d{2}-\d{2}-\d{2})\b", html)
-    # fallback: dd.mm.yyyy
-    dates2 = re.findall(r"\b(\d{1,2}\.\d{1,2}\.20\d{2})\b", html)
-
-    # Vi kan ikke garantere tider her → setter 12:00 hvis mangler
-    # (Når du vil ha 100% tider, legger vi inn spesifikke ICS/PDF per sport/arrangør)
-    games = []
-    used = set()
-
-    for dstr in (dates[:400] + dates2[:400]):
-        if dstr in used:
-            continue
-        used.add(dstr)
-        d = safe_dt(dstr)
-        if not d:
-            continue
-        # default midt på dagen
-        d = d.replace(hour=12, minute=0, second=0)
-        kickoff = to_iso_oslo(d)
-
-        # eventtext “Vintersport” (placeholder)
-        games.append(normalize_match("Vintersport", league_name, "Vintersport", dstr, kickoff, channel="Ukjent", where=DEFAULT_WHERE))
-
-    return games
-
-def build_index(league_files):
-    return {
-        "generated_at": to_iso_oslo(datetime.now(TZ)),
-        "leagues": league_files
-    }
-
-def build_calendar_feed(all_games):
-    out = []
-    for g in all_games:
-        sport = g.get("sport","")
-        color = "red" if sport == "Fotball" else ("yellow" if sport == "Håndball" else ("green" if sport == "Vintersport" else "gray"))
-        out.append({
-            "date": g["kickoff"][:10],
-            "kickoff": g["kickoff"],
-            "sport": sport,
-            "color": color,
-            "league": g["league"],
-            "home": g["home"],
-            "away": g["away"],
-            "channel": g["channel"],
-            "where": g["where"],
-        })
-    return {
-        "generated_at": to_iso_oslo(datetime.now(TZ)),
-        "items": out
-    }
-
-def group_by_month(games):
-    items = sorted(games, key=lambda x: x.get("kickoff",""))
-    grouped = {}
-    for g in items:
-        d = safe_dt(g.get("kickoff",""))
-        if not d:
-            continue
-        d = d.astimezone(TZ)
-        key = d.strftime("%Y-%m")
-        grouped.setdefault(key, []).append(g)
-    return [{"month": ym, "games": grouped[ym]} for ym in sorted(grouped.keys())]
+    games.append({
+      "league": league_name,
+      "home": home,
+      "away": away,
+      "kickoff": iso,
+      "channel": default_tv or "Ukjent",
+      "where": ["Vikinghjørnet","Gimle Pub"],
+    })
+  return games
 
 def main():
-    global DEFAULT_WHERE
-    DEFAULT_WHERE = load_pubs_default()
+  sources = read_json(SOURCES_PATH)
 
-    league_files = []
-    all_games = []
+  football = sources["sports"]["football"]
+  summary_all = []
 
-    # --------- FOOTBALL SOURCES ----------
-    football_sources = [
-        {"key":"eliteserien","name":"Eliteserien","url":"https://fixturedownload.com/feed/json/eliteserien-2026"},
-        {"key":"obos","name":"OBOS-ligaen","url":"https://fixturedownload.com/feed/json/obos-ligaen-2026"},
-        {"key":"premier_league","name":"Premier League","url":"https://fixturedownload.com/feed/json/epl-2025"},
-        {"key":"champions_league","name":"Champions League","url":"https://fixturedownload.com/feed/json/champions-league-2025"},
-        {"key":"la_liga","name":"La Liga","url":"https://fixturedownload.com/feed/json/la-liga-2025"},
-    ]
+  for comp in football:
+    if not comp.get("enabled", True):
+      continue
 
-    for src in football_sources:
-        try:
-            games = fetch_fixturedownload_json(src["url"], src["name"])
-        except Exception:
-            games = []
-        path = f"{OUT_DIR_2026}/{src['key']}.json"
-        write_json(path, {"games": games})
-        league_files.append({"key": src["key"], "name": src["name"], "path": path.replace("\\","/"), "sport":"Fotball"})
-        all_games.extend(games)
+    key = comp["key"]
 
-    # --------- EM 2026 (HÅNDBALL MENN) ----------
-    # Official match schedule PDF :contentReference[oaicite:7]{index=7}
-    ehf_men_pdf = "https://tickets.eurohandball.com/fileadmin/fm_de/EHF2026M/250901_EHF2026-M_Match_Schedule_new.pdf"
+    # NORMALISER KEY-NAVN (du har "laliga" men fil heter la_liga.json i repo)
+    if key == "laliga":
+      key = "la_liga"
+
+    out_path = OUT_DIR / f"{key}.json"
+
+    league_name = comp.get("name", key)
+    default_tv = comp.get("default_tv", "Ukjent")
+    url = comp["url"]
+    typ = comp["type"]
+
     try:
-        em_men = fetch_ehf_pdf_schedule(ehf_men_pdf, "EM 2026 – Håndball Menn")
-    except Exception:
-        em_men = []
-    em_men_path = f"{OUT_DIR_2026}/em_handball_men.json"
-    write_json(em_men_path, {"games": em_men})
-    league_files.append({"key":"em_handball_men","name":"EM 2026 – Håndball Menn","path":em_men_path.replace("\\","/"),"sport":"Håndball"})
-    all_games.extend(em_men)
+      if typ == "nff_ics":
+        games = fetch_nff_ics(url, league_name, default_tv)
+      elif typ == "fixturedownload_json":
+        games = fetch_fixturedownload_json(url, league_name, default_tv)
+      else:
+        raise RuntimeError(f"Unknown type: {typ}")
 
-    # (Kvinne-EM 2026: EHF-side er JS, legg til PDF/JSON-kilde når du har den)
-    em_women_path = f"{OUT_DIR_2026}/em_handball_women.json"
-    if not os.path.exists(em_women_path):
-        write_json(em_women_path, {"games": []})
-    league_files.append({"key":"em_handball_women","name":"EM 2026 – Håndball Damer","path":em_women_path.replace("\\","/"),"sport":"Håndball"})
+      # IKKE OVERSKRIV MED TOMT
+      if len(games) == 0:
+        existing = load_existing_list(out_path, keys=("games",))
+        if existing:
+          print(f"[KEEP] {key}: fetched 0, keeping existing ({len(existing)})")
+          continue
 
-    # --------- WINTERSPORT (BEST EFFORT) ----------
-    for ws in WINTER_SOURCES:
-      try:
-          games = fetch_fis_calendar_page(ws["url"], ws["name"])
-      except Exception:
-          games = []
-      path = f"{OUT_DIR_2026}/{ws['key']}.json"
-      write_json(path, {"games": games})
-      league_files.append({"key": ws["key"], "name": ws["name"], "path": path.replace("\\","/"), "sport":"Vintersport"})
-      all_games.extend(games)
+      write_json(out_path, {"games": games})
+      print(f"[OK] {key}: wrote {len(games)} -> {out_path.as_posix()}")
+      summary_all.extend(games)
 
-    # --------- INDEX + CALENDAR FEED ----------
-    write_json(f"{OUT_DIR_2026}/index.json", build_index(league_files))
-    write_json(f"{OUT_DIR_2026}/calendar_feed.json", build_calendar_feed(all_games))
+    except Exception as e:
+      # IKKE ØDELEGG FILA
+      print(f"[FAIL] {key}: {e}. Keeping existing if any.")
+      continue
 
-    # --------- VM 2026 / EM 2026 LISTS ----------
-    # VM-lista = “alt vi har” gruppert pr mnd (du kan senere filtrere til VM-only)
-    write_json(f"{OUT_DIR_2026}/vm2026_list.json", {"generated_at": to_iso_oslo(datetime.now(TZ)), "months": group_by_month(all_games)})
-
-    # EM-lista = foreløpig håndball EM filer (menn + kvinner)
-    em_games = []
-    em_games.extend(em_men)
-    # kvinner tom inntil kilde legges inn
-    write_json(f"{OUT_DIR_2026}/em2026_list.json", {"generated_at": to_iso_oslo(datetime.now(TZ)), "months": group_by_month(em_games)})
+  # optional aggregate file (ikke nødvendig for UI, men nyttig)
+  agg_path = OUT_DIR / "football.json"
+  write_json(agg_path, {"games": summary_all})
+  print(f"[OK] football aggregate: {len(summary_all)}")
 
 if __name__ == "__main__":
-    main()
+  main()
