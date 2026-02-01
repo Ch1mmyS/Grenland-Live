@@ -1,4 +1,11 @@
+// /app.js — Grenland Live (matcher index.html + styles.css)
+// - Faner (tabs)
+// - Sport (per-liga JSON)
+// - Modal: tid/kanal/hvor vises (Vikinghjørnet + Gimle Pub først)
+// - Puber / Eventer / VM / EM lister
+
 const TZ = "Europe/Oslo";
+const DEFAULT_PUBS = ["Vikinghjørnet", "Gimle Pub"];
 
 const LEAGUE_LABEL = {
   eliteserien: "Eliteserien",
@@ -24,19 +31,20 @@ const LEAGUE_FILE = {
   wintersport_women: "data/2026/wintersport_women.json"
 };
 
-const DEFAULT_PUBS = ["Vikinghjørnet", "Gimle Pub"];
-
 function $(id){ return document.getElementById(id); }
 function show(el){ el.classList.remove("hidden"); }
 function hide(el){ el.classList.add("hidden"); }
 
-function safeArr(x){ return Array.isArray(x) ? x : []; }
+function esc(s){
+  return String(s ?? "")
+    .replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;");
+}
 
 function uniqKeepOrder(arr){
   const seen = new Set();
   const out = [];
   for (const v of arr) {
-    const k = String(v || "").trim();
+    const k = String(v ?? "").trim();
     if (!k || seen.has(k)) continue;
     seen.add(k);
     out.push(k);
@@ -68,34 +76,18 @@ function parseRootToArray(json){
   return [];
 }
 
-function normalizeGame(raw, leagueKey){
-  const league = raw.league || raw.competition || raw.tournament || LEAGUE_LABEL[leagueKey] || "Ukjent";
-  const home = raw.home || raw.homeTeam || raw.team1 || raw.h || "";
-  const away = raw.away || raw.awayTeam || raw.team2 || raw.a || "";
-  const kickoff = raw.kickoff || raw.start || raw.date || raw.datetime || raw.time || "";
-  const channel = (raw.channel || raw.tv || raw.broadcaster || raw.kanal || "").toString().trim() || "Ukjent";
-
-  let where = [];
-  if (Array.isArray(raw.where)) where = raw.where;
-  else if (Array.isArray(raw.pubs)) where = raw.pubs.map(p => p?.name || p).filter(Boolean);
-  else if (typeof raw.where === "string") where = [raw.where];
-  else if (typeof raw.pubs === "string") where = [raw.pubs];
-
-  where = uniqKeepOrder([...DEFAULT_PUBS, ...safeArr(where)]);
-
-  return { leagueKey, league, home, away, kickoff, channel, where, raw };
-}
-
 async function fetchJson(path){
-  const url = `${path}?v=${Date.now()}`;
+  const url = `${path}?v=${Date.now()}`; // cache-bust
   const r = await fetch(url, { cache: "no-store" });
-  if (!r.ok) throw new Error(`HTTP ${r.status} for ${path}`);
-  return r.json();
+  if (!r.ok) throw new Error(`HTTP ${r.status} @ ${path}`);
+  const ct = (r.headers.get("content-type") || "").toLowerCase();
+  if (ct.includes("text/html")) throw new Error(`Fikk HTML i stedet for JSON @ ${path} (tyder på 404/redirect/cache)`);
+  return await r.json();
 }
 
-/* ---------- Faner ---------- */
+/* ---------------- Tabs ---------------- */
 function initTabs(){
-  const buttons = Array.from(document.querySelectorAll(".tab-btn"));
+  const buttons = Array.from(document.querySelectorAll(".tab[data-tab]"));
   const panels = {
     sport: $("tab-sport"),
     pubs: $("tab-pubs"),
@@ -116,28 +108,47 @@ function initTabs(){
   for (const b of buttons) b.addEventListener("click", () => activate(b.dataset.tab));
 }
 
-/* ---------- Modal ---------- */
+/* ---------------- Modal ---------------- */
 function initModal(){
-  const overlay = $("modalOverlay");
-  $("modalClose").addEventListener("click", () => hide(overlay));
-  overlay.addEventListener("click", (e) => { if (e.target === overlay) hide(overlay); });
+  const backdrop = $("modalBackdrop");
+  const close = $("modalClose");
+
+  close.addEventListener("click", () => hide(backdrop));
+  backdrop.addEventListener("click", (e) => { if (e.target === backdrop) hide(backdrop); });
 }
 
-function openGameModal(game){
-  $("modalTitle").textContent = game.home && game.away ? `${game.home} – ${game.away}` : (game.league || "Kamp");
+function openModal(game){
+  $("modalTitle").textContent = game.home && game.away ? `${game.home} – ${game.away}` : (game.title || game.league || "Kamp");
+  $("modalSub").textContent = game.league ? `Liga: ${game.league}` : "";
+
   $("modalTime").textContent = fmtOslo(game.kickoff);
   $("modalChannel").textContent = game.channel || "Ukjent";
-  $("modalWhere").textContent = uniqKeepOrder([...DEFAULT_PUBS, ...safeArr(game.where)]).join(", ");
-  $("modalMeta").textContent = game.league ? `Liga: ${game.league}` : "";
-  show($("modalOverlay"));
+
+  const where = uniqKeepOrder([...DEFAULT_PUBS, ...(Array.isArray(game.where) ? game.where : [])]);
+  $("modalWhere").textContent = where.length ? where.join(", ") : DEFAULT_PUBS.join(", ");
+
+  show($("modalBackdrop"));
 }
 
-/* ---------- Sport liste ---------- */
+/* ---------------- Sport ---------------- */
 let currentGames = [];
 
-function escapeHtml(s){
-  return String(s ?? "")
-    .replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;");
+function normalizeGame(raw, leagueKey){
+  const league = raw.league || raw.competition || raw.tournament || LEAGUE_LABEL[leagueKey] || "Ukjent";
+  const home = raw.home || raw.homeTeam || raw.team1 || raw.h || "";
+  const away = raw.away || raw.awayTeam || raw.team2 || raw.a || "";
+  const kickoff = raw.kickoff || raw.start || raw.date || raw.datetime || raw.time || "";
+  const channel = String(raw.channel || raw.tv || raw.broadcaster || raw.kanal || "").trim() || "Ukjent";
+
+  let where = [];
+  if (Array.isArray(raw.where)) where = raw.where;
+  else if (Array.isArray(raw.pubs)) where = raw.pubs.map(p => p?.name || p).filter(Boolean);
+  else if (typeof raw.where === "string") where = [raw.where];
+  else if (typeof raw.pubs === "string") where = [raw.pubs];
+
+  where = uniqKeepOrder([...DEFAULT_PUBS, ...where]);
+
+  return { leagueKey, league, home, away, kickoff, channel, where, raw };
 }
 
 function renderGames(list){
@@ -152,64 +163,212 @@ function renderGames(list){
   for (const g of list) {
     const btn = document.createElement("button");
     btn.type = "button";
-    btn.className = "list-item";
+    btn.className = "card";
     btn.innerHTML = `
-      <div class="li-main">
-        <div class="li-title">${escapeHtml(g.home && g.away ? `${g.home} – ${g.away}` : g.league)}</div>
-        <div class="li-sub muted">${escapeHtml(fmtOslo(g.kickoff))}</div>
+      <div class="row">
+        <div>
+          <div class="teams">${esc(g.home && g.away ? `${g.home} – ${g.away}` : g.league)}</div>
+          <div class="muted small">${esc(fmtOslo(g.kickoff))}</div>
+        </div>
+        <div class="badge accent">${esc(g.channel || "Ukjent")}</div>
       </div>
-      <div class="li-right">
-        <div class="li-chip">${escapeHtml(g.channel || "Ukjent")}</div>
+      <div class="badges">
+        ${(g.where || []).slice(0, 4).map(p => `<span class="badge">${esc(p)}</span>`).join("")}
       </div>
     `;
-    btn.addEventListener("click", () => openGameModal(g));
+    btn.addEventListener("click", () => openModal(g));
     root.appendChild(btn);
   }
 }
 
-function applySearch(){
+function applySportSearch(){
   const q = ($("searchInput").value || "").trim().toLowerCase();
-  const list = !q ? currentGames : currentGames.filter(g => {
-    const hay = [g.league, g.home, g.away, g.channel, (g.where||[]).join(" ")].join(" ").toLowerCase();
+  const filtered = !q ? currentGames : currentGames.filter(g => {
+    const hay = [
+      g.league, g.home, g.away, g.channel,
+      (g.where || []).join(" ")
+    ].join(" ").toLowerCase();
     return hay.includes(q);
   });
-  $("leagueCount").textContent = String(list.length);
-  renderGames(list);
+
+  $("leagueCount").textContent = String(filtered.length);
+  renderGames(filtered);
 }
 
-async function loadLeague(leagueKey){
-  const path = LEAGUE_FILE[leagueKey];
-  $("leagueName").textContent = LEAGUE_LABEL[leagueKey] || leagueKey;
-  $("leagueCount").textContent = "0";
-  $("gamesList").innerHTML = `<div class="empty">Laster…</div>`;
+async function loadLeague(){
+  const key = $("leagueSelect").value;
+  $("leagueName").textContent = LEAGUE_LABEL[key] || key;
 
+  hide($("gamesError"));
+  $("gamesError").textContent = "";
+
+  $("gamesList").innerHTML = `<div class="empty">Laster…</div>`;
+  $("leagueCount").textContent = "0";
+
+  const path = LEAGUE_FILE[key];
   try {
     const json = await fetchJson(path);
     const arr = parseRootToArray(json);
-    currentGames = arr.map(x => normalizeGame(x, leagueKey));
-    currentGames.sort((a,b)=> (Date.parse(a.kickoff)||0) - (Date.parse(b.kickoff)||0));
-    applySearch();
+    currentGames = arr.map(x => normalizeGame(x, key));
+
+    currentGames.sort((a,b) => (Date.parse(a.kickoff)||0) - (Date.parse(b.kickoff)||0));
+
+    applySportSearch();
   } catch (e) {
     currentGames = [];
     $("leagueCount").textContent = "0";
-    $("gamesList").innerHTML = `<div class="empty">Kunne ikke laste ${path}. (Sjekk 404 / JSON)</div>`;
+    $("gamesList").innerHTML = `<div class="empty">Ingen kamper funnet.</div>`;
+    $("gamesError").textContent = `Kunne ikke laste: ${path}\n${String(e?.message || e)}`;
+    show($("gamesError"));
     console.error(e);
   }
 }
 
-/* ---------- Init ---------- */
+/* ---------------- Generic list loaders ---------------- */
+function renderSimpleList(rootEl, items, makeTitle, makeSub){
+  rootEl.innerHTML = "";
+  if (!items.length) {
+    rootEl.innerHTML = `<div class="empty">Ingen elementer funnet.</div>`;
+    return;
+  }
+
+  for (const it of items) {
+    const div = document.createElement("div");
+    div.className = "card";
+    div.innerHTML = `
+      <div class="row">
+        <div>
+          <div class="teams">${esc(makeTitle(it))}</div>
+          <div class="muted small">${esc(makeSub(it))}</div>
+        </div>
+      </div>
+    `;
+    rootEl.appendChild(div);
+  }
+}
+
+async function loadPubs(){
+  hide($("pubsError")); $("pubsError").textContent = "";
+  const root = $("pubsList");
+  root.innerHTML = `<div class="empty">Laster…</div>`;
+
+  try {
+    const json = await fetchJson("data/content/pubs.json");
+    const arr = parseRootToArray(json);
+
+    const pubs = arr.map(p => ({
+      name: p.name || p.title || "Ukjent",
+      city: p.city || "",
+      type: p.type || ""
+    }));
+
+    const input = $("pubSearchInput");
+    const render = () => {
+      const q = (input.value || "").trim().toLowerCase();
+      const filtered = !q ? pubs : pubs.filter(p => `${p.name} ${p.city} ${p.type}`.toLowerCase().includes(q));
+      renderSimpleList(root, filtered, p => p.name, p => [p.city, p.type].filter(Boolean).join(" · "));
+    };
+
+    input.oninput = render;
+    render();
+  } catch (e) {
+    root.innerHTML = `<div class="empty">Ingen puber funnet.</div>`;
+    $("pubsError").textContent = `Kunne ikke laste: data/content/pubs.json\n${String(e?.message || e)}`;
+    show($("pubsError"));
+    console.error(e);
+  }
+}
+
+async function loadEvents(){
+  hide($("eventsError")); $("eventsError").textContent = "";
+  const root = $("eventsList");
+  root.innerHTML = `<div class="empty">Laster…</div>`;
+
+  try {
+    const json = await fetchJson("data/events/events.json");
+    const arr = parseRootToArray(json);
+
+    const list = arr.map(x => ({
+      title: x.title || x.name || "Event",
+      when: x.start || x.date || x.datetime || "",
+      where: x.where || x.location || ""
+    })).sort((a,b) => (Date.parse(a.when)||0) - (Date.parse(b.when)||0));
+
+    const input = $("eventSearchInput");
+    const render = () => {
+      const q = (input.value || "").trim().toLowerCase();
+      const filtered = !q ? list : list.filter(e => `${e.title} ${e.where}`.toLowerCase().includes(q));
+      renderSimpleList(root, filtered, e => e.title, e => [fmtOslo(e.when), e.where].filter(Boolean).join(" · "));
+    };
+
+    input.oninput = render;
+    render();
+  } catch (e) {
+    root.innerHTML = `<div class="empty">Ingen eventer funnet.</div>`;
+    $("eventsError").textContent = `Kunne ikke laste: data/events/events.json\n${String(e?.message || e)}`;
+    show($("eventsError"));
+    console.error(e);
+  }
+}
+
+async function loadAnyList(path, rootId, inputId, errId){
+  const root = $(rootId);
+  const input = $(inputId);
+  const err = $(errId);
+
+  hide(err); err.textContent = "";
+  root.innerHTML = `<div class="empty">Laster…</div>`;
+
+  try {
+    const json = await fetchJson(path);
+    const arr = parseRootToArray(json);
+
+    const list = arr.map(x => ({
+      title: x.title || x.name || x.event || "Ukjent",
+      when: x.start || x.date || x.datetime || "",
+      where: x.where || x.location || ""
+    })).sort((a,b) => (Date.parse(a.when)||0) - (Date.parse(b.when)||0));
+
+    const render = () => {
+      const q = (input.value || "").trim().toLowerCase();
+      const filtered = !q ? list : list.filter(i => `${i.title} ${i.where}`.toLowerCase().includes(q));
+      renderSimpleList(root, filtered, i => i.title, i => [fmtOslo(i.when), i.where].filter(Boolean).join(" · "));
+    };
+
+    input.oninput = render;
+    render();
+  } catch (e) {
+    root.innerHTML = `<div class="empty">Ingen elementer funnet.</div>`;
+    err.textContent = `Kunne ikke laste: ${path}\n${String(e?.message || e)}`;
+    show(err);
+    console.error(e);
+  }
+}
+
+/* ---------------- Init ---------------- */
 document.addEventListener("DOMContentLoaded", () => {
   initTabs();
   initModal();
 
-  const select = $("leagueSelect");
-  $("leagueName").textContent = LEAGUE_LABEL[select.value] || select.value;
+  $("leagueName").textContent = LEAGUE_LABEL[$("leagueSelect").value] || $("leagueSelect").value;
 
-  select.addEventListener("change", () => {
+  $("leagueSelect").addEventListener("change", () => {
     $("searchInput").value = "";
-    loadLeague(select.value);
+    loadLeague();
   });
-  $("searchInput").addEventListener("input", applySearch);
 
-  loadLeague(select.value);
+  $("searchInput").addEventListener("input", applySportSearch);
+
+  $("reloadBtn").addEventListener("click", loadLeague);
+  $("reloadPubsBtn").addEventListener("click", loadPubs);
+  $("reloadEventsBtn").addEventListener("click", loadEvents);
+  $("reloadVmBtn").addEventListener("click", () => loadAnyList("data/2026/vm2026_list.json", "vmList", "vmSearchInput", "vmError"));
+  $("reloadEmBtn").addEventListener("click", () => loadAnyList("data/2026/em2026_list.json", "emList", "emSearchInput", "emError"));
+
+  // initial loads
+  loadLeague();
+  loadPubs();
+  loadEvents();
+  loadAnyList("data/2026/vm2026_list.json", "vmList", "vmSearchInput", "vmError");
+  loadAnyList("data/2026/em2026_list.json", "emList", "emSearchInput", "emError");
 });
