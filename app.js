@@ -23,6 +23,118 @@ async function fetchJson(url){
   return await r.json();
 }
 
+/* =========================================================
+   STABILISERING HELPERS (NO DESIGN CHANGES)
+   - Ingen 2025
+   - Kanal fallback (PL/CL/LL)
+   - Default pubs (Gimle + Vikinghjørnet først)
+   - Vintersport title-fallback
+   - Klikkbare puber (kart + evt url)
+========================================================= */
+const ONLY_YEAR = 2026;
+const DEFAULT_PUBS = ["Gimle Pub", "Vikinghjørnet"];
+
+function defaultChannelForLeague(leagueRaw=""){
+  const s = (leagueRaw || "").toLowerCase();
+  if (s.includes("premier")) return "Viaplay / V Sport";
+  if (s.includes("champions")) return "TV 2 / TV 2 Play";
+  if (s.includes("la liga") || s.includes("laliga")) return "TV 2 / TV 2 Play";
+  if (s.includes("eliteserien") || s.includes("obos")) return "TV 2 / TV 2 Play";
+  return "Ukjent";
+}
+
+function toIsoMaybe(v){
+  if (!v) return null;
+  if (typeof v === "string" && (v.includes("T") && (v.includes("+") || v.endsWith("Z")))) return v;
+  try{
+    const d = new Date(v);
+    if (!isNaN(d.getTime())) return d.toISOString();
+  }catch(e){}
+  return null;
+}
+
+function isInOnlyYearKickoff(kickoff){
+  const iso = toIsoMaybe(kickoff);
+  if (!iso) return false;
+  try { return new Date(iso).getFullYear() === ONLY_YEAR; } catch(e){ return false; }
+}
+
+function uniqStrings(arr){
+  const out = [];
+  const seen = new Set();
+  for (const x of (arr || [])){
+    const s = safeText(x);
+    if (!s) continue;
+    if (!seen.has(s)){
+      seen.add(s);
+      out.push(s);
+    }
+  }
+  return out;
+}
+
+// pub kan være string eller object {name, city, url}
+function pubToHtml(pub){
+  const name = (typeof pub === "string") ? pub : (pub?.name || "Ukjent");
+  const city = (typeof pub === "object" && pub?.city) ? pub.city : "";
+  const url  = (typeof pub === "object" && pub?.url) ? pub.url : "";
+
+  const q = encodeURIComponent(city ? `${name}, ${city}` : name);
+  const maps = `https://www.google.com/maps/search/?api=1&query=${q}`;
+
+  const website = url
+    ? ` <a href="${url}" target="_blank" rel="noopener" style="text-decoration:inherit;color:inherit;">(Nettside)</a>`
+    : "";
+
+  return `<a href="${maps}" target="_blank" rel="noopener" style="text-decoration:inherit;color:inherit;">${safeText(name)}</a>${website}`;
+}
+
+function mergeWhereWithDefaults(whereArr){
+  // behold objects og strings, men sørg for DEFAULT_PUBS først og ingen dupliserte strings
+  const strings = [];
+  const objs = [];
+
+  for (const p of (whereArr || [])){
+    if (typeof p === "string") strings.push(p);
+    else if (p && typeof p === "object") objs.push(p);
+  }
+
+  const restStrings = strings.filter(x => !DEFAULT_PUBS.includes(x));
+  const restObjs = objs.filter(o => !DEFAULT_PUBS.includes(o?.name));
+
+  const merged = [
+    ...DEFAULT_PUBS,
+    ...restStrings,
+    ...restObjs
+  ];
+
+  // dedupe bare stringene
+  const rebuilt = [];
+  const seen = new Set();
+  for (const p of merged){
+    if (typeof p === "string"){
+      if (!seen.has(p)){
+        seen.add(p);
+        rebuilt.push(p);
+      }
+    }else{
+      rebuilt.push(p);
+    }
+  }
+  return rebuilt;
+}
+
+function displayTitle(g){
+  // Vintersport / events: hvis home/away er "Ukjent", bruk title/name
+  const h = safeText(g.home);
+  const a = safeText(g.away);
+  if ((h === "" || h === "Ukjent") && (a === "" || a === "Ukjent")){
+    const t = safeText(g.title || g.name || "");
+    if (t) return t;
+  }
+  return `${h || "Ukjent"} – ${a || "Ukjent"}`;
+}
+
 /* ---------------- TABS ---------------- */
 const TAB_IDS = ["sport","puber","eventer","vm2026","em2026","kalender"];
 
@@ -70,6 +182,8 @@ const LEAGUES = [
 ];
 
 function getListFromPayload(payload, listKeys){
+  // Støtter også at payload er en array direkte
+  if (Array.isArray(payload)) return payload;
   for(const k of listKeys){
     if(Array.isArray(payload?.[k])) return payload[k];
   }
@@ -78,17 +192,36 @@ function getListFromPayload(payload, listKeys){
 
 function normalizeGame(x, fallbackLeague){
   // støtter ulike formater fra pipeline
-  const league = x.league || x.competition || fallbackLeague || "Ukjent";
-  const home = x.home || x.homeTeam || x.hjemme || x.team1 || "Ukjent";
-  const away = x.away || x.awayTeam || x.borte || x.team2 || "Ukjent";
+  const league = x.league || x.competition || x.tournament || fallbackLeague || "Ukjent";
 
-  const kickoff = x.kickoff || x.start || x.date || x.datetime || x.time || null;
-  const channel = x.channel || x.tv || x.broadcast || "Ukjent";
+  // Noen vintersport/events har ikke home/away
+  const home = x.home || x.homeTeam || x.hjemme || x.team1 || x.athlete || "Ukjent";
+  const away = x.away || x.awayTeam || x.borte || x.team2 || x.opponent || "Ukjent";
 
-  const where = x.where || x.pubs || x.places || x.venue_pubs || [];
+  const kickoffRaw = x.kickoff || x.start || x.date || x.datetime || x.time || x.utcDate || null;
+  const kickoff = toIsoMaybe(kickoffRaw);
+
+  let channel = x.channel || x.tv || x.broadcast || x.broadcaster || "Ukjent";
+  if (!channel || String(channel).trim() === "" || String(channel).toLowerCase() === "ukjent"){
+    channel = defaultChannelForLeague(league);
+  }
+
+  // pubs kan ligge som where[], pubs[], eller pubs:[{name,city,url}]
+  const where = x.where || x.pubs || x.places || x.venue_pubs || x.venues || [];
   const whereArr = Array.isArray(where) ? where : [];
 
-  return { league, home, away, kickoff, channel, where: whereArr };
+  // vintersport: title/name
+  const title = x.title || x.name || x.event || x.race || x.summary || "";
+
+  return {
+    league,
+    home,
+    away,
+    kickoff,
+    channel,
+    where: mergeWhereWithDefaults(whereArr),
+    title
+  };
 }
 
 function renderGameCard(g){
@@ -96,7 +229,7 @@ function renderGameCard(g){
   card.className = "card";
 
   const dt = g.kickoff ? fmtNoDateTime(g.kickoff) : "Tid ikke oppgitt";
-  const title = `${g.home} – ${g.away}`;
+  const title = displayTitle(g);
 
   card.innerHTML = `
     <div class="row">
@@ -107,7 +240,7 @@ function renderGameCard(g){
       <div class="badge accent">${safeText(g.channel || "Ukjent")}</div>
     </div>
     <div class="badges">
-      ${(g.where?.length ? g.where : ["Vikinghjørnet","Gimle Pub"]).map(p=>`<span class="badge">${safeText(p)}</span>`).join("")}
+      ${ (g.where?.length ? g.where : DEFAULT_PUBS).map(p=>`<span class="badge">${safeText(typeof p === "string" ? p : (p?.name || "Ukjent"))}</span>`).join("") }
     </div>
   `;
 
@@ -123,11 +256,14 @@ function openModal(g){
 
   backdrop = document.createElement("div");
   backdrop.className = "modal-backdrop";
+
+  const pubsHtml = (g.where?.length ? g.where : DEFAULT_PUBS).map(pubToHtml).join(", ");
+
   backdrop.innerHTML = `
     <div class="modal">
       <div class="modal-head">
         <div>
-          <div class="modal-title">${safeText(g.home)} – ${safeText(g.away)}</div>
+          <div class="modal-title">${safeText(displayTitle(g))}</div>
           <div class="modal-sub">${safeText(g.league)} • ${g.kickoff ? fmtNoDateTime(g.kickoff) : "Tid ikke oppgitt"}</div>
         </div>
         <button class="iconbtn" id="modalClose">Lukk</button>
@@ -135,7 +271,7 @@ function openModal(g){
       <div class="modal-body">
         <div class="kv">
           <div class="k">TV</div><div class="v">${safeText(g.channel || "Ukjent")}</div>
-          <div class="k">Vises på</div><div class="v">${(g.where?.length ? g.where : ["Vikinghjørnet","Gimle Pub"]).map(safeText).join(", ")}</div>
+          <div class="k">Vises på</div><div class="v">${pubsHtml || "Ukjent"}</div>
         </div>
       </div>
     </div>
@@ -178,7 +314,11 @@ async function loadSport(){
   try{
     const payload = await fetchJson(league.url);
     const raw = getListFromPayload(payload, league.listKeys);
-    const games = raw.map(x=>normalizeGame(x, league.label));
+
+    // NORMALISER + KUN 2026
+    const games = raw
+      .map(x=>normalizeGame(x, league.label))
+      .filter(g => g.kickoff && isInOnlyYearKickoff(g.kickoff)); // <-- ingen 2025
 
     const filtered = games.filter(g=>{
       if(!q) return true;
@@ -186,7 +326,8 @@ async function loadSport(){
         (g.home||"").toLowerCase().includes(q) ||
         (g.away||"").toLowerCase().includes(q) ||
         (g.league||"").toLowerCase().includes(q) ||
-        (g.channel||"").toLowerCase().includes(q)
+        (g.channel||"").toLowerCase().includes(q) ||
+        (g.title||"").toLowerCase().includes(q)
       );
     });
 
@@ -237,6 +378,16 @@ async function loadPubs(){
       const card = document.createElement("div");
       card.className = "card";
       const tags = Array.isArray(p.tags) ? p.tags : [];
+
+      // KLIKK: åpne kart. Hvis url finnes, ctrl/klikk kan åpne i ny tab via link i modal,
+      // men her holder vi oss til kart-klikk (ingen designendring).
+      card.addEventListener("click", ()=>{
+        const name = safeText(p.name);
+        const city = safeText(p.city || "");
+        const query = encodeURIComponent(city ? `${name}, ${city}` : name);
+        window.open(`https://www.google.com/maps/search/?api=1&query=${query}`, "_blank", "noopener");
+      });
+
       card.innerHTML = `
         <div class="teams">${safeText(p.name)}</div>
         <div class="muted small">${safeText(p.city || "")}</div>
@@ -245,7 +396,7 @@ async function loadPubs(){
       list.appendChild(card);
     }
   }catch(e){
-    err.textContent = `Kunne ikke laste /data/content/pubs.json\n${e.message}`;
+    err.textContent = `Kunbe ikke laste /data/content/pubs.json\n${e.message}`;
     show(err);
   }
 }
@@ -303,11 +454,16 @@ function renderSimpleItem(x){
   const g = normalizeGame(x, x.league || x.sport || "Ukjent");
   const card = document.createElement("div");
   card.className = "card";
+
+  const dt = g.kickoff ? fmtNoDateTime(g.kickoff) : "";
+  const title = displayTitle(g);
+
   card.innerHTML = `
-    <div class="teams">${safeText(g.home)} – ${safeText(g.away)}</div>
-    <div class="muted small">${g.kickoff ? fmtNoDateTime(g.kickoff) : ""}</div>
+    <div class="teams">${safeText(title)}</div>
+    <div class="muted small">${safeText(dt)}</div>
     <div class="badges">
       <span class="badge accent">${safeText(g.channel || "Ukjent")}</span>
+      ${(g.where?.length ? g.where : DEFAULT_PUBS).map(p=>`<span class="badge">${safeText(typeof p === "string" ? p : (p?.name || "Ukjent"))}</span>`).join("")}
     </div>
   `;
   card.addEventListener("click", ()=> openModal(g));
@@ -327,8 +483,14 @@ async function loadVM(){
     const payload = await fetchJson("/data/2026/vm2026_list.json");
     const items = flattenMonths(payload);
 
-    const filtered = items.filter(x=>{
-      const s = `${x.league||""} ${x.home||""} ${x.away||""} ${x.sport||""}`.toLowerCase();
+    // KUN 2026
+    const only2026 = items.filter(x=>{
+      const kickoff = x.kickoff || x.start || x.date || x.datetime || x.time || x.utcDate || null;
+      return kickoff && isInOnlyYearKickoff(kickoff);
+    });
+
+    const filtered = only2026.filter(x=>{
+      const s = `${x.league||""} ${x.home||""} ${x.away||""} ${x.sport||""} ${x.title||""} ${x.name||""}`.toLowerCase();
       return !q || s.includes(q);
     });
 
@@ -353,8 +515,14 @@ async function loadEM(){
     const payload = await fetchJson("/data/2026/em2026_list.json");
     const items = flattenMonths(payload);
 
-    const filtered = items.filter(x=>{
-      const s = `${x.league||""} ${x.home||""} ${x.away||""} ${x.sport||""}`.toLowerCase();
+    // KUN 2026
+    const only2026 = items.filter(x=>{
+      const kickoff = x.kickoff || x.start || x.date || x.datetime || x.time || x.utcDate || null;
+      return kickoff && isInOnlyYearKickoff(kickoff);
+    });
+
+    const filtered = only2026.filter(x=>{
+      const s = `${x.league||""} ${x.home||""} ${x.away||""} ${x.sport||""} ${x.title||""} ${x.name||""}`.toLowerCase();
       return !q || s.includes(q);
     });
 
