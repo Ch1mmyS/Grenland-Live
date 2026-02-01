@@ -5,198 +5,165 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Grenland Live</title>
 
-  <link rel="stylesheet" href="./styles.css" />
-  <link rel="manifest" href="./manifest.webmanifest" />
-  <meta name="theme-color" content="#0b0f17" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
-
 <body>
-  <header class="topbar">
-    <div class="wrap header-grid">
-      <!-- Venstre (holdes tom/luft for grid-balanse) -->
-      <div class="brand" aria-hidden="true"></div>
 
-      <!-- Senter: Tittel + tekst -->
+  <div class="topbar">
+    <div class="wrap header-grid">
+
+      <div class="brand">
+        <div class="logo">GL</div>
+        <div>
+          <div class="title">Grenland Live</div>
+          <div class="subtitle">Kampoversikt, pubvisning og kalender for 2026 – alt på ett sted.</div>
+        </div>
+      </div>
+
       <div class="hero">
         <div class="hero-title">Grenland Live</div>
         <div class="hero-sub">Kampoversikt, pubvisning og kalender for 2026 – alt på ett sted.</div>
       </div>
 
-      <!-- Høyre (valgfritt statusfelt, tomt for nå) -->
-      <div class="status" aria-hidden="true"></div>
+      <div class="status">
+        <span class="dot ok"></span><span>Online</span>
+      </div>
 
-      <!-- Faner -->
-      <nav class="tabs" aria-label="Navigasjon">
-        <button class="tab active" data-tab="sport" type="button">Sport</button>
-        <button class="tab" data-tab="pubs" type="button">Puber</button>
-        <button class="tab" data-tab="events" type="button">Eventer</button>
-        <button class="tab" data-tab="vm2026" type="button">VM 2026</button>
-        <button class="tab" data-tab="em2026" type="button">EM 2026</button>
-        <button class="tab" data-tab="calendar" type="button">Kalender 2026</button>
-      </nav>
+      <!-- FANER -->
+      <div class="tabs" id="tabs">
+        <!-- NB: knapper (ikke a href) => alltid klikkbart -->
+        <button class="tab active" id="tabSport" data-tab="sport" type="button">Sport</button>
+        <button class="tab" id="tabPuber" data-tab="puber" type="button">Puber</button>
+        <button class="tab" id="tabEventer" data-tab="eventer" type="button">Eventer</button>
+        <button class="tab" id="tabVM" data-tab="vm" type="button">VM 2026</button>
+        <button class="tab" id="tabEM" data-tab="em" type="button">EM 2026</button>
+        <button class="tab" id="tabKalender" data-tab="kalender" type="button">Kalender 2026</button>
+      </div>
+
     </div>
-  </header>
+  </div>
 
-  <main class="wrap main">
+  <div class="wrap main">
+
     <!-- SPORT -->
-    <section id="tab-sport" class="panel">
+    <section class="panel" id="viewSport">
       <div class="controls">
         <div class="control">
           <label for="leagueSelect">Velg liga</label>
-          <select id="leagueSelect">
-            <option value="eliteserien">Eliteserien</option>
-            <option value="obos">OBOS-ligaen</option>
-            <option value="premier_league">Premier League</option>
-            <option value="champions_league">Champions League</option>
-            <option value="la_liga">La Liga</option>
-            <option value="handball_men">Håndball Menn</option>
-            <option value="handball_women">Håndball Damer</option>
-            <option value="wintersport_men">Vintersport Menn</option>
-            <option value="wintersport_women">Vintersport Kvinner</option>
-          </select>
+          <select id="leagueSelect"></select>
         </div>
 
         <div class="control">
           <label>Antall</label>
-          <div class="hint"><span id="leagueCount">0</span> kamper · <span id="leagueName">Eliteserien</span></div>
+          <div id="sportCount" class="muted" style="padding:10px 2px;">0 kamper</div>
         </div>
 
         <div class="control">
-          <label for="searchInput">Søk</label>
-          <input id="searchInput" type="text" placeholder="Søk lag/arena/kanal..." />
+          <label for="sportSearch">Søk</label>
+          <input id="sportSearch" type="text" placeholder="Søk lag/arena/kanal..." />
         </div>
 
         <div class="control right">
-          <button id="reloadBtn" class="btn" type="button">Oppdater</button>
+          <button class="btn" id="btnSport" type="button">Oppdater</button>
         </div>
       </div>
 
-      <div id="gamesError" class="error hidden"></div>
-      <div id="gamesList" class="list" style="margin-top:12px;">
-        <div class="empty">Ingen kamper funnet.</div>
-      </div>
+      <div style="margin-top:12px;" class="list" id="sportList"></div>
     </section>
 
-    <!-- PUBS -->
-    <section id="tab-pubs" class="panel hidden">
+    <!-- PUBER -->
+    <section class="panel hidden" id="viewPuber">
       <div class="controls">
-        <div class="control" style="grid-column:1 / 4;">
-          <label for="pubSearchInput">Søk pub/by</label>
-          <input id="pubSearchInput" type="text" placeholder="Søk pub/by..." />
+        <div class="control" style="grid-column:1 / span 3;">
+          <label for="pubSearch">Søk pub/by</label>
+          <input id="pubSearch" type="text" placeholder="Søk pub/by..." />
         </div>
         <div class="control right">
-          <button id="reloadPubsBtn" class="btn" type="button">Oppdater</button>
+          <button class="btn" id="btnPuber" type="button">Oppdater</button>
         </div>
       </div>
 
-      <div id="pubsError" class="error hidden" style="margin-top:12px;"></div>
-      <div id="pubsList" class="list" style="margin-top:12px;">
-        <div class="empty">Ingen puber funnet.</div>
-      </div>
+      <div style="margin-top:12px;" class="list" id="pubList"></div>
     </section>
 
-    <!-- EVENTS -->
-    <section id="tab-events" class="panel hidden">
+    <!-- EVENTER -->
+    <section class="panel hidden" id="viewEventer">
       <div class="controls">
-        <div class="control" style="grid-column:1 / 4;">
-          <label for="eventSearchInput">Søk event</label>
-          <input id="eventSearchInput" type="text" placeholder="Søk event..." />
+        <div class="control" style="grid-column:1 / span 3;">
+          <label for="eventSearch">Søk event</label>
+          <input id="eventSearch" type="text" placeholder="Søk event..." />
         </div>
         <div class="control right">
-          <button id="reloadEventsBtn" class="btn" type="button">Oppdater</button>
+          <button class="btn" id="btnEventer" type="button">Oppdater</button>
         </div>
       </div>
 
-      <div id="eventsError" class="error hidden" style="margin-top:12px;"></div>
-      <div id="eventsList" class="list" style="margin-top:12px;">
-        <div class="empty">Ingen eventer funnet.</div>
-      </div>
+      <div style="margin-top:12px;" class="list" id="eventList"></div>
     </section>
 
-    <!-- VM 2026 -->
-    <section id="tab-vm2026" class="panel hidden">
+    <!-- VM -->
+    <section class="panel hidden" id="viewVM">
       <div class="controls">
-        <div class="control" style="grid-column:1 / 4;">
-          <label for="vmSearchInput">Søk</label>
-          <input id="vmSearchInput" type="text" placeholder="Søk..." />
+        <div class="control" style="grid-column:1 / span 3;">
+          <label for="vmSearch">Søk</label>
+          <input id="vmSearch" type="text" placeholder="Søk..." />
         </div>
         <div class="control right">
-          <button id="reloadVmBtn" class="btn" type="button">Oppdater</button>
+          <button class="btn" id="btnVM" type="button">Oppdater</button>
         </div>
       </div>
 
-      <div id="vmError" class="error hidden" style="margin-top:12px;"></div>
-      <div id="vmList" class="list" style="margin-top:12px;">
-        <div class="empty">Ingen elementer funnet.</div>
-      </div>
+      <div style="margin-top:12px;" class="list" id="vmList"></div>
     </section>
 
-    <!-- EM 2026 -->
-    <section id="tab-em2026" class="panel hidden">
+    <!-- EM -->
+    <section class="panel hidden" id="viewEM">
       <div class="controls">
-        <div class="control" style="grid-column:1 / 4;">
-          <label for="emSearchInput">Søk</label>
-          <input id="emSearchInput" type="text" placeholder="Søk..." />
+        <div class="control" style="grid-column:1 / span 3;">
+          <label for="emSearch">Søk</label>
+          <input id="emSearch" type="text" placeholder="Søk..." />
         </div>
         <div class="control right">
-          <button id="reloadEmBtn" class="btn" type="button">Oppdater</button>
+          <button class="btn" id="btnEM" type="button">Oppdater</button>
         </div>
       </div>
 
-      <div id="emError" class="error hidden" style="margin-top:12px;"></div>
-      <div id="emList" class="list" style="margin-top:12px;">
-        <div class="empty">Ingen elementer funnet.</div>
-      </div>
+      <div style="margin-top:12px;" class="list" id="emList"></div>
     </section>
 
-    <!-- KALENDER -->
-    <section id="tab-calendar" class="panel hidden">
-      <div class="meta" style="margin-bottom:10px;">
-        <div class="hint">🔴 fotball · 🟡 håndball · 🟢 vintersport</div>
-        <div class="hint small muted">Klikk på en dag for å se liste til høyre</div>
-      </div>
-
-      <div id="calendarError" class="error hidden" style="margin-bottom:12px;"></div>
-
-      <div class="calendar-layout">
-        <div id="calendarRoot" class="calendar-root"></div>
-
-        <aside class="calendar-side">
-          <div class="h2">Valgt dato</div>
-          <div id="calendarPicked" class="muted small">Klikk en dag…</div>
-          <div id="calendarList" class="list" style="margin-top:12px;">
-            <div class="empty">Ingen elementer.</div>
-          </div>
-        </aside>
-      </div>
+    <!-- KALENDER (placeholder – du sa vi lar den være i fred nå) -->
+    <section class="panel hidden" id="viewKalender">
+      <div class="empty">Kalenderen håndteres av calendar.html / calendar.js (lar den stå i fred nå).</div>
     </section>
-  </main>
+
+  </div>
 
   <!-- MODAL -->
-  <div id="modalBackdrop" class="modal-backdrop hidden" role="dialog" aria-modal="true">
+  <div class="modal-backdrop hidden" id="modalBackdrop">
     <div class="modal">
       <div class="modal-head">
         <div>
-          <div id="modalTitle" class="modal-title">Kamp</div>
-          <div id="modalSub" class="modal-sub muted"></div>
+          <div class="modal-title" id="modalTitle">Kamp</div>
+          <div class="modal-sub muted" id="modalSub"></div>
         </div>
-        <button id="modalClose" class="iconbtn" type="button">Lukk</button>
+        <button class="iconbtn" id="modalClose" type="button">Lukk</button>
       </div>
-
       <div class="modal-body">
-        <div class="kv"><div class="k">Tid</div><div id="modalTime" class="v">Ukjent</div></div>
-        <div class="kv"><div class="k">Kanal</div><div id="modalChannel" class="v">Ukjent</div></div>
-        <div class="kv"><div class="k">Hvor vises</div><div id="modalWhere" class="v">Vikinghjørnet, Gimle Pub</div></div>
+        <div class="kv" id="modalKV"></div>
       </div>
     </div>
   </div>
 
-  <script defer src="./app.js"></script>
-  <script defer src="./calendar.js"></script>
   <script>
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("./sw.js").catch(()=>{});
-    }
+    // failsafe: hvis noe er <a href> et annet sted, stopp navigating
+    document.addEventListener("click", (e) => {
+      const a = e.target && e.target.closest ? e.target.closest("a") : null;
+      if(a && a.getAttribute("href") === "#"){
+        e.preventDefault();
+      }
+    }, true);
   </script>
+
+  <script src="app.js"></script>
 </body>
 </html>
