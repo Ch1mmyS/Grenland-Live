@@ -4,39 +4,31 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Grenland Live</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="/styles.css" />
 </head>
 <body>
 
   <div class="topbar">
     <div class="wrap header-grid">
-
       <div class="hero">
-        <div class="hero-title">Grenland Live</div>
+        <h1 class="hero-title">Grenland Live</h1>
         <div class="hero-sub">Kampoversikt, pubvisning og kalender for 2026 – alt på ett sted.</div>
       </div>
 
       <div class="tabs" id="tabs">
-        <button class="tab active" id="tabSport" data-tab="sport" type="button">Sport</button>
-        <button class="tab" id="tabPuber" data-tab="puber" type="button">Puber</button>
-        <button class="tab" id="tabEventer" data-tab="eventer" type="button">Eventer</button>
-        <button class="tab" id="tabVM" data-tab="vm" type="button">VM 2026</button>
-        <button class="tab" id="tabEM" data-tab="em" type="button">EM 2026</button>
-
-        <!-- Kalender: gå til egen side som før -->
-        <button class="tab" id="tabKalender" data-tab="kalender" type="button"
-          onclick="window.location.href='calendar.html'">
-          Kalender 2026
-        </button>
+        <button class="tab active" data-tab="sport">Sport</button>
+        <button class="tab" data-tab="puber">Puber</button>
+        <button class="tab" data-tab="eventer">Eventer</button>
+        <button class="tab" data-tab="vm2026">VM 2026</button>
+        <button class="tab" data-tab="em2026">EM 2026</button>
+        <button class="tab" data-tab="kalender">Kalender 2026</button>
       </div>
-
     </div>
   </div>
 
-  <div class="wrap main">
-
+  <main class="wrap main">
     <!-- SPORT -->
-    <section class="panel" id="viewSport">
+    <section class="panel" id="tab-sport">
       <div class="controls">
         <div class="control">
           <label for="leagueSelect">Velg liga</label>
@@ -45,100 +37,99 @@
 
         <div class="control">
           <label>Antall</label>
-          <div id="sportCount" class="muted" style="padding:10px 2px;">0 kamper</div>
+          <div class="hint" id="countLabel">–</div>
         </div>
 
         <div class="control">
-          <label for="sportSearch">Søk</label>
-          <input id="sportSearch" type="text" placeholder="Søk lag/arena/kanal..." />
+          <label for="searchInput">Søk</label>
+          <input id="searchInput" placeholder="Søk lag/arena/kanal..." />
         </div>
 
         <div class="control right">
-          <button class="btn" id="btnSport" type="button">Oppdater</button>
+          <button class="btn" id="refreshBtn">Oppdater</button>
         </div>
       </div>
 
-      <div style="margin-top:12px;" class="list" id="sportList"></div>
+      <div class="error hidden" id="sportError"></div>
+      <div class="empty hidden" id="sportEmpty">Ingen kamper funnet.</div>
+      <div class="list" id="sportList"></div>
     </section>
 
     <!-- PUBER -->
-    <section class="panel hidden" id="viewPuber">
-      <div class="controls">
-        <div class="control" style="grid-column:1 / span 3;">
+    <section class="panel hidden" id="tab-puber">
+      <div class="controls" style="grid-template-columns: 1.6fr .7fr;">
+        <div class="control">
           <label for="pubSearch">Søk pub/by</label>
-          <input id="pubSearch" type="text" placeholder="Søk pub/by..." />
+          <input id="pubSearch" placeholder="Søk pub/by..." />
         </div>
         <div class="control right">
-          <button class="btn" id="btnPuber" type="button">Oppdater</button>
+          <button class="btn" id="pubRefresh">Oppdater</button>
         </div>
       </div>
 
-      <div style="margin-top:12px;" class="list" id="pubList"></div>
+      <div class="error hidden" id="pubError"></div>
+      <div class="empty hidden" id="pubEmpty">Ingen elementer funnet.</div>
+      <div class="list" id="pubList"></div>
     </section>
 
     <!-- EVENTER -->
-    <section class="panel hidden" id="viewEventer">
-      <div class="controls">
-        <div class="control" style="grid-column:1 / span 3;">
+    <section class="panel hidden" id="tab-eventer">
+      <div class="controls" style="grid-template-columns: 1.6fr .7fr;">
+        <div class="control">
           <label for="eventSearch">Søk event</label>
-          <input id="eventSearch" type="text" placeholder="Søk event..." />
+          <input id="eventSearch" placeholder="Søk event..." />
         </div>
         <div class="control right">
-          <button class="btn" id="btnEventer" type="button">Oppdater</button>
+          <button class="btn" id="eventRefresh">Oppdater</button>
         </div>
       </div>
 
-      <div style="margin-top:12px;" class="list" id="eventList"></div>
+      <div class="error hidden" id="eventError"></div>
+      <div class="empty hidden" id="eventEmpty">Ingen elementer funnet.</div>
+      <div class="list" id="eventList"></div>
     </section>
 
     <!-- VM -->
-    <section class="panel hidden" id="viewVM">
-      <div class="controls">
-        <div class="control" style="grid-column:1 / span 3;">
+    <section class="panel hidden" id="tab-vm2026">
+      <div class="controls" style="grid-template-columns: 1.6fr .7fr;">
+        <div class="control">
           <label for="vmSearch">Søk</label>
-          <input id="vmSearch" type="text" placeholder="Søk..." />
+          <input id="vmSearch" placeholder="Søk..." />
         </div>
         <div class="control right">
-          <button class="btn" id="btnVM" type="button">Oppdater</button>
+          <button class="btn" id="vmRefresh">Oppdater</button>
         </div>
       </div>
 
-      <div style="margin-top:12px;" class="list" id="vmList"></div>
+      <div class="error hidden" id="vmError"></div>
+      <div class="empty hidden" id="vmEmpty">Ingen elementer funnet.</div>
+      <div class="list" id="vmList"></div>
     </section>
 
     <!-- EM -->
-    <section class="panel hidden" id="viewEM">
-      <div class="controls">
-        <div class="control" style="grid-column:1 / span 3;">
+    <section class="panel hidden" id="tab-em2026">
+      <div class="controls" style="grid-template-columns: 1.6fr .7fr;">
+        <div class="control">
           <label for="emSearch">Søk</label>
-          <input id="emSearch" type="text" placeholder="Søk..." />
+          <input id="emSearch" placeholder="Søk..." />
         </div>
         <div class="control right">
-          <button class="btn" id="btnEM" type="button">Oppdater</button>
+          <button class="btn" id="emRefresh">Oppdater</button>
         </div>
       </div>
 
-      <div style="margin-top:12px;" class="list" id="emList"></div>
+      <div class="error hidden" id="emError"></div>
+      <div class="empty hidden" id="emEmpty">Ingen elementer funnet.</div>
+      <div class="list" id="emList"></div>
     </section>
 
-  </div>
+    <!-- KALENDER -->
+    <section class="panel hidden" id="tab-kalender">
+      <div class="hint">Kalender (står på is akkurat nå – vi rører den ikke i denne runden).</div>
+    </section>
 
-  <!-- MODAL -->
-  <div class="modal-backdrop hidden" id="modalBackdrop">
-    <div class="modal">
-      <div class="modal-head">
-        <div>
-          <div class="modal-title" id="modalTitle">Kamp</div>
-          <div class="modal-sub" id="modalSub"></div>
-        </div>
-        <button class="iconbtn" id="modalClose" type="button">Lukk</button>
-      </div>
-      <div class="modal-body">
-        <div class="kv" id="modalKV"></div>
-      </div>
-    </div>
-  </div>
+  </main>
 
-  <script src="app.js"></script>
+  <script src="/app.js"></script>
 </body>
 </html>
