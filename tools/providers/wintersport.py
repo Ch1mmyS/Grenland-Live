@@ -4,19 +4,13 @@ from __future__ import annotations
 import hashlib
 import json
 import re
-from datetime import datetime, timezone
+from datetime import datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
-import xml.etree.ElementTree as ET
 
 import requests
 
 OSLO = ZoneInfo("Europe/Oslo")
-
-HEADERS = {
-    "User-Agent": "GrenlandLiveBot/1.0 (+https://github.com/Ch1mmyS/Grenland-Live)",
-    "Accept": "application/xml,text/xml;q=0.9,*/*;q=0.8",
-}
 
 
 def _stable_id(*parts: str) -> str:
@@ -29,208 +23,214 @@ def _read_sources() -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def _get_text(el: ET.Element | None, tag: str, default: str = "") -> str:
-    if el is None:
-        return default
-    child = el.find(tag)
-    if child is None or child.text is None:
-        return default
-    return child.text.strip()
+def _parse_ics(ics_text: str, year: int, category: str, tv: str, gender: str) -> list[dict]:
+    """
+    Minimal ICS parser:
+    - DTSTART (YYYYMMDD or YYYYMMDDTHHMMSSZ)
+    - SUMMARY
+    """
+    # Unfold lines (ICS can wrap with leading space)
+    raw_lines = ics_text.splitlines()
+    lines: list[str] = []
+    for ln in raw_lines:
+        if ln.startswith((" ", "\t")) and lines:
+            lines[-1] += ln.strip()
+        else:
+            lines.append(ln.strip())
 
+    items: list[dict] = []
+    seen: set[str] = set()
 
-def _parse_utc_iso(s: str) -> datetime | None:
-    if not s:
-        return None
-    s = s.strip()
-    try:
-        if s.endswith("Z"):
-            return datetime.fromisoformat(s.replace("Z", "+00:00")).astimezone(timezone.utc)
-        dt = datetime.fromisoformat(s)
-        if dt.tzinfo is None:
-            dt = dt.replace(tzinfo=timezone.utc)
-        return dt.astimezone(timezone.utc)
-    except Exception:
-        return None
+    cur: dict[str, str] = {}
 
+    def flush():
+        nonlocal cur
+        if not cur:
+            return
+        dt_raw = cur.get("DTSTART", "") or cur.get("DTSTART;VALUE=DATE", "")
+        summary = cur.get("SUMMARY", "") or cur.get("SUMMARY;LANGUAGE=en", "") or ""
 
-def _iso_oslo(dt: datetime) -> str:
-    if dt.tzinfo is None:
-        dt = dt.replace(tzinfo=timezone.utc)
-    return dt.astimezone(OSLO).isoformat(timespec="seconds")
+        dt = _ics_dt_to_iso(dt_raw)
+        if not dt:
+            cur = {}
+            return
 
-
-def _in_year(dt: datetime, year: int) -> bool:
-    if dt.tzinfo is None:
-        dt = dt.replace(tzinfo=timezone.utc)
-    return dt.astimezone(OSLO).year == year
-
-
-def _safe_xml_root(content: bytes, label: str) -> ET.Element | None:
-    # Sjekk først at det faktisk ser ut som XML
-    if not content:
-        print(f"[wintersport] WARN {label}: empty response body")
-        return None
-
-    # Trim whitespace og sjekk første tegn
-    head = content.lstrip()[:60]
-    if not head.startswith(b"<"):
-        # Ikke XML – logg snippet
         try:
-            snippet = content[:300].decode("utf-8", errors="replace")
+            d = datetime.fromisoformat(dt)
         except Exception:
-            snippet = str(content[:300])
-        print(f"[wintersport] WARN {label}: response is not XML. Snippet:\n{snippet}")
+            cur = {}
+            return
+
+        if d.year != year:
+            cur = {}
+            return
+
+        title = summary.strip() or "Vintersport"
+        eid = _stable_id("wintersport", gender, category, dt, title)
+        if eid in seen:
+            cur = {}
+            return
+        seen.add(eid)
+
+        items.append(
+            {
+                "id": eid,
+                "sport": "wintersport",
+                "category": category,
+                "gender": gender,
+                "start": d.astimezone(OSLO).isoformat(timespec="seconds"),
+                "title": title,
+                "tv": tv,
+                "where": [],
+                "source": "ics",
+            }
+        )
+        cur = {}
+
+    for ln in lines:
+        if ln == "BEGIN:VEVENT":
+            cur = {}
+        elif ln == "END:VEVENT":
+            flush()
+        else:
+            if ":" in ln:
+                k, v = ln.split(":", 1)
+                # vi beholder parameter-keys også, men prioriterer plain key senere
+                cur[k] = v
+
+    items.sort(key=lambda x: x.get("start") or "")
+    return items
+
+
+def _ics_dt_to_iso(dt_raw: str) -> str | None:
+    dt_raw = (dt_raw or "").strip()
+    if not dt_raw:
         return None
 
-    try:
-        return ET.fromstring(content)
-    except ET.ParseError as e:
+    # DTSTART:20260128T090000Z
+    m = re.match(r"^(\d{8})T(\d{6})Z$", dt_raw)
+    if m:
+        ymd, hms = m.group(1), m.group(2)
+        iso = f"{ymd[0:4]}-{ymd[4:6]}-{ymd[6:8]}T{hms[0:2]}:{hms[2:4]}:{hms[4:6]}+00:00"
+        return iso
+
+    # DTSTART:20260128T090000  (uten Z)
+    m = re.match(r"^(\d{8})T(\d{6})$", dt_raw)
+    if m:
+        ymd, hms = m.group(1), m.group(2)
+        # antar Oslo hvis ikke Z
+        iso = f"{ymd[0:4]}-{ymd[4:6]}-{ymd[6:8]}T{hms[0:2]}:{hms[2:4]}:{hms[4:6]}+01:00"
+        return iso
+
+    # DTSTART;VALUE=DATE:20260128 (heldag)
+    m = re.match(r"^(\d{8})$", dt_raw)
+    if m:
+        ymd = m.group(1)
+        iso = f"{ymd[0:4]}-{ymd[4:6]}-{ymd[6:8]}T12:00:00+01:00"
+        return iso
+
+    return None
+
+
+def _fetch_ics(url: str) -> str:
+    r = requests.get(url, timeout=90)
+    r.raise_for_status()
+    return r.text
+
+
+def _fetch_json(url: str) -> object:
+    r = requests.get(url, timeout=90)
+    r.raise_for_status()
+    return r.json()
+
+
+def _normalize_json_items(payload: object, year: int, category: str, tv: str, gender: str) -> list[dict]:
+    """
+    Hvis du har JSON-feed: støtter list direkte eller {items:[...]}.
+    Må minst ha (start/title) eller (date/name).
+    """
+    if isinstance(payload, dict) and isinstance(payload.get("items"), list):
+        raw = payload["items"]
+    elif isinstance(payload, list):
+        raw = payload
+    else:
+        raw = []
+
+    items: list[dict] = []
+    for x in raw:
+        if not isinstance(x, dict):
+            continue
+
+        start = x.get("start") or x.get("kickoff") or x.get("date") or x.get("datetime")
+        title = x.get("title") or x.get("name") or x.get("event") or "Vintersport"
+
         try:
-            snippet = content[:300].decode("utf-8", errors="replace")
+            dt = datetime.fromisoformat(start)
         except Exception:
-            snippet = str(content[:300])
-        print(f"[wintersport] WARN {label}: XML parse error: {e}. Snippet:\n{snippet}")
-        return None
+            continue
 
+        if dt.year != year:
+            continue
 
-def _fetch_events(base_url: str, season_id: int, level: int) -> list[dict]:
-    url = f"{base_url.rstrip('/')}/Events"
-    params = {"SeasonId": str(season_id), "Level": str(level)}
-    r = requests.get(url, params=params, headers=HEADERS, timeout=60)
-    r.raise_for_status()
+        eid = _stable_id("wintersport", gender, category, start, str(title))
+        items.append(
+            {
+                "id": eid,
+                "sport": "wintersport",
+                "category": category,
+                "gender": gender,
+                "start": dt.astimezone(OSLO).isoformat(timespec="seconds"),
+                "title": str(title),
+                "tv": tv,
+                "where": [],
+                "source": "json_url",
+            }
+        )
 
-    root = _safe_xml_root(r.content, label="Events")
-    if root is None:
-        return []
-
-    out: list[dict] = []
-    for ev in root.findall(".//Event"):
-        event_id = _get_text(ev, "EventId")
-        short = _get_text(ev, "ShortDescription")
-        start = _get_text(ev, "StartDate")
-        end = _get_text(ev, "EndDate")
-        if event_id:
-            out.append({"EventId": event_id, "ShortDescription": short, "StartDate": start, "EndDate": end})
-    return out
-
-
-def _fetch_competitions(base_url: str, event_id: str) -> list[dict]:
-    url = f"{base_url.rstrip('/')}/Competitions"
-    params = {"EventId": event_id}
-    r = requests.get(url, params=params, headers=HEADERS, timeout=60)
-    r.raise_for_status()
-
-    root = _safe_xml_root(r.content, label=f"Competitions(EventId={event_id})")
-    if root is None:
-        return []
-
-    comps: list[dict] = []
-    for c in root.findall(".//Competition"):
-        race_id = _get_text(c, "RaceId")
-        desc = _get_text(c, "ShortDescription")
-        start = _get_text(c, "StartTime")
-        cat = _get_text(c, "catId")
-        if race_id and start:
-            comps.append({"RaceId": race_id, "desc": desc, "StartTime": start, "catId": cat})
-    return comps
-
-
-def _gender_from_comp(comp: dict) -> str:
-    cat = (comp.get("catId") or "").upper()
-    desc = (comp.get("desc") or "").lower()
-
-    if "women" in desc or "female" in desc:
-        return "women"
-    if "men" in desc or "male" in desc:
-        return "men"
-    if "mixed" in desc:
-        return "mixed"
-
-    if cat.startswith(("SW", "JW", "YW", "GW")):
-        return "women"
-    if cat.startswith(("SM", "JM", "YM", "BM")):
-        return "men"
-
-    return "unknown"
+    items.sort(key=lambda x: x.get("start") or "")
+    return items
 
 
 def fetch_wintersport_items(year: int = 2026) -> tuple[list[dict], list[dict]]:
     src = _read_sources()
     ws = (src.get("sports") or {}).get("wintersport") or {}
+
     men_feeds = ws.get("men") or []
     women_feeds = ws.get("women") or []
 
     men_items: list[dict] = []
     women_items: list[dict] = []
-    seen: set[str] = set()
 
-    def handle_biathlon_feed(feed: dict):
-        nonlocal men_items, women_items, seen
-
-        api = feed.get("api") or {}
-        base_url = (api.get("base_url") or "https://api.biathlonresults.com/modules/sportapi/api").strip()
-        season_id = int(api.get("season_id") or 2526)
-        level = int(api.get("level") or 3)
-
+    def handle(feed: dict, gender: str) -> list[dict]:
+        ftype = (feed.get("type") or "").strip()
+        name = (feed.get("name") or "Wintersport").strip()
         tv = (feed.get("channel") or "").strip()
-        category = "Biathlon"
+        url = (feed.get("url") or "").strip()
 
-        print(f"[wintersport] Events season={season_id} level={level}")
-        events = _fetch_events(base_url, season_id=season_id, level=level)
-        if not events:
-            print("[wintersport] WARN: No events returned (API blocked/changed or season mismatch).")
-            return
+        if not url:
+            print(f"[wintersport] {gender}: missing url -> skipping ({name})")
+            return []
 
-        for ev in events:
-            event_id = ev.get("EventId")
-            if not event_id:
-                continue
+        if ftype == "ics":
+            print(f"[wintersport] {gender}: ics -> {name} :: {url}")
+            ics_text = _fetch_ics(url)
+            return _parse_ics(ics_text, year=year, category=name, tv=tv, gender=gender)
 
-            comps = _fetch_competitions(base_url, event_id=event_id)
-            for c in comps:
-                dt_utc = _parse_utc_iso(c.get("StartTime") or "")
-                if not dt_utc:
-                    continue
-                if not _in_year(dt_utc, year):
-                    continue
+        if ftype == "json_url":
+            print(f"[wintersport] {gender}: json -> {name} :: {url}")
+            payload = _fetch_json(url)
+            return _normalize_json_items(payload, year=year, category=name, tv=tv, gender=gender)
 
-                start = _iso_oslo(dt_utc)
-                desc = (c.get("desc") or "").strip()
-                race_id = (c.get("RaceId") or "").strip()
-                g = _gender_from_comp(c)
+        print(f"[wintersport] {gender}: unknown type={ftype} -> skipping ({name})")
+        return []
 
-                title = desc or f"Biathlon ({race_id})"
-                eid = _stable_id("wintersport", "biathlon", start, race_id, title)
-                if eid in seen:
-                    continue
-                seen.add(eid)
-
-                item = {
-                    "id": eid,
-                    "sport": "wintersport",
-                    "category": category,
-                    "start": start,
-                    "title": title,
-                    "tv": tv,
-                    "where": [],
-                    "source": "biathlon_api",
-                    "meta": {"eventId": event_id, "raceId": race_id, "genderGuess": g},
-                }
-
-                # Mixed/unknown -> i begge, ellers i riktig
-                if g in ("men", "mixed", "unknown"):
-                    men_items.append(item)
-                if g in ("women", "mixed", "unknown"):
-                    women_items.append(item)
-
-    # Kjør feedene (du har samme i begge; dedupe tar resten)
     for f in men_feeds:
-        if isinstance(f, dict) and f.get("type") == "biathlon_api":
-            handle_biathlon_feed(f)
+        if isinstance(f, dict):
+            men_items += handle(f, "men")
 
     for f in women_feeds:
-        if isinstance(f, dict) and f.get("type") == "biathlon_api":
-            handle_biathlon_feed(f)
+        if isinstance(f, dict):
+            women_items += handle(f, "women")
 
     men_items.sort(key=lambda x: x.get("start") or "")
     women_items.sort(key=lambda x: x.get("start") or "")
