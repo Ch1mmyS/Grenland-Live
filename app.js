@@ -1,474 +1,393 @@
-// /app.js (KOMPLETT FIL – ROOT)
-// Grenland Live – UI loader (NO design changes)
-// - Skjuler debug-OBS fra UI (logger kun i console)
-// - Robust parsing av ulike JSON-formater
-// - Bruker alltid per-liga filer i Sport
-
-const TZ = "Europe/Oslo";
-const DEFAULT_PUBS = [
-  { name: "Gimle Pub", city: "Skien" },
-  { name: "Vikinghjørnet", city: "Skien" },
-  { name: "O’Learys Skien", city: "Skien" },
-  { name: "The Old Irish Pub (Skien)", city: "Skien" },
-  { name: "Union Bar", city: "Skien" },
-  { name: "Tollboden Bar", city: "Porsgrunn" },
-  { name: "Daimlers", city: "Porsgrunn" },
-  { name: "Jimmys", city: "Porsgrunn" },
-];
-
-const DEFAULT_WHERE = ["Vikinghjørnet", "Gimle Pub"];
+// /app.js (KOMPLETT – ROOT)
 
 function $(id){ return document.getElementById(id); }
-function show(el){ el && el.classList.remove("hidden"); }
-function hide(el){ el && el.classList.add("hidden"); }
+function show(el){ el.classList.remove("hidden"); }
+function hide(el){ el.classList.add("hidden"); }
 
-// ---------- TIME ----------
-function fmtOslo(iso){
+function safeText(v){
+  return (v === null || v === undefined) ? "" : String(v);
+}
+
+function fmtNoDateTime(iso){
   try{
-    return new Date(iso).toLocaleString("no-NO", { timeZone: TZ, weekday:"short", year:"numeric", month:"2-digit", day:"2-digit", hour:"2-digit", minute:"2-digit" });
-  }catch(e){
-    return iso || "";
+    const d = new Date(iso);
+    return d.toLocaleString("no-NO", { timeZone:"Europe/Oslo" });
+  }catch{
+    return safeText(iso);
   }
 }
-function onlyTime(iso){
-  try{
-    return new Date(iso).toLocaleTimeString("no-NO", { timeZone: TZ, hour:"2-digit", minute:"2-digit" });
-  }catch(e){ return ""; }
+
+async function fetchJson(url){
+  const r = await fetch(url, { cache: "no-store" });
+  if(!r.ok) throw new Error(`${r.status} ${r.statusText} :: ${url}`);
+  return await r.json();
 }
 
-// ---------- FETCH ----------
-async function fetchJSON(path){
-  const url = path + (path.includes("?") ? "&" : "?") + "v=" + Date.now();
-  const res = await fetch(url, { cache: "no-store" });
-  if(!res.ok) throw new Error(`${res.status} ${res.statusText}`);
-  return await res.json();
-}
+/* ---------------- TABS ---------------- */
+const TAB_IDS = ["sport","puber","eventer","vm2026","em2026","kalender"];
 
-// ---------- LIST EXTRACTOR (robust) ----------
-function extractList(obj, preferredKeys=[]){
-  if(Array.isArray(obj)) return obj;
-  if(!obj || typeof obj !== "object") return [];
-  for(const k of preferredKeys){
-    if(Array.isArray(obj[k])) return obj[k];
+function setActiveTab(tabKey){
+  for(const k of TAB_IDS){
+    const panel = $(`tab-${k}`);
+    if(!panel) continue;
+    (k === tabKey) ? show(panel) : hide(panel);
   }
-  // common fallbacks
-  const common = ["games","items","events","pubs","list","data","matches"];
-  for(const k of common){
-    if(Array.isArray(obj[k])) return obj[k];
+  document.querySelectorAll(".tab").forEach(btn=>{
+    btn.classList.toggle("active", btn.dataset.tab === tabKey);
+  });
+
+  // last data for current tab
+  if(tabKey === "sport") loadSport();
+  if(tabKey === "puber") loadPubs();
+  if(tabKey === "eventer") loadEvents();
+  if(tabKey === "vm2026") loadVM();
+  if(tabKey === "em2026") loadEM();
+}
+
+function initTabs(){
+  const wrap = $("tabs");
+  wrap?.addEventListener("click", (e)=>{
+    const btn = e.target.closest(".tab");
+    if(!btn) return;
+    setActiveTab(btn.dataset.tab);
+  });
+}
+
+/* ---------------- SPORT ---------------- */
+// “En fil per liga” (som du ba om)
+const LEAGUES = [
+  { key:"eliteserien", label:"Eliteserien", url:"/data/2026/eliteserien.json", listKeys:["games","items"] },
+  { key:"obos", label:"OBOS-ligaen", url:"/data/2026/obos.json", listKeys:["games","items"] },
+  { key:"premier_league", label:"Premier League", url:"/data/2026/premier_league.json", listKeys:["games","items"] },
+  { key:"champions_league", label:"Champions League", url:"/data/2026/champions_league.json", listKeys:["games","items"] },
+  { key:"la_liga", label:"La Liga", url:"/data/2026/la_liga.json", listKeys:["games","items"] },
+
+  { key:"handball_men", label:"Håndball Menn", url:"/data/2026/handball_men.json", listKeys:["items","games"] },
+  { key:"handball_women", label:"Håndball Damer", url:"/data/2026/handball_women.json", listKeys:["items","games"] },
+
+  { key:"wintersport_men", label:"Vintersport Menn", url:"/data/2026/wintersport_men.json", listKeys:["items","games"] },
+  { key:"wintersport_women", label:"Vintersport Kvinner", url:"/data/2026/wintersport_women.json", listKeys:["items","games"] },
+];
+
+function getListFromPayload(payload, listKeys){
+  for(const k of listKeys){
+    if(Array.isArray(payload?.[k])) return payload[k];
   }
   return [];
 }
 
-// ---------- NORMALIZERS ----------
-function normalizeGame(x){
-  const league = x.league || x.competition || x.tournament || "";
-  const home = x.home || x.homeTeam || x.team1 || "";
-  const away = x.away || x.awayTeam || x.team2 || "";
-  const kickoff = x.kickoff || x.start || x.dateTime || x.datetime || x.date || "";
-  const channel = (x.channel || x.tv || x.broadcaster || x.kanal || "Ukjent") || "Ukjent";
+function normalizeGame(x, fallbackLeague){
+  // støtter ulike formater fra pipeline
+  const league = x.league || x.competition || fallbackLeague || "Ukjent";
+  const home = x.home || x.homeTeam || x.hjemme || x.team1 || "Ukjent";
+  const away = x.away || x.awayTeam || x.borte || x.team2 || "Ukjent";
 
-  // where/pub mapping
-  let where = [];
-  if(Array.isArray(x.where)) where = x.where;
-  else if(typeof x.where === "string" && x.where.trim()) where = [x.where.trim()];
-  else if(Array.isArray(x.pubs)){
-    where = x.pubs.map(p => (p && typeof p === "object" && p.name) ? p.name : String(p)).filter(Boolean);
-  }
-  // ensure Vikinghjørnet + Gimle first
-  where = [...DEFAULT_WHERE, ...where].filter(Boolean);
-  where = [...new Set(where)];
+  const kickoff = x.kickoff || x.start || x.date || x.datetime || x.time || null;
+  const channel = x.channel || x.tv || x.broadcast || "Ukjent";
 
-  return { league, home, away, kickoff, channel, where };
+  const where = x.where || x.pubs || x.places || x.venue_pubs || [];
+  const whereArr = Array.isArray(where) ? where : [];
+
+  return { league, home, away, kickoff, channel, where: whereArr };
 }
 
-function normalizePub(x){
-  if(typeof x === "string") return { name: x, city: "" };
-  return {
-    name: (x.name || x.title || "").trim(),
-    city: (x.city || x.place || x.location || "").trim(),
-  };
-}
+function renderGameCard(g){
+  const card = document.createElement("div");
+  card.className = "card";
 
-function normalizeEvent(x){
-  return {
-    title: (x.title || x.name || "Ukjent").trim(),
-    date: (x.date || x.start || "").trim(),
-    place: (x.place || x.location || "").trim(),
-    desc: (x.desc || x.description || "").trim(),
-    link: (x.link || x.url || "").trim(),
-  };
-}
+  const dt = g.kickoff ? fmtNoDateTime(g.kickoff) : "Tid ikke oppgitt";
+  const title = `${g.home} – ${g.away}`;
 
-function normalizeListItem(x){
-  if(typeof x === "string") return { title: x, desc: "" };
-  return { title: (x.title || x.name || "Ukjent").trim(), desc: (x.desc || x.description || "").trim() };
-}
-
-// ---------- MODAL ----------
-function openModal(game){
-  const backdrop = $("modalBackdrop");
-  const title = $("modalTitle");
-  const sub = $("modalSub");
-  const kv = $("modalKV");
-  if(!backdrop || !title || !sub || !kv) return;
-
-  title.textContent = `${game.home} – ${game.away}`;
-  sub.textContent = game.league || "";
-
-  const kickoffText = game.kickoff ? fmtOslo(game.kickoff) : "Tid ikke oppgitt";
-  const channelText = game.channel || "Ukjent";
-  const whereText = (game.where && game.where.length) ? game.where.join(", ") : DEFAULT_WHERE.join(", ");
-
-  kv.innerHTML = `
-    <div class="k">Tid</div><div class="v">${kickoffText}</div>
-    <div class="k">Kanal</div><div class="v">${channelText}</div>
-    <div class="k">Hvor vises</div><div class="v">${whereText}</div>
+  card.innerHTML = `
+    <div class="row">
+      <div>
+        <div class="teams">${safeText(title)}</div>
+        <div class="muted small">${safeText(dt)}</div>
+      </div>
+      <div class="badge accent">${safeText(g.channel || "Ukjent")}</div>
+    </div>
+    <div class="badges">
+      ${(g.where?.length ? g.where : ["Vikinghjørnet","Gimle Pub"]).map(p=>`<span class="badge">${safeText(p)}</span>`).join("")}
+    </div>
   `;
 
-  show(backdrop);
+  // Klikk åpner modal
+  card.addEventListener("click", ()=> openModal(g));
+  return card;
 }
 
-function closeModal(){
-  hide($("modalBackdrop"));
-}
+function openModal(g){
+  // enkel modal uten ekstra filer
+  let backdrop = document.querySelector(".modal-backdrop");
+  if(backdrop) backdrop.remove();
 
-// ---------- UI HELPERS ----------
-function setEmpty(listEl, text){
-  listEl.innerHTML = `<div class="empty">${text}</div>`;
-}
-
-function renderGames(listEl, games, q){
-  const query = (q||"").toLowerCase().trim();
-  const filtered = games.filter(g => {
-    if(!query) return true;
-    const hay = `${g.league} ${g.home} ${g.away} ${g.channel} ${(g.where||[]).join(" ")}`.toLowerCase();
-    return hay.includes(query);
-  });
-
-  if(filtered.length === 0){
-    setEmpty(listEl, "Ingen kamper funnet.");
-    return;
-  }
-
-  listEl.innerHTML = "";
-  filtered.slice(0, 200).forEach(g => {
-    const time = g.kickoff ? fmtOslo(g.kickoff) : "Tid ikke oppgitt";
-    const ch = g.channel || "Ukjent";
-    const where = (g.where && g.where.length) ? g.where.slice(0,2).join(" • ") : DEFAULT_WHERE.join(" • ");
-
-    const card = document.createElement("div");
-    card.className = "card";
-    card.innerHTML = `
-      <div class="row">
+  backdrop = document.createElement("div");
+  backdrop.className = "modal-backdrop";
+  backdrop.innerHTML = `
+    <div class="modal">
+      <div class="modal-head">
         <div>
-          <div class="teams">${g.home} – ${g.away}</div>
-          <div class="muted small">${time}</div>
+          <div class="modal-title">${safeText(g.home)} – ${safeText(g.away)}</div>
+          <div class="modal-sub">${safeText(g.league)} • ${g.kickoff ? fmtNoDateTime(g.kickoff) : "Tid ikke oppgitt"}</div>
         </div>
-        <div class="badge accent">${ch}</div>
+        <button class="iconbtn" id="modalClose">Lukk</button>
       </div>
-      <div class="badges">
-        <span class="badge">${where}</span>
+      <div class="modal-body">
+        <div class="kv">
+          <div class="k">TV</div><div class="v">${safeText(g.channel || "Ukjent")}</div>
+          <div class="k">Vises på</div><div class="v">${(g.where?.length ? g.where : ["Vikinghjørnet","Gimle Pub"]).map(safeText).join(", ")}</div>
+        </div>
       </div>
-    `;
-    card.addEventListener("click", () => openModal(g));
-    listEl.appendChild(card);
+    </div>
+  `;
+  document.body.appendChild(backdrop);
+
+  $("modalClose")?.addEventListener("click", ()=> backdrop.remove());
+  backdrop.addEventListener("click", (e)=>{
+    if(e.target === backdrop) backdrop.remove();
   });
 }
 
-function renderPubs(listEl, pubs, q){
-  const query = (q||"").toLowerCase().trim();
-  const filtered = pubs.filter(p => {
-    if(!query) return true;
-    return `${p.name} ${p.city}`.toLowerCase().includes(query);
-  });
-
-  if(filtered.length === 0){
-    setEmpty(listEl, "Ingen elementer funnet.");
-    return;
-  }
-
-  listEl.innerHTML = "";
-  filtered.forEach(p => {
-    const card = document.createElement("div");
-    card.className = "card";
-    card.innerHTML = `
-      <div class="teams">${p.name || "Ukjent"}</div>
-      <div class="muted small">${p.city || ""}</div>
-    `;
-    listEl.appendChild(card);
-  });
-}
-
-function renderEvents(listEl, events, q){
-  const query = (q||"").toLowerCase().trim();
-  const filtered = events.filter(e => {
-    if(!query) return true;
-    return `${e.title} ${e.place} ${e.desc}`.toLowerCase().includes(query);
-  });
-
-  if(filtered.length === 0){
-    setEmpty(listEl, "Ingen elementer funnet.");
-    return;
-  }
-
-  listEl.innerHTML = "";
-  filtered.forEach(e => {
-    const card = document.createElement("div");
-    card.className = "card";
-    const when = e.date ? e.date : "";
-    const place = e.place ? ` • ${e.place}` : "";
-    const link = e.link ? `<a class="link" href="${e.link}" target="_blank" rel="noopener">Mer info</a>` : "";
-    card.innerHTML = `
-      <div class="teams">${e.title}</div>
-      <div class="muted small">${when}${place}</div>
-      ${e.desc ? `<div class="muted small" style="margin-top:6px;">${e.desc}</div>` : ""}
-      ${link ? `<div style="margin-top:8px;">${link}</div>` : ""}
-    `;
-    listEl.appendChild(card);
-  });
-}
-
-function renderSimpleList(listEl, items, q){
-  const query = (q||"").toLowerCase().trim();
-  const filtered = items.filter(i => {
-    if(!query) return true;
-    return `${i.title} ${i.desc}`.toLowerCase().includes(query);
-  });
-
-  if(filtered.length === 0){
-    setEmpty(listEl, "Ingen elementer funnet.");
-    return;
-  }
-
-  listEl.innerHTML = "";
-  filtered.forEach(i => {
-    const card = document.createElement("div");
-    card.className = "card";
-    card.innerHTML = `
-      <div class="teams">${i.title}</div>
-      ${i.desc ? `<div class="muted small" style="margin-top:6px;">${i.desc}</div>` : ""}
-    `;
-    listEl.appendChild(card);
-  });
-}
-
-// ---------- DATA PATHS ----------
-const PATHS = {
-  sport: {
-    eliteserien: "data/2026/eliteserien.json",
-    obos: "data/2026/obos.json",
-    premier_league: "data/2026/premier_league.json",
-    champions_league: "data/2026/champions_league.json",
-    la_liga: "data/2026/la_liga.json",
-    handball_men: "data/2026/handball_men.json",
-    handball_women: "data/2026/handball_women.json",
-    wintersport_men: "data/2026/wintersport_men.json",
-    wintersport_women: "data/2026/wintersport_women.json",
-  },
-  pubs: "data/content/pubs.json",
-  events: "data/events/events.json",
-  vm: "data/2026/vm2026_list.json",
-  em: "data/2026/em2026_list.json",
-};
-
-const LEAGUE_OPTIONS = [
-  ["eliteserien", "Eliteserien"],
-  ["obos", "OBOS-ligaen"],
-  ["premier_league", "Premier League"],
-  ["champions_league", "Champions League"],
-  ["la_liga", "La Liga"],
-  ["handball_men", "Håndball Menn"],
-  ["handball_women", "Håndball Damer"],
-  ["wintersport_men", "Vintersport Menn"],
-  ["wintersport_women", "Vintersport Kvinner"],
-];
-
-// ---------- INIT ----------
-document.addEventListener("click", (e) => {
-  if(e.target && e.target.id === "modalClose") closeModal();
-  if(e.target && e.target.id === "modalBackdrop") closeModal();
-});
-
-function setTab(active){
-  const tabs = document.querySelectorAll(".tab");
-  tabs.forEach(t => t.classList.toggle("active", t.dataset.tab === active));
-
-  ["viewSport","viewPuber","viewEventer","viewVM","viewEM","viewKalender"].forEach(id => hide($(id)));
-
-  if(active === "sport") show($("viewSport"));
-  if(active === "puber") show($("viewPuber"));
-  if(active === "eventer") show($("viewEventer"));
-  if(active === "vm") show($("viewVM"));
-  if(active === "em") show($("viewEM"));
-  if(active === "kalender") show($("viewKalender"));
-}
-
-function initTabs(){
-  const map = {
-    tabSport: "sport",
-    tabPuber: "puber",
-    tabEventer: "eventer",
-    tabVM: "vm",
-    tabEM: "em",
-    tabKalender: "kalender",
-  };
-  Object.entries(map).forEach(([id, key]) => {
-    const el = $(id);
-    if(el) el.addEventListener("click", () => setTab(key));
-  });
-
-  setTab("sport");
-}
-
-function initLeagueDropdown(){
+function fillLeagueSelect(){
   const sel = $("leagueSelect");
-  if(!sel) return;
-
   sel.innerHTML = "";
-  LEAGUE_OPTIONS.forEach(([val, label]) => {
+  for(const l of LEAGUES){
     const opt = document.createElement("option");
-    opt.value = val;
-    opt.textContent = label;
+    opt.value = l.key;
+    opt.textContent = l.label;
     sel.appendChild(opt);
-  });
+  }
+}
+
+function currentLeague(){
+  const sel = $("leagueSelect");
+  const key = sel.value || "eliteserien";
+  return LEAGUES.find(x=>x.key===key) || LEAGUES[0];
 }
 
 async function loadSport(){
-  const sel = $("leagueSelect");
-  const listEl = $("sportList");
-  const countEl = $("sportCount");
-  const q = $("sportSearch") ? $("sportSearch").value : "";
+  const err = $("sportError");
+  const empty = $("sportEmpty");
+  const list = $("sportList");
+  hide(err); hide(empty);
+  list.innerHTML = "";
 
-  if(!sel || !listEl) return;
-
-  const key = sel.value;
-  const path = PATHS.sport[key];
+  const league = currentLeague();
+  const q = ( $("searchInput").value || "" ).trim().toLowerCase();
 
   try{
-    const j = await fetchJSON(path);
-    const raw = extractList(j, ["games","items"]);
-    const games = raw.map(normalizeGame).filter(g => g.home && g.away);
-    if(countEl) countEl.textContent = `${games.length} kamper · ${sel.options[sel.selectedIndex].textContent}`;
+    const payload = await fetchJson(league.url);
+    const raw = getListFromPayload(payload, league.listKeys);
+    const games = raw.map(x=>normalizeGame(x, league.label));
 
-    renderGames(listEl, games, q);
+    const filtered = games.filter(g=>{
+      if(!q) return true;
+      return (
+        (g.home||"").toLowerCase().includes(q) ||
+        (g.away||"").toLowerCase().includes(q) ||
+        (g.league||"").toLowerCase().includes(q) ||
+        (g.channel||"").toLowerCase().includes(q)
+      );
+    });
 
-    // Debug kun i console (IKKE i UI)
-    if(games.length === 0){
-      console.warn(`[sport] file loaded but 0 games: ${path}`, j);
+    $("countLabel").textContent = `${filtered.length} kamper · ${league.label}`;
+
+    if(filtered.length === 0){
+      show(empty);
+      return;
     }
-  }catch(err){
-    if(countEl) countEl.textContent = `0 kamper · ${sel.options[sel.selectedIndex].textContent}`;
-    listEl.innerHTML = `<div class="error">Kunne ikke laste: ${path}\n${String(err)}</div>`;
-    console.warn("[sport] load failed", path, err);
+
+    for(const g of filtered){
+      list.appendChild(renderGameCard(g));
+    }
+  }catch(e){
+    err.textContent = `Kunne ikke laste ${league.url}\n${e.message}`;
+    show(err);
+    $("countLabel").textContent = `0 kamper · ${league.label}`;
   }
 }
 
+/* ---------------- PUBER ---------------- */
 async function loadPubs(){
-  const listEl = $("pubList");
-  const q = $("pubSearch") ? $("pubSearch").value : "";
-  if(!listEl) return;
+  const err = $("pubError");
+  const empty = $("pubEmpty");
+  const list = $("pubList");
+  hide(err); hide(empty);
+  list.innerHTML = "";
+
+  const q = ( $("pubSearch").value || "" ).trim().toLowerCase();
 
   try{
-    const j = await fetchJSON(PATHS.pubs);
-    const raw = extractList(j, ["pubs","items"]);
-    let pubs = raw.map(normalizePub).filter(p => p.name);
-    if(pubs.length === 0){
-      console.warn(`[pubs] file loaded but 0 pubs: ${PATHS.pubs}`, j);
-      pubs = DEFAULT_PUBS.slice();
+    const payload = await fetchJson("/data/content/pubs.json");
+
+    // DU har: { "places": [...] }
+    const items = Array.isArray(payload.places) ? payload.places
+                : Array.isArray(payload.pubs) ? payload.pubs
+                : [];
+
+    const filtered = items.filter(p=>{
+      const n = (p.name||"").toLowerCase();
+      const c = (p.city||"").toLowerCase();
+      return !q || n.includes(q) || c.includes(q);
+    });
+
+    if(filtered.length === 0){ show(empty); return; }
+
+    for(const p of filtered){
+      const card = document.createElement("div");
+      card.className = "card";
+      const tags = Array.isArray(p.tags) ? p.tags : [];
+      card.innerHTML = `
+        <div class="teams">${safeText(p.name)}</div>
+        <div class="muted small">${safeText(p.city || "")}</div>
+        <div class="badges">${tags.map(t=>`<span class="badge">${safeText(t)}</span>`).join("")}</div>
+      `;
+      list.appendChild(card);
     }
-    renderPubs(listEl, pubs, q);
-  }catch(err){
-    console.warn("[pubs] load failed -> fallback list", err);
-    renderPubs(listEl, DEFAULT_PUBS.slice(), q);
+  }catch(e){
+    err.textContent = `Kunne ikke laste /data/content/pubs.json\n${e.message}`;
+    show(err);
   }
 }
 
+/* ---------------- EVENTER ---------------- */
 async function loadEvents(){
-  const listEl = $("eventList");
-  const q = $("eventSearch") ? $("eventSearch").value : "";
-  if(!listEl) return;
+  const err = $("eventError");
+  const empty = $("eventEmpty");
+  const list = $("eventList");
+  hide(err); hide(empty);
+  list.innerHTML = "";
+
+  const q = ( $("eventSearch").value || "" ).trim().toLowerCase();
 
   try{
-    const j = await fetchJSON(PATHS.events);
-    const raw = extractList(j, ["events","items"]);
-    const events = raw.map(normalizeEvent).filter(e => e.title);
-    if(events.length === 0) console.warn(`[events] file loaded but 0 events: ${PATHS.events}`, j);
-    renderEvents(listEl, events, q);
-  }catch(err){
-    listEl.innerHTML = `<div class="error">Kunne ikke laste eventer.\n${String(err)}</div>`;
-    console.warn("[events] load failed", err);
+    const payload = await fetchJson("/data/events/events.json");
+    const items = Array.isArray(payload.events) ? payload.events : [];
+
+    const filtered = items.filter(ev=>{
+      const t = (ev.title||ev.name||"").toLowerCase();
+      const w = (ev.where||ev.place||"").toLowerCase();
+      return !q || t.includes(q) || w.includes(q);
+    });
+
+    if(filtered.length === 0){ show(empty); return; }
+
+    for(const ev of filtered){
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerHTML = `
+        <div class="teams">${safeText(ev.title || ev.name || "Event")}</div>
+        <div class="muted small">${safeText(ev.date || ev.when || "")}${ev.where ? " • " + safeText(ev.where) : ""}</div>
+      `;
+      list.appendChild(card);
+    }
+  }catch(e){
+    err.textContent = `Kunne ikke laste /data/events/events.json\n${e.message}`;
+    show(err);
   }
+}
+
+/* ---------------- VM/EM ---------------- */
+function flattenMonths(payload){
+  // vm2026_list.json hos deg: { generated_at, months:[{month, games:[...]}] }
+  const months = Array.isArray(payload.months) ? payload.months : [];
+  const all = [];
+  for(const m of months){
+    const games = Array.isArray(m.games) ? m.games : [];
+    for(const g of games) all.push(g);
+  }
+  return all;
+}
+
+function renderSimpleItem(x){
+  const g = normalizeGame(x, x.league || x.sport || "Ukjent");
+  const card = document.createElement("div");
+  card.className = "card";
+  card.innerHTML = `
+    <div class="teams">${safeText(g.home)} – ${safeText(g.away)}</div>
+    <div class="muted small">${g.kickoff ? fmtNoDateTime(g.kickoff) : ""}</div>
+    <div class="badges">
+      <span class="badge accent">${safeText(g.channel || "Ukjent")}</span>
+    </div>
+  `;
+  card.addEventListener("click", ()=> openModal(g));
+  return card;
 }
 
 async function loadVM(){
-  const listEl = $("vmList");
-  const q = $("vmSearch") ? $("vmSearch").value : "";
-  if(!listEl) return;
+  const err = $("vmError");
+  const empty = $("vmEmpty");
+  const list = $("vmList");
+  hide(err); hide(empty);
+  list.innerHTML = "";
+
+  const q = ( $("vmSearch").value || "" ).trim().toLowerCase();
 
   try{
-    const j = await fetchJSON(PATHS.vm);
-    const raw = extractList(j, ["items","list"]);
-    const items = raw.map(normalizeListItem).filter(i => i.title);
-    if(items.length === 0) console.warn(`[vm] file loaded but 0 items: ${PATHS.vm}`, j);
-    renderSimpleList(listEl, items, q);
-  }catch(err){
-    listEl.innerHTML = `<div class="error">Kunne ikke laste VM.\n${String(err)}</div>`;
-    console.warn("[vm] load failed", err);
+    const payload = await fetchJson("/data/2026/vm2026_list.json");
+    const items = flattenMonths(payload);
+
+    const filtered = items.filter(x=>{
+      const s = `${x.league||""} ${x.home||""} ${x.away||""} ${x.sport||""}`.toLowerCase();
+      return !q || s.includes(q);
+    });
+
+    if(filtered.length === 0){ show(empty); return; }
+    for(const x of filtered) list.appendChild(renderSimpleItem(x));
+  }catch(e){
+    err.textContent = `Kunne ikke laste /data/2026/vm2026_list.json\n${e.message}`;
+    show(err);
   }
 }
 
 async function loadEM(){
-  const listEl = $("emList");
-  const q = $("emSearch") ? $("emSearch").value : "";
-  if(!listEl) return;
+  const err = $("emError");
+  const empty = $("emEmpty");
+  const list = $("emList");
+  hide(err); hide(empty);
+  list.innerHTML = "";
+
+  const q = ( $("emSearch").value || "" ).trim().toLowerCase();
 
   try{
-    const j = await fetchJSON(PATHS.em);
-    const raw = extractList(j, ["items","list"]);
-    const items = raw.map(normalizeListItem).filter(i => i.title);
-    if(items.length === 0) console.warn(`[em] file loaded but 0 items: ${PATHS.em}`, j);
-    renderSimpleList(listEl, items, q);
-  }catch(err){
-    listEl.innerHTML = `<div class="error">Kunne ikke laste EM.\n${String(err)}</div>`;
-    console.warn("[em] load failed", err);
+    const payload = await fetchJson("/data/2026/em2026_list.json");
+    const items = flattenMonths(payload);
+
+    const filtered = items.filter(x=>{
+      const s = `${x.league||""} ${x.home||""} ${x.away||""} ${x.sport||""}`.toLowerCase();
+      return !q || s.includes(q);
+    });
+
+    if(filtered.length === 0){ show(empty); return; }
+    for(const x of filtered) list.appendChild(renderSimpleItem(x));
+  }catch(e){
+    err.textContent = `Kunne ikke laste /data/2026/em2026_list.json\n${e.message}`;
+    show(err);
   }
 }
 
-function initButtons(){
-  const bSport = $("btnSport"); if(bSport) bSport.addEventListener("click", loadSport);
-  const bPubs = $("btnPuber"); if(bPubs) bPubs.addEventListener("click", loadPubs);
-  const bEvents = $("btnEventer"); if(bEvents) bEvents.addEventListener("click", loadEvents);
-  const bVM = $("btnVM"); if(bVM) bVM.addEventListener("click", loadVM);
-  const bEM = $("btnEM"); if(bEM) bEM.addEventListener("click", loadEM);
+/* ---------------- INIT ---------------- */
+function init(){
+  initTabs();
+  fillLeagueSelect();
 
-  const sel = $("leagueSelect");
-  if(sel) sel.addEventListener("change", loadSport);
+  $("leagueSelect")?.addEventListener("change", loadSport);
+  $("refreshBtn")?.addEventListener("click", loadSport);
+  $("searchInput")?.addEventListener("input", ()=>{ clearTimeout(window.__sT); window.__sT=setTimeout(loadSport,120); });
 
-  const sportSearch = $("sportSearch");
-  if(sportSearch) sportSearch.addEventListener("input", () => loadSport());
+  $("pubRefresh")?.addEventListener("click", loadPubs);
+  $("pubSearch")?.addEventListener("input", ()=>{ clearTimeout(window.__pT); window.__pT=setTimeout(loadPubs,120); });
 
-  const pubSearch = $("pubSearch");
-  if(pubSearch) pubSearch.addEventListener("input", () => loadPubs());
+  $("eventRefresh")?.addEventListener("click", loadEvents);
+  $("eventSearch")?.addEventListener("input", ()=>{ clearTimeout(window.__eT); window.__eT=setTimeout(loadEvents,120); });
 
-  const eventSearch = $("eventSearch");
-  if(eventSearch) eventSearch.addEventListener("input", () => loadEvents());
+  $("vmRefresh")?.addEventListener("click", loadVM);
+  $("vmSearch")?.addEventListener("input", ()=>{ clearTimeout(window.__vT); window.__vT=setTimeout(loadVM,120); });
 
-  const vmSearch = $("vmSearch");
-  if(vmSearch) vmSearch.addEventListener("input", () => loadVM());
+  $("emRefresh")?.addEventListener("click", loadEM);
+  $("emSearch")?.addEventListener("input", ()=>{ clearTimeout(window.__mT); window.__mT=setTimeout(loadEM,120); });
 
-  const emSearch = $("emSearch");
-  if(emSearch) emSearch.addEventListener("input", () => loadEM());
+  setActiveTab("sport");
 }
 
-window.addEventListener("DOMContentLoaded", () => {
-  initTabs();
-  initLeagueDropdown();
-  initButtons();
-
-  // initial loads
-  loadSport();
-  loadPubs();
-  loadEvents();
-  loadVM();
-  loadEM();
-});
+document.addEventListener("DOMContentLoaded", init);
