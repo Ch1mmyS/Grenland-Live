@@ -4,10 +4,21 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Grenland Live – Kalender 2026</title>
-  <link rel="stylesheet" href="./styles.css" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="./styles.css?v=1" />
+
+  <!-- PWA -->
   <link rel="manifest" href="./manifest.webmanifest" />
 </head>
 <body>
+
+  <noscript>
+    <div style="padding:12px;max-width:980px;margin:12px auto;border:1px solid #ccc;border-radius:10px;">
+      Kalenderen krever JavaScript for å vise innhold.
+    </div>
+  </noscript>
+
   <main class="app">
     <section class="panel">
       <div class="row row-top">
@@ -19,15 +30,23 @@
 
       <div class="calendar-layout">
         <div id="calendarRoot" class="calendar-root"></div>
+
         <div id="calendarSide" class="calendar-side">
           <div class="label">Valgt dato</div>
-          <div id="calendarPicked" class="muted">Klikk en dag for å se liste.</div>
-          <div id="calendarList" class="list"><div class="empty">Ingen elementer.</div></div>
+          <div id="calendarPicked" class="muted">
+            Klikk en dag for å se liste.
+          </div>
+          <div id="calendarList" class="list">
+            <div class="empty">Ingen elementer.</div>
+          </div>
         </div>
       </div>
     </section>
   </main>
 
-  <script defer src="./calendar.js"></script>
+  <!-- IMPORTANT: encoding-fix må lastes før calendar.js -->
+  <script src="./encoding-fix.js?v=1"></script>
+  <script defer src="./calendar.js?v=1"></script>
+
 </body>
 </html>
