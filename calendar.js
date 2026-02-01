@@ -1,10 +1,8 @@
-// /calendar.js — Kalender 2026 (KLIKK + MODAL)
-// Leser: data/2026/calendar_feed.json
-// Prikker: 🔴 fotball, 🟡 håndball, 🟢 vintersport
+// /calendar.js — Kalender 2026 (ALLTID RENDER + KLIKK = MODAL)
 const CAL_TZ = "Europe/Oslo";
-const DEFAULT_PUBS = ["Vikinghjørnet", "Gimle Pub"];
 
 function c$(id){ return document.getElementById(id); }
+
 function esc(s){
   return String(s ?? "")
     .replaceAll("&","&amp;")
@@ -41,60 +39,16 @@ function title(it){
 function timeOnly(iso){
   if (!iso) return "Ukjent";
   try {
-    return new Date(iso).toLocaleString("no-NO", {
-      timeZone: CAL_TZ,
-      hour: "2-digit",
-      minute: "2-digit"
-    });
+    return new Date(iso).toLocaleString("no-NO", { timeZone: CAL_TZ, hour:"2-digit", minute:"2-digit" });
   } catch { return "Ukjent"; }
-}
-
-function uniqKeepOrder(arr){
-  const seen = new Set();
-  const out = [];
-  for (const v of arr) {
-    const k = String(v ?? "").trim();
-    if (!k || seen.has(k)) continue;
-    seen.add(k);
-    out.push(k);
-  }
-  return out;
-}
-
-// Normaliser kalender-item slik at modal alltid får: home/away OR title, kickoff/start, channel, where
-function normalizeCalendarItem(it){
-  const home = it.home || it.homeTeam || it.team1 || it.h || "";
-  const away = it.away || it.awayTeam || it.team2 || it.a || "";
-  const kickoff = it.start || it.kickoff || it.date || it.datetime || "";
-  const channel = String(it.channel || it.tv || it.broadcaster || it.kanal || "Ukjent").trim() || "Ukjent";
-
-  let where = [];
-  if (Array.isArray(it.where)) where = it.where;
-  else if (typeof it.where === "string") where = [it.where];
-  else if (Array.isArray(it.pubs)) where = it.pubs.map(p => p?.name || p).filter(Boolean);
-
-  where = uniqKeepOrder([...DEFAULT_PUBS, ...where]);
-
-  return {
-    ...it,
-    home,
-    away,
-    kickoff,
-    channel,
-    where,
-    title: it.title || it.name || (home && away ? `${home} – ${away}` : "Event"),
-    league: it.league || it.competition || it.tournament || it.series || ""
-  };
 }
 
 async function fetchJson(path){
   const url = `${path}?v=${Date.now()}`;
-  const r = await fetch(url, { cache: "no-store" });
+  const r = await fetch(url, { cache:"no-store" });
   if (!r.ok) throw new Error(`HTTP ${r.status} @ ${path}`);
   const text = await r.text();
-  if (text.trim().startsWith("<!doctype") || text.trim().startsWith("<html")) {
-    throw new Error(`Fikk HTML i stedet for JSON @ ${path}`);
-  }
+  if (text.trim().startsWith("<!doctype") || text.trim().startsWith("<html")) throw new Error("Fikk HTML i stedet for JSON");
   return JSON.parse(text);
 }
 
@@ -104,9 +58,9 @@ function buildGrid(y,m){
   const start = (first.getDay()+6)%7; // man=0
   const days = last.getDate();
   const cells = [];
-  for (let i=0;i<start;i++) cells.push(null);
-  for (let d=1; d<=days; d++) cells.push(new Date(y,m,d));
-  while (cells.length % 7 !== 0) cells.push(null);
+  for(let i=0;i<start;i++) cells.push(null);
+  for(let d=1; d<=days; d++) cells.push(new Date(y,m,d));
+  while(cells.length % 7 !== 0) cells.push(null);
   return cells;
 }
 
@@ -121,25 +75,23 @@ function renderSide(key, items){
   }
 
   for (const raw of items) {
-    const it = normalizeCalendarItem(raw);
+    const it = raw; // åpnes i modal via app.js (GL_openModal)
+
     const btn = document.createElement("button");
     btn.type = "button";
     btn.className = "card";
     btn.style.textAlign = "left";
-
     btn.innerHTML = `
       <div class="row">
         <div>
-          <div class="teams">${esc(dot(it.type || it.sport) + " " + (it.home && it.away ? `${it.home} – ${it.away}` : it.title))}</div>
-          <div class="muted small">${esc(timeOnly(it.kickoff) + " · " + (it.channel || "Ukjent"))}</div>
+          <div class="teams">${esc(dot(it.type || it.sport) + " " + (it.home && it.away ? `${it.home} – ${it.away}` : title(it)))}</div>
+          <div class="muted small">${esc(timeOnly(it.start || it.kickoff || it.date || it.datetime) + " · " + (it.channel || it.tv || "Ukjent"))}</div>
         </div>
       </div>
     `;
 
     btn.addEventListener("click", () => {
-      if (typeof window.GL_openModal === "function") {
-        window.GL_openModal(it);
-      }
+      if (typeof window.GL_openModal === "function") window.GL_openModal(it);
     });
 
     list.appendChild(btn);
@@ -176,7 +128,7 @@ function renderMonth(root, y, m, map){
     } else {
       const key = dateKey(d);
       const items = map.get(key) || [];
-      const dots = items.slice(0, 6).map(it => dot(it.type || it.sport)).join("");
+      const dots = items.slice(0,6).map(it => dot(it.type || it.sport)).join("");
       btn.innerHTML = `<span class="cal-day">${d.getDate()}</span><span class="cal-dots">${dots}</span>`;
       btn.addEventListener("click", () => renderSide(key, items));
     }
@@ -194,6 +146,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   err.classList.add("hidden");
   err.textContent = "";
+
   root.innerHTML = `<div class="empty">Laster kalender…</div>`;
 
   try {
@@ -212,18 +165,17 @@ document.addEventListener("DOMContentLoaded", async () => {
       map.set(key, list);
     }
 
-    // sort inside each day
     for (const [k, list] of map.entries()) {
-      list.sort((a,b) => (Date.parse(a.start||a.kickoff||a.date||"")||0) - (Date.parse(b.start||b.kickoff||b.date||"")||0));
+      list.sort((a,b)=> (Date.parse(a.start||a.kickoff||a.date||"")||0) - (Date.parse(b.start||b.kickoff||b.date||"")||0));
       map.set(k, list);
     }
 
     root.innerHTML = "";
     for (let m=0; m<12; m++) renderMonth(root, 2026, m, map);
+
   } catch (e) {
     root.innerHTML = `<div class="empty">Kunne ikke laste kalender.</div>`;
     err.textContent = `Kunne ikke laste: data/2026/calendar_feed.json\n${String(e?.message || e)}`;
     err.classList.remove("hidden");
-    console.error(e);
   }
 });
