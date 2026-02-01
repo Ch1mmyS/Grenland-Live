@@ -3,7 +3,6 @@ from __future__ import annotations
 
 import hashlib
 import json
-import re
 from datetime import datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -23,172 +22,119 @@ def _read_sources() -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def _parse_ics(ics_text: str, year: int, category: str, tv: str, gender: str) -> list[dict]:
-    """
-    Minimal ICS parser:
-    - DTSTART (YYYYMMDD or YYYYMMDDTHHMMSSZ)
-    - SUMMARY
-    """
-    # Unfold lines (ICS can wrap with leading space)
-    raw_lines = ics_text.splitlines()
-    lines: list[str] = []
-    for ln in raw_lines:
-        if ln.startswith((" ", "\t")) and lines:
-            lines[-1] += ln.strip()
-        else:
-            lines.append(ln.strip())
-
-    items: list[dict] = []
-    seen: set[str] = set()
-
-    cur: dict[str, str] = {}
-
-    def flush():
-        nonlocal cur
-        if not cur:
-            return
-        dt_raw = cur.get("DTSTART", "") or cur.get("DTSTART;VALUE=DATE", "")
-        summary = cur.get("SUMMARY", "") or cur.get("SUMMARY;LANGUAGE=en", "") or ""
-
-        dt = _ics_dt_to_iso(dt_raw)
-        if not dt:
-            cur = {}
-            return
-
-        try:
-            d = datetime.fromisoformat(dt)
-        except Exception:
-            cur = {}
-            return
-
-        if d.year != year:
-            cur = {}
-            return
-
-        title = summary.strip() or "Vintersport"
-        eid = _stable_id("wintersport", gender, category, dt, title)
-        if eid in seen:
-            cur = {}
-            return
-        seen.add(eid)
-
-        items.append(
-            {
-                "id": eid,
-                "sport": "wintersport",
-                "category": category,
-                "gender": gender,
-                "start": d.astimezone(OSLO).isoformat(timespec="seconds"),
-                "title": title,
-                "tv": tv,
-                "where": [],
-                "source": "ics",
-            }
-        )
-        cur = {}
-
+def _unfold_ics_lines(text: str) -> list[str]:
+    # iCal: linjer kan "foldes" (fortsetter på neste linje som starter med space/tab)
+    lines = text.replace("\r\n", "\n").replace("\r", "\n").split("\n")
+    out: list[str] = []
     for ln in lines:
-        if ln == "BEGIN:VEVENT":
-            cur = {}
-        elif ln == "END:VEVENT":
-            flush()
+        if not ln:
+            out.append("")
+            continue
+        if ln.startswith((" ", "\t")) and out:
+            out[-1] += ln[1:]
         else:
-            if ":" in ln:
-                k, v = ln.split(":", 1)
-                # vi beholder parameter-keys også, men prioriterer plain key senere
-                cur[k] = v
-
-    items.sort(key=lambda x: x.get("start") or "")
-    return items
+            out.append(ln)
+    return out
 
 
-def _ics_dt_to_iso(dt_raw: str) -> str | None:
-    dt_raw = (dt_raw or "").strip()
-    if not dt_raw:
+def _parse_dt(value: str) -> datetime | None:
+    """
+    Støtter typiske former:
+      - DTSTART:20260201T120000Z
+      - DTSTART:20260201T120000
+      - DTSTART;VALUE=DATE:20260201
+      - DTSTART;TZID=Europe/Oslo:20260201T120000
+    """
+    v = (value or "").strip()
+    if not v:
         return None
 
-    # DTSTART:20260128T090000Z
-    m = re.match(r"^(\d{8})T(\d{6})Z$", dt_raw)
-    if m:
-        ymd, hms = m.group(1), m.group(2)
-        iso = f"{ymd[0:4]}-{ymd[4:6]}-{ymd[6:8]}T{hms[0:2]}:{hms[2:4]}:{hms[4:6]}+00:00"
-        return iso
-
-    # DTSTART:20260128T090000  (uten Z)
-    m = re.match(r"^(\d{8})T(\d{6})$", dt_raw)
-    if m:
-        ymd, hms = m.group(1), m.group(2)
-        # antar Oslo hvis ikke Z
-        iso = f"{ymd[0:4]}-{ymd[4:6]}-{ymd[6:8]}T{hms[0:2]}:{hms[2:4]}:{hms[4:6]}+01:00"
-        return iso
-
-    # DTSTART;VALUE=DATE:20260128 (heldag)
-    m = re.match(r"^(\d{8})$", dt_raw)
-    if m:
-        ymd = m.group(1)
-        iso = f"{ymd[0:4]}-{ymd[4:6]}-{ymd[6:8]}T12:00:00+01:00"
-        return iso
+    # Fjern evt. parametre før kolon (håndteres utenfor)
+    # Her forventer vi kun selve verdien.
+    try:
+        if len(v) == 8 and v.isdigit():
+            # YYYYMMDD
+            dt = datetime.strptime(v, "%Y%m%d").replace(tzinfo=OSLO)
+            return dt
+        if v.endswith("Z"):
+            dt = datetime.strptime(v, "%Y%m%dT%H%M%SZ").replace(tzinfo=ZoneInfo("UTC"))
+            return dt.astimezone(OSLO)
+        # YYYYMMDDTHHMMSS eller YYYYMMDDTHHMM
+        if len(v) == 15:
+            dt = datetime.strptime(v, "%Y%m%dT%H%M%S").replace(tzinfo=OSLO)
+            return dt
+        if len(v) == 13:
+            dt = datetime.strptime(v, "%Y%m%dT%H%M").replace(tzinfo=OSLO)
+            return dt
+    except Exception:
+        return None
 
     return None
 
 
-def _fetch_ics(url: str) -> str:
-    r = requests.get(url, timeout=90)
-    r.raise_for_status()
-    return r.text
+def _parse_ics_events(ics_text: str, year: int) -> list[dict]:
+    lines = _unfold_ics_lines(ics_text)
 
+    events: list[dict] = []
+    cur: dict[str, str] = {}
+    in_event = False
 
-def _fetch_json(url: str) -> object:
-    r = requests.get(url, timeout=90)
-    r.raise_for_status()
-    return r.json()
+    for ln in lines:
+        if ln == "BEGIN:VEVENT":
+            in_event = True
+            cur = {}
+            continue
+        if ln == "END:VEVENT":
+            in_event = False
 
+            dt_val = cur.get("DTSTART", "")
+            dt = _parse_dt(dt_val)
+            if not dt or dt.year != year:
+                cur = {}
+                continue
 
-def _normalize_json_items(payload: object, year: int, category: str, tv: str, gender: str) -> list[dict]:
-    """
-    Hvis du har JSON-feed: støtter list direkte eller {items:[...]}.
-    Må minst ha (start/title) eller (date/name).
-    """
-    if isinstance(payload, dict) and isinstance(payload.get("items"), list):
-        raw = payload["items"]
-    elif isinstance(payload, list):
-        raw = payload
-    else:
-        raw = []
+            title = cur.get("SUMMARY", "").strip() or cur.get("DESCRIPTION", "").strip() or "Wintersport"
+            location = cur.get("LOCATION", "").strip()
 
-    items: list[dict] = []
-    for x in raw:
-        if not isinstance(x, dict):
+            start = dt.isoformat(timespec="seconds")
+            eid = _stable_id("wintersport", start, title, location)
+
+            events.append(
+                {
+                    "id": eid,
+                    "sport": "wintersport",
+                    "start": start,
+                    "title": title,
+                    "location": location,
+                    "where": [],
+                    "source": "ics",
+                }
+            )
+
+            cur = {}
             continue
 
-        start = x.get("start") or x.get("kickoff") or x.get("date") or x.get("datetime")
-        title = x.get("title") or x.get("name") or x.get("event") or "Vintersport"
-
-        try:
-            dt = datetime.fromisoformat(start)
-        except Exception:
+        if not in_event:
             continue
 
-        if dt.year != year:
+        if ":" not in ln:
             continue
 
-        eid = _stable_id("wintersport", gender, category, start, str(title))
-        items.append(
-            {
-                "id": eid,
-                "sport": "wintersport",
-                "category": category,
-                "gender": gender,
-                "start": dt.astimezone(OSLO).isoformat(timespec="seconds"),
-                "title": str(title),
-                "tv": tv,
-                "where": [],
-                "source": "json_url",
-            }
-        )
+        left, val = ln.split(":", 1)
+        val = val.strip()
 
-    items.sort(key=lambda x: x.get("start") or "")
-    return items
+        # Normaliser key (fjern parametre)
+        key = left.split(";")[0].strip().upper()
+
+        # DTSTART kan komme som DTSTART;TZID=...:....
+        if key == "DTSTART":
+            cur["DTSTART"] = val
+        elif key in ("SUMMARY", "LOCATION", "DESCRIPTION"):
+            # Behold første hvis flere
+            cur.setdefault(key, val)
+
+    events.sort(key=lambda x: x.get("start") or "")
+    return events
 
 
 def fetch_wintersport_items(year: int = 2026) -> tuple[list[dict], list[dict]]:
@@ -202,37 +148,61 @@ def fetch_wintersport_items(year: int = 2026) -> tuple[list[dict], list[dict]]:
     women_items: list[dict] = []
 
     def handle(feed: dict, gender: str) -> list[dict]:
-        ftype = (feed.get("type") or "").strip()
-        name = (feed.get("name") or "Wintersport").strip()
-        tv = (feed.get("channel") or "").strip()
-        url = (feed.get("url") or "").strip()
-
-        if not url:
-            print(f"[wintersport] {gender}: missing url -> skipping ({name})")
+        if not isinstance(feed, dict) or not feed.get("enabled", True):
             return []
 
-        if ftype == "ics":
-            print(f"[wintersport] {gender}: ics -> {name} :: {url}")
-            ics_text = _fetch_ics(url)
-            return _parse_ics(ics_text, year=year, category=name, tv=tv, gender=gender)
+        feed_type = (feed.get("type") or "").strip()
+        name = (feed.get("name") or "Wintersport").strip()
+        discipline = (feed.get("discipline") or "").strip()
 
-        if ftype == "json_url":
-            print(f"[wintersport] {gender}: json -> {name} :: {url}")
-            payload = _fetch_json(url)
-            return _normalize_json_items(payload, year=year, category=name, tv=tv, gender=gender)
+        if feed_type != "ics":
+            # Du kan utvide med json/html senere
+            print(f"[wintersport] {gender}: unsupported type={feed_type} -> skipping ({name})")
+            return []
 
-        print(f"[wintersport] {gender}: unknown type={ftype} -> skipping ({name})")
-        return []
+        ics_url = (feed.get("ics_url") or "").strip()
+        if not ics_url:
+            print(f"[wintersport] {gender}: missing ics_url -> skipping ({name})")
+            return []
+
+        print(f"[wintersport] {gender}: downloading ics -> {ics_url}")
+        r = requests.get(ics_url, timeout=60)
+        r.raise_for_status()
+
+        events = _parse_ics_events(r.text, year=year)
+
+        # Pynt opp objektene med litt metadata
+        out: list[dict] = []
+        for ev in events:
+            ev["category"] = name
+            if discipline:
+                ev["discipline"] = discipline
+            ev["gender"] = gender
+            out.append(ev)
+
+        return out
 
     for f in men_feeds:
-        if isinstance(f, dict):
-            men_items += handle(f, "men")
+        men_items += handle(f, "men")
 
     for f in women_feeds:
-        if isinstance(f, dict):
-            women_items += handle(f, "women")
+        women_items += handle(f, "women")
 
-    men_items.sort(key=lambda x: x.get("start") or "")
-    women_items.sort(key=lambda x: x.get("start") or "")
+    # Dedupe på id (hvis flere feeds overlapper)
+    def dedupe(items: list[dict]) -> list[dict]:
+        seen = set()
+        out = []
+        for it in items:
+            i = it.get("id")
+            if not i or i in seen:
+                continue
+            seen.add(i)
+            out.append(it)
+        out.sort(key=lambda x: x.get("start") or "")
+        return out
+
+    men_items = dedupe(men_items)
+    women_items = dedupe(women_items)
+
     print(f"[wintersport] men={len(men_items)} women={len(women_items)}")
     return men_items, women_items
