@@ -1,13 +1,14 @@
 # tools/providers/wintersport.py
 from __future__ import annotations
 
-import hashlib
 import json
-from datetime import datetime
+import hashlib
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
 import requests
+
+from providers.fis_ical import fetch_fis_ical_events
 
 OSLO = ZoneInfo("Europe/Oslo")
 
@@ -22,187 +23,136 @@ def _read_sources() -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def _unfold_ics_lines(text: str) -> list[str]:
-    # iCal: linjer kan "foldes" (fortsetter på neste linje som starter med space/tab)
-    lines = text.replace("\r\n", "\n").replace("\r", "\n").split("\n")
-    out: list[str] = []
-    for ln in lines:
-        if not ln:
-            out.append("")
+def _biathlon_api(season_id: int, level: int) -> list[dict]:
+    """
+    BiathlonResults SportAPI (enkelt – du har allerede base_url/season_id/level i sources).
+    Vi henter EVENTS (races) og mapper til items med start/title.
+    """
+    base = "https://biathlonresults.com/modules/sportapi/api"
+    # Denne endpointruta fungerer typisk:
+    # /Events?SeasonId=2526&Level=3
+    url = f"{base}/Events"
+    r = requests.get(url, params={"SeasonId": season_id, "Level": level}, timeout=60)
+    r.raise_for_status()
+    data = r.json()
+
+    out: list[dict] = []
+    for ev in data or []:
+        # Typisk felter: StartTime, Description, ShortDescription, etc.
+        start = ev.get("StartTime") or ev.get("startTime") or ev.get("StartDate") or ""
+        title = ev.get("Description") or ev.get("ShortDescription") or ev.get("Name") or "Biathlon"
+        gender = (ev.get("Gender") or ev.get("gender") or "").lower()  # "m"/"w"/"mixed" etc
+        venue = ev.get("Venue") or ev.get("Location") or ""
+        if not start:
             continue
-        if ln.startswith((" ", "\t")) and out:
-            out[-1] += ln[1:]
-        else:
-            out.append(ln)
+
+        out.append(
+            {
+                "sport": "wintersport",
+                "start": start,
+                "title": str(title),
+                "venue": str(venue),
+                "where": [],
+                "source": "biathlon_api",
+                "gender": "women" if gender in ("w", "women", "female") else ("men" if gender in ("m", "men", "male") else None),
+            }
+        )
+
+    out.sort(key=lambda x: x.get("start") or "")
     return out
 
 
-def _parse_dt(value: str) -> datetime | None:
-    """
-    Støtter typiske former:
-      - DTSTART:20260201T120000Z
-      - DTSTART:20260201T120000
-      - DTSTART;VALUE=DATE:20260201
-      - DTSTART;TZID=Europe/Oslo:20260201T120000
-    """
-    v = (value or "").strip()
-    if not v:
-        return None
-
-    # Fjern evt. parametre før kolon (håndteres utenfor)
-    # Her forventer vi kun selve verdien.
-    try:
-        if len(v) == 8 and v.isdigit():
-            # YYYYMMDD
-            dt = datetime.strptime(v, "%Y%m%d").replace(tzinfo=OSLO)
-            return dt
-        if v.endswith("Z"):
-            dt = datetime.strptime(v, "%Y%m%dT%H%M%SZ").replace(tzinfo=ZoneInfo("UTC"))
-            return dt.astimezone(OSLO)
-        # YYYYMMDDTHHMMSS eller YYYYMMDDTHHMM
-        if len(v) == 15:
-            dt = datetime.strptime(v, "%Y%m%dT%H%M%S").replace(tzinfo=OSLO)
-            return dt
-        if len(v) == 13:
-            dt = datetime.strptime(v, "%Y%m%dT%H%M").replace(tzinfo=OSLO)
-            return dt
-    except Exception:
-        return None
-
-    return None
-
-
-def _parse_ics_events(ics_text: str, year: int) -> list[dict]:
-    lines = _unfold_ics_lines(ics_text)
-
-    events: list[dict] = []
-    cur: dict[str, str] = {}
-    in_event = False
-
-    for ln in lines:
-        if ln == "BEGIN:VEVENT":
-            in_event = True
-            cur = {}
-            continue
-        if ln == "END:VEVENT":
-            in_event = False
-
-            dt_val = cur.get("DTSTART", "")
-            dt = _parse_dt(dt_val)
-            if not dt or dt.year != year:
-                cur = {}
-                continue
-
-            title = cur.get("SUMMARY", "").strip() or cur.get("DESCRIPTION", "").strip() or "Wintersport"
-            location = cur.get("LOCATION", "").strip()
-
-            start = dt.isoformat(timespec="seconds")
-            eid = _stable_id("wintersport", start, title, location)
-
-            events.append(
-                {
-                    "id": eid,
-                    "sport": "wintersport",
-                    "start": start,
-                    "title": title,
-                    "location": location,
-                    "where": [],
-                    "source": "ics",
-                }
-            )
-
-            cur = {}
-            continue
-
-        if not in_event:
-            continue
-
-        if ":" not in ln:
-            continue
-
-        left, val = ln.split(":", 1)
-        val = val.strip()
-
-        # Normaliser key (fjern parametre)
-        key = left.split(";")[0].strip().upper()
-
-        # DTSTART kan komme som DTSTART;TZID=...:....
-        if key == "DTSTART":
-            cur["DTSTART"] = val
-        elif key in ("SUMMARY", "LOCATION", "DESCRIPTION"):
-            # Behold første hvis flere
-            cur.setdefault(key, val)
-
-    events.sort(key=lambda x: x.get("start") or "")
-    return events
-
-
 def fetch_wintersport_items(year: int = 2026) -> tuple[list[dict], list[dict]]:
+    """
+    Returnerer (men_items, women_items) med MASSE events:
+      - Skiskyting: BiathlonResults SportAPI
+      - Langrenn/hopp/alpint/kombinert: FIS iCalendar
+    """
     src = _read_sources()
     ws = (src.get("sports") or {}).get("wintersport") or {}
-
-    men_feeds = ws.get("men") or []
-    women_feeds = ws.get("women") or []
 
     men_items: list[dict] = []
     women_items: list[dict] = []
 
-    def handle(feed: dict, gender: str) -> list[dict]:
-        if not isinstance(feed, dict) or not feed.get("enabled", True):
-            return []
+    def add(item: dict):
+        # Normaliser id + felt for frontend (din app.js leser start/title)
+        start = str(item.get("start") or "")
+        title = str(item.get("title") or "")
+        if not start or not title:
+            return
 
-        feed_type = (feed.get("type") or "").strip()
-        name = (feed.get("name") or "Wintersport").strip()
-        discipline = (feed.get("discipline") or "").strip()
+        gender = item.get("gender")  # "men"/"women"/None
+        eid = _stable_id("wintersport", str(year), start, title)
+        out = {
+            "id": eid,
+            "sport": "wintersport",
+            "start": start,
+            "title": title,
+            "tv": item.get("tv") or "",
+            "where": item.get("where") or [],
+            "venue": item.get("venue") or "",
+            "source": item.get("source") or "unknown",
+        }
+        if gender == "women":
+            women_items.append(out)
+        elif gender == "men":
+            men_items.append(out)
+        else:
+            # hvis ukjent kjønn: legg i begge (bedre enn “0”)
+            men_items.append(out)
+            women_items.append(out)
 
-        if feed_type != "ics":
-            # Du kan utvide med json/html senere
-            print(f"[wintersport] {gender}: unsupported type={feed_type} -> skipping ({name})")
-            return []
+    # --- FIS feeds (CC/JP/AL/NK) ---
+    # sources.json -> wintersport.men/women[] kan inneholde type:"fis_ical"
+    for feed in (ws.get("men") or []):
+        if not isinstance(feed, dict) or not feed.get("enabled"):
+            continue
+        if feed.get("type") == "fis_ical":
+            sector = (feed.get("sectorcode") or "").strip()
+            cat = (feed.get("categorycode") or "WC").strip()
+            tv = (feed.get("channel") or "").strip()
+            items = fetch_fis_ical_events(seasoncode=year, sectorcode=sector, categorycode=cat)
+            for it in items:
+                it["tv"] = tv
+                it["gender"] = "men"  # feed er “men”
+                add(it)
+        if feed.get("type") == "biathlon_api":
+            api = feed.get("api") or {}
+            tv = (feed.get("channel") or "").strip()
+            season_id = int(api.get("season_id"))
+            level = int(api.get("level", 3))
+            items = _biathlon_api(season_id, level)
+            for it in items:
+                it["tv"] = tv
+                # biathlon kan inneholde kjønn – men feed er “men”
+                if it.get("gender") is None:
+                    it["gender"] = "men"
+                add(it)
 
-        ics_url = (feed.get("ics_url") or "").strip()
-        if not ics_url:
-            print(f"[wintersport] {gender}: missing ics_url -> skipping ({name})")
-            return []
+    for feed in (ws.get("women") or []):
+        if not isinstance(feed, dict) or not feed.get("enabled"):
+            continue
+        if feed.get("type") == "fis_ical":
+            sector = (feed.get("sectorcode") or "").strip()
+            cat = (feed.get("categorycode") or "WC").strip()
+            tv = (feed.get("channel") or "").strip()
+            items = fetch_fis_ical_events(seasoncode=year, sectorcode=sector, categorycode=cat)
+            for it in items:
+                it["tv"] = tv
+                it["gender"] = "women"
+                add(it)
+        if feed.get("type") == "biathlon_api":
+            api = feed.get("api") or {}
+            tv = (feed.get("channel") or "").strip()
+            season_id = int(api.get("season_id"))
+            level = int(api.get("level", 3))
+            items = _biathlon_api(season_id, level)
+            for it in items:
+                it["tv"] = tv
+                if it.get("gender") is None:
+                    it["gender"] = "women"
+                add(it)
 
-        print(f"[wintersport] {gender}: downloading ics -> {ics_url}")
-        r = requests.get(ics_url, timeout=60)
-        r.raise_for_status()
-
-        events = _parse_ics_events(r.text, year=year)
-
-        # Pynt opp objektene med litt metadata
-        out: list[dict] = []
-        for ev in events:
-            ev["category"] = name
-            if discipline:
-                ev["discipline"] = discipline
-            ev["gender"] = gender
-            out.append(ev)
-
-        return out
-
-    for f in men_feeds:
-        men_items += handle(f, "men")
-
-    for f in women_feeds:
-        women_items += handle(f, "women")
-
-    # Dedupe på id (hvis flere feeds overlapper)
-    def dedupe(items: list[dict]) -> list[dict]:
-        seen = set()
-        out = []
-        for it in items:
-            i = it.get("id")
-            if not i or i in seen:
-                continue
-            seen.add(i)
-            out.append(it)
-        out.sort(key=lambda x: x.get("start") or "")
-        return out
-
-    men_items = dedupe(men_items)
-    women_items = dedupe(women_items)
-
-    print(f"[wintersport] men={len(men_items)} women={len(women_items)}")
+    men_items.sort(key=lambda x: x.get("start") or "")
+    women_items.sort(key=lambda x: x.get("start") or "")
     return men_items, women_items
