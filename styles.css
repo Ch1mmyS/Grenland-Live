@@ -1,4 +1,4 @@
-/* /styles.css  (KOMPLETT FIL – legg i ROOT) */
+/* /styles.css (KOMPLETT FIL – ROOT) */
 :root{
   --bg:#0b0f17;
   --panel:#111827;
@@ -32,7 +32,14 @@ body{
   z-index:50;
 }
 
-/* ✅ GRID-HEADER SOM FJERNER OVERLAPP */
+/* (valgfritt) hvis du bruker .topbar-inner i HTML */
+.topbar-inner{
+  max-width:1100px;
+  margin:0 auto;
+  padding:14px 16px;
+}
+
+/* ✅ GRID-HEADER (om du bruker header-grid i HTML) */
 .header-grid{
   display:grid;
   grid-template-columns: 1fr auto 1fr;
@@ -78,7 +85,7 @@ body{
 .dot.ok{ background:var(--good); }
 .dot.bad{ background:var(--bad); }
 
-/* ✅ HERO MIDT (EGEN RAD, INGEN OVERLAPP) */
+/* ✅ HERO MIDT */
 .hero{
   grid-column:1 / 4;
   grid-row:1;
@@ -101,7 +108,7 @@ body{
   max-width:820px;
 }
 
-/* ✅ FANER UNDER HERO */
+/* ✅ FANER */
 .tabs{
   grid-column:1 / 4;
   grid-row:2;
@@ -268,9 +275,14 @@ select:focus, input:focus{ border-color: rgba(96,165,250,.55); box-shadow:0 0 0 
   .hero-sub{ font-size:12px; }
   .tabs{ justify-content:center; }
 }
+
+/* ✅ VIKTIG: Disse var feil før. De skjulte tekst og manglet }.
+   Nå er de gjort trygge (ikke skjuler noe). */
 .brand .title,
 .brand .subtitle{
-  display:none !important;
+  /* ikke skjul noe her */
+}
+
 .status{
-  display:none !important;
+  /* ikke skjul status her */
 }
