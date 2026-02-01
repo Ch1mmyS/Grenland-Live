@@ -1,12 +1,16 @@
-// /calendar.js — Kalender 2026 (fanen)
+// /calendar.js — Kalender 2026 (KLIKK + MODAL)
 // Leser: data/2026/calendar_feed.json
 // Prikker: 🔴 fotball, 🟡 håndball, 🟢 vintersport
 const CAL_TZ = "Europe/Oslo";
+const DEFAULT_PUBS = ["Vikinghjørnet", "Gimle Pub"];
 
 function c$(id){ return document.getElementById(id); }
 function esc(s){
   return String(s ?? "")
-    .replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;");
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;");
 }
 
 function parseRoot(json){
@@ -14,6 +18,7 @@ function parseRoot(json){
   if (json && Array.isArray(json.items)) return json.items;
   if (json && Array.isArray(json.events)) return json.events;
   if (json && Array.isArray(json.games)) return json.games;
+  if (json && Array.isArray(json.matches)) return json.matches;
   return [];
 }
 
@@ -44,13 +49,53 @@ function timeOnly(iso){
   } catch { return "Ukjent"; }
 }
 
+function uniqKeepOrder(arr){
+  const seen = new Set();
+  const out = [];
+  for (const v of arr) {
+    const k = String(v ?? "").trim();
+    if (!k || seen.has(k)) continue;
+    seen.add(k);
+    out.push(k);
+  }
+  return out;
+}
+
+// Normaliser kalender-item slik at modal alltid får: home/away OR title, kickoff/start, channel, where
+function normalizeCalendarItem(it){
+  const home = it.home || it.homeTeam || it.team1 || it.h || "";
+  const away = it.away || it.awayTeam || it.team2 || it.a || "";
+  const kickoff = it.start || it.kickoff || it.date || it.datetime || "";
+  const channel = String(it.channel || it.tv || it.broadcaster || it.kanal || "Ukjent").trim() || "Ukjent";
+
+  let where = [];
+  if (Array.isArray(it.where)) where = it.where;
+  else if (typeof it.where === "string") where = [it.where];
+  else if (Array.isArray(it.pubs)) where = it.pubs.map(p => p?.name || p).filter(Boolean);
+
+  where = uniqKeepOrder([...DEFAULT_PUBS, ...where]);
+
+  return {
+    ...it,
+    home,
+    away,
+    kickoff,
+    channel,
+    where,
+    title: it.title || it.name || (home && away ? `${home} – ${away}` : "Event"),
+    league: it.league || it.competition || it.tournament || it.series || ""
+  };
+}
+
 async function fetchJson(path){
   const url = `${path}?v=${Date.now()}`;
   const r = await fetch(url, { cache: "no-store" });
   if (!r.ok) throw new Error(`HTTP ${r.status} @ ${path}`);
-  const ct = (r.headers.get("content-type") || "").toLowerCase();
-  if (ct.includes("text/html")) throw new Error(`Fikk HTML i stedet for JSON @ ${path}`);
-  return await r.json();
+  const text = await r.text();
+  if (text.trim().startsWith("<!doctype") || text.trim().startsWith("<html")) {
+    throw new Error(`Fikk HTML i stedet for JSON @ ${path}`);
+  }
+  return JSON.parse(text);
 }
 
 function buildGrid(y,m){
@@ -75,18 +120,29 @@ function renderSide(key, items){
     return;
   }
 
-  for (const it of items) {
-    const div = document.createElement("div");
-    div.className = "card";
-    div.innerHTML = `
+  for (const raw of items) {
+    const it = normalizeCalendarItem(raw);
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "card";
+    btn.style.textAlign = "left";
+
+    btn.innerHTML = `
       <div class="row">
         <div>
-          <div class="teams">${esc(dot(it.type || it.sport) + " " + title(it))}</div>
-          <div class="muted small">${esc(timeOnly(it.start || it.kickoff || it.date) + " · " + (it.channel || it.tv || "Ukjent"))}</div>
+          <div class="teams">${esc(dot(it.type || it.sport) + " " + (it.home && it.away ? `${it.home} – ${it.away}` : it.title))}</div>
+          <div class="muted small">${esc(timeOnly(it.kickoff) + " · " + (it.channel || "Ukjent"))}</div>
         </div>
       </div>
     `;
-    list.appendChild(div);
+
+    btn.addEventListener("click", () => {
+      if (typeof window.GL_openModal === "function") {
+        window.GL_openModal(it);
+      }
+    });
+
+    list.appendChild(btn);
   }
 }
 
@@ -156,6 +212,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       map.set(key, list);
     }
 
+    // sort inside each day
     for (const [k, list] of map.entries()) {
       list.sort((a,b) => (Date.parse(a.start||a.kickoff||a.date||"")||0) - (Date.parse(b.start||b.kickoff||b.date||"")||0));
       map.set(k, list);
