@@ -1,8 +1,12 @@
+// /calendar.js — Kalender 2026 (fanen)
+// Leser: data/2026/calendar_feed.json
+// Prikker: 🔴 fotball, 🟡 håndball, 🟢 vintersport
 const CAL_TZ = "Europe/Oslo";
-function c$(id){ return document.getElementById(id); }
 
-function dateKey(d){
-  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+function c$(id){ return document.getElementById(id); }
+function esc(s){
+  return String(s ?? "")
+    .replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;");
 }
 
 function parseRoot(json){
@@ -13,8 +17,12 @@ function parseRoot(json){
   return [];
 }
 
+function dateKey(d){
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+}
+
 function dot(type){
-  const t = String(type||"").toLowerCase();
+  const t = String(type || "").toLowerCase();
   if (t.includes("fotball") || t.includes("football") || t.includes("soccer")) return "🔴";
   if (t.includes("håndball") || t.includes("handball")) return "🟡";
   if (t.includes("vintersport") || t.includes("winter") || t.includes("ski")) return "🟢";
@@ -28,14 +36,21 @@ function title(it){
 function timeOnly(iso){
   if (!iso) return "Ukjent";
   try {
-    return new Date(iso).toLocaleString("no-NO", { timeZone: CAL_TZ, hour:"2-digit", minute:"2-digit" });
+    return new Date(iso).toLocaleString("no-NO", {
+      timeZone: CAL_TZ,
+      hour: "2-digit",
+      minute: "2-digit"
+    });
   } catch { return "Ukjent"; }
 }
 
 async function fetchJson(path){
-  const r = await fetch(`${path}?v=${Date.now()}`, { cache:"no-store" });
-  if (!r.ok) throw new Error(`HTTP ${r.status} ${path}`);
-  return r.json();
+  const url = `${path}?v=${Date.now()}`;
+  const r = await fetch(url, { cache: "no-store" });
+  if (!r.ok) throw new Error(`HTTP ${r.status} @ ${path}`);
+  const ct = (r.headers.get("content-type") || "").toLowerCase();
+  if (ct.includes("text/html")) throw new Error(`Fikk HTML i stedet for JSON @ ${path}`);
+  return await r.json();
 }
 
 function buildGrid(y,m){
@@ -44,15 +59,10 @@ function buildGrid(y,m){
   const start = (first.getDay()+6)%7; // man=0
   const days = last.getDate();
   const cells = [];
-  for(let i=0;i<start;i++) cells.push(null);
-  for(let d=1;d<=days;d++) cells.push(new Date(y,m,d));
-  while(cells.length%7!==0) cells.push(null);
+  for (let i=0;i<start;i++) cells.push(null);
+  for (let d=1; d<=days; d++) cells.push(new Date(y,m,d));
+  while (cells.length % 7 !== 0) cells.push(null);
   return cells;
-}
-
-function escapeHtml(s){
-  return String(s ?? "")
-    .replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;");
 }
 
 function renderSide(key, items){
@@ -67,11 +77,13 @@ function renderSide(key, items){
 
   for (const it of items) {
     const div = document.createElement("div");
-    div.className = "list-item";
+    div.className = "card";
     div.innerHTML = `
-      <div class="li-main">
-        <div class="li-title">${escapeHtml(dot(it.type||it.sport) + " " + title(it))}</div>
-        <div class="li-sub muted">${escapeHtml(timeOnly(it.start||it.kickoff||it.date) + " · " + (it.channel||it.tv||"Ukjent"))}</div>
+      <div class="row">
+        <div>
+          <div class="teams">${esc(dot(it.type || it.sport) + " " + title(it))}</div>
+          <div class="muted small">${esc(timeOnly(it.start || it.kickoff || it.date) + " · " + (it.channel || it.tv || "Ukjent"))}</div>
+        </div>
       </div>
     `;
     list.appendChild(div);
@@ -104,11 +116,11 @@ function renderMonth(root, y, m, map){
     if (!d) {
       btn.classList.add("cal-empty");
       btn.disabled = true;
-      btn.innerHTML = `<span class="cal-day"></span>`;
+      btn.innerHTML = `<span class="cal-day"></span><span class="cal-dots"></span>`;
     } else {
       const key = dateKey(d);
       const items = map.get(key) || [];
-      const dots = items.slice(0,6).map(it => dot(it.type||it.sport)).join("");
+      const dots = items.slice(0, 6).map(it => dot(it.type || it.sport)).join("");
       btn.innerHTML = `<span class="cal-day">${d.getDate()}</span><span class="cal-dots">${dots}</span>`;
       btn.addEventListener("click", () => renderSide(key, items));
     }
@@ -121,8 +133,11 @@ function renderMonth(root, y, m, map){
 
 document.addEventListener("DOMContentLoaded", async () => {
   const root = c$("calendarRoot");
-  if (!root) return;
+  const err = c$("calendarError");
+  if (!root || !err) return;
 
+  err.classList.add("hidden");
+  err.textContent = "";
   root.innerHTML = `<div class="empty">Laster kalender…</div>`;
 
   try {
@@ -141,15 +156,17 @@ document.addEventListener("DOMContentLoaded", async () => {
       map.set(key, list);
     }
 
-    for (const [k,list] of map.entries()) {
-      list.sort((a,b)=> (Date.parse(a.start||a.kickoff||a.date||"")||0)-(Date.parse(b.start||b.kickoff||b.date||"")||0));
-      map.set(k,list);
+    for (const [k, list] of map.entries()) {
+      list.sort((a,b) => (Date.parse(a.start||a.kickoff||a.date||"")||0) - (Date.parse(b.start||b.kickoff||b.date||"")||0));
+      map.set(k, list);
     }
 
     root.innerHTML = "";
-    for (let m=0;m<12;m++) renderMonth(root, 2026, m, map);
+    for (let m=0; m<12; m++) renderMonth(root, 2026, m, map);
   } catch (e) {
-    root.innerHTML = `<div class="empty">Kunne ikke laste /data/2026/calendar_feed.json</div>`;
+    root.innerHTML = `<div class="empty">Kunne ikke laste kalender.</div>`;
+    err.textContent = `Kunne ikke laste: data/2026/calendar_feed.json\n${String(e?.message || e)}`;
+    err.classList.remove("hidden");
     console.error(e);
   }
 });
