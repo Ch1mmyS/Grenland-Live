@@ -22,6 +22,17 @@ body{
   color:var(--text);
 }
 
+/* ✅ FORCE: browsers (Firefox/Chrome) kan gi <button> svart “buttonText” */
+button{
+  color: var(--text) !important;
+  -webkit-text-fill-color: var(--text);
+  font: inherit;
+}
+button *{
+  color: inherit !important;
+  -webkit-text-fill-color: inherit;
+}
+
 .wrap{ max-width:1100px; margin:0 auto; padding:0 16px; }
 
 .topbar{
@@ -42,17 +53,8 @@ body{
   padding:14px 0 12px 0;
 }
 
-.brand{
-  grid-column:1;
-  grid-row:1;
-  min-height:1px;
-}
-
-.status{
-  grid-column:3;
-  grid-row:1;
-  min-height:1px;
-}
+.brand{ grid-column:1; grid-row:1; min-height:1px; }
+.status{ grid-column:3; grid-row:1; min-height:1px; }
 
 /* Center title */
 .hero{
@@ -76,7 +78,7 @@ body{
   max-width:820px;
 }
 
-/* Tabs under title */
+/* Tabs */
 .tabs{
   grid-column:1 / 4;
   grid-row:2;
@@ -86,7 +88,6 @@ body{
   align-items:center;
   flex-wrap:wrap;
 }
-
 .tab{
   border:1px solid var(--line);
   background: rgba(15,23,42,.55);
@@ -126,6 +127,7 @@ body{
 }
 
 .control label{ display:block; font-size:12px; color:var(--muted); margin:0 0 6px 2px; }
+
 select, input{
   width:100%;
   padding:10px 10px;
@@ -135,7 +137,10 @@ select, input{
   color:var(--text);
   outline:none;
 }
-select:focus, input:focus{ border-color: rgba(96,165,250,.55); box-shadow:0 0 0 4px rgba(96,165,250,.18); }
+select:focus, input:focus{
+  border-color: rgba(96,165,250,.55);
+  box-shadow:0 0 0 4px rgba(96,165,250,.18);
+}
 
 .control.right{ display:flex; flex-direction:column; justify-content:flex-end; }
 
@@ -157,6 +162,8 @@ select:focus, input:focus{ border-color: rgba(96,165,250,.55); box-shadow:0 0 0 
 .small{ font-size:12px; }
 
 .list{ display:grid; gap:10px; }
+
+/* Cards */
 .card{
   border:1px solid var(--line);
   background: rgba(15,23,42,.7);
@@ -165,8 +172,13 @@ select:focus, input:focus{ border-color: rgba(96,165,250,.55); box-shadow:0 0 0 
   cursor:pointer;
   transition: transform .08s ease, border-color .08s ease;
   text-align:left;
+
+  /* ✅ FORCE: lesbar tekst */
+  color: var(--text) !important;
+  -webkit-text-fill-color: var(--text);
 }
 .card:hover{ transform: translateY(-1px); border-color: rgba(96,165,250,.35); }
+
 .row{ display:flex; justify-content:space-between; gap:10px; align-items:flex-start; }
 .teams{ font-weight:800; }
 .badges{ display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
@@ -247,11 +259,13 @@ select:focus, input:focus{ border-color: rgba(96,165,250,.55); box-shadow:0 0 0 
 @media (max-width: 900px){
   .calendar-layout{ grid-template-columns:1fr; }
 }
+
 .calendar-root{
   border:1px solid var(--line);
   border-radius:16px;
   padding:12px;
   background: rgba(15,23,42,.55);
+  min-height: 340px;
   overflow:auto;
 }
 .calendar-side{
@@ -259,6 +273,7 @@ select:focus, input:focus{ border-color: rgba(96,165,250,.55); box-shadow:0 0 0 
   border-radius:16px;
   padding:12px;
   background: rgba(15,23,42,.55);
+  min-height: 340px;
 }
 
 /* Calendar month */
@@ -280,7 +295,8 @@ select:focus, input:focus{ border-color: rgba(96,165,250,.55); box-shadow:0 0 0 
 .cal-cell{
   border:1px solid var(--line);
   background: rgba(11,15,23,.35);
-  color:var(--text);
+  color:var(--text) !important;
+  -webkit-text-fill-color: var(--text);
   border-radius:12px;
   padding:8px 8px;
   cursor:pointer;
@@ -294,7 +310,6 @@ select:focus, input:focus{ border-color: rgba(96,165,250,.55); box-shadow:0 0 0 
 .cal-day{ font-weight:900; font-size:12px; }
 .cal-dots{ font-size:12px; letter-spacing:1px; opacity:.95; }
 
-/* Mobile */
 @media (max-width: 760px){
   .hero-title{ font-size:26px; }
   .hero-sub{ font-size:12px; }
