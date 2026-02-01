@@ -30,7 +30,7 @@
         "key": "premier_league",
         "name": "Premier League",
         "type": "fixturedownload_json",
-        "url": "https://fixturedownload.com/feed/json/epl-2025",
+        "url": "https://fixturedownload.com/feed/json/epl-2026",
         "default_tv": "Viaplay / V Sport",
         "enabled": true
       },
@@ -38,7 +38,7 @@
         "key": "champions_league",
         "name": "Champions League",
         "type": "fixturedownload_json",
-        "url": "https://fixturedownload.com/feed/json/champions-league-2025",
+        "url": "https://fixturedownload.com/feed/json/champions-league-2026",
         "default_tv": "TV 2 Play Premium / TV 2 Sport 1",
         "enabled": true
       },
@@ -46,45 +46,66 @@
         "key": "la_liga",
         "name": "La Liga",
         "type": "fixturedownload_json",
-        "url": "https://fixturedownload.com/feed/json/la-liga-2025",
+        "url": "https://fixturedownload.com/feed/json/la-liga-2026",
         "default_tv": "TV 2 / TV 2 Play",
         "enabled": true
       }
     ],
+
     "handball": {
       "men": [
         {
           "key": "handball_men_ehf_euro_2026",
-          "type": "handball_pdf",
+          "type": "ehf_api",
           "name": "Håndball – Men's EHF EURO 2026",
           "channel": "TV 2 / TV 2 Play",
-          "pdf_url": "https://tickets.eurohandball.com/fileadmin/fm_de/EHF2026M/250901_EHF2026-M_Match_Schedule_new.pdf",
+          "api": {
+            "base_url": "https://ehfeuro.eurohandball.com/api",
+            "tournament": "men_euro_2026"
+          },
           "enabled": true
         }
       ],
-      "women": [
-        {
-          "key": "handball_women_ehf_euro_2026",
-          "type": "handball_pdf",
-          "name": "Håndball – Women's EHF EURO 2026",
-          "channel": "TV 2 / TV 2 Play",
-          "pdf_url": "",
-          "enabled": false
-        }
-      ]
+      "women": []
     },
+
     "wintersport": {
       "men": [
         {
           "key": "biathlon_world_2526_men",
           "type": "biathlon_api",
-          "name": "Vintersport – Skiskyting (IBU) 2025/2026",
+          "name": "Skiskyting – World Cup 2025/26 (menn)",
           "channel": "TV 2 / TV 2 Play",
           "api": {
             "base_url": "https://biathlonresults.com/modules/sportapi/api",
             "season_id": 2526,
-            "level": 3
+            "level": 3,
+            "gender": "M"
           },
+          "enabled": true
+        },
+        {
+          "key": "xc_world_2526_men",
+          "type": "fis_api",
+          "name": "Langrenn – World Cup 2025/26 (menn)",
+          "discipline": "cross-country",
+          "channel": "TV 2 / TV 2 Play",
+          "enabled": true
+        },
+        {
+          "key": "sj_world_2526_men",
+          "type": "fis_api",
+          "name": "Hopp – World Cup 2025/26 (menn)",
+          "discipline": "ski-jumping",
+          "channel": "TV 2 / TV 2 Play",
+          "enabled": true
+        },
+        {
+          "key": "alpine_world_2526_men",
+          "type": "fis_api",
+          "name": "Alpint – World Cup 2025/26 (menn)",
+          "discipline": "alpine",
+          "channel": "TV 2 / TV 2 Play",
           "enabled": true
         }
       ],
@@ -92,13 +113,38 @@
         {
           "key": "biathlon_world_2526_women",
           "type": "biathlon_api",
-          "name": "Vintersport – Skiskyting (IBU) 2025/2026",
+          "name": "Skiskyting – World Cup 2025/26 (kvinner)",
           "channel": "TV 2 / TV 2 Play",
           "api": {
             "base_url": "https://biathlonresults.com/modules/sportapi/api",
             "season_id": 2526,
-            "level": 3
+            "level": 3,
+            "gender": "W"
           },
+          "enabled": true
+        },
+        {
+          "key": "xc_world_2526_women",
+          "type": "fis_api",
+          "name": "Langrenn – World Cup 2025/26 (kvinner)",
+          "discipline": "cross-country",
+          "channel": "TV 2 / TV 2 Play",
+          "enabled": true
+        },
+        {
+          "key": "sj_world_2526_women",
+          "type": "fis_api",
+          "name": "Hopp – World Cup 2025/26 (kvinner)",
+          "discipline": "ski-jumping",
+          "channel": "TV 2 / TV 2 Play",
+          "enabled": true
+        },
+        {
+          "key": "alpine_world_2526_women",
+          "type": "fis_api",
+          "name": "Alpint – World Cup 2025/26 (kvinner)",
+          "discipline": "alpine",
+          "channel": "TV 2 / TV 2 Play",
           "enabled": true
         }
       ]
