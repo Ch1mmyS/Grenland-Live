@@ -1,363 +1,471 @@
-#!/usr/bin/env python3
 # tools/fetch_football_2026.py
-#
-# Grenland Live — Football 2026 builder
-# هدف: Sørg for at FRONTEND-filer blir fylt:
-#   data/2026/eliteserien.json
-#   data/2026/obos.json
-#   data/2026/premier_league.json
-#   data/2026/champions_league.json
-#   data/2026/la_liga.json
-#
-# Strategi:
-#  1) Hvis data/2026/football.json finnes og har kamper -> bruk den som kilde
-#  2) Ellers: forsøk å hente fra fixturedownload (valgfritt) hvis URLer settes i env
-#  3) Normaliser + filtrer til 2026
-#  4) Skriv per liga til filene UI bruker
+# Grenland Live — Football per league (2026)
+# - Writes: data/2026/eliteserien.json, obos.json, premier_league.json, champions_league.json, la_liga.json
+# - Supports sources from data/_meta/sources.json (recommended)
+# - Safe-write: never overwrites an existing file with an empty list
+
+from __future__ import annotations
 
 import json
 import os
+import re
 import sys
 from dataclasses import dataclass
-from datetime import datetime
-from zoneinfo import ZoneInfo
+from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional, Tuple
 from urllib.request import Request, urlopen
 
-TZ = ZoneInfo("Europe/Oslo")
-
+# -----------------------------
+# Paths
+# -----------------------------
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-DATA_2026 = os.path.join(ROOT, "data", "2026")
+DATA_DIR = os.path.join(ROOT, "data")
+OUT_DIR_2026 = os.path.join(DATA_DIR, "2026")
+META_SOURCES = os.path.join(DATA_DIR, "_meta", "sources.json")
 
-OUT_FILES = {
-    "eliteserien": os.path.join(DATA_2026, "eliteserien.json"),
-    "obos": os.path.join(DATA_2026, "obos.json"),
-    "premier_league": os.path.join(DATA_2026, "premier_league.json"),
-    "champions_league": os.path.join(DATA_2026, "champions_league.json"),
-    "la_liga": os.path.join(DATA_2026, "la_liga.json"),
-}
+TZ_NAME = "Europe/Oslo"
 
-COMBINED_FILE = os.path.join(DATA_2026, "football.json")
-
-# Mapper ulike liga-tekster til våre faste keys
-LEAGUE_MAP = [
-    ("eliteserien", ["eliteserien", "tippeligaen"]),
-    ("obos", ["obos", "obos-ligaen", "obosligaen", "1. divisjon"]),
-    ("premier_league", ["premier league", "epl"]),
-    ("champions_league", ["champions league", "uefa champions league", "ucl"]),
-    ("la_liga", ["la liga", "laliga", "primera división", "primera division"]),
+# -----------------------------
+# League definitions (file names)
+# -----------------------------
+LEAGUES = [
+    ("eliteserien", "Eliteserien"),
+    ("obos", "OBOS-ligaen"),
+    ("premier_league", "Premier League"),
+    ("champions_league", "Champions League"),
+    ("la_liga", "La Liga"),
 ]
 
-DEFAULT_WHERE = ["Vikinghjørnet", "Gimle Pub"]
+# Optional default channels (only if source doesn't provide)
+DEFAULT_CHANNEL = {
+    "Eliteserien": "TV 2 / TV 2 Play",
+    "OBOS-ligaen": "TV 2 / TV 2 Play",
+    "Premier League": "Viaplay / V Sport",
+    "Champions League": "TV 2 / TV 2 Play",
+    "La Liga": "Viaplay / V Sport",
+}
 
 
 @dataclass
-class Game:
-    league_key: str
-    league: str
-    home: str
-    away: str
-    kickoff: str  # ISO string with offset
-    channel: str
-    where: List[str]
+class SourceSpec:
+    kind: str  # "ics" or "json"
+    url: str
 
 
-def _safe_mkdir(path: str) -> None:
+# -----------------------------
+# Utilities
+# -----------------------------
+def utc_now_iso() -> str:
+    return datetime.now(timezone.utc).astimezone().isoformat(timespec="seconds")
+
+
+def ensure_dir(path: str) -> None:
     os.makedirs(path, exist_ok=True)
 
 
-def _read_json(path: str) -> Optional[Any]:
+def read_json(path: str) -> Optional[dict]:
     if not os.path.exists(path):
         return None
     try:
         with open(path, "r", encoding="utf-8") as f:
             return json.load(f)
-    except Exception as e:
-        print(f"[football] WARN: could not read {path}: {e}")
+    except Exception:
         return None
 
 
-def _write_json(path: str, obj: Any) -> None:
-    _safe_mkdir(os.path.dirname(path))
+def write_json(path: str, obj: dict) -> None:
     tmp = path + ".tmp"
     with open(tmp, "w", encoding="utf-8") as f:
         json.dump(obj, f, ensure_ascii=False, indent=2)
     os.replace(tmp, path)
 
 
-def _uniq_keep_order(items: List[str]) -> List[str]:
-    seen = set()
-    out = []
-    for it in items:
-        s = str(it).strip()
-        if not s or s in seen:
-            continue
-        seen.add(s)
-        out.append(s)
-    return out
+def safe_write_games(path: str, payload: dict, games: List[dict]) -> None:
+    """
+    Never overwrite an existing file with 0 games.
+    If games is empty and file exists, keep existing.
+    """
+    if len(games) == 0 and os.path.exists(path):
+        print(f"WARN: {os.path.relpath(path, ROOT)} would be empty -> keeping existing file.")
+        return
+    write_json(path, payload)
 
 
-def _to_iso_oslo(dt: datetime) -> str:
-    if dt.tzinfo is None:
-        dt = dt.replace(tzinfo=TZ)
-    else:
-        dt = dt.astimezone(TZ)
-    return dt.isoformat()
-
-
-def _parse_iso_any(s: str) -> Optional[datetime]:
-    if not s:
-        return None
-    s = str(s).strip()
+def http_get_text(url: str, accept: str) -> str:
+    req = Request(
+        url,
+        headers={
+            "User-Agent": "GrenlandLiveBot/1.0 (+https://grenland-live.no)",
+            "Accept": accept,
+        },
+        method="GET",
+    )
+    with urlopen(req, timeout=60) as resp:
+        data = resp.read()
+    # Try utf-8 first, fallback latin-1
     try:
-        # Python can parse ISO with offset, e.g. 2026-01-18T18:00:00+01:00
-        return datetime.fromisoformat(s)
-    except Exception:
-        pass
+        return data.decode("utf-8")
+    except UnicodeDecodeError:
+        return data.decode("latin-1", errors="replace")
 
-    # Try common patterns
-    fmts = [
-        "%Y-%m-%d %H:%M",
-        "%Y-%m-%d %H:%M:%S",
-        "%d.%m.%Y %H:%M",
-        "%Y-%m-%dT%H:%M",
-        "%Y-%m-%dT%H:%M:%S",
-    ]
-    for fmt in fmts:
+
+def http_get_json(url: str) -> Any:
+    txt = http_get_text(url, "application/json,text/json,*/*")
+    return json.loads(txt)
+
+
+# -----------------------------
+# Time parsing
+# -----------------------------
+def parse_dt_ics(value: str) -> Optional[str]:
+    """
+    Returns ISO string with timezone offset if possible.
+    Supports:
+      - 20260118T180000
+      - 20260118T180000Z
+    Also strips any trailing parameters handled earlier.
+    """
+    value = value.strip()
+    if not value:
+        return None
+
+    # Zulu time
+    if value.endswith("Z"):
         try:
-            dt = datetime.strptime(s, fmt)
-            return dt.replace(tzinfo=TZ)
+            dt = datetime.strptime(value, "%Y%m%dT%H%M%SZ").replace(tzinfo=timezone.utc)
+            return dt.astimezone().isoformat(timespec="seconds")
         except Exception:
-            continue
-    return None
+            return None
 
-
-def _league_key_from_text(text: str) -> Optional[str]:
-    t = (text or "").lower()
-    for key, needles in LEAGUE_MAP:
-        for n in needles:
-            if n in t:
-                return key
-    return None
-
-
-def _extract_list(json_obj: Any) -> List[Dict[str, Any]]:
-    """Find a list of games in typical containers."""
-    if isinstance(json_obj, list):
-        return [x for x in json_obj if isinstance(x, dict)]
-    if isinstance(json_obj, dict):
-        for k in ("games", "items", "matches", "data"):
-            v = json_obj.get(k)
-            if isinstance(v, list):
-                return [x for x in v if isinstance(x, dict)]
-    return []
-
-
-def _normalize_any(item: Dict[str, Any]) -> Optional[Game]:
-    # Find fields with a lot of tolerance
-    league = item.get("league") or item.get("competition") or item.get("tournament") or item.get("series") or ""
-    home = item.get("home") or item.get("homeTeam") or item.get("team1") or item.get("h") or item.get("localTeam") or ""
-    away = item.get("away") or item.get("awayTeam") or item.get("team2") or item.get("a") or item.get("visitorTeam") or ""
-
-    kickoff_raw = (
-        item.get("kickoff")
-        or item.get("start")
-        or item.get("dateTime")
-        or item.get("datetime")
-        or item.get("date")
-        or item.get("time")  # sometimes separate, handled below
-        or ""
-    )
-
-    # Handle FixtureDownload style: {"date":"2026-01-03","time":"13:30","home":"..","away":"..","competition":"Premier League"}
-    if item.get("date") and item.get("time") and not str(item.get("date")).startswith("http"):
-        dt = _parse_iso_any(f"{item.get('date')} {item.get('time')}")
-    else:
-        dt = _parse_iso_any(str(kickoff_raw))
-
-    if not dt:
+    # naive local time; we keep +01/+02 by assuming Europe/Oslo using system local offset at that date is hard without tz lib.
+    # We will store as "YYYY-MM-DDTHH:MM:SS+01:00" by using local timezone of runner.
+    # GitHub runner is UTC, so we can't rely on local. We'll store without offset if we must.
+    try:
+        dt = datetime.strptime(value, "%Y%m%dT%H%M%S")
+        # store as naive ISO (frontend can treat as Oslo if you do toLocaleString with TZ)
+        return dt.strftime("%Y-%m-%dT%H:%M:%S")
+    except Exception:
         return None
 
-    league_key = _league_key_from_text(str(league))
-    # If league is missing, attempt based on known labels inside item
-    if not league_key:
-        league_key = _league_key_from_text(json.dumps(item, ensure_ascii=False))
-    if not league_key:
-        # Unknown league -> ignore (we only write the 5 leagues here)
-        return None
 
-    channel = item.get("channel") or item.get("tv") or item.get("broadcaster") or item.get("kanal") or "Ukjent"
+# -----------------------------
+# Parsing: ICS (fotball.no etc.)
+# -----------------------------
+SUMMARY_SPLIT_RE = re.compile(r"\s+[-–—]\s+")
 
-    where = []
-    if isinstance(item.get("where"), list):
-        where = item["where"]
-    elif isinstance(item.get("where"), str):
-        where = [item["where"]]
-    elif isinstance(item.get("pubs"), list):
-        # could be [{name,city}] or strings
-        pubs = item["pubs"]
-        tmp = []
-        for p in pubs:
-            if isinstance(p, dict) and p.get("name"):
-                tmp.append(p["name"])
-            elif isinstance(p, str):
-                tmp.append(p)
-        where = tmp
-
-    where = _uniq_keep_order(DEFAULT_WHERE + where)
-
-    # Keep original league text for display
-    league_label = {
-        "eliteserien": "Eliteserien",
-        "obos": "OBOS-ligaen",
-        "premier_league": "Premier League",
-        "champions_league": "Champions League",
-        "la_liga": "La Liga",
-    }[league_key]
-
-    return Game(
-        league_key=league_key,
-        league=league_label,
-        home=str(home).strip(),
-        away=str(away).strip(),
-        kickoff=_to_iso_oslo(dt),
-        channel=str(channel).strip() if str(channel).strip() else "Ukjent",
-        where=where,
-    )
-
-
-def _http_get_json(url: str, timeout: int = 30) -> Any:
-    req = Request(url, headers={"User-Agent": "Grenland-Live/1.0"})
-    with urlopen(req, timeout=timeout) as r:
-        raw = r.read().decode("utf-8", errors="replace")
-    return json.loads(raw)
-
-
-def _maybe_fetch_sources() -> List[Dict[str, Any]]:
+def parse_match_summary(summary: str) -> Tuple[str, str]:
     """
-    Optional: if you set env vars, we can fetch fresh.
-    If not set, we simply skip fetching and use existing football.json.
+    Typical SUMMARY: "Odd - Brann"
+    Returns (home, away). If can't split, returns ("Ukjent", summary)
     """
-    sources = []
+    s = (summary or "").strip()
+    if not s:
+        return ("Ukjent", "Ukjent")
+    parts = SUMMARY_SPLIT_RE.split(s, maxsplit=1)
+    if len(parts) == 2:
+        return (parts[0].strip(), parts[1].strip())
+    # Try "home vs away"
+    if " vs " in s.lower():
+        a, b = re.split(r"(?i)\s+vs\s+", s, maxsplit=1)
+        return (a.strip(), b.strip())
+    return ("Ukjent", s)
 
-    # You can set these in GitHub Actions secrets or workflow env:
-    # FD_EPL, FD_UCL, FD_LALIGA (FixtureDownload JSON feed urls)
-    # Example:
-    #   https://fixturedownload.com/feed/json/epl-2025
-    # (works for season feeds; we filter to 2026)
-    env_map = {
-        "FD_EPL": "premier_league",
-        "FD_UCL": "champions_league",
-        "FD_LALIGA": "la_liga",
-    }
 
-    for env_key, league_key in env_map.items():
-        url = os.getenv(env_key, "").strip()
-        if not url:
+def parse_ics_events(ics_text: str) -> List[dict]:
+    """
+    Very small ICS parser for VEVENT.
+    Extracts DTSTART + SUMMARY + LOCATION (optional).
+    """
+    # Unfold lines (RFC5545): lines starting with space are continuations
+    lines = ics_text.splitlines()
+    unfolded = []
+    for line in lines:
+        if line.startswith((" ", "\t")) and unfolded:
+            unfolded[-1] += line.strip()
+        else:
+            unfolded.append(line.strip())
+
+    events: List[dict] = []
+    current: Dict[str, str] = {}
+    in_event = False
+
+    for line in unfolded:
+        if line == "BEGIN:VEVENT":
+            in_event = True
+            current = {}
             continue
-        try:
-            print(f"[football] fetching {env_key} -> {url}")
-            j = _http_get_json(url)
-            items = _extract_list(j)
-            for it in items:
-                # Ensure league text exists so mapping works
-                if "league" not in it and "competition" not in it:
-                    it["league"] = league_key.replace("_", " ").title()
-                sources.append(it)
-        except Exception as e:
-            print(f"[football] WARN fetch failed {env_key}: {e}")
+        if line == "END:VEVENT":
+            if in_event:
+                dt_raw = None
 
-    return sources
+                # DTSTART can look like:
+                # DTSTART:20260118T180000
+                # DTSTART;TZID=Europe/Oslo:20260118T180000
+                for k, v in current.items():
+                    if k.startswith("DTSTART"):
+                        dt_raw = v
+                        break
 
+                kickoff = parse_dt_ics(dt_raw or "")
+                summary = current.get("SUMMARY", "").strip()
+                location = current.get("LOCATION", "").strip()
 
-def _filter_year(games: List[Game], year: int = 2026) -> List[Game]:
-    out = []
-    for g in games:
-        dt = _parse_iso_any(g.kickoff)
-        if not dt:
+                home, away = parse_match_summary(summary)
+
+                if kickoff and home and away:
+                    events.append({
+                        "league": "",  # filled by caller
+                        "home": home,
+                        "away": away,
+                        "kickoff": kickoff,
+                        "channel": "Ukjent",
+                        "where": [],
+                        "location": location if location else None,
+                    })
+            in_event = False
+            current = {}
             continue
-        dt = dt.astimezone(TZ)
-        if dt.year == year:
-            out.append(g)
-    out.sort(key=lambda x: x.kickoff)
+
+        if not in_event:
+            continue
+
+        if ":" not in line:
+            continue
+
+        key, value = line.split(":", 1)
+        key = key.strip()
+        value = value.strip()
+        current[key] = value
+
+    return events
+
+
+# -----------------------------
+# Parsing: FixtureDownload JSON
+# -----------------------------
+def parse_fixturedownload_json(obj: Any) -> List[dict]:
+    """
+    FixtureDownload typically returns:
+      [
+        { "date":"2025-08-15", "time":"21:00", "homeTeam":"...", "awayTeam":"...", ... },
+        ...
+      ]
+    or { "data":[...]}
+    We'll support both.
+    """
+    items = obj
+    if isinstance(obj, dict):
+        for key in ("data", "fixtures", "matches", "games"):
+            if key in obj and isinstance(obj[key], list):
+                items = obj[key]
+                break
+
+    if not isinstance(items, list):
+        return []
+
+    out: List[dict] = []
+    for it in items:
+        if not isinstance(it, dict):
+            continue
+        home = (it.get("homeTeam") or it.get("home") or it.get("HomeTeam") or "").strip()
+        away = (it.get("awayTeam") or it.get("away") or it.get("AwayTeam") or "").strip()
+
+        date = (it.get("date") or it.get("Date") or "").strip()
+        time = (it.get("time") or it.get("Time") or "").strip()
+
+        if not date:
+            # sometimes "datetime" / "kickoff"
+            dt = (it.get("datetime") or it.get("kickoff") or it.get("start") or "").strip()
+            if dt:
+                kickoff = dt
+            else:
+                continue
+        else:
+            # Build ISO-ish; keep naive (frontend uses Europe/Oslo)
+            if time:
+                kickoff = f"{date}T{time}:00"
+            else:
+                kickoff = f"{date}T00:00:00"
+
+        if not home or not away:
+            continue
+
+        out.append({
+            "league": "",  # filled by caller
+            "home": home,
+            "away": away,
+            "kickoff": kickoff,
+            "channel": "Ukjent",
+            "where": [],
+        })
+
     return out
+
+
+# -----------------------------
+# Sources
+# -----------------------------
+def load_sources() -> Dict[str, SourceSpec]:
+    """
+    Reads data/_meta/sources.json if present.
+    We accept several formats:
+      {
+        "football": {
+          "eliteserien": {"kind":"ics","url":"..."},
+          "obos": {"kind":"ics","url":"..."},
+          "premier_league": {"kind":"json","url":"..."},
+          ...
+        }
+      }
+
+    or
+      {
+        "eliteserien": {"kind":"ics","url":"..."},
+        "obos": {"kind":"ics","url":"..."},
+        ...
+      }
+    """
+    cfg = read_json(META_SOURCES) or {}
+    football = cfg.get("football") if isinstance(cfg, dict) else None
+    if isinstance(football, dict):
+        cfg2 = football
+    elif isinstance(cfg, dict):
+        cfg2 = cfg
+    else:
+        cfg2 = {}
+
+    out: Dict[str, SourceSpec] = {}
+    for key, val in cfg2.items():
+        if not isinstance(val, dict):
+            continue
+        url = val.get("url") or val.get("source") or val.get("feed") or ""
+        kind = (val.get("kind") or val.get("type") or "").lower()
+        if not kind:
+            # infer by url
+            if isinstance(url, str) and url.lower().endswith(".ics"):
+                kind = "ics"
+            else:
+                kind = "json"
+        if isinstance(url, str) and url.strip():
+            out[str(key)] = SourceSpec(kind=kind, url=url.strip())
+
+    return out
+
+
+def get_source_for_league(sources: Dict[str, SourceSpec], league_key: str) -> SourceSpec:
+    """
+    league_key is "eliteserien", "obos", ...
+    """
+    if league_key in sources:
+        return sources[league_key]
+
+    # Common alternative keys
+    aliases = {
+        "champions_league": ["cl", "ucl", "championsleague", "champions-league"],
+        "premier_league": ["epl", "premierleague", "premier-league"],
+        "la_liga": ["laliga", "la-liga"],
+    }
+    for alt in aliases.get(league_key, []):
+        if alt in sources:
+            return sources[alt]
+
+    raise RuntimeError(
+        f"Mangler kilde for '{league_key}'. Legg inn i data/_meta/sources.json."
+    )
+
+
+# -----------------------------
+# Main fetch per league
+# -----------------------------
+def fetch_league_games(league_key: str, league_name: str, src: SourceSpec) -> List[dict]:
+    if src.kind == "ics":
+        ics_text = http_get_text(src.url, "text/calendar,*/*")
+        games = parse_ics_events(ics_text)
+    else:
+        obj = http_get_json(src.url)
+        games = parse_fixturedownload_json(obj)
+
+    # fill league + defaults
+    for g in games:
+        g["league"] = league_name
+        if not g.get("channel") or g["channel"] == "Ukjent":
+            g["channel"] = DEFAULT_CHANNEL.get(league_name, "Ukjent")
+
+    # Filter to year 2026 if kickoff has a year in first 4 chars
+    filtered = []
+    for g in games:
+        ko = (g.get("kickoff") or "")
+        if isinstance(ko, str) and len(ko) >= 4 and ko[:4].isdigit():
+            year = int(ko[:4])
+            if year != 2026:
+                continue
+        filtered.append(g)
+
+    # Sort by kickoff string (works for ISO-ish)
+    filtered.sort(key=lambda x: (x.get("kickoff") or ""))
+    return filtered
 
 
 def main() -> int:
-    _safe_mkdir(DATA_2026)
+    ensure_dir(OUT_DIR_2026)
 
-    # 1) load existing combined file if it has content
-    combined = _read_json(COMBINED_FILE)
-    combined_items = _extract_list(combined) if combined is not None else []
-    if combined_items:
-        print(f"[football] using existing {COMBINED_FILE} ({len(combined_items)} items)")
-        raw_items = combined_items
-    else:
-        # 2) try fetching optional sources
-        fetched = _maybe_fetch_sources()
-        if fetched:
-            raw_items = fetched
-            print(f"[football] fetched {len(raw_items)} items from env sources")
-        else:
-            raw_items = []
-            print("[football] WARN: no input data found. football.json missing/empty and no env sources set.")
-
-    # Normalize
-    norm: List[Game] = []
-    for it in raw_items:
-        g = _normalize_any(it)
-        if g:
-            norm.append(g)
-
-    # Filter to 2026
-    norm_2026 = _filter_year(norm, 2026)
-
-    # Split by league
-    by_league: Dict[str, List[Game]] = {k: [] for k in OUT_FILES.keys()}
-    for g in norm_2026:
-        if g.league_key in by_league:
-            by_league[g.league_key].append(g)
-
-    # Write per league files
-    for key, path in OUT_FILES.items():
-        games_out = [
-            {
-                "league": gg.league,
-                "home": gg.home,
-                "away": gg.away,
-                "kickoff": gg.kickoff,
-                "channel": gg.channel or "Ukjent",
-                "where": gg.where or DEFAULT_WHERE,
+    sources = load_sources()
+    if not sources:
+        print("ERROR: Fant ingen football-kilder. Lag/oppdater data/_meta/sources.json.")
+        print("Eksempel:")
+        print(json.dumps({
+            "football": {
+                "eliteserien": {"kind":"ics", "url":"<ICS_URL>"},
+                "obos": {"kind":"ics", "url":"<ICS_URL>"},
+                "premier_league": {"kind":"json", "url":"https://fixturedownload.com/feed/json/epl-2026"},
+                "champions_league": {"kind":"json", "url":"https://fixturedownload.com/feed/json/champions-league-2026"},
+                "la_liga": {"kind":"json", "url":"https://fixturedownload.com/feed/json/la-liga-2026"}
             }
-            for gg in by_league[key]
-        ]
-        _write_json(path, {"games": games_out})
-        print(f"[football] WROTE {os.path.relpath(path, ROOT)}: {len(games_out)} games")
-
-    # Update combined football.json (optional but nice)
-    combined_out = {
-        "games": [
-            {
-                "league": gg.league,
-                "home": gg.home,
-                "away": gg.away,
-                "kickoff": gg.kickoff,
-                "channel": gg.channel or "Ukjent",
-                "where": gg.where or DEFAULT_WHERE,
-            }
-            for gg in norm_2026
-        ]
-    }
-    _write_json(COMBINED_FILE, combined_out)
-    print(f"[football] WROTE {os.path.relpath(COMBINED_FILE, ROOT)}: {len(combined_out['games'])} games")
-
-    # Summary
-    total = sum(len(v) for v in by_league.values())
-    if total == 0:
-        print("[football] ERROR: 0 games written to league files. Source is empty or league mapping failed.")
+        }, ensure_ascii=False, indent=2))
         return 2
 
-    print("[football] DONE")
+    all_games: List[dict] = []
+    any_ok = False
+
+    for league_key, league_name in LEAGUES:
+        try:
+            src = get_source_for_league(sources, league_key)
+            games = fetch_league_games(league_key, league_name, src)
+        except Exception as e:
+            print(f"ERROR {league_key}: {e}")
+            games = []
+
+        out_path = os.path.join(OUT_DIR_2026, f"{league_key}.json")
+        payload = {
+            "generated_at": utc_now_iso(),
+            "timezone": TZ_NAME,
+            "league": league_name,
+            "source": (sources.get(league_key).url if league_key in sources else None),
+            "games": games,
+        }
+
+        safe_write_games(out_path, payload, games)
+        print(f"WROTE {os.path.relpath(out_path, ROOT)}: {len(games)} games")
+
+        if len(games) > 0:
+            any_ok = True
+            all_games.extend(games)
+
+    # Optional: write combined football.json (useful for calendar/feed building)
+    combined_path = os.path.join(OUT_DIR_2026, "football.json")
+    combined_payload = {
+        "generated_at": utc_now_iso(),
+        "timezone": TZ_NAME,
+        "games": sorted(all_games, key=lambda x: (x.get("kickoff") or "")),
+    }
+    safe_write_games(combined_path, combined_payload, all_games)
+    print(f"WROTE {os.path.relpath(combined_path, ROOT)}: {len(all_games)} games")
+
+    # If *everything* is zero, fail the action so you notice immediately
+    if not any_ok:
+        print("ERROR: 0 games for ALL leagues. Pipeline should fail so you don't publish empty data.")
+        return 3
+
     return 0
 
 
