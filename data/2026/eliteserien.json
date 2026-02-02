@@ -2,9 +2,9 @@
   "games": [
     {
       "league": "Eliteserien",
-      "home": "KFUM Menn Senior A",
-      "away": "LillestrÃ¸m Menn Senior 1",
-      "kickoff": "2026-08-16T17:00:00+01:00",
+      "home": "BodÃ¸/Glimt Menn Senior A",
+      "away": "Start Menn Senior A",
+      "kickoff": "2026-04-30T19:00:00+01:00",
       "channel": "TV 2 / TV 2 Play / NRK",
       "where": [
         "Vikinghjørnet",
@@ -24,9 +24,9 @@
     },
     {
       "league": "Eliteserien",
-      "home": "Aalesunds Menn Senior A",
-      "away": "VÃ¥lerenga Menn Senior A",
-      "kickoff": "2026-08-16T17:00:00+01:00",
+      "home": "HamKam Menn Senior A",
+      "away": "Kristiansund BK Menn Senior A",
+      "kickoff": "2026-08-30T17:00:00+01:00",
       "channel": "TV 2 / TV 2 Play / NRK",
       "where": [
         "Vikinghjørnet",
@@ -38,6 +38,83 @@
       "home": "LillestrÃ¸m Menn Senior 1",
       "away": "Fredrikstad Menn Senior A",
       "kickoff": "2026-08-30T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
+      "home": "Start Menn Senior A",
+      "away": "KFUM Menn Senior A",
+      "kickoff": "2026-08-30T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
+      "home": "Viking Menn Senior A",
+      "away": "Aalesunds Menn Senior A",
+      "kickoff": "2026-08-30T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
+      "home": "Kristiansund BK Menn Senior A",
+      "away": "TromsÃ¸ Menn Senior A",
+      "kickoff": "2026-09-06T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
+      "home": "Start Menn Senior A",
+      "away": "Brann Menn Senior A",
+      "kickoff": "2026-09-13T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
+      "home": "Kristiansund BK Menn Senior A",
+      "away": "Rosenborg Menn Senior A",
+      "kickoff": "2026-09-20T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
+      "home": "Sandefjord Menn Senior A",
+      "away": "Start Menn Senior A",
+      "kickoff": "2026-09-20T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
+      "home": "Viking Menn Senior A",
+      "away": "LillestrÃ¸m Menn Senior 1",
+      "kickoff": "2026-09-20T17:00:00+01:00",
       "channel": "TV 2 / TV 2 Play / NRK",
       "where": [
         "Vikinghjørnet",
@@ -68,6 +145,17 @@
     },
     {
       "league": "Eliteserien",
+      "home": "BodÃ¸/Glimt Menn Senior A",
+      "away": "Viking Menn Senior A",
+      "kickoff": "2026-10-25T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
       "home": "Sarpsborg 08 MEN 01",
       "away": "Kristiansund BK Menn Senior A",
       "kickoff": "2026-10-25T17:00:00+01:00",
@@ -79,53 +167,9 @@
     },
     {
       "league": "Eliteserien",
-      "home": "Molde Menn Senior A",
-      "away": "BodÃ¸/Glimt Menn Senior A",
-      "kickoff": "2026-11-08T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "Fredrikstad Menn Senior A",
-      "away": "Molde Menn Senior A",
-      "kickoff": "2026-12-06T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "Viking Menn Senior A",
-      "away": "HamKam Menn Senior A",
-      "kickoff": "2026-12-06T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "Start Menn Senior A",
-      "away": "Fredrikstad Menn Senior A",
-      "kickoff": "2026-08-09T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "Sandefjord Menn Senior A",
-      "away": "Brann Menn Senior A",
-      "kickoff": "2026-08-30T17:00:00+01:00",
+      "home": "HamKam Menn Senior A",
+      "away": "Sarpsborg 08 MEN 01",
+      "kickoff": "2026-11-01T17:00:00+01:00",
       "channel": "TV 2 / TV 2 Play / NRK",
       "where": [
         "Vikinghjørnet",
@@ -135,41 +179,19 @@
     {
       "league": "Eliteserien",
       "home": "TromsÃ¸ Menn Senior A",
-      "away": "Sarpsborg 08 MEN 01",
-      "kickoff": "2026-08-30T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "Viking Menn Senior A",
-      "away": "Kristiansund BK Menn Senior A",
-      "kickoff": "2026-09-13T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "Start Menn Senior A",
-      "away": "HamKam Menn Senior A",
-      "kickoff": "2026-10-11T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "Kristiansund BK Menn Senior A",
-      "away": "VÃ¥lerenga Menn Senior A",
+      "away": "BodÃ¸/Glimt Menn Senior A",
       "kickoff": "2026-11-01T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
+      "home": "Molde Menn Senior A",
+      "away": "BodÃ¸/Glimt Menn Senior A",
+      "kickoff": "2026-11-08T17:00:00+01:00",
       "channel": "TV 2 / TV 2 Play / NRK",
       "where": [
         "Vikinghjørnet",
@@ -200,118 +222,8 @@
     },
     {
       "league": "Eliteserien",
-      "home": "HamKam Menn Senior A",
-      "away": "Kristiansund BK Menn Senior A",
-      "kickoff": "2026-08-30T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "Sandefjord Menn Senior A",
-      "away": "Start Menn Senior A",
-      "kickoff": "2026-09-20T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "HamKam Menn Senior A",
-      "away": "Sarpsborg 08 MEN 01",
-      "kickoff": "2026-11-01T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "Viking Menn Senior A",
-      "away": "KFUM Menn Senior A",
-      "kickoff": "2026-11-01T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "Start Menn Senior A",
-      "away": "Kristiansund BK Menn Senior A",
-      "kickoff": "2026-12-06T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "Brann Menn Senior A",
-      "away": "LillestrÃ¸m Menn Senior 1",
-      "kickoff": "2026-09-06T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "Kristiansund BK Menn Senior A",
-      "away": "Rosenborg Menn Senior A",
-      "kickoff": "2026-09-20T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "Kristiansund BK Menn Senior A",
-      "away": "Aalesunds Menn Senior A",
-      "kickoff": "2026-10-18T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "BodÃ¸/Glimt Menn Senior A",
-      "away": "Viking Menn Senior A",
-      "kickoff": "2026-10-25T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "VÃ¥lerenga Menn Senior A",
-      "away": "TromsÃ¸ Menn Senior A",
-      "kickoff": "2026-10-25T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "Sarpsborg 08 MEN 01",
-      "away": "Brann Menn Senior A",
+      "home": "Aalesunds Menn Senior A",
+      "away": "BodÃ¸/Glimt Menn Senior A",
       "kickoff": "2026-11-29T17:00:00+01:00",
       "channel": "TV 2 / TV 2 Play / NRK",
       "where": [
@@ -321,8 +233,8 @@
     },
     {
       "league": "Eliteserien",
-      "home": "LillestrÃ¸m Menn Senior 1",
-      "away": "TromsÃ¸ Menn Senior A",
+      "home": "Fredrikstad Menn Senior A",
+      "away": "Molde Menn Senior A",
       "kickoff": "2026-12-06T17:00:00+01:00",
       "channel": "TV 2 / TV 2 Play / NRK",
       "where": [
@@ -333,84 +245,7 @@
     {
       "league": "Eliteserien",
       "home": "Viking Menn Senior A",
-      "away": "Aalesunds Menn Senior A",
-      "kickoff": "2026-08-30T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "Kristiansund BK Menn Senior A",
-      "away": "TromsÃ¸ Menn Senior A",
-      "kickoff": "2026-09-06T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "Sarpsborg 08 MEN 01",
-      "away": "KFUM Menn Senior A",
-      "kickoff": "2026-09-20T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "Viking Menn Senior A",
-      "away": "LillestrÃ¸m Menn Senior 1",
-      "kickoff": "2026-09-20T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "Sandefjord Menn Senior A",
-      "away": "LillestrÃ¸m Menn Senior 1",
-      "kickoff": "2026-10-18T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "Kristiansund BK Menn Senior A",
-      "away": "LillestrÃ¸m Menn Senior 1",
-      "kickoff": "2026-11-29T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "TromsÃ¸ Menn Senior A",
-      "away": "Start Menn Senior A",
-      "kickoff": "2026-11-29T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "BodÃ¸/Glimt Menn Senior A",
-      "away": "Sarpsborg 08 MEN 01",
+      "away": "HamKam Menn Senior A",
       "kickoff": "2026-12-06T17:00:00+01:00",
       "channel": "TV 2 / TV 2 Play / NRK",
       "where": [
@@ -871,9 +706,9 @@
     },
     {
       "league": "Eliteserien",
-      "home": "BodÃ¸/Glimt Menn Senior A",
-      "away": "Start Menn Senior A",
-      "kickoff": "2026-04-30T19:00:00+01:00",
+      "home": "Start Menn Senior A",
+      "away": "Fredrikstad Menn Senior A",
+      "kickoff": "2026-08-09T17:00:00+01:00",
       "channel": "TV 2 / TV 2 Play / NRK",
       "where": [
         "Vikinghjørnet",
@@ -882,8 +717,30 @@
     },
     {
       "league": "Eliteserien",
-      "home": "Start Menn Senior A",
-      "away": "KFUM Menn Senior A",
+      "home": "KFUM Menn Senior A",
+      "away": "LillestrÃ¸m Menn Senior 1",
+      "kickoff": "2026-08-16T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
+      "home": "Aalesunds Menn Senior A",
+      "away": "VÃ¥lerenga Menn Senior A",
+      "kickoff": "2026-08-16T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
+      "home": "Sandefjord Menn Senior A",
+      "away": "Brann Menn Senior A",
       "kickoff": "2026-08-30T17:00:00+01:00",
       "channel": "TV 2 / TV 2 Play / NRK",
       "where": [
@@ -893,9 +750,42 @@
     },
     {
       "league": "Eliteserien",
-      "home": "Start Menn Senior A",
-      "away": "Brann Menn Senior A",
+      "home": "TromsÃ¸ Menn Senior A",
+      "away": "Sarpsborg 08 MEN 01",
+      "kickoff": "2026-08-30T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
+      "home": "Brann Menn Senior A",
+      "away": "LillestrÃ¸m Menn Senior 1",
+      "kickoff": "2026-09-06T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
+      "home": "Viking Menn Senior A",
+      "away": "Kristiansund BK Menn Senior A",
       "kickoff": "2026-09-13T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
+      "home": "Sarpsborg 08 MEN 01",
+      "away": "KFUM Menn Senior A",
+      "kickoff": "2026-09-20T17:00:00+01:00",
       "channel": "TV 2 / TV 2 Play / NRK",
       "where": [
         "Vikinghjørnet",
@@ -915,8 +805,63 @@
     },
     {
       "league": "Eliteserien",
-      "home": "TromsÃ¸ Menn Senior A",
-      "away": "BodÃ¸/Glimt Menn Senior A",
+      "home": "Start Menn Senior A",
+      "away": "HamKam Menn Senior A",
+      "kickoff": "2026-10-11T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
+      "home": "Kristiansund BK Menn Senior A",
+      "away": "Aalesunds Menn Senior A",
+      "kickoff": "2026-10-18T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
+      "home": "Sandefjord Menn Senior A",
+      "away": "LillestrÃ¸m Menn Senior 1",
+      "kickoff": "2026-10-18T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
+      "home": "VÃ¥lerenga Menn Senior A",
+      "away": "TromsÃ¸ Menn Senior A",
+      "kickoff": "2026-10-25T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
+      "home": "Kristiansund BK Menn Senior A",
+      "away": "VÃ¥lerenga Menn Senior A",
+      "kickoff": "2026-11-01T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
+      "home": "Viking Menn Senior A",
+      "away": "KFUM Menn Senior A",
       "kickoff": "2026-11-01T17:00:00+01:00",
       "channel": "TV 2 / TV 2 Play / NRK",
       "where": [
@@ -937,8 +882,8 @@
     },
     {
       "league": "Eliteserien",
-      "home": "Aalesunds Menn Senior A",
-      "away": "BodÃ¸/Glimt Menn Senior A",
+      "home": "Kristiansund BK Menn Senior A",
+      "away": "LillestrÃ¸m Menn Senior 1",
       "kickoff": "2026-11-29T17:00:00+01:00",
       "channel": "TV 2 / TV 2 Play / NRK",
       "where": [
@@ -948,31 +893,9 @@
     },
     {
       "league": "Eliteserien",
-      "home": "Sandefjord Menn Senior A",
-      "away": "KFUM Menn Senior A",
-      "kickoff": "2026-08-09T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "BodÃ¸/Glimt Menn Senior A",
-      "away": "Rosenborg Menn Senior A",
-      "kickoff": "2026-08-30T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "Molde Menn Senior A",
-      "away": "Aalesunds Menn Senior A",
-      "kickoff": "2026-09-20T17:00:00+01:00",
+      "home": "Sarpsborg 08 MEN 01",
+      "away": "Brann Menn Senior A",
+      "kickoff": "2026-11-29T17:00:00+01:00",
       "channel": "TV 2 / TV 2 Play / NRK",
       "where": [
         "Vikinghjørnet",
@@ -982,8 +905,30 @@
     {
       "league": "Eliteserien",
       "home": "TromsÃ¸ Menn Senior A",
-      "away": "HamKam Menn Senior A",
-      "kickoff": "2026-09-20T17:00:00+01:00",
+      "away": "Start Menn Senior A",
+      "kickoff": "2026-11-29T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
+      "home": "BodÃ¸/Glimt Menn Senior A",
+      "away": "Sarpsborg 08 MEN 01",
+      "kickoff": "2026-12-06T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
+      "home": "LillestrÃ¸m Menn Senior 1",
+      "away": "TromsÃ¸ Menn Senior A",
+      "kickoff": "2026-12-06T17:00:00+01:00",
       "channel": "TV 2 / TV 2 Play / NRK",
       "where": [
         "Vikinghjørnet",
@@ -993,128 +938,7 @@
     {
       "league": "Eliteserien",
       "home": "Start Menn Senior A",
-      "away": "Sarpsborg 08 MEN 01",
-      "kickoff": "2026-11-22T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "Sarpsborg 08 MEN 01",
-      "away": "VÃ¥lerenga Menn Senior A",
-      "kickoff": "2026-09-06T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "Sarpsborg 08 MEN 01",
-      "away": "Rosenborg Menn Senior A",
-      "kickoff": "2026-10-18T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "Sandefjord Menn Senior A",
-      "away": "Molde Menn Senior A",
-      "kickoff": "2026-11-01T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "HamKam Menn Senior A",
-      "away": "Fredrikstad Menn Senior A",
-      "kickoff": "2026-11-08T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "Fredrikstad Menn Senior A",
-      "away": "Aalesunds Menn Senior A",
-      "kickoff": "2026-11-22T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "HamKam Menn Senior A",
-      "away": "Sandefjord Menn Senior A",
-      "kickoff": "2026-11-29T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "VÃ¥lerenga Menn Senior A",
-      "away": "Molde Menn Senior A",
-      "kickoff": "2026-08-30T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "BodÃ¸/Glimt Menn Senior A",
-      "away": "Sandefjord Menn Senior A",
-      "kickoff": "2026-09-13T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "TromsÃ¸ Menn Senior A",
-      "away": "KFUM Menn Senior A",
-      "kickoff": "2026-10-18T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "VÃ¥lerenga Menn Senior A",
-      "away": "Brann Menn Senior A",
-      "kickoff": "2026-10-18T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "Sandefjord Menn Senior A",
-      "away": "VÃ¥lerenga Menn Senior A",
+      "away": "Kristiansund BK Menn Senior A",
       "kickoff": "2026-12-06T17:00:00+01:00",
       "channel": "TV 2 / TV 2 Play / NRK",
       "where": [
@@ -1575,8 +1399,52 @@
     },
     {
       "league": "Eliteserien",
-      "home": "Molde Menn Senior A",
+      "home": "LillestrÃ¸m Menn Senior 1",
+      "away": "Rosenborg Menn Senior A",
+      "kickoff": "2026-08-09T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
+      "home": "Sandefjord Menn Senior A",
       "away": "KFUM Menn Senior A",
+      "kickoff": "2026-08-09T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
+      "home": "TromsÃ¸ Menn Senior A",
+      "away": "Brann Menn Senior A",
+      "kickoff": "2026-04-29T19:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
+      "home": "VÃ¥lerenga Menn Senior A",
+      "away": "Molde Menn Senior A",
+      "kickoff": "2026-08-30T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
+      "home": "Sarpsborg 08 MEN 01",
+      "away": "VÃ¥lerenga Menn Senior A",
       "kickoff": "2026-09-06T17:00:00+01:00",
       "channel": "TV 2 / TV 2 Play / NRK",
       "where": [
@@ -1586,8 +1454,8 @@
     },
     {
       "league": "Eliteserien",
-      "home": "HamKam Menn Senior A",
-      "away": "Molde Menn Senior A",
+      "home": "BodÃ¸/Glimt Menn Senior A",
+      "away": "Sandefjord Menn Senior A",
       "kickoff": "2026-09-13T17:00:00+01:00",
       "channel": "TV 2 / TV 2 Play / NRK",
       "where": [
@@ -1619,9 +1487,97 @@
     },
     {
       "league": "Eliteserien",
-      "home": "KFUM Menn Senior A",
-      "away": "HamKam Menn Senior A",
+      "home": "TromsÃ¸ Menn Senior A",
+      "away": "KFUM Menn Senior A",
+      "kickoff": "2026-10-18T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
+      "home": "Viking Menn Senior A",
+      "away": "Fredrikstad Menn Senior A",
+      "kickoff": "2026-10-18T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
+      "home": "VÃ¥lerenga Menn Senior A",
+      "away": "Brann Menn Senior A",
+      "kickoff": "2026-10-18T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
+      "home": "Start Menn Senior A",
+      "away": "LillestrÃ¸m Menn Senior 1",
       "kickoff": "2026-10-25T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
+      "home": "HamKam Menn Senior A",
+      "away": "Fredrikstad Menn Senior A",
+      "kickoff": "2026-11-08T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
+      "home": "VÃ¥lerenga Menn Senior A",
+      "away": "Start Menn Senior A",
+      "kickoff": "2026-11-08T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
+      "home": "Fredrikstad Menn Senior A",
+      "away": "Aalesunds Menn Senior A",
+      "kickoff": "2026-11-22T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
+      "home": "Sandefjord Menn Senior A",
+      "away": "TromsÃ¸ Menn Senior A",
+      "kickoff": "2026-11-22T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
+      "home": "Start Menn Senior A",
+      "away": "Sarpsborg 08 MEN 01",
+      "kickoff": "2026-11-22T17:00:00+01:00",
       "channel": "TV 2 / TV 2 Play / NRK",
       "where": [
         "Vikinghjørnet",
@@ -1641,9 +1597,9 @@
     },
     {
       "league": "Eliteserien",
-      "home": "LillestrÃ¸m Menn Senior 1",
+      "home": "BodÃ¸/Glimt Menn Senior A",
       "away": "Rosenborg Menn Senior A",
-      "kickoff": "2026-08-09T17:00:00+01:00",
+      "kickoff": "2026-08-30T17:00:00+01:00",
       "channel": "TV 2 / TV 2 Play / NRK",
       "where": [
         "Vikinghjørnet",
@@ -1652,9 +1608,9 @@
     },
     {
       "league": "Eliteserien",
-      "home": "TromsÃ¸ Menn Senior A",
-      "away": "Brann Menn Senior A",
-      "kickoff": "2026-04-29T19:00:00+01:00",
+      "home": "Molde Menn Senior A",
+      "away": "KFUM Menn Senior A",
+      "kickoff": "2026-09-06T17:00:00+01:00",
       "channel": "TV 2 / TV 2 Play / NRK",
       "where": [
         "Vikinghjørnet",
@@ -1674,8 +1630,41 @@
     },
     {
       "league": "Eliteserien",
-      "home": "Viking Menn Senior A",
-      "away": "Fredrikstad Menn Senior A",
+      "home": "HamKam Menn Senior A",
+      "away": "Molde Menn Senior A",
+      "kickoff": "2026-09-13T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
+      "home": "Molde Menn Senior A",
+      "away": "Aalesunds Menn Senior A",
+      "kickoff": "2026-09-20T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
+      "home": "TromsÃ¸ Menn Senior A",
+      "away": "HamKam Menn Senior A",
+      "kickoff": "2026-09-20T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
+      "home": "Sarpsborg 08 MEN 01",
+      "away": "Rosenborg Menn Senior A",
       "kickoff": "2026-10-18T17:00:00+01:00",
       "channel": "TV 2 / TV 2 Play / NRK",
       "where": [
@@ -1696,9 +1685,20 @@
     },
     {
       "league": "Eliteserien",
-      "home": "Start Menn Senior A",
-      "away": "LillestrÃ¸m Menn Senior 1",
+      "home": "KFUM Menn Senior A",
+      "away": "HamKam Menn Senior A",
       "kickoff": "2026-10-25T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
+      "home": "Sandefjord Menn Senior A",
+      "away": "Molde Menn Senior A",
+      "kickoff": "2026-11-01T17:00:00+01:00",
       "channel": "TV 2 / TV 2 Play / NRK",
       "where": [
         "Vikinghjørnet",
@@ -1729,250 +1729,8 @@
     },
     {
       "league": "Eliteserien",
-      "home": "VÃ¥lerenga Menn Senior A",
-      "away": "Start Menn Senior A",
-      "kickoff": "2026-11-08T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "Sandefjord Menn Senior A",
-      "away": "TromsÃ¸ Menn Senior A",
-      "kickoff": "2026-11-22T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "Aalesunds Menn Senior A",
-      "away": "TromsÃ¸ Menn Senior A",
-      "kickoff": "2026-08-02T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "Kristiansund BK Menn Senior A",
-      "away": "Molde Menn Senior A",
-      "kickoff": "2026-08-09T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "Brann Menn Senior A",
-      "away": "HamKam Menn Senior A",
-      "kickoff": "2026-08-16T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "Fredrikstad Menn Senior A",
-      "away": "Kristiansund BK Menn Senior A",
-      "kickoff": "2026-08-16T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "Rosenborg Menn Senior A",
-      "away": "Viking Menn Senior A",
-      "kickoff": "2026-08-16T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "Sandefjord Menn Senior A",
-      "away": "Viking Menn Senior A",
-      "kickoff": "2026-09-06T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "Rosenborg Menn Senior A",
-      "away": "TromsÃ¸ Menn Senior A",
-      "kickoff": "2026-09-13T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "Brann Menn Senior A",
-      "away": "Molde Menn Senior A",
-      "kickoff": "2026-10-25T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "Molde Menn Senior A",
-      "away": "Sarpsborg 08 MEN 01",
-      "kickoff": "2026-08-02T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "Viking Menn Senior A",
-      "away": "Sarpsborg 08 MEN 01",
-      "kickoff": "2026-08-09T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "VÃ¥lerenga Menn Senior A",
-      "away": "BodÃ¸/Glimt Menn Senior A",
-      "kickoff": "2026-08-09T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "Fredrikstad Menn Senior A",
-      "away": "BodÃ¸/Glimt Menn Senior A",
-      "kickoff": "2026-09-06T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "Rosenborg Menn Senior A",
-      "away": "HamKam Menn Senior A",
-      "kickoff": "2026-09-06T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "LillestrÃ¸m Menn Senior 1",
-      "away": "Molde Menn Senior A",
-      "kickoff": "2026-10-11T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "KFUM Menn Senior A",
-      "away": "Kristiansund BK Menn Senior A",
-      "kickoff": "2026-08-02T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "Aalesunds Menn Senior A",
+      "home": "HamKam Menn Senior A",
       "away": "Sandefjord Menn Senior A",
-      "kickoff": "2026-10-25T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "Sarpsborg 08 MEN 01",
-      "away": "LillestrÃ¸m Menn Senior 1",
-      "kickoff": "2026-11-08T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "Brann Menn Senior A",
-      "away": "Kristiansund BK Menn Senior A",
-      "kickoff": "2026-11-22T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "LillestrÃ¸m Menn Senior 1",
-      "away": "HamKam Menn Senior A",
-      "kickoff": "2026-11-22T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "Rosenborg Menn Senior A",
-      "away": "Molde Menn Senior A",
-      "kickoff": "2026-11-22T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "Molde Menn Senior A",
-      "away": "Viking Menn Senior A",
       "kickoff": "2026-11-29T17:00:00+01:00",
       "channel": "TV 2 / TV 2 Play / NRK",
       "where": [
@@ -1982,19 +1740,8 @@
     },
     {
       "league": "Eliteserien",
-      "home": "TromsÃ¸ Menn Senior A",
-      "away": "Viking Menn Senior A",
-      "kickoff": "2026-11-08T17:00:00+01:00",
-      "channel": "TV 2 / TV 2 Play / NRK",
-      "where": [
-        "Vikinghjørnet",
-        "Gimle Pub"
-      ]
-    },
-    {
-      "league": "Eliteserien",
-      "home": "Rosenborg Menn Senior A",
-      "away": "KFUM Menn Senior A",
+      "home": "Sandefjord Menn Senior A",
+      "away": "VÃ¥lerenga Menn Senior A",
       "kickoff": "2026-12-06T17:00:00+01:00",
       "channel": "TV 2 / TV 2 Play / NRK",
       "where": [
@@ -2489,7 +2236,73 @@
     {
       "league": "Eliteserien",
       "home": "Aalesunds Menn Senior A",
-      "away": "Start Menn Senior A",
+      "away": "TromsÃ¸ Menn Senior A",
+      "kickoff": "2026-08-02T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
+      "home": "VÃ¥lerenga Menn Senior A",
+      "away": "BodÃ¸/Glimt Menn Senior A",
+      "kickoff": "2026-08-09T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
+      "home": "Fredrikstad Menn Senior A",
+      "away": "Kristiansund BK Menn Senior A",
+      "kickoff": "2026-08-16T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
+      "home": "Rosenborg Menn Senior A",
+      "away": "Viking Menn Senior A",
+      "kickoff": "2026-08-16T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
+      "home": "Sarpsborg 08 MEN 01",
+      "away": "Sandefjord Menn Senior A",
+      "kickoff": "2026-08-16T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
+      "home": "Fredrikstad Menn Senior A",
+      "away": "BodÃ¸/Glimt Menn Senior A",
+      "kickoff": "2026-09-06T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
+      "home": "Sandefjord Menn Senior A",
+      "away": "Viking Menn Senior A",
       "kickoff": "2026-09-06T17:00:00+01:00",
       "channel": "TV 2 / TV 2 Play / NRK",
       "where": [
@@ -2510,9 +2323,42 @@
     },
     {
       "league": "Eliteserien",
+      "home": "Brann Menn Senior A",
+      "away": "BodÃ¸/Glimt Menn Senior A",
+      "kickoff": "2026-09-20T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
       "home": "VÃ¥lerenga Menn Senior A",
       "away": "Fredrikstad Menn Senior A",
       "kickoff": "2026-09-20T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
+      "home": "BodÃ¸/Glimt Menn Senior A",
+      "away": "Kristiansund BK Menn Senior A",
+      "kickoff": "2026-10-11T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
+      "home": "LillestrÃ¸m Menn Senior 1",
+      "away": "Molde Menn Senior A",
+      "kickoff": "2026-10-11T17:00:00+01:00",
       "channel": "TV 2 / TV 2 Play / NRK",
       "where": [
         "Vikinghjørnet",
@@ -2532,9 +2378,9 @@
     },
     {
       "league": "Eliteserien",
-      "home": "HamKam Menn Senior A",
-      "away": "BodÃ¸/Glimt Menn Senior A",
-      "kickoff": "2026-10-18T17:00:00+01:00",
+      "home": "Brann Menn Senior A",
+      "away": "Molde Menn Senior A",
+      "kickoff": "2026-10-25T17:00:00+01:00",
       "channel": "TV 2 / TV 2 Play / NRK",
       "where": [
         "Vikinghjørnet",
@@ -2566,8 +2412,8 @@
     {
       "league": "Eliteserien",
       "home": "Sarpsborg 08 MEN 01",
-      "away": "Sandefjord Menn Senior A",
-      "kickoff": "2026-08-16T17:00:00+01:00",
+      "away": "LillestrÃ¸m Menn Senior 1",
+      "kickoff": "2026-11-08T17:00:00+01:00",
       "channel": "TV 2 / TV 2 Play / NRK",
       "where": [
         "Vikinghjørnet",
@@ -2577,8 +2423,8 @@
     {
       "league": "Eliteserien",
       "home": "Brann Menn Senior A",
-      "away": "BodÃ¸/Glimt Menn Senior A",
-      "kickoff": "2026-09-20T17:00:00+01:00",
+      "away": "Kristiansund BK Menn Senior A",
+      "kickoff": "2026-11-22T17:00:00+01:00",
       "channel": "TV 2 / TV 2 Play / NRK",
       "where": [
         "Vikinghjørnet",
@@ -2587,9 +2433,108 @@
     },
     {
       "league": "Eliteserien",
-      "home": "BodÃ¸/Glimt Menn Senior A",
+      "home": "Molde Menn Senior A",
+      "away": "Viking Menn Senior A",
+      "kickoff": "2026-11-29T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
+      "home": "Rosenborg Menn Senior A",
+      "away": "KFUM Menn Senior A",
+      "kickoff": "2026-12-06T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
+      "home": "KFUM Menn Senior A",
       "away": "Kristiansund BK Menn Senior A",
-      "kickoff": "2026-10-11T17:00:00+01:00",
+      "kickoff": "2026-08-02T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
+      "home": "Molde Menn Senior A",
+      "away": "Sarpsborg 08 MEN 01",
+      "kickoff": "2026-08-02T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
+      "home": "Kristiansund BK Menn Senior A",
+      "away": "Molde Menn Senior A",
+      "kickoff": "2026-08-09T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
+      "home": "Viking Menn Senior A",
+      "away": "Sarpsborg 08 MEN 01",
+      "kickoff": "2026-08-09T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
+      "home": "Brann Menn Senior A",
+      "away": "HamKam Menn Senior A",
+      "kickoff": "2026-08-16T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
+      "home": "Rosenborg Menn Senior A",
+      "away": "HamKam Menn Senior A",
+      "kickoff": "2026-09-06T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
+      "home": "Aalesunds Menn Senior A",
+      "away": "Start Menn Senior A",
+      "kickoff": "2026-09-06T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
+      "home": "Rosenborg Menn Senior A",
+      "away": "TromsÃ¸ Menn Senior A",
+      "kickoff": "2026-09-13T17:00:00+01:00",
       "channel": "TV 2 / TV 2 Play / NRK",
       "where": [
         "Vikinghjørnet",
@@ -2601,6 +2546,28 @@
       "home": "KFUM Menn Senior A",
       "away": "VÃ¥lerenga Menn Senior A",
       "kickoff": "2026-10-11T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
+      "home": "HamKam Menn Senior A",
+      "away": "BodÃ¸/Glimt Menn Senior A",
+      "kickoff": "2026-10-18T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
+      "home": "Aalesunds Menn Senior A",
+      "away": "Sandefjord Menn Senior A",
+      "kickoff": "2026-10-25T17:00:00+01:00",
       "channel": "TV 2 / TV 2 Play / NRK",
       "where": [
         "Vikinghjørnet",
@@ -2623,6 +2590,39 @@
       "home": "Kristiansund BK Menn Senior A",
       "away": "Sandefjord Menn Senior A",
       "kickoff": "2026-11-08T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
+      "home": "TromsÃ¸ Menn Senior A",
+      "away": "Viking Menn Senior A",
+      "kickoff": "2026-11-08T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
+      "home": "LillestrÃ¸m Menn Senior 1",
+      "away": "HamKam Menn Senior A",
+      "kickoff": "2026-11-22T17:00:00+01:00",
+      "channel": "TV 2 / TV 2 Play / NRK",
+      "where": [
+        "Vikinghjørnet",
+        "Gimle Pub"
+      ]
+    },
+    {
+      "league": "Eliteserien",
+      "home": "Rosenborg Menn Senior A",
+      "away": "Molde Menn Senior A",
+      "kickoff": "2026-11-22T17:00:00+01:00",
       "channel": "TV 2 / TV 2 Play / NRK",
       "where": [
         "Vikinghjørnet",
