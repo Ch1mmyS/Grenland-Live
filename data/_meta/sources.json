@@ -1,153 +1,77 @@
 {
-  "year": 2026,
+  "version": 1,
   "timezone": "Europe/Oslo",
-  "outputs": {
-    "football": "data/2026/football.json",
-    "handball_men": "data/2026/handball_men.json",
-    "handball_women": "data/2026/handball_women.json",
-    "wintersport_men": "data/2026/wintersport_men.json",
-    "wintersport_women": "data/2026/wintersport_women.json"
-  },
-  "sports": {
-    "football": [
-      {
-        "key": "eliteserien",
-        "name": "Eliteserien",
-        "type": "nff_ics",
-        "url": "https://www.fotball.no/footballapi/Calendar/GetCalendar?tournamentId=206092",
-        "default_tv": "TV 2 / TV 2 Play / NRK",
-        "enabled": true
-      },
-      {
-        "key": "obos",
-        "name": "OBOS-ligaen",
-        "type": "nff_ics",
-        "url": "https://www.fotball.no/footballapi/Calendar/GetCalendar?tournamentId=206093",
-        "default_tv": "TV 2 Play / NRK",
-        "enabled": true
-      },
-      {
-        "key": "premier_league",
-        "name": "Premier League",
-        "type": "fixturedownload_json",
-        "url": "https://fixturedownload.com/feed/json/epl-2026",
-        "default_tv": "Viaplay / V Sport",
-        "enabled": true
-      },
-      {
-        "key": "champions_league",
-        "name": "Champions League",
-        "type": "fixturedownload_json",
-        "url": "https://fixturedownload.com/feed/json/champions-league-2026",
-        "default_tv": "TV 2 Play Premium / TV 2 Sport 1",
-        "enabled": true
-      },
-      {
-        "key": "la_liga",
-        "name": "La Liga",
-        "type": "fixturedownload_json",
-        "url": "https://fixturedownload.com/feed/json/la-liga-2026",
-        "default_tv": "TV 2 / TV 2 Play",
-        "enabled": true
+  "only_year": 2026,
+  "sources": [
+    {
+      "id": "handball_ehf_euro_2026_men_pdf",
+      "sport": "handball",
+      "season_year": 2026,
+      "provider": "handball_pdf",
+      "output": "data/2026/handball_men.json",
+      "params": {
+        "pdf_url": "https://tickets.eurohandball.com/fileadmin/fm_de/EHF2026M/250901_EHF2026-M_Match_Schedule_new.pdf",
+        "competition": "EHF EURO 2026 (Men)"
       }
-    ],
-
-    "handball": {
-      "men": [
-        {
-          "key": "handball_men_ehf_euro_2026",
-          "type": "ehf_api",
-          "name": "Håndball – Men's EHF EURO 2026",
-          "channel": "TV 2 / TV 2 Play",
-          "api": {
-            "base_url": "https://ehfeuro.eurohandball.com/api",
-            "tournament": "men_euro_2026"
-          },
-          "enabled": true
-        }
-      ],
-      "women": []
     },
 
-    "wintersport": {
-      "men": [
-        {
-          "key": "biathlon_world_2526_men",
-          "type": "biathlon_api",
-          "name": "Skiskyting – World Cup 2025/26 (menn)",
-          "channel": "TV 2 / TV 2 Play",
-          "api": {
-            "base_url": "https://biathlonresults.com/modules/sportapi/api",
-            "season_id": 2526,
-            "level": 3,
-            "gender": "M"
-          },
-          "enabled": true
-        },
-        {
-          "key": "xc_world_2526_men",
-          "type": "fis_api",
-          "name": "Langrenn – World Cup 2025/26 (menn)",
-          "discipline": "cross-country",
-          "channel": "TV 2 / TV 2 Play",
-          "enabled": true
-        },
-        {
-          "key": "sj_world_2526_men",
-          "type": "fis_api",
-          "name": "Hopp – World Cup 2025/26 (menn)",
-          "discipline": "ski-jumping",
-          "channel": "TV 2 / TV 2 Play",
-          "enabled": true
-        },
-        {
-          "key": "alpine_world_2526_men",
-          "type": "fis_api",
-          "name": "Alpint – World Cup 2025/26 (menn)",
-          "discipline": "alpine",
-          "channel": "TV 2 / TV 2 Play",
-          "enabled": true
-        }
-      ],
-      "women": [
-        {
-          "key": "biathlon_world_2526_women",
-          "type": "biathlon_api",
-          "name": "Skiskyting – World Cup 2025/26 (kvinner)",
-          "channel": "TV 2 / TV 2 Play",
-          "api": {
-            "base_url": "https://biathlonresults.com/modules/sportapi/api",
-            "season_id": 2526,
-            "level": 3,
-            "gender": "W"
-          },
-          "enabled": true
-        },
-        {
-          "key": "xc_world_2526_women",
-          "type": "fis_api",
-          "name": "Langrenn – World Cup 2025/26 (kvinner)",
-          "discipline": "cross-country",
-          "channel": "TV 2 / TV 2 Play",
-          "enabled": true
-        },
-        {
-          "key": "sj_world_2526_women",
-          "type": "fis_api",
-          "name": "Hopp – World Cup 2025/26 (kvinner)",
-          "discipline": "ski-jumping",
-          "channel": "TV 2 / TV 2 Play",
-          "enabled": true
-        },
-        {
-          "key": "alpine_world_2526_women",
-          "type": "fis_api",
-          "name": "Alpint – World Cup 2025/26 (kvinner)",
-          "discipline": "alpine",
-          "channel": "TV 2 / TV 2 Play",
-          "enabled": true
-        }
-      ]
+    {
+      "id": "wintersport_biathlon_ibu_2026_api",
+      "sport": "wintersport",
+      "discipline": "biathlon",
+      "season_year": 2026,
+      "provider": "biathlon_api",
+      "output": "data/2026/wintersport.json",
+      "params": {
+        "base_url": "https://api.biathlonresults.com",
+        "season_hint": "2025-2026",
+        "competition_levels": ["BMW IBU World Cup", "IBU Cup"]
+      }
+    },
+
+    {
+      "id": "wintersport_fis_xc_2026_ical",
+      "sport": "wintersport",
+      "discipline": "cross_country",
+      "season_year": 2026,
+      "provider": "fis_ical",
+      "output": "data/2026/wintersport.json",
+      "params": {
+        "calendar_url": "https://www.fis-ski.com/DB/cross-country/calendar-results.html?seasoncode=2026"
+      }
+    },
+    {
+      "id": "wintersport_fis_ski_jumping_2026_ical",
+      "sport": "wintersport",
+      "discipline": "ski_jumping",
+      "season_year": 2026,
+      "provider": "fis_ical",
+      "output": "data/2026/wintersport.json",
+      "params": {
+        "calendar_url": "https://www.fis-ski.com/DB/ski-jumping/calendar-results.html?seasoncode=2026"
+      }
+    },
+    {
+      "id": "wintersport_fis_nordic_combined_2026_ical",
+      "sport": "wintersport",
+      "discipline": "nordic_combined",
+      "season_year": 2026,
+      "provider": "fis_ical",
+      "output": "data/2026/wintersport.json",
+      "params": {
+        "calendar_url": "https://www.fis-ski.com/DB/nordic-combined/calendar-results.html?seasoncode=2026"
+      }
+    },
+    {
+      "id": "wintersport_fis_alpine_2026_ical",
+      "sport": "wintersport",
+      "discipline": "alpine",
+      "season_year": 2026,
+      "provider": "fis_ical",
+      "output": "data/2026/wintersport.json",
+      "params": {
+        "calendar_url": "https://www.fis-ski.com/DB/alpine-skiing/calendar-results.html?seasoncode=2026"
+      }
     }
-  }
+  ]
 }
